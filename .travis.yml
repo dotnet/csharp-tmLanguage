@@ -1,0 +1,47 @@
+language: node_js
+node_js:
+  - node
+
+env:
+  - CXX=g++-4.8
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.8
+
+before_install:
+  - npm install npm
+
+install:
+  - npm install
+  - gulp
+
+before_deploy:
+  - if [ "$isVersioned" != true ]; then npm version --no-git-tag-version $TRAVIS_BRANCH && export isVersioned=true; fi
+
+deploy:
+  - provider: npm
+    on:
+      tags: true
+      repo: dotnet/csharp-textmate-grammar
+    skip_cleanup: true
+    email: ivan@ivanz.com
+    api_key:
+      secure: OrwPX5PCDPCqiFsOcifRi0ekrW3W6GQhMXYHoj3p+9jCYXieclUKG2qTP19nufDmVmCEF+NTYbUHxhp2tvKsnsSVKbs1oy2bbjwvmBDA5pXVi0WrU2iaCsUrc0uVHkDCFTdwTde/jApUsEsrCrXUEVMBTLjjLLdHKOpM84o0zY/VmDIgsV5tQRa3D2MKhWBPHgDSceIlcGBZoHoGJLlC65sxNIKqFuJN+65iNqeCCaZ/1w0Y9xTH6CbKi02E/8oM7Cib4VB/oD0OknNjZuxxFLejUnNhY1CxEAtCQeguc8xi3EEgqWmmmclUY7YnevQMPTmm/cRjjwgwmeR/eLuJylmkc+u90LP0q8M2xaB64HSNZdwYnG8bcdPrYq+BW5ihxzithw3czxu4lr2h2DwoMQn1YF+14u2izormyA12Ik4Y4eZ7CaoCH2DuHYmK/tdRM04Ahypkhojt3Fzterqeux2vlDedw54SkaSBfe0QC82McoEr3KZZtp1CKf0DwIIQ3MIzB202+cQdprXXPkTPN/1q1iCI+A2jX/JLJajgVtfGiW82FgGicprZP1aBdiZproy0EL9v8RioVpx3yXG5/Frf989S0YBp5oIVEW4WR+BpxKm4igqPouqsodo2/BCCn+zrJHMw622KZ2G0nsbxKxaYoHxUv4xCQpSFy8Yqdh8=
+
+  - provider: releases
+    file:
+      - "grammars/csharp.json"
+      - "grammars/csharp.cson"
+      - "grammars/csharp.tmLanguage"
+      
+    skip_cleanup: true
+    on:
+      tags: true
+      repo: dotnet/csharp-textmate-grammar
+    api_key:
+      secure: "FRdmsvPxilsq72Xc4N7I61QCpvMVEVWmgFPPuu0u35x9EJaOleBMacSf7hnYIx4qF3ynynnOlZ1RUilm75FlbLQenTdhg4ZSVIWuMp9pLw4Etkt1M50xTctJht/mbrfpTpGKoBhmJDUS3BHTTEy6f8r+snZsRin3bMTnNURAlLZ/MYCMKDCJGkSMghvKJVgOvV10jXq4yJiqqGZKciWR0GfMfrqwzlidH94rOGI5yZkfZAxmKWJEMaFppPHDg/s2mryRVDIEbTpfmZO2uoJwXQKyIw3Nk5pCDsSjYeGMMbqJtjywBbAjSI5JkBLxMQb2ef3jSZAq0In3p+FNH3Ze0ezHWkBbyGrPQCujsC2bxUfjDJP40WgyoCpRXPR9ph64cF0xiWHT05ElUXAQ+wFHuBllVuxRznR0zxYkERc2kBJ7ilxyeP+3fdTKArDbZ+ykDzfoB6hdVyQrT/qnSh2E5zWJPaHER0fPth6dwJSfi3sybWo1EaFO0e6e2/07vulaHlrW1XwcMr/CRQSEkS4La2E8sbRsY1ZEpDVjCMVIXNkL9zvmEkloylc2ChC+7mFMwuFC/RXg8CR5zNLZ4+KsYBx440GrkAgIqAVsuoE0RJ+x3XqgT5fuSJf+GUGj0yODYZ68Eu0UFYmsbfCXDWFoEO1MIpP5sCanc1BuS5OiRQU="
+
