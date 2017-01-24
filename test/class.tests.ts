@@ -1,169 +1,286 @@
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
 import { should } from 'chai';
-import { Tokens, Token } from './utils/tokenizer';
-import { TokenizerUtil } from'./utils/tokenizerUtil';
+import { tokenize, Input, Token } from './utils/tokenize';
 
-describe("Grammar", function() {
-    before(function() {
-        should();
-    });
+describe("Grammar", () => {
+    before(() => should());
 
-    describe("Class", function() {
-        it("class keyword and storage modifiers", function() {
+    describe("Class", () => {
+        it("class keyword and storage modifiers", () => {
 
-const input = `
-namespace TestNamespace
-{
-    public             class PublicClass { }
+            const input = Input.InNamespace(`
+public             class PublicClass { }
 
-                       class DefaultClass { }
+                    class DefaultClass { }
 
-    internal           class InternalClass { }
+internal           class InternalClass { }
 
-              static   class DefaultStaticClass { }
+            static   class DefaultStaticClass { }
 
-    public    static   class PublicStaticClass { }
+public    static   class PublicStaticClass { }
 
-              sealed   class DefaultSealedClass { }
+            sealed   class DefaultSealedClass { }
 
-    public    sealed   class PublicSealedClass { }
+public    sealed   class PublicSealedClass { }
 
-    public    abstract class PublicAbstractClass { }
+public    abstract class PublicAbstractClass { }
 
-              abstract class DefaultAbstractClass { }
-}`;
-            let tokens: Token[] = TokenizerUtil.tokenize(input);
+            abstract class DefaultAbstractClass { }`);
 
-            tokens.should.contain(Tokens.StorageModifierKeyword("public", 4, 5));
-            tokens.should.contain(Tokens.ClassKeyword("class", 4, 24));
-            tokens.should.contain(Tokens.ClassIdentifier("PublicClass", 4, 30));
+            const tokens = tokenize(input);
 
-            tokens.should.contain(Tokens.ClassKeyword("class", 6, 24));
-            tokens.should.contain(Tokens.ClassIdentifier("DefaultClass", 6, 30));
+            tokens.should.deep.equal([
+                Token.Keywords.Modifiers.Public,
+                Token.Keywords.Class,
+                Token.Identifiers.ClassName("PublicClass"),
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace,
 
-            tokens.should.contain(Tokens.StorageModifierKeyword("internal", 8, 5));
-            tokens.should.contain(Tokens.ClassKeyword("class", 8, 24));
-            tokens.should.contain(Tokens.ClassIdentifier("InternalClass", 8, 30));
+                Token.Keywords.Class,
+                Token.Identifiers.ClassName("DefaultClass"),
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace,
 
-            tokens.should.contain(Tokens.StorageModifierKeyword("static", 10, 15));
-            tokens.should.contain(Tokens.ClassKeyword("class", 10, 24));
-            tokens.should.contain(Tokens.ClassIdentifier("DefaultStaticClass", 10, 30));
+                Token.Keywords.Modifiers.Internal,
+                Token.Keywords.Class,
+                Token.Identifiers.ClassName("InternalClass"),
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace,
 
-            tokens.should.contain(Tokens.StorageModifierKeyword("public", 12, 5));
-            tokens.should.contain(Tokens.StorageModifierKeyword("static", 12, 15));
-            tokens.should.contain(Tokens.ClassKeyword("class", 12, 24));
-            tokens.should.contain(Tokens.ClassIdentifier("PublicStaticClass", 12, 30));
+                Token.Keywords.Modifiers.Static,
+                Token.Keywords.Class,
+                Token.Identifiers.ClassName("DefaultStaticClass"),
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace,
 
-            tokens.should.contain(Tokens.StorageModifierKeyword("sealed", 14, 15));
-            tokens.should.contain(Tokens.ClassKeyword("class", 14, 24));
-            tokens.should.contain(Tokens.ClassIdentifier("DefaultSealedClass", 14, 30));
+                Token.Keywords.Modifiers.Public,
+                Token.Keywords.Modifiers.Static,
+                Token.Keywords.Class,
+                Token.Identifiers.ClassName("PublicStaticClass"),
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace,
 
-            tokens.should.contain(Tokens.StorageModifierKeyword("public", 16, 5));
-            tokens.should.contain(Tokens.StorageModifierKeyword("sealed", 16, 15));
-            tokens.should.contain(Tokens.ClassKeyword("class", 16, 24));
-            tokens.should.contain(Tokens.ClassIdentifier("PublicSealedClass", 16, 30));
+                Token.Keywords.Modifiers.Sealed,
+                Token.Keywords.Class,
+                Token.Identifiers.ClassName("DefaultSealedClass"),
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace,
 
-            tokens.should.contain(Tokens.StorageModifierKeyword("public", 18, 5));
-            tokens.should.contain(Tokens.StorageModifierKeyword("abstract", 18, 15));
-            tokens.should.contain(Tokens.ClassKeyword("class", 18, 24));
-            tokens.should.contain(Tokens.ClassIdentifier("PublicAbstractClass", 18, 30));
+                Token.Keywords.Modifiers.Public,
+                Token.Keywords.Modifiers.Sealed,
+                Token.Keywords.Class,
+                Token.Identifiers.ClassName("PublicSealedClass"),
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace,
 
-            tokens.should.contain(Tokens.StorageModifierKeyword("abstract", 20, 15));
-            tokens.should.contain(Tokens.ClassKeyword("class", 20, 24));
-            tokens.should.contain(Tokens.ClassIdentifier("DefaultAbstractClass", 20, 30));
+                Token.Keywords.Modifiers.Public,
+                Token.Keywords.Modifiers.Abstract,
+                Token.Keywords.Class,
+                Token.Identifiers.ClassName("PublicAbstractClass"),
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace,
 
+                Token.Keywords.Modifiers.Abstract,
+                Token.Keywords.Class,
+                Token.Identifiers.ClassName("DefaultAbstractClass"),
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace]);
         });
 
-        it("generics in identifier", function () {
+        it("generics in identifier", () => {
 
-            const input = `
-namespace TestNamespace
-{
-    class Dictionary<T, Dictionary<string, string>> { }
-}`;
-            let tokens: Token[] = TokenizerUtil.tokenize(input);
+            const input = Input.InNamespace(`class Dictionary<TKey, TValue> { }`);
+            const tokens = tokenize(input);
 
-            tokens.should.contain(Tokens.ClassKeyword("class", 4, 5));
-            tokens.should.contain(Tokens.ClassIdentifier("Dictionary<T, Dictionary<string, string>>", 4, 11));
+            tokens.should.deep.equal([
+                Token.Keywords.Class,
+                Token.Identifiers.ClassName("Dictionary"),
+                Token.Punctuation.TypeParameters.Begin,
+                Token.Identifiers.TypeParameterName("TKey"),
+                Token.Punctuation.Comma,
+                Token.Identifiers.TypeParameterName("TValue"),
+                Token.Punctuation.TypeParameters.End,
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace]);
         });
 
-        it("inheritance", function() {
+        it("inheritance", () => {
 
-const input = `
-namespace TestNamespace
-{
-    class PublicClass    : IInterface,    IInterfaceTwo { }
-    class PublicClass<T> : Root.IInterface<Something.Nested>, Something.IInterfaceTwo { }
-    class PublicClass<T> : Dictionary<T, Dictionary<string, string>>, IMap<T, Dictionary<string, string>> { }
-}`;
-            let tokens: Token[] = TokenizerUtil.tokenize(input);
+            const input = Input.InNamespace(`
+class PublicClass    : IInterface,    IInterfaceTwo { }
+class PublicClass<T> : Root.IInterface<Something.Nested>, Something.IInterfaceTwo { }
+class PublicClass<T> : Dictionary<T, Dictionary<string, string>>, IMap<T, Dictionary<string, string>> { }`);
 
-            tokens.should.contain(Tokens.ClassKeyword("class", 4, 5));
-            tokens.should.contain(Tokens.ClassIdentifier("PublicClass", 4, 11));
-            tokens.should.contain(Tokens.Type("IInterface", 4, 28));
-            tokens.should.contain(Tokens.Type("IInterfaceTwo", 4, 43));
+            const tokens = tokenize(input);
 
-            tokens.should.contain(Tokens.ClassKeyword("class", 5, 5));
-            tokens.should.contain(Tokens.ClassIdentifier("PublicClass<T>", 5, 11));
-            tokens.should.contain(Tokens.Type("Root.IInterface<Something.Nested>", 5, 28));
-            tokens.should.contain(Tokens.Type("Something.IInterfaceTwo", 5, 63));
+            tokens.should.deep.equal([
+                Token.Keywords.Class,
+                Token.Identifiers.ClassName("PublicClass"),
+                Token.Punctuation.Colon,
+                Token.Type("IInterface"),
+                Token.Punctuation.Comma,
+                Token.Type("IInterfaceTwo"),
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace,
 
-            tokens.should.contain(Tokens.Type("Dictionary<T, Dictionary<string, string>>", 6, 28));
-            tokens.should.contain(Tokens.Type("IMap<T, Dictionary<string, string>>", 6, 71));
+                Token.Keywords.Class,
+                Token.Identifiers.ClassName("PublicClass"),
+                Token.Punctuation.TypeParameters.Begin,
+                Token.Identifiers.TypeParameterName("T"),
+                Token.Punctuation.TypeParameters.End,
+                Token.Punctuation.Colon,
+                Token.Type("Root"),
+                Token.Punctuation.Accessor,
+                Token.Type("IInterface"),
+                Token.Punctuation.TypeParameters.Begin,
+                Token.Type("Something"),
+                Token.Punctuation.Accessor,
+                Token.Type("Nested"),
+                Token.Punctuation.TypeParameters.End,
+                Token.Punctuation.Comma,
+                Token.Type("Something"),
+                Token.Punctuation.Accessor,
+                Token.Type("IInterfaceTwo"),
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace,
+
+                Token.Keywords.Class,
+                Token.Identifiers.ClassName("PublicClass"),
+                Token.Punctuation.TypeParameters.Begin,
+                Token.Identifiers.TypeParameterName("T"),
+                Token.Punctuation.TypeParameters.End,
+                Token.Punctuation.Colon,
+                Token.Type("Dictionary"),
+                Token.Punctuation.TypeParameters.Begin,
+                Token.Type("T"),
+                Token.Punctuation.Comma,
+                Token.Type("Dictionary"),
+                Token.Punctuation.TypeParameters.Begin,
+                Token.PrimitiveType.String,
+                Token.Punctuation.Comma,
+                Token.PrimitiveType.String,
+                Token.Punctuation.TypeParameters.End,
+                Token.Punctuation.TypeParameters.End,
+                Token.Punctuation.Comma,
+                Token.Type("IMap"),
+                Token.Punctuation.TypeParameters.Begin,
+                Token.Type("T"),
+                Token.Punctuation.Comma,
+                Token.Type("Dictionary"),
+                Token.Punctuation.TypeParameters.Begin,
+                Token.PrimitiveType.String,
+                Token.Punctuation.Comma,
+                Token.PrimitiveType.String,
+                Token.Punctuation.TypeParameters.End,
+                Token.Punctuation.TypeParameters.End,
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace]);
         });
 
-        it("generic constraints", function() {
+        it("generic constraints", () => {
 
-const input = `
-namespace TestNamespace
+            const input = Input.InNamespace(`
+class PublicClass<T> where T : ISomething { }
+class PublicClass<T, X> : Dictionary<T, List<string>[]>, ISomething
+    where T : ICar, new()
+    where X : struct
 {
-    class PublicClass<T> where T : ISomething { }
-    class PublicClass<T, X> : Dictionary<T, List<string>[]>, ISomething where T : ICar, new() where X : struct { }
-}`;
-            let tokens: Token[] = TokenizerUtil.tokenize(input);
+}`);
+            const tokens = tokenize(input);
 
-            tokens.should.contain(Tokens.ClassKeyword("class", 4, 5));
-            tokens.should.contain(Tokens.ClassIdentifier("PublicClass<T>", 4, 11));
-            tokens.should.contain(Tokens.Keyword("where", 4, 26));
-            tokens.should.contain(Tokens.Type("T", 4, 32));
-            tokens.should.contain(Tokens.Type("ISomething", 4, 36));
+            tokens.should.deep.equal([
+                Token.Keywords.Class,
+                Token.Identifiers.ClassName("PublicClass"),
+                Token.Punctuation.TypeParameters.Begin,
+                Token.Identifiers.TypeParameterName("T"),
+                Token.Punctuation.TypeParameters.End,
+                Token.Keywords.Where,
+                Token.Type("T"),
+                Token.Punctuation.Colon,
+                Token.Type("ISomething"),
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace,
 
-            tokens.should.contain(Tokens.ClassKeyword("class", 5, 5));
-            tokens.should.contain(Tokens.ClassIdentifier("PublicClass<T, X>", 5, 11));
-            tokens.should.contain(Tokens.Type("Dictionary<T, List<string>[]>", 5, 31));
-            tokens.should.contain(Tokens.Type("ISomething", 5, 62));
-            tokens.should.contain(Tokens.Keyword("where", 5, 73));
-            tokens.should.contain(Tokens.Type("T", 5, 79));
-            tokens.should.contain(Tokens.Type("ICar", 5, 83));
-            tokens.should.contain(Tokens.Keyword("new", 5, 89));
-            tokens.should.contain(Tokens.Keyword("where", 5, 95));
-            tokens.should.contain(Tokens.Type("X", 5, 101));
-            tokens.should.contain(Tokens.Keyword("struct", 5, 105));
-
+                Token.Keywords.Class,
+                Token.Identifiers.ClassName("PublicClass"),
+                Token.Punctuation.TypeParameters.Begin,
+                Token.Identifiers.TypeParameterName("T"),
+                Token.Punctuation.Comma,
+                Token.Identifiers.TypeParameterName("X"),
+                Token.Punctuation.TypeParameters.End,
+                Token.Punctuation.Colon,
+                Token.Type("Dictionary"),
+                Token.Punctuation.TypeParameters.Begin,
+                Token.Type("T"),
+                Token.Punctuation.Comma,
+                Token.Type("List"),
+                Token.Punctuation.TypeParameters.Begin,
+                Token.PrimitiveType.String,
+                Token.Punctuation.TypeParameters.End,
+                Token.Punctuation.OpenBracket,
+                Token.Punctuation.CloseBracket,
+                Token.Punctuation.TypeParameters.End,
+                Token.Punctuation.Comma,
+                Token.Type("ISomething"),
+                Token.Keywords.Where,
+                Token.Type("T"),
+                Token.Punctuation.Colon,
+                Token.Type("ICar"),
+                Token.Punctuation.Comma,
+                Token.Keywords.New,
+                Token.Punctuation.OpenParen,
+                Token.Punctuation.CloseParen,
+                Token.Keywords.Where,
+                Token.Type("X"),
+                Token.Punctuation.Colon,
+                Token.Keywords.Struct,
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace]);
         });
 
-        it("nested class", function() {
+        it("nested class", () => {
 
-const input = `
-namespace TestNamespace
+            const input = Input.InNamespace(`
+class Klass
 {
-    class Klass
+    public class Nested
     {
-        public class Nested
-        {
 
-        }
     }
-}`;
-            let tokens: Token[] = TokenizerUtil.tokenize(input);
+}`);
+            const tokens = tokenize(input);
 
-            tokens.should.contain(Tokens.ClassKeyword("class", 4, 5));
-            tokens.should.contain(Tokens.ClassIdentifier("Klass", 4, 11));
+            tokens.should.deep.equal([
+                Token.Keywords.Class,
+                Token.Identifiers.ClassName("Klass"),
+                Token.Punctuation.OpenBrace,
 
-            tokens.should.contain(Tokens.StorageModifierKeyword("public", 6, 9));
-            tokens.should.contain(Tokens.ClassKeyword("class", 6, 16));
-            tokens.should.contain(Tokens.ClassIdentifier("Nested", 6, 22));
+                Token.Keywords.Modifiers.Public,
+                Token.Keywords.Class,
+                Token.Identifiers.ClassName("Nested"),
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace,
+
+                Token.Punctuation.CloseBrace]);
+        });
+
+        it("unsafe class", () => {
+            const input = Input.InNamespace(`
+unsafe class C
+{
+}`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Modifiers.Unsafe,
+                Token.Keywords.Class,
+                Token.Identifiers.ClassName("C"),
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace]);
         });
     });
 });
-
-
