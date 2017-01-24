@@ -26,7 +26,7 @@ deploy:
   - provider: npm
     on:
       tags: true
-      repo: dotnet/csharp-textmate-grammar
+      repo: dotnet/csharp-tmGrammar
     skip_cleanup: true
     email: ivan@ivanz.com
     api_key:
@@ -34,14 +34,13 @@ deploy:
 
   - provider: releases
     file:
-      - "grammars/csharp.json"
       - "grammars/csharp.cson"
       - "grammars/csharp.tmLanguage"
       
     skip_cleanup: true
     on:
       tags: true
-      repo: dotnet/csharp-textmate-grammar
+      repo: dotnet/csharp-tmGrammar
     api_key:
       secure: "FRdmsvPxilsq72Xc4N7I61QCpvMVEVWmgFPPuu0u35x9EJaOleBMacSf7hnYIx4qF3ynynnOlZ1RUilm75FlbLQenTdhg4ZSVIWuMp9pLw4Etkt1M50xTctJht/mbrfpTpGKoBhmJDUS3BHTTEy6f8r+snZsRin3bMTnNURAlLZ/MYCMKDCJGkSMghvKJVgOvV10jXq4yJiqqGZKciWR0GfMfrqwzlidH94rOGI5yZkfZAxmKWJEMaFppPHDg/s2mryRVDIEbTpfmZO2uoJwXQKyIw3Nk5pCDsSjYeGMMbqJtjywBbAjSI5JkBLxMQb2ef3jSZAq0In3p+FNH3Ze0ezHWkBbyGrPQCujsC2bxUfjDJP40WgyoCpRXPR9ph64cF0xiWHT05ElUXAQ+wFHuBllVuxRznR0zxYkERc2kBJ7ilxyeP+3fdTKArDbZ+ykDzfoB6hdVyQrT/qnSh2E5zWJPaHER0fPth6dwJSfi3sybWo1EaFO0e6e2/07vulaHlrW1XwcMr/CRQSEkS4La2E8sbRsY1ZEpDVjCMVIXNkL9zvmEkloylc2ChC+7mFMwuFC/RXg8CR5zNLZ4+KsYBx440GrkAgIqAVsuoE0RJ+x3XqgT5fuSJf+GUGj0yODYZ68Eu0UFYmsbfCXDWFoEO1MIpP5sCanc1BuS5OiRQU="
 

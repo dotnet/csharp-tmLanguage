@@ -1,78 +1,137 @@
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
 import { should } from 'chai';
-import { Tokens, Token } from './utils/tokenizer';
-import { TokenizerUtil } from'./utils/tokenizerUtil';
+import { tokenize, Token } from './utils/tokenize';
 
-describe("Grammar", function() {
-    before(function () {
-        should();
-    });
+describe("Grammar", () => {
+    before(() => should());
 
-    describe("Namespace", function() {
-        it("has a namespace keyword and a name", function() {
+    describe("Namespace", () => {
+        it("has a namespace keyword and a name", () => {
 
-const input = `
+            const input = `
 namespace TestNamespace
 {
 }`;
-            let tokens: Token[] = TokenizerUtil.tokenize(input);
+            let tokens = tokenize(input);
 
-            tokens.should.contain(Tokens.NamespaceKeyword("namespace", 2, 1));
-            tokens.should.contain(Tokens.NamespaceIdentifier("TestNamespace", 2, 11));
+            tokens.should.deep.equal([
+                Token.Keywords.Namespace,
+                Token.Identifiers.NamespaceName("TestNamespace"),
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace]);
         });
 
-        it("can be nested", function() {
+        it("has a namespace keyword and a dotted name", () => {
 
-const input = `
+            const input = `
+namespace Test.Namespace
+{
+}`;
+            let tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Namespace,
+                Token.Identifiers.NamespaceName("Test"),
+                Token.Punctuation.Accessor,
+                Token.Identifiers.NamespaceName("Namespace"),
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace]);
+        });
+
+        it("can be nested", () => {
+
+            const input = `
 namespace TestNamespace
 {
     namespace NestedNamespace {
 
     }
 }`;
-            let tokens: Token[] = TokenizerUtil.tokenize(input);
+            let tokens = tokenize(input);
 
-            tokens.should.contain(Tokens.NamespaceKeyword("namespace", 2, 1));
-            tokens.should.contain(Tokens.NamespaceIdentifier("TestNamespace", 2, 11));
+            tokens.should.deep.equal([
+                Token.Keywords.Namespace,
+                Token.Identifiers.NamespaceName("TestNamespace"),
+                Token.Punctuation.OpenBrace,
 
-            tokens.should.contain(Tokens.NamespaceKeyword("namespace", 4, 5));
-            tokens.should.contain(Tokens.NamespaceIdentifier("NestedNamespace", 4, 15));
+                Token.Keywords.Namespace,
+                Token.Identifiers.NamespaceName("NestedNamespace"),
+                Token.Punctuation.OpenBrace,
+
+                Token.Punctuation.CloseBrace,
+                Token.Punctuation.CloseBrace]);
         });
 
-        it("can contain using statements", function() {
+        it("can contain using statements", () => {
 
-const input = `
-using UsineOne;
-using one = UsineOne.Something;
+            const input = `
+using UsingOne;
+using one = UsingOne.Something;
 
 namespace TestNamespace
 {
     using UsingTwo;
-    using two = UsineOne.Something;
+    using two = UsingTwo.Something;
 
     namespace NestedNamespace
     {
         using UsingThree;
-        using three = UsineOne.Something;
+        using three = UsingThree.Something;
     }
 }`;
-            let tokens: Token[] = TokenizerUtil.tokenize(input);
+            let tokens = tokenize(input);
 
-            tokens.should.contain(Tokens.UsingKeyword("using", 2, 1));
-            tokens.should.contain(Tokens.UsingKeyword("using", 3, 1));
+            tokens.should.deep.equal([
+                Token.Keywords.Using,
+                Token.Identifiers.NamespaceName("UsingOne"),
+                Token.Punctuation.Semicolon,
 
-            tokens.should.contain(Tokens.NamespaceKeyword("namespace", 5, 1));
-            tokens.should.contain(Tokens.NamespaceIdentifier("TestNamespace", 5, 11));
+                Token.Keywords.Using,
+                Token.Identifiers.AliasName("one"),
+                Token.Operators.Assignment,
+                Token.Type("UsingOne"),
+                Token.Punctuation.Accessor,
+                Token.Type("Something"),
+                Token.Punctuation.Semicolon,
 
-            tokens.should.contain(Tokens.UsingKeyword("using", 7, 5));
-            tokens.should.contain(Tokens.UsingKeyword("using", 8, 5));
+                Token.Keywords.Namespace,
+                Token.Identifiers.NamespaceName("TestNamespace"),
+                Token.Punctuation.OpenBrace,
 
-            tokens.should.contain(Tokens.NamespaceKeyword("namespace", 10, 5));
-            tokens.should.contain(Tokens.NamespaceIdentifier("NestedNamespace", 10, 15));
+                Token.Keywords.Using,
+                Token.Identifiers.NamespaceName("UsingTwo"),
+                Token.Punctuation.Semicolon,
 
-            tokens.should.contain(Tokens.UsingKeyword("using", 12, 9));
-            tokens.should.contain(Tokens.UsingKeyword("using", 12, 9));
+                Token.Keywords.Using,
+                Token.Identifiers.AliasName("two"),
+                Token.Operators.Assignment,
+                Token.Type("UsingTwo"),
+                Token.Punctuation.Accessor,
+                Token.Type("Something"),
+                Token.Punctuation.Semicolon,
+
+                Token.Keywords.Namespace,
+                Token.Identifiers.NamespaceName("NestedNamespace"),
+                Token.Punctuation.OpenBrace,
+
+                Token.Keywords.Using,
+                Token.Identifiers.NamespaceName("UsingThree"),
+                Token.Punctuation.Semicolon,
+
+                Token.Keywords.Using,
+                Token.Identifiers.AliasName("three"),
+                Token.Operators.Assignment,
+                Token.Type("UsingThree"),
+                Token.Punctuation.Accessor,
+                Token.Type("Something"),
+                Token.Punctuation.Semicolon,
+
+                Token.Punctuation.CloseBrace,
+                Token.Punctuation.CloseBrace]);
         });
     });
 });
-
-

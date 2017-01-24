@@ -16,7 +16,6 @@ On Windows you may see a node-gyp error - [follow the instrutions here to resolv
 
 ## Supported outputs
 
-* `grammars\csharp.json` - for VSCode
 * `grammars\csharp.cson` - for Atom
 * `grammars\csharp.tmLanguage` - TextMate grammar (XML plist)
 

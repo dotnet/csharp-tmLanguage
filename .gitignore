@@ -1,5 +1,5 @@
 node_modules/
 out/
 .vscode/
-grammars/
+#grammars/
 npm-debug.log*
