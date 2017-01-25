@@ -1,8 +1,3 @@
-
-![](https://travis-ci.org/ivanz/csharp-textmate-grammar.svg?branch=master)
-![](https://david-dm.org/ivanz/csharp-textmate-grammar/status.svg)
-![](https://david-dm.org/ivanz/csharp-textmate-grammar/dev-status.svg)
-
 ## Development
 
 To **build and test** install Node.js do the following:
