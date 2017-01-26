@@ -28,6 +28,49 @@ describe("Grammar", () => {
             ]);
         });
 
+        it("Deconstruct tuple into new locals", () => {
+            const input = Input.InMethod(`(int x, int y) = (19, 23);`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.OpenParen,
+                Token.PrimitiveType.Int,
+                Token.Identifiers.TupleElementName("x"),
+                Token.Punctuation.Comma,
+                Token.PrimitiveType.Int,
+                Token.Identifiers.TupleElementName("y"),
+                Token.Punctuation.CloseParen,
+                Token.Operators.Assignment,
+                Token.Punctuation.OpenParen,
+                Token.Literals.Numeric.Decimal("19"),
+                Token.Punctuation.Comma,
+                Token.Literals.Numeric.Decimal("23"),
+                Token.Punctuation.CloseParen,
+                Token.Punctuation.Semicolon
+            ]);
+        });
+
+        it("Deconstruct tuple into new local and discard", () => {
+            const input = Input.InMethod(`(int x, _) = (19, 23);`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.OpenParen,
+                Token.PrimitiveType.Int,
+                Token.Identifiers.TupleElementName("x"),
+                Token.Punctuation.Comma,
+                Token.Variables.ReadWrite("_"),
+                Token.Punctuation.CloseParen,
+                Token.Operators.Assignment,
+                Token.Punctuation.OpenParen,
+                Token.Literals.Numeric.Decimal("19"),
+                Token.Punctuation.Comma,
+                Token.Literals.Numeric.Decimal("23"),
+                Token.Punctuation.CloseParen,
+                Token.Punctuation.Semicolon
+            ]);
+        });
+
         it("Deconstruct into new locals", () => {
             const input = Input.InMethod(`(int x, int y) = point;`);
             const tokens = tokenize(input);
