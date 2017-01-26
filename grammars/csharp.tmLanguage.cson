@@ -2508,7 +2508,7 @@ repository:
     begin: '''
       (?x)
       (?:([_[:alpha:]][_[:alnum:]]*)\\s*(:)\\s*)?
-      (?=[_[:alnum:](])
+      (?![,)])
     '''
     beginCaptures:
       "0":

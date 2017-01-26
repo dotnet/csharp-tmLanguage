@@ -9,6 +9,25 @@ import { tokenize, Input, Token } from './utils/tokenize';
 describe("Grammar", () => {
     before(() => should());
     describe("Tuples", () => {
+        it("Tuple literal", () => {
+            const input = Input.InMethod(`var p = (42, "hello");`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Var,
+                Token.Identifiers.LocalName("p"),
+                Token.Operators.Assignment,
+                Token.Punctuation.OpenParen,
+                Token.Literals.Numeric.Decimal("42"),
+                Token.Punctuation.Comma,
+                Token.Punctuation.String.Begin,
+                Token.Literals.String("hello"),
+                Token.Punctuation.String.End,
+                Token.Punctuation.CloseParen,
+                Token.Punctuation.Semicolon
+            ]);
+        });
+
         it("Assign to tuple variable", () => {
             const input = Input.InMethod(`(int x, int y) p = point;`);
             const tokens = tokenize(input);

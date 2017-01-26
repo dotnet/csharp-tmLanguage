@@ -4193,7 +4193,7 @@
         <key>begin</key>
         <string>(?x)
 (?:([_[:alpha:]][_[:alnum:]]*)\s*(:)\s*)?
-(?=[_[:alnum:](])</string>
+(?![,)])</string>
         <key>beginCaptures</key>
         <dict>
           <key>0</key>

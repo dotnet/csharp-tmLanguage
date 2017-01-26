@@ -1569,7 +1569,7 @@ repository:
     begin: |-
       (?x)
       (?:([_[:alpha:]][_[:alnum:]]*)\s*(:)\s*)?
-      (?=[_[:alnum:](])
+      (?![,)])
     beginCaptures:
       '0': { name: entity.name.variable.tuple-element.cs }
       '1': { name: punctuation.separator.colon.cs }
