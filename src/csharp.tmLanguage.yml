@@ -141,7 +141,6 @@ repository:
     - include: '#nameof-expression'
     - include: '#interpolated-string'
     - include: '#verbatim-interpolated-string'
-    - include: '#literal'
     - include: '#this-or-base-expression'
     - include: '#conditional-operator'
     - include: '#expression-operators'
@@ -157,6 +156,7 @@ repository:
     - include: '#invocation-expression'
     - include: '#element-access-expression'
     - include: '#cast-expression'
+    - include: '#literal'
     - include: '#parenthesized-expression'
     - include: '#tuple-deconstruction-assignment'
     - include: '#initializer-expression'
@@ -1088,12 +1088,7 @@ repository:
           '1': { name: keyword.other.var.cs }
           '2':
             patterns:
-            - name: punctuation.parenthesis.open.cs 
-              match: \(
-            - name: punctuation.parenthesis.close.cs
-              match: \)
-            - include: '#tuple-deconstruction-declaration-element'
-            - include: '#punctuation-comma'
+            - include: '#tuple-declaration-deconstruction-element-list'
           '3': { name: keyword.control.loop.in.cs }
       - include: '#expression'
     - include: '#statement'
@@ -1315,45 +1310,11 @@ repository:
       '1': { name: keyword.other.var.cs }
       '2':
         patterns:
-        - name: punctuation.parenthesis.open.cs 
-          match: \(
-        - name: punctuation.parenthesis.close.cs
-          match: \)
-        - include: '#tuple-deconstruction-declaration-element'
-        - include: '#punctuation-comma'
+        - include: '#tuple-declaration-deconstruction-element-list'
     end: (?=;|\))
     patterns:
     - include: '#comment'
     - include: '#variable-initializer'
-
-  tuple-deconstruction-declaration-element:
-    match: |-
-      (?x) # e.g. (int x, int y) = GetPoint();
-      (?<type-name>
-        (?:
-            (?:(?<identifier>[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
-            (?<name-and-type-args> # identifier + type arguments (if any)
-              \g<identifier>\s*
-              (?<type-args>\s*<(?:[^<>]|\g<type-args>)+>\s*)?
-            )
-            (?:\s*\.\s*\g<name-and-type-args>)* # Are there any more names being dotted into?
-            (?:\s*\*\s*)* # pointer suffix?
-            (?:\s*\?\s*)? # nullable suffix?
-            (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
-        )|
-        (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
-      )?\s*
-      \b(\g<identifier>)\b\s*
-      (?=[,)])
-    captures:
-      '1':
-        patterns:
-        - include: '#type'
-      # '2': ?<identifier> is a sub-expression. It's final value is not considered.
-      # '3': ?<name-and-type-args> is a sub-expression. It's final value is not considered.
-      # '4': ?<type-args> is a sub-expression. It's final value is not considered.
-      # '5': ?<tuple> is a sub-expression. It's final value is not considered.
-      '6': { name: entity.name.variable.tuple-element.cs }
 
   tuple-deconstruction-assignment:
     match: |-
@@ -1363,21 +1324,51 @@ repository:
     captures:
       '1':
         patterns:
-        - begin: \(
-          beginCaptures:
-            '0': { name: punctuation.parenthesis.open.cs }
-          end: \)
-          endCaptures:
-            '0': { name: punctuation.parenthesis.close.cs }
-          patterns:
-          - include: '#comment'
-          - include: '#tuple-deconstruction-assignment-element'
-          - include: '#punctuation-comma'
+        - include: '#tuple-deconstruction-element-list'
 
-  tuple-deconstruction-assignment-element:
+  tuple-declaration-deconstruction-element-list:
+    begin: \(
+    beginCaptures:
+      '0': { name: punctuation.parenthesis.open.cs }
+    end: \)
+    endCaptures:
+      '0': { name: punctuation.parenthesis.close.cs }
     patterns:
+    - include: '#comment'
+    - include: '#tuple-declaration-deconstruction-element-list'
+    - include: '#declaration-expression'
+    - include: '#punctuation-comma'
     - match: |-
-        (?x) # e.g. (int x, int y) = GetPoint();
+        (?x) # e.g. x
+        \b([_[:alpha:]][_[:alnum:]]*)\b\s*
+        (?=[,)])
+      captures:
+        '1': { name: entity.name.variable.tuple-element.cs }
+
+  tuple-deconstruction-element-list:
+    begin: \(
+    beginCaptures:
+      '0': { name: punctuation.parenthesis.open.cs }
+    end: \)
+    endCaptures:
+      '0': { name: punctuation.parenthesis.close.cs }
+    patterns:
+    - include: '#comment'
+    - include: '#tuple-deconstruction-element-list'
+    - include: '#declaration-expression'
+    - include: '#punctuation-comma'
+    - match: |-
+        (?x) # e.g. x
+        \b([_[:alpha:]][_[:alnum:]]*)\b\s*
+        (?=[,)])
+      captures:
+        '1': { name: variable.other.readwrite.cs }
+
+  declaration-expression:
+    match: |-
+      (?x) # e.g. int x OR var x
+      (?:
+        \b(var)\b|
         (?<type-name>
           (?:
               (?:(?<identifier>[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
@@ -1391,24 +1382,20 @@ repository:
               (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
           )|
           (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
-        )\s+
-        \b(\g<identifier>)\b\s*
-        (?=[,)])
-      captures:
-        '1':
-          patterns:
-          - include: '#type'
-        # '2': ?<identifier> is a sub-expression. It's final value is not considered.
-        # '3': ?<name-and-type-args> is a sub-expression. It's final value is not considered.
-        # '4': ?<type-args> is a sub-expression. It's final value is not considered.
-        # '5': ?<tuple> is a sub-expression. It's final value is not considered.
-        '6': { name: entity.name.variable.tuple-element.cs }
-    - match: |-
-        (?x) # e.g. (x, y) = GetPoint();
-        \b([_[:alpha:]][_[:alnum:]]*)\b\s*
-        (?=[,)])
-      captures:
-        '1': { name: variable.other.readwrite.cs }
+        )
+      )\s+
+      \b(\g<identifier>)\b\s*
+      (?=[,)])
+    captures:
+      '1': { name: keyword.other.var.cs }
+      '2':
+        patterns:
+        - include: '#type'
+      # '3': ?<identifier> is a sub-expression. It's final value is not considered.
+      # '4': ?<name-and-type-args> is a sub-expression. It's final value is not considered.
+      # '5': ?<type-args> is a sub-expression. It's final value is not considered.
+      # '6': ?<tuple> is a sub-expression. It's final value is not considered.
+      '7': { name: entity.name.variable.tuple-element.cs }
 
   checked-unchecked-expression:
     begin: (?<!\.)\b(?:(checked)|(unchecked))\b\s*(\()
@@ -1490,6 +1477,7 @@ repository:
     - include: '#char-literal'
     - include: '#string-literal'
     - include: '#verbatim-string-literal'
+    - include: '#tuple-literal'
 
   boolean-literal:
     patterns:
@@ -1564,6 +1552,30 @@ repository:
   verbatim-string-character-escape:
     name: constant.character.escape.cs
     match: '""'
+
+  tuple-literal:
+    begin: (\()(?=.*[:,])
+    beginCaptures:
+      '1': { name: punctuation.parenthesis.open.cs }
+    end: \)
+    endCaptures:
+      '0': { name: punctuation.parenthesis.close.cs }
+    patterns:
+    - include: '#comment'
+    - include: '#tuple-literal-element'
+    - include: '#punctuation-comma'
+
+  tuple-literal-element:
+    begin: |-
+      (?x)
+      (?:([_[:alpha:]][_[:alnum:]]*)\s*(:)\s*)?
+      (?=[_[:alnum:](])
+    beginCaptures:
+      '0': { name: entity.name.variable.tuple-element.cs }
+      '1': { name: punctuation.separator.colon.cs }
+    end: (?=[,)])
+    patterns:
+    - include: '#expression'
 
   expression-operators:
     patterns:
