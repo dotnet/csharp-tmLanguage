@@ -2080,7 +2080,7 @@ string s;`);
                 ]);
             });
 
-            it("highlight complex query properly (issue #1106)", () => {
+            it("highlight complex query properly (issue omnisharp-vscode#1106)", () => {
                 const input = Input.InClass(`
 private static readonly Parser<Node> NodeParser =
     from name in NodeName.Token()

@@ -150,7 +150,7 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("XML doc comments are highlighted properly on enum members (issue #706)", () => {
+        it("XML doc comments are highlighted properly on enum members (issue omnisharp-vscode#706)", () => {
             const input = `
 /// <summary> This is a test Enum </summary>
 public enum TestEnum

@@ -579,7 +579,7 @@ public enum E
             ]);
         });
 
-        it("region name with double-quotes should be highlighted properly (issue #731)", () => {
+        it("region name with double-quotes should be highlighted properly (issue omnisharp-vscode#731)", () => {
             const input = Input.InClass(`
 #region  " Register / Create New  "
 // GET: /Account/Register

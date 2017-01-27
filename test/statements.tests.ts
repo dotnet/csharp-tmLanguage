@@ -162,7 +162,7 @@ for (int i = 0; i < 42; i++)
                 ]);
             });
 
-            it("foreach loop with var (issue #816)", () => {
+            it("foreach loop with var (issue omnisharp-vscode#816)", () => {
                 const input = Input.InMethod(`
 foreach (var s in myList)
 {

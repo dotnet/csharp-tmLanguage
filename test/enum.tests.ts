@@ -93,7 +93,7 @@ enum E
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("enum members are highligted properly (issue #1108)", () => {
+        it("enum members are highligted properly (issue omnisharp-vscode#1108)", () => {
 
             const input = `
 public enum TestEnum

@@ -232,7 +232,7 @@ TestClass() :
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("Open multiline comment in front of parameter highlights properly (issue #861)", () => {
+        it("Open multiline comment in front of parameter highlights properly (issue omnisharp-vscode#861)", () => {
             const input = Input.InClass(`
 internal WaitHandle(Task self, TT.Task /*task)
 {
@@ -262,7 +262,7 @@ internal WaitHandle(Task self, TT.Task /*task)
             ]);
         });
 
-        it("Highlight properly within base constructor initializer (issue #782)", () => {
+        it("Highlight properly within base constructor initializer (issue omnisharp-vscode#782)", () => {
             const input = `
 public class A
 {
