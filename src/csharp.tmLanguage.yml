@@ -5,18 +5,6 @@ scopeName: source.cs
 fileTypes: [cs]
 uuid: f7de61e2-bdde-4e2a-a139-8221b179584e
 
-# TODO List
-#
-# * Refinement and tests to ensure proper highlighting while typing
-# * dynamic keyword
-# * field-like events with initializers
-# * predefined types on left-side of invocation expressions
-# * verbatim identifiers
-# * hexadecimal and unicode character escape sequences
-# * unsafe code: fixed, sizeof, unsafe blocks, pointer member access
-# * multi-line XML doc comments
-# * #load and #r directives
-
 patterns:
 - include: '#preprocessor'
 - include: '#comment'
