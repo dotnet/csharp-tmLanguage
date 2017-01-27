@@ -215,7 +215,7 @@ int Add(int x, int y)
             ]);
         });
 
-        it("commented parameters are highlighted properly (issue #802)", () => {
+        it("commented parameters are highlighted properly (issue omnisharp-vscode#802)", () => {
             const input = Input.InClass(`public void methodWithParametersCommented(int p1, /*int p2*/, int p3) {}`);
             const tokens = tokenize(input);
 
@@ -239,7 +239,7 @@ int Add(int x, int y)
             ]);
         });
 
-        it("return type is highlighted properly in interface (issue #830)", () => {
+        it("return type is highlighted properly in interface (issue omnisharp-vscode#830)", () => {
             const input = `
 public interface test
 {
@@ -280,7 +280,7 @@ public interface test
             ]);
         });
 
-        it("attributes are highlighted properly (issue #829)", () => {
+        it("attributes are highlighted properly (issue omnisharp-vscode#829)", () => {
             const input = `
 namespace Test
 {
@@ -438,7 +438,7 @@ namespace Test
             ]);
         });
 
-        it("shadowed methods are highlighted properly (issue #1084)", () => {
+        it("shadowed methods are highlighted properly (issue omnisharp-vscode#1084)", () => {
             const input = Input.InClass(`
 private new void foo1() //Correct highlight
 {
@@ -473,7 +473,7 @@ new void foo2() //Function name not highlighted
             ]);
         });
 
-        it("comment at end of line does not change highlights - 1 (issue #1091)", () => {
+        it("comment at end of line does not change highlights - 1 (issue omnisharp-vscode#1091)", () => {
             const input = Input.InClass(`
 public abstract void Notify(PlayerId playerId, ISessionResponse response); //the
 `);
@@ -497,7 +497,7 @@ public abstract void Notify(PlayerId playerId, ISessionResponse response); //the
             ]);
         });
 
-        it("comment at end of line does not change highlights - 2 (issue #1091)", () => {
+        it("comment at end of line does not change highlights - 2 (issue omnisharp-vscode#1091)", () => {
             const input = Input.InClass(`
 public abstract void Notify(PlayerId playerId, ISessionResponse response); //the 
 `);
@@ -521,7 +521,7 @@ public abstract void Notify(PlayerId playerId, ISessionResponse response); //the
             ]);
         });
 
-        it("comment at end of line does not change highlights - 3 (issue #1091)", () => {
+        it("comment at end of line does not change highlights - 3 (issue omnisharp-vscode#1091)", () => {
             const input = Input.InClass(`
 public abstract void Notify(PlayerId playerId, ISessionResponse response); //the a
 `);
@@ -545,7 +545,7 @@ public abstract void Notify(PlayerId playerId, ISessionResponse response); //the
             ]);
         });
 
-        it("value is not incorrectly highlighted (issue #268)", () => {
+        it("value is not incorrectly highlighted (issue omnisharp-vscode#268)", () => {
             const input = `
 namespace x {
 public class ClassA<T>

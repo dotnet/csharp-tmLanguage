@@ -93,7 +93,7 @@ describe("Grammar", () => {
                 Token.Comment.SingleLine.Text(" foo")]);
         });
 
-        it("comment should colorize if there isn't a space before it (issue #225)", () => {
+        it("comment should colorize if there isn't a space before it (issue omnisharp-vscode#225)", () => {
             const input = Input.InClass(`
 private char GetChar()//Метод возвращающий
 `);

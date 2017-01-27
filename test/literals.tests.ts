@@ -230,7 +230,7 @@ world!";`);
                     Token.Punctuation.Semicolon]);
             });
 
-            it("highlight escaped double-quote properly (issue #1078 - repro 1)", () => {
+            it("highlight escaped double-quote properly (issue omnisharp-vscode#1078 - repro 1)", () => {
                 const input = Input.InMethod(`
 configContent = rgx.Replace(configContent, $"name{suffix}\\"");
 File.WriteAllText(_testConfigFile, configContent);
@@ -267,7 +267,7 @@ File.WriteAllText(_testConfigFile, configContent);
                 ]);
             });
 
-            it("highlight escaped double-quote properly (issue #1078 - repro 2)", () => {
+            it("highlight escaped double-quote properly (issue omnisharp-vscode#1078 - repro 2)", () => {
                 const input = Input.InMethod(`
 throw new InvalidCastException(
     $"The value \\"{this.Value} is of the type \\"{this.Type}\\". You asked for \\"{typeof(T)}\\".");
@@ -311,7 +311,7 @@ throw new InvalidCastException(
                 ]);
             });
 
-            it("highlight strings containing braces correctly (issue #746)", () => {
+            it("highlight strings containing braces correctly (issue omnisharp-vscode#746)", () => {
                 const input = `
 namespace X
 {

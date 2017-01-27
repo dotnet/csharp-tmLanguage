@@ -212,7 +212,7 @@ const   bool   field = true;`);
                 Token.Punctuation.Semicolon]);
         });
 
-        it("Fields with fully-qualified names are highlighted properly (issue #1097)", () => {
+        it("Fields with fully-qualified names are highlighted properly (issue omnisharp-vscode#1097)", () => {
             const input = Input.InClass(`
 private CanvasGroup[] groups;
 private UnityEngine.UI.Image[] selectedImages;
@@ -239,7 +239,7 @@ private UnityEngine.UI.Image[] selectedImages;
             ]);
         });
 
-        it("Fields with dictionary initializer highlights properly (issue #1096)", () => {
+        it("Fields with dictionary initializer highlights properly (issue omnisharp-vscode#1096)", () => {
             const input = Input.InClass(`
 private readonly Dictionary<string, int> languageToIndex = new Dictionary<string, int>()
 {
@@ -308,7 +308,7 @@ private readonly Dictionary<string, int> languageToIndex = new Dictionary<string
             ]);
         });
         
-        it("initializer on multiple lines (issue #316)", () => {
+        it("initializer on multiple lines (issue omnisharp-vscode#316)", () => {
             const input = Input.InClass(`
 private readonly string initSportMessageFormatString = "line1"
     + "line2";`);
