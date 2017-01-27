@@ -319,9 +319,6 @@ repository:
         include: "#verbatim-interpolated-string"
       }
       {
-        include: "#literal"
-      }
-      {
         include: "#this-or-base-expression"
       }
       {
@@ -367,7 +364,13 @@ repository:
         include: "#cast-expression"
       }
       {
+        include: "#literal"
+      }
+      {
         include: "#parenthesized-expression"
+      }
+      {
+        include: "#tuple-deconstruction-assignment"
       }
       {
         include: "#initializer-expression"
@@ -1799,6 +1802,25 @@ repository:
                 name: "keyword.control.loop.in.cs"
           }
           {
+            match: '''
+              (?x) # match foreach (var (x, y) in ...)
+              (?:\\b(var)\\b\\s*)?
+              (?<tuple>\\((?:[^\\(\\)]|\\g<tuple>)+\\))\\s+
+              \\b(in)\\b
+            '''
+            captures:
+              "1":
+                name: "keyword.other.var.cs"
+              "2":
+                patterns: [
+                  {
+                    include: "#tuple-declaration-deconstruction-element-list"
+                  }
+                ]
+              "3":
+                name: "keyword.control.loop.in.cs"
+          }
+          {
             include: "#expression"
           }
         ]
@@ -1995,6 +2017,9 @@ repository:
       {
         include: "#local-variable-declaration"
       }
+      {
+        include: "#local-tuple-var-deconstruction"
+      }
     ]
   "local-variable-declaration":
     begin: '''
@@ -2094,6 +2119,144 @@ repository:
         include: "#variable-initializer"
       }
     ]
+  "local-tuple-var-deconstruction":
+    begin: '''
+      (?x) # e.g. var (x, y) = GetPoint();
+      (?:\\b(var)\\b\\s*)
+      (?<tuple>\\((?:[^\\(\\)]|\\g<tuple>)+\\))\\s*
+      (?=;|=|\\))
+    '''
+    beginCaptures:
+      "1":
+        name: "keyword.other.var.cs"
+      "2":
+        patterns: [
+          {
+            include: "#tuple-declaration-deconstruction-element-list"
+          }
+        ]
+    end: "(?=;|\\))"
+    patterns: [
+      {
+        include: "#comment"
+      }
+      {
+        include: "#variable-initializer"
+      }
+    ]
+  "tuple-deconstruction-assignment":
+    match: '''
+      (?x)
+      (?<tuple>\\s*\\((?:[^\\(\\)]|\\g<tuple>)+\\))\\s*
+      (?!=>|==)(?==)
+    '''
+    captures:
+      "1":
+        patterns: [
+          {
+            include: "#tuple-deconstruction-element-list"
+          }
+        ]
+  "tuple-declaration-deconstruction-element-list":
+    begin: "\\("
+    beginCaptures:
+      "0":
+        name: "punctuation.parenthesis.open.cs"
+    end: "\\)"
+    endCaptures:
+      "0":
+        name: "punctuation.parenthesis.close.cs"
+    patterns: [
+      {
+        include: "#comment"
+      }
+      {
+        include: "#tuple-declaration-deconstruction-element-list"
+      }
+      {
+        include: "#declaration-expression"
+      }
+      {
+        include: "#punctuation-comma"
+      }
+      {
+        match: '''
+          (?x) # e.g. x
+          \\b([_[:alpha:]][_[:alnum:]]*)\\b\\s*
+          (?=[,)])
+        '''
+        captures:
+          "1":
+            name: "entity.name.variable.tuple-element.cs"
+      }
+    ]
+  "tuple-deconstruction-element-list":
+    begin: "\\("
+    beginCaptures:
+      "0":
+        name: "punctuation.parenthesis.open.cs"
+    end: "\\)"
+    endCaptures:
+      "0":
+        name: "punctuation.parenthesis.close.cs"
+    patterns: [
+      {
+        include: "#comment"
+      }
+      {
+        include: "#tuple-deconstruction-element-list"
+      }
+      {
+        include: "#declaration-expression"
+      }
+      {
+        include: "#punctuation-comma"
+      }
+      {
+        match: '''
+          (?x) # e.g. x
+          \\b([_[:alpha:]][_[:alnum:]]*)\\b\\s*
+          (?=[,)])
+        '''
+        captures:
+          "1":
+            name: "variable.other.readwrite.cs"
+      }
+    ]
+  "declaration-expression":
+    match: '''
+      (?x) # e.g. int x OR var x
+      (?:
+        \\b(var)\\b|
+        (?<type-name>
+          (?:
+              (?:(?<identifier>[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
+              (?<name-and-type-args> # identifier + type arguments (if any)
+                \\g<identifier>\\s*
+                (?<type-args>\\s*<(?:[^<>]|\\g<type-args>)+>\\s*)?
+              )
+              (?:\\s*\\.\\s*\\g<name-and-type-args>)* # Are there any more names being dotted into?
+              (?:\\s*\\*\\s*)* # pointer suffix?
+              (?:\\s*\\?\\s*)? # nullable suffix?
+              (?:\\s*\\[(?:\\s*,\\s*)*\\]\\s*)* # array suffix?
+          )|
+          (?<tuple>\\s*\\((?:[^\\(\\)]|\\g<tuple>)+\\))
+        )
+      )\\s+
+      \\b(\\g<identifier>)\\b\\s*
+      (?=[,)])
+    '''
+    captures:
+      "1":
+        name: "keyword.other.var.cs"
+      "2":
+        patterns: [
+          {
+            include: "#type"
+          }
+        ]
+      "7":
+        name: "entity.name.variable.tuple-element.cs"
   "checked-unchecked-expression":
     begin: "(?<!\\.)\\b(?:(checked)|(unchecked))\\b\\s*(\\()"
     beginCaptures:
@@ -2221,6 +2384,9 @@ repository:
       {
         include: "#verbatim-string-literal"
       }
+      {
+        include: "#tuple-literal"
+      }
     ]
   "boolean-literal":
     patterns: [
@@ -2318,6 +2484,43 @@ repository:
   "verbatim-string-character-escape":
     name: "constant.character.escape.cs"
     match: "\"\""
+  "tuple-literal":
+    begin: "(\\()(?=.*[:,])"
+    beginCaptures:
+      "1":
+        name: "punctuation.parenthesis.open.cs"
+    end: "\\)"
+    endCaptures:
+      "0":
+        name: "punctuation.parenthesis.close.cs"
+    patterns: [
+      {
+        include: "#comment"
+      }
+      {
+        include: "#tuple-literal-element"
+      }
+      {
+        include: "#punctuation-comma"
+      }
+    ]
+  "tuple-literal-element":
+    begin: '''
+      (?x)
+      (?:([_[:alpha:]][_[:alnum:]]*)\\s*(:)\\s*)?
+      (?![,)])
+    '''
+    beginCaptures:
+      "0":
+        name: "entity.name.variable.tuple-element.cs"
+      "1":
+        name: "punctuation.separator.colon.cs"
+    end: "(?=[,)])"
+    patterns: [
+      {
+        include: "#expression"
+      }
+    ]
   "expression-operators":
     patterns: [
       {

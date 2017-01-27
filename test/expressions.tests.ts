@@ -809,6 +809,28 @@ describe("Grammar", () => {
                 ]);
             });
 
+            it("cast to tuple type in assignment", () => {
+                const input = Input.InMethod(`var t = ((int x, int y))o;`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("t"),
+                    Token.Operators.Assignment,
+                    Token.Punctuation.OpenParen,
+                    Token.Punctuation.OpenParen,
+                    Token.PrimitiveType.Int,
+                    Token.Identifiers.TupleElementName("x"),
+                    Token.Punctuation.Comma,
+                    Token.PrimitiveType.Int,
+                    Token.Identifiers.TupleElementName("y"),
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.CloseParen,
+                    Token.Variables.ReadWrite("o"),
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
             it("passed to invocation", () => {
                 const input = Input.InMethod(`M((int)42);`);
                 const tokens = tokenize(input);

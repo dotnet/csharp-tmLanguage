@@ -76,6 +76,45 @@ describe("Grammar", () => {
                 Token.Punctuation.Semicolon]);
         });
 
+        it("nested tuple type - (int, (int, int))", () => {
+            const input = Input.InClass(`(int, (int, int)) x;`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.OpenParen,
+                Token.PrimitiveType.Int,
+                Token.Punctuation.Comma,
+                Token.Punctuation.OpenParen,
+                Token.PrimitiveType.Int,
+                Token.Punctuation.Comma,
+                Token.PrimitiveType.Int,
+                Token.Punctuation.CloseParen,
+                Token.Punctuation.CloseParen,
+                Token.Identifiers.FieldName("x"),
+                Token.Punctuation.Semicolon]);
+        });
+
+        it("nested tuple type with element names - (int i, (int j, int k))", () => {
+            const input = Input.InClass(`(int i, (int j, int k)) x;`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.OpenParen,
+                Token.PrimitiveType.Int,
+                Token.Identifiers.TupleElementName("i"),
+                Token.Punctuation.Comma,
+                Token.Punctuation.OpenParen,
+                Token.PrimitiveType.Int,
+                Token.Identifiers.TupleElementName("j"),
+                Token.Punctuation.Comma,
+                Token.PrimitiveType.Int,
+                Token.Identifiers.TupleElementName("k"),
+                Token.Punctuation.CloseParen,
+                Token.Punctuation.CloseParen,
+                Token.Identifiers.FieldName("x"),
+                Token.Punctuation.Semicolon]);
+        });
+
         it("generic type - List<int>", () => {
             const input = Input.InClass(`List<int> x;`);
             const tokens = tokenize(input);
