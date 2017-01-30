@@ -45,35 +45,16 @@ repository:
     - include: '#attribute-section'
     - include: '#punctuation-semicolon'
 
-  class-members:
+  class-or-struct-members:
     patterns:
     - include: '#preprocessor'
     - include: '#comment'
     - include: '#storage-modifier'
     - include: '#type-declarations'
+    - include: '#field-declaration'
     - include: '#event-declaration'
     - include: '#property-declaration'
     - include: '#indexer-declaration'
-    - include: '#field-declaration'
-    - include: '#variable-initializer'
-    - include: '#constructor-declaration'
-    - include: '#destructor-declaration'
-    - include: '#operator-declaration'
-    - include: '#conversion-operator-declaration'
-    - include: '#method-declaration'
-    - include: '#attribute-section'
-    - include: '#punctuation-semicolon'
-
-  struct-members:
-    patterns:
-    - include: '#preprocessor'
-    - include: '#comment'
-    - include: '#storage-modifier'
-    - include: '#type-declarations'
-    - include: '#event-declaration'
-    - include: '#property-declaration'
-    - include: '#indexer-declaration'
-    - include: '#field-declaration'
     - include: '#variable-initializer'
     - include: '#constructor-declaration'
     - include: '#destructor-declaration'
@@ -274,7 +255,7 @@ repository:
       endCaptures:
         '0': { name: punctuation.curlybrace.close.cs }
       patterns:
-      - include: '#class-members'
+      - include: '#class-or-struct-members'
     - include: '#preprocessor'
     - include: '#comment'
 
@@ -406,7 +387,7 @@ repository:
       endCaptures:
         '0': { name: punctuation.curlybrace.close.cs }
       patterns:
-      - include: '#struct-members'
+      - include: '#class-or-struct-members'
     - include: '#preprocessor'
     - include: '#comment'
 
@@ -476,7 +457,7 @@ repository:
         (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
       )\s+
       (\g<identifier>)\s* # first field name
-      (?!=>|==)(?=,|;|=)
+      (?!=>|==)(?=,|;|=|$)
     beginCaptures:
       '1':
         patterns:
@@ -493,6 +474,7 @@ repository:
     - include: '#punctuation-comma'
     - include: '#comment'
     - include: '#variable-initializer'
+    - include: '#class-or-struct-members'
 
   property-declaration:
     begin: |-
@@ -537,6 +519,7 @@ repository:
     - include: '#property-accessors'
     - include: '#expression-body'
     - include: '#variable-initializer'
+    - include: '#class-or-struct-members'
 
   indexer-declaration:
     begin: |-

@@ -141,7 +141,7 @@
           </dict>
         </array>
       </dict>
-      <key>class-members</key>
+      <key>class-or-struct-members</key>
       <dict>
         <key>patterns</key>
         <array>
@@ -163,73 +163,7 @@
           </dict>
           <dict>
             <key>include</key>
-            <string>#event-declaration</string>
-          </dict>
-          <dict>
-            <key>include</key>
-            <string>#property-declaration</string>
-          </dict>
-          <dict>
-            <key>include</key>
-            <string>#indexer-declaration</string>
-          </dict>
-          <dict>
-            <key>include</key>
             <string>#field-declaration</string>
-          </dict>
-          <dict>
-            <key>include</key>
-            <string>#variable-initializer</string>
-          </dict>
-          <dict>
-            <key>include</key>
-            <string>#constructor-declaration</string>
-          </dict>
-          <dict>
-            <key>include</key>
-            <string>#destructor-declaration</string>
-          </dict>
-          <dict>
-            <key>include</key>
-            <string>#operator-declaration</string>
-          </dict>
-          <dict>
-            <key>include</key>
-            <string>#conversion-operator-declaration</string>
-          </dict>
-          <dict>
-            <key>include</key>
-            <string>#method-declaration</string>
-          </dict>
-          <dict>
-            <key>include</key>
-            <string>#attribute-section</string>
-          </dict>
-          <dict>
-            <key>include</key>
-            <string>#punctuation-semicolon</string>
-          </dict>
-        </array>
-      </dict>
-      <key>struct-members</key>
-      <dict>
-        <key>patterns</key>
-        <array>
-          <dict>
-            <key>include</key>
-            <string>#preprocessor</string>
-          </dict>
-          <dict>
-            <key>include</key>
-            <string>#comment</string>
-          </dict>
-          <dict>
-            <key>include</key>
-            <string>#storage-modifier</string>
-          </dict>
-          <dict>
-            <key>include</key>
-            <string>#type-declarations</string>
           </dict>
           <dict>
             <key>include</key>
@@ -242,10 +176,6 @@
           <dict>
             <key>include</key>
             <string>#indexer-declaration</string>
-          </dict>
-          <dict>
-            <key>include</key>
-            <string>#field-declaration</string>
           </dict>
           <dict>
             <key>include</key>
@@ -924,7 +854,7 @@
             <array>
               <dict>
                 <key>include</key>
-                <string>#class-members</string>
+                <string>#class-or-struct-members</string>
               </dict>
             </array>
           </dict>
@@ -1294,7 +1224,7 @@
             <array>
               <dict>
                 <key>include</key>
-                <string>#struct-members</string>
+                <string>#class-or-struct-members</string>
               </dict>
             </array>
           </dict>
@@ -1489,7 +1419,7 @@
   (?&lt;tuple&gt;\s*\((?:[^\(\)]|\g&lt;tuple&gt;)+\))
 )\s+
 (\g&lt;identifier&gt;)\s* # first field name
-(?!=&gt;|==)(?=,|;|=)</string>
+(?!=&gt;|==)(?=,|;|=|$)</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
@@ -1529,6 +1459,10 @@
           <dict>
             <key>include</key>
             <string>#variable-initializer</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#class-or-struct-members</string>
           </dict>
         </array>
       </dict>
@@ -1607,6 +1541,10 @@
           <dict>
             <key>include</key>
             <string>#variable-initializer</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#class-or-struct-members</string>
           </dict>
         </array>
       </dict>

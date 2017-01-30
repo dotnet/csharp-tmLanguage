@@ -94,7 +94,7 @@ repository:
         include: "#punctuation-semicolon"
       }
     ]
-  "class-members":
+  "class-or-struct-members":
     patterns: [
       {
         include: "#preprocessor"
@@ -109,55 +109,7 @@ repository:
         include: "#type-declarations"
       }
       {
-        include: "#event-declaration"
-      }
-      {
-        include: "#property-declaration"
-      }
-      {
-        include: "#indexer-declaration"
-      }
-      {
         include: "#field-declaration"
-      }
-      {
-        include: "#variable-initializer"
-      }
-      {
-        include: "#constructor-declaration"
-      }
-      {
-        include: "#destructor-declaration"
-      }
-      {
-        include: "#operator-declaration"
-      }
-      {
-        include: "#conversion-operator-declaration"
-      }
-      {
-        include: "#method-declaration"
-      }
-      {
-        include: "#attribute-section"
-      }
-      {
-        include: "#punctuation-semicolon"
-      }
-    ]
-  "struct-members":
-    patterns: [
-      {
-        include: "#preprocessor"
-      }
-      {
-        include: "#comment"
-      }
-      {
-        include: "#storage-modifier"
-      }
-      {
-        include: "#type-declarations"
       }
       {
         include: "#event-declaration"
@@ -167,9 +119,6 @@ repository:
       }
       {
         include: "#indexer-declaration"
-      }
-      {
-        include: "#field-declaration"
       }
       {
         include: "#variable-initializer"
@@ -593,7 +542,7 @@ repository:
             name: "punctuation.curlybrace.close.cs"
         patterns: [
           {
-            include: "#class-members"
+            include: "#class-or-struct-members"
           }
         ]
       }
@@ -820,7 +769,7 @@ repository:
             name: "punctuation.curlybrace.close.cs"
         patterns: [
           {
-            include: "#struct-members"
+            include: "#class-or-struct-members"
           }
         ]
       }
@@ -934,7 +883,7 @@ repository:
         (?<tuple>\\s*\\((?:[^\\(\\)]|\\g<tuple>)+\\))
       )\\s+
       (\\g<identifier>)\\s* # first field name
-      (?!=>|==)(?=,|;|=)
+      (?!=>|==)(?=,|;|=|$)
     '''
     beginCaptures:
       "1":
@@ -959,6 +908,9 @@ repository:
       }
       {
         include: "#variable-initializer"
+      }
+      {
+        include: "#class-or-struct-members"
       }
     ]
   "property-declaration":
@@ -1016,6 +968,9 @@ repository:
       }
       {
         include: "#variable-initializer"
+      }
+      {
+        include: "#class-or-struct-members"
       }
     ]
   "indexer-declaration":
