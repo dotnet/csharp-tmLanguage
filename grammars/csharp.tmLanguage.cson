@@ -1424,7 +1424,7 @@ repository:
     beginCaptures:
       "1":
         name: "keyword.operator.assignment.cs"
-    end: "(?=[,\\);}])"
+    end: "(?=[,\\)\\];}])"
     patterns: [
       {
         include: "#expression"
@@ -2926,7 +2926,7 @@ repository:
             match: "\\b(ref|params|out)\\b"
           }
           {
-            match: "\\s+([_[:alpha:]][_[:alnum:]]*)\\s*(?=[,\\]])"
+            match: "\\s+([_[:alpha:]][_[:alnum:]]*)\\s*(?=[=,\\]])"
             captures:
               "1":
                 name: "entity.name.variable.parameter.cs"
@@ -2964,7 +2964,7 @@ repository:
         match: "\\b(ref|params|out|this)\\b"
       }
       {
-        match: "\\s+([_[:alpha:]][_[:alnum:]]*)\\s*(?=[,)])"
+        match: "\\b([_[:alpha:]][_[:alnum:]]*)\\s*(?=[=,)])"
         captures:
           "1":
             name: "entity.name.variable.parameter.cs"
