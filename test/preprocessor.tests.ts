@@ -629,5 +629,48 @@ public ActionResult Register()
                 Token.Punctuation.CloseBrace
             ]);
         });
+
+        it("preprocessor in base lists (issue #32)", () => {
+            const input = Input.FromText(`
+#if !PCL
+    [Serializable]
+#endif
+    public struct Interval : IEquatable<Interval>, IXmlSerializable
+#if !PCL
+        , ISerializable
+#endif
+`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Keywords.Preprocessor.If,
+                Token.Operators.Logical.Not,
+                Token.Identifiers.PreprocessorSymbol("PCL"),
+                Token.Punctuation.OpenBracket,
+                Token.Type("Serializable"),
+                Token.Punctuation.CloseBracket,
+                Token.Punctuation.Hash,
+                Token.Keywords.Preprocessor.EndIf,
+                Token.Keywords.Modifiers.Public,
+                Token.Keywords.Struct,
+                Token.Identifiers.StructName("Interval"),
+                Token.Punctuation.Colon,
+                Token.Type("IEquatable"),
+                Token.Punctuation.TypeParameters.Begin,
+                Token.Type("Interval"),
+                Token.Punctuation.TypeParameters.End,
+                Token.Punctuation.Comma,
+                Token.Type("IXmlSerializable"),
+                Token.Punctuation.Hash,
+                Token.Keywords.Preprocessor.If,
+                Token.Operators.Logical.Not,
+                Token.Identifiers.PreprocessorSymbol("PCL"),
+                Token.Punctuation.Comma,
+                Token.Type("ISerializable"),
+                Token.Punctuation.Hash,
+                Token.Keywords.Preprocessor.EndIf,
+            ]);
+        });
     });
 });
