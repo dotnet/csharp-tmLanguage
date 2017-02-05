@@ -609,5 +609,25 @@ public class ClassA<T>
                 Token.Punctuation.CloseBrace
             ]);
         });
+
+        it("parameters with default values (issue #30)", () => {
+            const input = Input.InClass(`
+void M(string p = null) { }
+`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.PrimitiveType.Void,
+                Token.Identifiers.MethodName("M"),
+                Token.Punctuation.OpenParen,
+                Token.PrimitiveType.String,
+                Token.Identifiers.ParameterName("p"),
+                Token.Operators.Assignment,
+                Token.Literals.Null,
+                Token.Punctuation.CloseParen,
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace
+            ]);
+        });
     });
 });

@@ -117,5 +117,25 @@ public string this[int index]
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace]);
         });
+
+        it("parameters with default values (issue #30)", () => {
+            const input = Input.InClass(`
+int this[string p = null] { }
+`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.PrimitiveType.Int,
+                Token.Keywords.This,
+                Token.Punctuation.OpenBracket,
+                Token.PrimitiveType.String,
+                Token.Identifiers.ParameterName("p"),
+                Token.Operators.Assignment,
+                Token.Literals.Null,
+                Token.Punctuation.CloseBracket,
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace
+            ]);
+        });
     });
 });

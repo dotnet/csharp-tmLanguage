@@ -828,7 +828,7 @@ repository:
     begin: (?<!=|!)(=)(?!=|>)
     beginCaptures:
       '1': { name: keyword.operator.assignment.cs }
-    end: (?=[,\);}])
+    end: (?=[,\)\];}])
     patterns:
     - include: '#expression'
 
@@ -1892,7 +1892,7 @@ repository:
       - name: storage.modifier.cs
         match: \b(ref|params|out)\b
       # parameter name
-      - match: \s+([_[:alpha:]][_[:alnum:]]*)\s*(?=[,\]])
+      - match: \s+([_[:alpha:]][_[:alnum:]]*)\s*(?=[=,\]])
         captures:
           '1': { name: entity.name.variable.parameter.cs }
       - include: '#variable-initializer'
@@ -1912,7 +1912,7 @@ repository:
     - name: storage.modifier.cs
       match: \b(ref|params|out|this)\b
     # parameter name
-    - match: \s+([_[:alpha:]][_[:alnum:]]*)\s*(?=[,)])
+    - match: \b([_[:alpha:]][_[:alnum:]]*)\s*(?=[=,)])
       captures:
         '1': { name: entity.name.variable.parameter.cs }
     - include: '#variable-initializer'
