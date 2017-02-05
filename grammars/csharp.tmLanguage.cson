@@ -825,6 +825,9 @@ repository:
       {
         include: "#punctuation-comma"
       }
+      {
+        include: "#preprocessor"
+      }
     ]
   "generic-constraints":
     begin: "(where)\\s+([_[:alpha:]][_[:alnum:]]*)\\s*(:)"

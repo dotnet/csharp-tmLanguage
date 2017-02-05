@@ -1324,6 +1324,10 @@
             <key>include</key>
             <string>#punctuation-comma</string>
           </dict>
+          <dict>
+            <key>include</key>
+            <string>#preprocessor</string>
+          </dict>
         </array>
       </dict>
       <key>generic-constraints</key>
