@@ -3312,7 +3312,7 @@ repository:
             name: "entity.name.variable.parameter.cs"
           "3":
             name: "keyword.operator.arrow.cs"
-        end: "(?=\\)|;)"
+        end: "(?=\\)|;|})"
         patterns: [
           {
             include: "#block"
@@ -3340,7 +3340,7 @@ repository:
             ]
           "3":
             name: "keyword.operator.arrow.cs"
-        end: "(?=\\)|;)"
+        end: "(?=\\)|;|})"
         patterns: [
           {
             include: "#block"
@@ -3361,7 +3361,7 @@ repository:
             name: "storage.modifier.cs"
           "2":
             name: "keyword.other.delegate.cs"
-        end: "(?=\\)|;)"
+        end: "(?=\\)|;|})"
         patterns: [
           {
             include: "#parenthesized-parameter-list"

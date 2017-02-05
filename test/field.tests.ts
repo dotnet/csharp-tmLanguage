@@ -331,5 +331,58 @@ private readonly string initSportMessageFormatString = "line1"
                 Token.Punctuation.Semicolon
             ]);
         });
+        
+        it("initializer containing lambda (issue #31)", () => {
+            const input = `
+class C
+{
+    List<Action> f = new List<Action>
+    {
+        () => DoStuff()
+    };
+
+    public C(int x, int y) { }
+}`;
+
+            let tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Class,
+                Token.Identifiers.ClassName("C"),
+                Token.Punctuation.OpenBrace,
+                Token.Type("List"),
+                Token.Punctuation.TypeParameters.Begin,
+                Token.Type("Action"),
+                Token.Punctuation.TypeParameters.End,
+                Token.Identifiers.FieldName("f"),
+                Token.Operators.Assignment,
+                Token.Keywords.New,
+                Token.Type("List"),
+                Token.Punctuation.TypeParameters.Begin,
+                Token.Type("Action"),
+                Token.Punctuation.TypeParameters.End,
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.OpenParen,
+                Token.Punctuation.CloseParen,
+                Token.Operators.Arrow,
+                Token.Identifiers.MethodName("DoStuff"),
+                Token.Punctuation.OpenParen,
+                Token.Punctuation.CloseParen,
+                Token.Punctuation.CloseBrace,
+                Token.Punctuation.Semicolon,
+                Token.Keywords.Modifiers.Public,
+                Token.Identifiers.MethodName("C"),
+                Token.Punctuation.OpenParen,
+                Token.PrimitiveType.Int,
+                Token.Identifiers.ParameterName("x"),
+                Token.Punctuation.Comma,
+                Token.PrimitiveType.Int,
+                Token.Identifiers.ParameterName("y"),
+                Token.Punctuation.CloseParen,
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace,
+                Token.Punctuation.CloseBrace
+            ]);
+        });
     });
 });
