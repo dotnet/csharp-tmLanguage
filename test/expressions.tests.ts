@@ -672,6 +672,101 @@ describe("Grammar", () => {
             });
         });
 
+        describe("Anonymous Objects", () => {
+            it("simple - on single line", () => {
+                const input = Input.InMethod(`var x = new { ID = 42 };`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("x"),
+                    Token.Operators.Assignment,
+                    Token.Keywords.New,
+                    Token.Punctuation.OpenBrace,
+                    Token.Variables.ReadWrite("ID"),
+                    Token.Operators.Assignment,
+                    Token.Literals.Numeric.Decimal("42"),
+                    Token.Punctuation.CloseBrace,
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
+            it("simple - on multiple lines", () => {
+                const input = Input.InMethod(`
+var x = new
+{
+    ID = 42
+};`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("x"),
+                    Token.Operators.Assignment,
+                    Token.Keywords.New,
+                    Token.Punctuation.OpenBrace,
+                    Token.Variables.ReadWrite("ID"),
+                    Token.Operators.Assignment,
+                    Token.Literals.Numeric.Decimal("42"),
+                    Token.Punctuation.CloseBrace,
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
+            it("nested - on single line", () => {
+                const input = Input.InMethod(`var x = new { y = new { ID = 42 } };`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("x"),
+                    Token.Operators.Assignment,
+                    Token.Keywords.New,
+                    Token.Punctuation.OpenBrace,
+                    Token.Variables.ReadWrite("y"),
+                    Token.Operators.Assignment,
+                    Token.Keywords.New,
+                    Token.Punctuation.OpenBrace,
+                    Token.Variables.ReadWrite("ID"),
+                    Token.Operators.Assignment,
+                    Token.Literals.Numeric.Decimal("42"),
+                    Token.Punctuation.CloseBrace,
+                    Token.Punctuation.CloseBrace,
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
+            it("nested - on multiple lines", () => {
+                const input = Input.InMethod(`
+var x = new
+{
+    y = new
+    {
+        ID = 42
+    }
+};`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("x"),
+                    Token.Operators.Assignment,
+                    Token.Keywords.New,
+                    Token.Punctuation.OpenBrace,
+                    Token.Variables.ReadWrite("y"),
+                    Token.Operators.Assignment,
+                    Token.Keywords.New,
+                    Token.Punctuation.OpenBrace,
+                    Token.Variables.ReadWrite("ID"),
+                    Token.Operators.Assignment,
+                    Token.Literals.Numeric.Decimal("42"),
+                    Token.Punctuation.CloseBrace,
+                    Token.Punctuation.CloseBrace,
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+        });
+
         describe("Arithmetic", () => {
             it("mixed relational and arithmetic operators", () => {
                 const input = Input.InMethod(`b = this.i != 1 + (2 - 3);`);
@@ -2232,6 +2327,7 @@ private static readonly Parser<Node> NodeParser =
                     Token.Punctuation.Semicolon
                 ]);
             });
+
         });
     });
 });
