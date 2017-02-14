@@ -1724,17 +1724,17 @@ repository:
   element-access-expression:
     begin: |-
       (?x)
-      (?:(\?)\s*)?                   # preceding null-conditional operator?
-      (?:(\.)\s*)?                   # preceding dot?
-      ([_[:alpha:]][_[:alnum:]]*)\s* # property name
-      (?:(\?)\s*)?                   # null-conditional operator?
-      (?=\[)                         # open bracket of argument list
+      (?:(\?)\s*)?                        # preceding null-conditional operator?
+      (?:(\.)\s*)?                        # preceding dot?
+      (?:([_[:alpha:]][_[:alnum:]]*)\s*)? # property name
+      (?:(\?)\s*)?                        # null-conditional operator?
+      (?=\[)                              # open bracket of argument list
     beginCaptures:
       '1': { name: keyword.operator.null-conditional.cs }
       '2': { name: punctuation.accessor.cs }
       '3': { name: variable.other.object.property.cs }
       '4': { name: keyword.operator.null-conditional.cs }
-    end: (?<=\])
+    end: (?<=\])(?!\s*\[)
     patterns:
     - include: '#bracketed-argument-list'
 
