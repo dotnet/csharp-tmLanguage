@@ -4534,11 +4534,11 @@
       <dict>
         <key>begin</key>
         <string>(?x)
-(?:(\?)\s*)?                   # preceding null-conditional operator?
-(?:(\.)\s*)?                   # preceding dot?
-([_[:alpha:]][_[:alnum:]]*)\s* # property name
-(?:(\?)\s*)?                   # null-conditional operator?
-(?=\[)                         # open bracket of argument list</string>
+(?:(\?)\s*)?                        # preceding null-conditional operator?
+(?:(\.)\s*)?                        # preceding dot?
+(?:([_[:alpha:]][_[:alnum:]]*)\s*)? # property name
+(?:(\?)\s*)?                        # null-conditional operator?
+(?=\[)                              # open bracket of argument list</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
@@ -4563,7 +4563,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?&lt;=\])</string>
+        <string>(?&lt;=\])(?!\s*\[)</string>
         <key>patterns</key>
         <array>
           <dict>

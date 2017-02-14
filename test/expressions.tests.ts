@@ -1314,7 +1314,7 @@ class C
                 ]);
             });
 
-            it("member", () => {
+            it("member with element access", () => {
                 const input = Input.InMethod(`var a = b.c[0];`);
                 const tokens = tokenize(input);
 
@@ -1328,6 +1328,75 @@ class C
                     Token.Punctuation.OpenBracket,
                     Token.Literals.Numeric.Decimal("0"),
                     Token.Punctuation.CloseBracket,
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
+            it("member with two element accesses", () => {
+                const input = Input.InMethod(`var a = b.c[19][23];`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("a"),
+                    Token.Operators.Assignment,
+                    Token.Variables.Object("b"),
+                    Token.Punctuation.Accessor,
+                    Token.Variables.Property("c"),
+                    Token.Punctuation.OpenBracket,
+                    Token.Literals.Numeric.Decimal("19"),
+                    Token.Punctuation.CloseBracket,
+                    Token.Punctuation.OpenBracket,
+                    Token.Literals.Numeric.Decimal("23"),
+                    Token.Punctuation.CloseBracket,
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
+            it("member with two element accesses and another member", () => {
+                const input = Input.InMethod(`var a = b.c[19][23].d;`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("a"),
+                    Token.Operators.Assignment,
+                    Token.Variables.Object("b"),
+                    Token.Punctuation.Accessor,
+                    Token.Variables.Property("c"),
+                    Token.Punctuation.OpenBracket,
+                    Token.Literals.Numeric.Decimal("19"),
+                    Token.Punctuation.CloseBracket,
+                    Token.Punctuation.OpenBracket,
+                    Token.Literals.Numeric.Decimal("23"),
+                    Token.Punctuation.CloseBracket,
+                    Token.Punctuation.Accessor,
+                    Token.Variables.Property("d"),
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
+            it("member with two element accesses and an invocation", () => {
+                const input = Input.InMethod(`var a = b.c[19][23].d();`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("a"),
+                    Token.Operators.Assignment,
+                    Token.Variables.Object("b"),
+                    Token.Punctuation.Accessor,
+                    Token.Variables.Property("c"),
+                    Token.Punctuation.OpenBracket,
+                    Token.Literals.Numeric.Decimal("19"),
+                    Token.Punctuation.CloseBracket,
+                    Token.Punctuation.OpenBracket,
+                    Token.Literals.Numeric.Decimal("23"),
+                    Token.Punctuation.CloseBracket,
+                    Token.Punctuation.Accessor,
+                    Token.Identifiers.MethodName("d"),
+                    Token.Punctuation.OpenParen,
+                    Token.Punctuation.CloseParen,
                     Token.Punctuation.Semicolon
                 ]);
             });
@@ -1391,6 +1460,130 @@ a1[1] = ((this.a)); a1[2] = (c); a1[1] = (i);
                     Token.Variables.ReadWrite("i"),
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.Semicolon,
+                ]);
+            });
+
+            it("arithmetic expression with multiple element accesses 1 (issue #37)", () => {
+                const input = Input.InMethod(`
+long total = data["bonusGame"]["win"].AsLong * data["bonusGame"]["betMult"].AsLong;
+`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.PrimitiveType.Long,
+                    Token.Identifiers.LocalName("total"),
+                    Token.Operators.Assignment,
+                    Token.Variables.Property("data"),
+                    Token.Punctuation.OpenBracket,
+                    Token.Punctuation.String.Begin,
+                    Token.Literals.String("bonusGame"),
+                    Token.Punctuation.String.End,
+                    Token.Punctuation.CloseBracket,
+                    Token.Punctuation.OpenBracket,
+                    Token.Punctuation.String.Begin,
+                    Token.Literals.String("win"),
+                    Token.Punctuation.String.End,
+                    Token.Punctuation.CloseBracket,
+                    Token.Punctuation.Accessor,
+                    Token.Variables.Property("AsLong"),
+                    Token.Operators.Arithmetic.Multiplication,
+                    Token.Variables.Property("data"),
+                    Token.Punctuation.OpenBracket,
+                    Token.Punctuation.String.Begin,
+                    Token.Literals.String("bonusGame"),
+                    Token.Punctuation.String.End,
+                    Token.Punctuation.CloseBracket,
+                    Token.Punctuation.OpenBracket,
+                    Token.Punctuation.String.Begin,
+                    Token.Literals.String("betMult"),
+                    Token.Punctuation.String.End,
+                    Token.Punctuation.CloseBracket,
+                    Token.Punctuation.Accessor,
+                    Token.Variables.Property("AsLong"),
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
+            it("arithmetic expression with multiple element accesses 2 (issue #37)", () => {
+                const input = Input.InMethod(`
+total = data["bonusGame"]["win"].AsLong * data["bonusGame"]["betMult"].AsLong;
+`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Variables.ReadWrite("total"),
+                    Token.Operators.Assignment,
+                    Token.Variables.Property("data"),
+                    Token.Punctuation.OpenBracket,
+                    Token.Punctuation.String.Begin,
+                    Token.Literals.String("bonusGame"),
+                    Token.Punctuation.String.End,
+                    Token.Punctuation.CloseBracket,
+                    Token.Punctuation.OpenBracket,
+                    Token.Punctuation.String.Begin,
+                    Token.Literals.String("win"),
+                    Token.Punctuation.String.End,
+                    Token.Punctuation.CloseBracket,
+                    Token.Punctuation.Accessor,
+                    Token.Variables.Property("AsLong"),
+                    Token.Operators.Arithmetic.Multiplication,
+                    Token.Variables.Property("data"),
+                    Token.Punctuation.OpenBracket,
+                    Token.Punctuation.String.Begin,
+                    Token.Literals.String("bonusGame"),
+                    Token.Punctuation.String.End,
+                    Token.Punctuation.CloseBracket,
+                    Token.Punctuation.OpenBracket,
+                    Token.Punctuation.String.Begin,
+                    Token.Literals.String("betMult"),
+                    Token.Punctuation.String.End,
+                    Token.Punctuation.CloseBracket,
+                    Token.Punctuation.Accessor,
+                    Token.Variables.Property("AsLong"),
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
+            it("arithmetic expression with multiple element accesses 3 (issue #37)", () => {
+                const input = Input.InMethod(`
+long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].AsLong;
+`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.PrimitiveType.Long,
+                    Token.Identifiers.LocalName("total"),
+                    Token.Operators.Assignment,
+                    Token.Punctuation.OpenParen,
+                    Token.Variables.Property("data"),
+                    Token.Punctuation.OpenBracket,
+                    Token.Punctuation.String.Begin,
+                    Token.Literals.String("bonusGame"),
+                    Token.Punctuation.String.End,
+                    Token.Punctuation.CloseBracket,
+                    Token.Punctuation.OpenBracket,
+                    Token.Punctuation.String.Begin,
+                    Token.Literals.String("win"),
+                    Token.Punctuation.String.End,
+                    Token.Punctuation.CloseBracket,
+                    Token.Punctuation.Accessor,
+                    Token.Variables.Property("AsLong"),
+                    Token.Punctuation.CloseParen,
+                    Token.Operators.Arithmetic.Multiplication,
+                    Token.Variables.Property("data"),
+                    Token.Punctuation.OpenBracket,
+                    Token.Punctuation.String.Begin,
+                    Token.Literals.String("bonusGame"),
+                    Token.Punctuation.String.End,
+                    Token.Punctuation.CloseBracket,
+                    Token.Punctuation.OpenBracket,
+                    Token.Punctuation.String.Begin,
+                    Token.Literals.String("betMult"),
+                    Token.Punctuation.String.End,
+                    Token.Punctuation.CloseBracket,
+                    Token.Punctuation.Accessor,
+                    Token.Variables.Property("AsLong"),
+                    Token.Punctuation.Semicolon
                 ]);
             });
         });
