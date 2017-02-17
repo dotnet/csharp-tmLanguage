@@ -817,6 +817,10 @@
             <array>
               <dict>
                 <key>include</key>
+                <string>#comment</string>
+              </dict>
+              <dict>
+                <key>include</key>
                 <string>#type-parameter-list</string>
               </dict>
               <dict>
@@ -956,6 +960,10 @@
             <string>(?=\{)</string>
             <key>patterns</key>
             <array>
+              <dict>
+                <key>include</key>
+                <string>#comment</string>
+              </dict>
               <dict>
                 <key>match</key>
                 <string>(enum)\s+([_[:alpha:]][_[:alnum:]]*)</string>
@@ -1104,6 +1112,10 @@
             <array>
               <dict>
                 <key>include</key>
+                <string>#comment</string>
+              </dict>
+              <dict>
+                <key>include</key>
                 <string>#type-parameter-list</string>
               </dict>
               <dict>
@@ -1185,6 +1197,10 @@
             <string>(?=\{)</string>
             <key>patterns</key>
             <array>
+              <dict>
+                <key>include</key>
+                <string>#comment</string>
+              </dict>
               <dict>
                 <key>include</key>
                 <string>#type-parameter-list</string>
