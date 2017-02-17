@@ -521,6 +521,9 @@ repository:
         end: "(?=\\{)"
         patterns: [
           {
+            include: "#comment"
+          }
+          {
             include: "#type-parameter-list"
           }
           {
@@ -613,6 +616,9 @@ repository:
         end: "(?=\\{)"
         patterns: [
           {
+            include: "#comment"
+          }
+          {
             match: "(enum)\\s+([_[:alpha:]][_[:alnum:]]*)"
             captures:
               "1":
@@ -698,6 +704,9 @@ repository:
         end: "(?=\\{)"
         patterns: [
           {
+            include: "#comment"
+          }
+          {
             include: "#type-parameter-list"
           }
           {
@@ -747,6 +756,9 @@ repository:
             name: "entity.name.type.struct.cs"
         end: "(?=\\{)"
         patterns: [
+          {
+            include: "#comment"
+          }
           {
             include: "#type-parameter-list"
           }

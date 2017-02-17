@@ -108,5 +108,153 @@ private char GetChar()//Метод возвращающий
                 Token.Comment.SingleLine.Start,
                 Token.Comment.SingleLine.Text("Метод возвращающий")]);
         });
+
+        it("comment out class declaration base type list - single line (issue #41)", () => {
+            const input = Input.FromText(`
+public class CustomBootstrapper // : DefaultNancyBootstrapper
+{
+}
+`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Modifiers.Public,
+                Token.Keywords.Class,
+                Token.Identifiers.ClassName("CustomBootstrapper"),
+                Token.Comment.SingleLine.Start,
+                Token.Comment.SingleLine.Text(" : DefaultNancyBootstrapper"),
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace]);
+        });
+
+        it("comment out class declaration base type list - multi line (issue #41)", () => {
+            const input = Input.FromText(`
+public class CustomBootstrapper /* : DefaultNancyBootstrapper */
+{
+}
+`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Modifiers.Public,
+                Token.Keywords.Class,
+                Token.Identifiers.ClassName("CustomBootstrapper"),
+                Token.Comment.MultiLine.Start,
+                Token.Comment.MultiLine.Text(" : DefaultNancyBootstrapper "),
+                Token.Comment.MultiLine.End,
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace]);
+        });
+
+        it("comment out interface declaration base type list - single line (issue #41)", () => {
+            const input = Input.FromText(`
+public interface CustomBootstrapper // : DefaultNancyBootstrapper
+{
+}
+`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Modifiers.Public,
+                Token.Keywords.Interface,
+                Token.Identifiers.InterfaceName("CustomBootstrapper"),
+                Token.Comment.SingleLine.Start,
+                Token.Comment.SingleLine.Text(" : DefaultNancyBootstrapper"),
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace]);
+        });
+
+        it("comment out interface declaration base type list - multi line (issue #41)", () => {
+            const input = Input.FromText(`
+public interface CustomBootstrapper /* : DefaultNancyBootstrapper */
+{
+}
+`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Modifiers.Public,
+                Token.Keywords.Interface,
+                Token.Identifiers.InterfaceName("CustomBootstrapper"),
+                Token.Comment.MultiLine.Start,
+                Token.Comment.MultiLine.Text(" : DefaultNancyBootstrapper "),
+                Token.Comment.MultiLine.End,
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace]);
+        });
+
+        it("comment out struct declaration base type list - single line (issue #41)", () => {
+            const input = Input.FromText(`
+public struct CustomBootstrapper // : DefaultNancyBootstrapper
+{
+}
+`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Modifiers.Public,
+                Token.Keywords.Struct,
+                Token.Identifiers.StructName("CustomBootstrapper"),
+                Token.Comment.SingleLine.Start,
+                Token.Comment.SingleLine.Text(" : DefaultNancyBootstrapper"),
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace]);
+        });
+
+        it("comment out struct declaration base type list - multi line (issue #41)", () => {
+            const input = Input.FromText(`
+public struct CustomBootstrapper /* : DefaultNancyBootstrapper */
+{
+}
+`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Modifiers.Public,
+                Token.Keywords.Struct,
+                Token.Identifiers.StructName("CustomBootstrapper"),
+                Token.Comment.MultiLine.Start,
+                Token.Comment.MultiLine.Text(" : DefaultNancyBootstrapper "),
+                Token.Comment.MultiLine.End,
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace]);
+        });
+
+        it("comment out enum declaration base type list - single line (issue #41)", () => {
+            const input = Input.FromText(`
+public enum CustomBootstrapper // : byte
+{
+}
+`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Modifiers.Public,
+                Token.Keywords.Enum,
+                Token.Identifiers.EnumName("CustomBootstrapper"),
+                Token.Comment.SingleLine.Start,
+                Token.Comment.SingleLine.Text(" : byte"),
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace]);
+        });
+
+        it("comment out enum declaration base type list - multi line (issue #41)", () => {
+            const input = Input.FromText(`
+public enum CustomBootstrapper /* : byte */
+{
+}
+`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Modifiers.Public,
+                Token.Keywords.Enum,
+                Token.Identifiers.EnumName("CustomBootstrapper"),
+                Token.Comment.MultiLine.Start,
+                Token.Comment.MultiLine.Text(" : byte "),
+                Token.Comment.MultiLine.End,
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace]);
+        });
     });
 });
