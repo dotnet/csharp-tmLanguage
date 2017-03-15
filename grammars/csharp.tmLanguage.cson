@@ -3041,7 +3041,7 @@ repository:
     end: "(?=(,|\\)|\\]))"
     patterns: [
       {
-        include: "#expression"
+        include: "#argument"
       }
     ]
   argument:

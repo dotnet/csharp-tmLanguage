@@ -1272,6 +1272,44 @@ class C
                 ]);
             });
 
+            it("named ref argument", () => {
+                const input = Input.InMethod(`var o = P[x: ref y];`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("o"),
+                    Token.Operators.Assignment,
+                    Token.Variables.Property("P"),
+                    Token.Punctuation.OpenBracket,
+                    Token.Identifiers.ParameterName("x"),
+                    Token.Punctuation.Colon,
+                    Token.Keywords.Modifiers.Ref,
+                    Token.Variables.ReadWrite("y"),
+                    Token.Punctuation.CloseBracket,
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
+            it("named out argument", () => {
+                const input = Input.InMethod(`var o = P[x: out y];`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("o"),
+                    Token.Operators.Assignment,
+                    Token.Variables.Property("P"),
+                    Token.Punctuation.OpenBracket,
+                    Token.Identifiers.ParameterName("x"),
+                    Token.Punctuation.Colon,
+                    Token.Keywords.Modifiers.Out,
+                    Token.Variables.ReadWrite("y"),
+                    Token.Punctuation.CloseBracket,
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
             it("member of generic with no arguments", () => {
                 const input = Input.InMethod(`var o = C<int>.P[];`);
                 const tokens = tokenize(input);
@@ -1671,6 +1709,38 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
                     Token.Punctuation.OpenParen,
                     Token.Keywords.Modifiers.Out,
                     Token.Variables.ReadWrite("x"),
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
+            it("named ref argument", () => {
+                const input = Input.InMethod(`M(x: ref y);`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Identifiers.MethodName("M"),
+                    Token.Punctuation.OpenParen,
+                    Token.Identifiers.ParameterName("x"),
+                    Token.Punctuation.Colon,
+                    Token.Keywords.Modifiers.Ref,
+                    Token.Variables.ReadWrite("y"),
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
+            it("named out argument", () => {
+                const input = Input.InMethod(`M(x: out y);`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Identifiers.MethodName("M"),
+                    Token.Punctuation.OpenParen,
+                    Token.Identifiers.ParameterName("x"),
+                    Token.Punctuation.Colon,
+                    Token.Keywords.Modifiers.Out,
+                    Token.Variables.ReadWrite("y"),
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.Semicolon
                 ]);
