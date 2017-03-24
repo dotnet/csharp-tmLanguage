@@ -1134,6 +1134,9 @@ repository:
         match: "\\b(set)\\b"
       }
       {
+        include: "#comment"
+      }
+      {
         include: "#attribute-section"
       }
       {
@@ -1160,6 +1163,9 @@ repository:
       {
         name: "keyword.other.remove.cs"
         match: "\\b(remove)\\b"
+      }
+      {
+        include: "#comment"
       }
       {
         include: "#attribute-section"
