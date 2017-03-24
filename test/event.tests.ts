@@ -176,5 +176,37 @@ public event Action E1
                 Token.Punctuation.CloseBrace
             ]);
         });
+
+        it("Expression-bodied event accessors (issue #44)", () => {
+            const input = Input.InClass(`
+event EventHandler E
+{
+    add => Add(value);
+    remove => Remove(value);
+}
+`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Event,
+                Token.Type("EventHandler"),
+                Token.Identifiers.EventName("E"),
+                Token.Punctuation.OpenBrace,
+                Token.Keywords.Add,
+                Token.Operators.Arrow,
+                Token.Identifiers.MethodName("Add"),
+                Token.Punctuation.OpenParen,
+                Token.Variables.ReadWrite("value"),
+                Token.Punctuation.CloseParen,
+                Token.Punctuation.Semicolon,
+                Token.Keywords.Remove,
+                Token.Operators.Arrow,
+                Token.Identifiers.MethodName("Remove"),
+                Token.Punctuation.OpenParen,
+                Token.Variables.ReadWrite("value"),
+                Token.Punctuation.CloseParen,
+                Token.Punctuation.Semicolon,
+                Token.Punctuation.CloseBrace]);
+        });
     });
 });

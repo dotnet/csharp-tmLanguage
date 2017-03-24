@@ -320,5 +320,36 @@ public int P1
                 Token.Punctuation.CloseBrace,
                 Token.Punctuation.CloseBrace]);
         });
+
+        it("Expression-bodied property accessors (issue #44)", () => {
+            const input = Input.InClass(`
+public int Timeout
+{
+    get => Socket.ReceiveTimeout;
+    set => Socket.ReceiveTimeout = value;
+}`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Modifiers.Public,
+                Token.PrimitiveType.Int,
+                Token.Identifiers.PropertyName("Timeout"),
+                Token.Punctuation.OpenBrace,
+                Token.Keywords.Get,
+                Token.Operators.Arrow,
+                Token.Variables.Object("Socket"),
+                Token.Punctuation.Accessor,
+                Token.Variables.Property("ReceiveTimeout"),
+                Token.Punctuation.Semicolon,
+                Token.Keywords.Set,
+                Token.Operators.Arrow,
+                Token.Variables.Object("Socket"),
+                Token.Punctuation.Accessor,
+                Token.Variables.Property("ReceiveTimeout"),
+                Token.Operators.Assignment,
+                Token.Variables.ReadWrite("value"),
+                Token.Punctuation.Semicolon,
+                Token.Punctuation.CloseBrace]);
+        });
     });
 });
