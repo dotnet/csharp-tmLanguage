@@ -5568,7 +5568,7 @@
               </dict>
             </dict>
             <key>end</key>
-            <string>(?=\)|;|})</string>
+            <string>(?=\)|;|}|,)</string>
             <key>patterns</key>
             <array>
               <dict>
@@ -5585,7 +5585,7 @@
             <key>begin</key>
             <string>(?x)
 (?:\b(async)\b\s*)?
-(\(.*\))\s*
+(\(.*?\))\s*
 (=&gt;)</string>
             <key>beginCaptures</key>
             <dict>
@@ -5611,7 +5611,7 @@
               </dict>
             </dict>
             <key>end</key>
-            <string>(?=\)|;|})</string>
+            <string>(?=\)|;|}|,)</string>
             <key>patterns</key>
             <array>
               <dict>
@@ -5643,7 +5643,7 @@
               </dict>
             </dict>
             <key>end</key>
-            <string>(?=\)|;|})</string>
+            <string>(?=\)|;|}|,)</string>
             <key>patterns</key>
             <array>
               <dict>
@@ -5665,7 +5665,7 @@
       <key>lambda-parameter-list</key>
       <dict>
         <key>begin</key>
-        <string>(\()</string>
+        <string>\(</string>
         <key>beginCaptures</key>
         <dict>
           <key>0</key>
@@ -5675,7 +5675,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(\))</string>
+        <string>\)</string>
         <key>endCaptures</key>
         <dict>
           <key>0</key>

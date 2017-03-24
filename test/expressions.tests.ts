@@ -47,6 +47,27 @@ describe("Grammar", () => {
                 ]);
             });
 
+            it("lambda expression with single parenthesized parameter (assignment)", () => {
+                const input = Input.InMethod(`Action<int> a = (x) => { };`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Type("Action"),
+                    Token.Punctuation.TypeParameters.Begin,
+                    Token.PrimitiveType.Int,
+                    Token.Punctuation.TypeParameters.End,
+                    Token.Identifiers.LocalName("a"),
+                    Token.Operators.Assignment,
+                    Token.Punctuation.OpenParen,
+                    Token.Identifiers.ParameterName("x"),
+                    Token.Punctuation.CloseParen,
+                    Token.Operators.Arrow,
+                    Token.Punctuation.OpenBrace,
+                    Token.Punctuation.CloseBrace,
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
             it("lambda expression with single typed parameter (assignment)", () => {
                 const input = Input.InMethod(`Action<int> a = (int x) => { };`);
                 const tokens = tokenize(input);
@@ -157,6 +178,30 @@ describe("Grammar", () => {
                     Token.Operators.Assignment,
                     Token.Keywords.Modifiers.Async,
                     Token.Identifiers.ParameterName("x"),
+                    Token.Operators.Arrow,
+                    Token.Punctuation.OpenBrace,
+                    Token.Punctuation.CloseBrace,
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
+            it("async lambda expression with single parenthesized parameter (assignment)", () => {
+                const input = Input.InMethod(`Func<int, Task> a = async (x) => { };`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Type("Func"),
+                    Token.Punctuation.TypeParameters.Begin,
+                    Token.PrimitiveType.Int,
+                    Token.Punctuation.Comma,
+                    Token.Type("Task"),
+                    Token.Punctuation.TypeParameters.End,
+                    Token.Identifiers.LocalName("a"),
+                    Token.Operators.Assignment,
+                    Token.Keywords.Modifiers.Async,
+                    Token.Punctuation.OpenParen,
+                    Token.Identifiers.ParameterName("x"),
+                    Token.Punctuation.CloseParen,
                     Token.Operators.Arrow,
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
@@ -400,6 +445,24 @@ describe("Grammar", () => {
                 ]);
             });
 
+            it("lambda expression with single parenthesized parameter (passed as argument)", () => {
+                const input = Input.InMethod(`M((x) => { });`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Identifiers.MethodName("M"),
+                    Token.Punctuation.OpenParen,
+                    Token.Punctuation.OpenParen,
+                    Token.Identifiers.ParameterName("x"),
+                    Token.Punctuation.CloseParen,
+                    Token.Operators.Arrow,
+                    Token.Punctuation.OpenBrace,
+                    Token.Punctuation.CloseBrace,
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
             it("lambda expression with single typed parameter (passed as argument)", () => {
                 const input = Input.InMethod(`M((int x) => { });`);
                 const tokens = tokenize(input);
@@ -488,6 +551,25 @@ describe("Grammar", () => {
                     Token.Punctuation.OpenParen,
                     Token.Keywords.Modifiers.Async,
                     Token.Identifiers.ParameterName("x"),
+                    Token.Operators.Arrow,
+                    Token.Punctuation.OpenBrace,
+                    Token.Punctuation.CloseBrace,
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
+            it("async lambda expression with single parenthesized parameter (passed as argument)", () => {
+                const input = Input.InMethod(`M(async (x) => { });`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Identifiers.MethodName("M"),
+                    Token.Punctuation.OpenParen,
+                    Token.Keywords.Modifiers.Async,
+                    Token.Punctuation.OpenParen,
+                    Token.Identifiers.ParameterName("x"),
+                    Token.Punctuation.CloseParen,
                     Token.Operators.Arrow,
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
@@ -1845,6 +1927,245 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
                     Token.Literals.Numeric.Decimal("23"),
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.Semicolon
+                ]);
+            });
+
+            it("chained method calls", () => {
+                const input = Input.InMethod(`M1().M2();`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Identifiers.MethodName("M1"),
+                    Token.Punctuation.OpenParen,
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Accessor,
+                    Token.Identifiers.MethodName("M2"),
+                    Token.Punctuation.OpenParen,
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
+            it("chained invocations with lambda expression arguments", () => {
+                const input = Input.InMethod(`M1(x => x).M2(x => x);`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Identifiers.MethodName("M1"),
+                    Token.Punctuation.OpenParen,
+                    Token.Identifiers.ParameterName("x"),
+                    Token.Operators.Arrow,
+                    Token.Variables.ReadWrite("x"),
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Accessor,
+                    Token.Identifiers.MethodName("M2"),
+                    Token.Punctuation.OpenParen,
+                    Token.Identifiers.ParameterName("x"),
+                    Token.Operators.Arrow,
+                    Token.Variables.ReadWrite("x"),
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
+            it("chained invocations with lambda expression arguments, each with single parenthesized parameter", () => {
+                const input = Input.InMethod(`M1((x) => x).M2((x) => x);`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Identifiers.MethodName("M1"),
+                    Token.Punctuation.OpenParen,
+                    Token.Punctuation.OpenParen,
+                    Token.Identifiers.ParameterName("x"),
+                    Token.Punctuation.CloseParen,
+                    Token.Operators.Arrow,
+                    Token.Variables.ReadWrite("x"),
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Accessor,
+                    Token.Identifiers.MethodName("M2"),
+                    Token.Punctuation.OpenParen,
+                    Token.Punctuation.OpenParen,
+                    Token.Identifiers.ParameterName("x"),
+                    Token.Punctuation.CloseParen,
+                    Token.Operators.Arrow,
+                    Token.Variables.ReadWrite("x"),
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
+            it("chained invocations with multiple lambda expression arguments", () => {
+                const input = Input.InMethod(`M1(x => x, y => y).M2(x => x, y => y);`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Identifiers.MethodName("M1"),
+                    Token.Punctuation.OpenParen,
+                    Token.Identifiers.ParameterName("x"),
+                    Token.Operators.Arrow,
+                    Token.Variables.ReadWrite("x"),
+                    Token.Punctuation.Comma,
+                    Token.Identifiers.ParameterName("y"),
+                    Token.Operators.Arrow,
+                    Token.Variables.ReadWrite("y"),
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Accessor,
+                    Token.Identifiers.MethodName("M2"),
+                    Token.Punctuation.OpenParen,
+                    Token.Identifiers.ParameterName("x"),
+                    Token.Operators.Arrow,
+                    Token.Variables.ReadWrite("x"),
+                    Token.Punctuation.Comma,
+                    Token.Identifiers.ParameterName("y"),
+                    Token.Operators.Arrow,
+                    Token.Variables.ReadWrite("y"),
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
+            it("chained invocations with multiple lambda expression arguments (with parenthesized parameters)", () => {
+                const input = Input.InMethod(`M1((x) => x, (y) => y).M2((x) => x, (y) => y);`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Identifiers.MethodName("M1"),
+                    Token.Punctuation.OpenParen,
+                    Token.Punctuation.OpenParen,
+                    Token.Identifiers.ParameterName("x"),
+                    Token.Punctuation.CloseParen,
+                    Token.Operators.Arrow,
+                    Token.Variables.ReadWrite("x"),
+                    Token.Punctuation.Comma,
+                    Token.Punctuation.OpenParen,
+                    Token.Identifiers.ParameterName("y"),
+                    Token.Punctuation.CloseParen,
+                    Token.Operators.Arrow,
+                    Token.Variables.ReadWrite("y"),
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Accessor,
+                    Token.Identifiers.MethodName("M2"),
+                    Token.Punctuation.OpenParen,
+                    Token.Punctuation.OpenParen,
+                    Token.Identifiers.ParameterName("x"),
+                    Token.Punctuation.CloseParen,
+                    Token.Operators.Arrow,
+                    Token.Variables.ReadWrite("x"),
+                    Token.Punctuation.Comma,
+                    Token.Punctuation.OpenParen,
+                    Token.Identifiers.ParameterName("y"),
+                    Token.Punctuation.CloseParen,
+                    Token.Operators.Arrow,
+                    Token.Variables.ReadWrite("y"),
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
+            it("multiple invocations with lambda expressions (issue #47)", () => {
+                const input = Input.InClass(`
+void CandleLightOffSecond(int index)
+{
+    DOTween.ToAlpha(() => FSItems[index].CandleSecond.startColor, (x) => FSItems[index].CandleSecond.startColor = x, 0f, 1f).OnComplete(() => DisableCandleFX(index));
+    DOTween.ToAlpha(() => FSItems[index].CandleSecond.startColor, (x) => FSItems[index].CandleSecond.startColor = x, 0f, 1f);
+}`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.PrimitiveType.Void,
+                    Token.Identifiers.MethodName("CandleLightOffSecond"),
+                    Token.Punctuation.OpenParen,
+                    Token.PrimitiveType.Int,
+                    Token.Identifiers.ParameterName("index"),
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.OpenBrace,
+
+                    Token.Variables.Object("DOTween"),
+                    Token.Punctuation.Accessor,
+                    Token.Identifiers.MethodName("ToAlpha"),
+                    Token.Punctuation.OpenParen,
+                    Token.Punctuation.OpenParen,
+                    Token.Punctuation.CloseParen,
+                    Token.Operators.Arrow,
+                    Token.Variables.Property("FSItems"),
+                    Token.Punctuation.OpenBracket,
+                    Token.Variables.ReadWrite("index"),
+                    Token.Punctuation.CloseBracket,
+                    Token.Punctuation.Accessor,
+                    Token.Variables.Property("CandleSecond"),
+                    Token.Punctuation.Accessor,
+                    Token.Variables.Property("startColor"),
+                    Token.Punctuation.Comma,
+                    Token.Punctuation.OpenParen,
+                    Token.Identifiers.ParameterName("x"),
+                    Token.Punctuation.CloseParen,
+                    Token.Operators.Arrow,
+                    Token.Variables.Property("FSItems"),
+                    Token.Punctuation.OpenBracket,
+                    Token.Variables.ReadWrite("index"),
+                    Token.Punctuation.CloseBracket,
+                    Token.Punctuation.Accessor,
+                    Token.Variables.Property("CandleSecond"),
+                    Token.Punctuation.Accessor,
+                    Token.Variables.Property("startColor"),
+                    Token.Operators.Assignment,
+                    Token.Variables.ReadWrite("x"),
+                    Token.Punctuation.Comma,
+                    Token.Literals.Numeric.Decimal("0f"),
+                    Token.Punctuation.Comma,
+                    Token.Literals.Numeric.Decimal("1f"),
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Accessor,
+                    Token.Identifiers.MethodName("OnComplete"),
+                    Token.Punctuation.OpenParen,
+                    Token.Punctuation.OpenParen,
+                    Token.Punctuation.CloseParen,
+                    Token.Operators.Arrow,
+                    Token.Identifiers.MethodName("DisableCandleFX"),
+                    Token.Punctuation.OpenParen,
+                    Token.Variables.ReadWrite("index"),
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Semicolon,
+
+                    Token.Variables.Object("DOTween"),
+                    Token.Punctuation.Accessor,
+                    Token.Identifiers.MethodName("ToAlpha"),
+                    Token.Punctuation.OpenParen,
+                    Token.Punctuation.OpenParen,
+                    Token.Punctuation.CloseParen,
+                    Token.Operators.Arrow,
+                    Token.Variables.Property("FSItems"),
+                    Token.Punctuation.OpenBracket,
+                    Token.Variables.ReadWrite("index"),
+                    Token.Punctuation.CloseBracket,
+                    Token.Punctuation.Accessor,
+                    Token.Variables.Property("CandleSecond"),
+                    Token.Punctuation.Accessor,
+                    Token.Variables.Property("startColor"),
+                    Token.Punctuation.Comma,
+                    Token.Punctuation.OpenParen,
+                    Token.Identifiers.ParameterName("x"),
+                    Token.Punctuation.CloseParen,
+                    Token.Operators.Arrow,
+                    Token.Variables.Property("FSItems"),
+                    Token.Punctuation.OpenBracket,
+                    Token.Variables.ReadWrite("index"),
+                    Token.Punctuation.CloseBracket,
+                    Token.Punctuation.Accessor,
+                    Token.Variables.Property("CandleSecond"),
+                    Token.Punctuation.Accessor,
+                    Token.Variables.Property("startColor"),
+                    Token.Operators.Assignment,
+                    Token.Variables.ReadWrite("x"),
+                    Token.Punctuation.Comma,
+                    Token.Literals.Numeric.Decimal("0f"),
+                    Token.Punctuation.Comma,
+                    Token.Literals.Numeric.Decimal("1f"),
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Semicolon,
+
+                    Token.Punctuation.CloseBrace
                 ]);
             });
         });
