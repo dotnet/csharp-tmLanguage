@@ -256,5 +256,59 @@ public enum CustomBootstrapper /* : byte */
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace]);
         });
+
+        it("after property accessor (issue #50)", () => {
+            const input = Input.InClass(`
+int P {
+    get { return 42; } // comment1
+    set { } // comment2
+}`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.PrimitiveType.Int,
+                Token.Identifiers.PropertyName("P"),
+                Token.Punctuation.OpenBrace,
+                Token.Keywords.Get,
+                Token.Punctuation.OpenBrace,
+                Token.Keywords.Control.Return,
+                Token.Literals.Numeric.Decimal("42"),
+                Token.Punctuation.Semicolon,
+                Token.Punctuation.CloseBrace,
+                Token.Comment.SingleLine.Start,
+                Token.Comment.SingleLine.Text(" comment1"),
+                Token.Keywords.Set,
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace,
+                Token.Comment.SingleLine.Start,
+                Token.Comment.SingleLine.Text(" comment2"),
+                Token.Punctuation.CloseBrace]);
+        });
+
+        it("after event accessor (issue #50)", () => {
+            const input = Input.InClass(`
+event EventHandler E {
+    add { } // comment1
+    remove { } // comment2
+}`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Event,
+                Token.Type("EventHandler"),
+                Token.Identifiers.EventName("E"),
+                Token.Punctuation.OpenBrace,
+                Token.Keywords.Add,
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace,
+                Token.Comment.SingleLine.Start,
+                Token.Comment.SingleLine.Text(" comment1"),
+                Token.Keywords.Remove,
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace,
+                Token.Comment.SingleLine.Start,
+                Token.Comment.SingleLine.Text(" comment2"),
+                Token.Punctuation.CloseBrace]);
+        });
     });
 });

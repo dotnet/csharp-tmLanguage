@@ -1783,6 +1783,10 @@
           </dict>
           <dict>
             <key>include</key>
+            <string>#comment</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#attribute-section</string>
           </dict>
           <dict>
@@ -1830,6 +1834,10 @@
             <string>keyword.other.remove.cs</string>
             <key>match</key>
             <string>\b(remove)\b</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#comment</string>
           </dict>
           <dict>
             <key>include</key>
