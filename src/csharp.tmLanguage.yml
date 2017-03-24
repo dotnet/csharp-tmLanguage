@@ -2157,14 +2157,14 @@ repository:
         '1': { name: storage.modifier.cs }
         '2': { name: entity.name.variable.parameter.cs }
         '3': { name: keyword.operator.arrow.cs }
-      end: (?=\)|;|})
+      end: (?=\)|;|}|,)
       patterns:
       - include: '#block'
       - include: '#expression'
     - begin: |-
         (?x)
         (?:\b(async)\b\s*)?
-        (\(.*\))\s*
+        (\(.*?\))\s*
         (=>)
       beginCaptures:
         '1': { name: storage.modifier.cs }
@@ -2172,7 +2172,7 @@ repository:
           patterns:
           - include: '#lambda-parameter-list'
         '3': { name: keyword.operator.arrow.cs }
-      end: (?=\)|;|})
+      end: (?=\)|;|}|,)
       patterns:
       - include: '#block'
       - include: '#expression'
@@ -2183,17 +2183,17 @@ repository:
       beginCaptures:
         '1': { name: storage.modifier.cs }
         '2': { name: keyword.other.delegate.cs }
-      end: (?=\)|;|})
+      end: (?=\)|;|}|,)
       patterns:
       - include: '#parenthesized-parameter-list'
       - include: '#block'
       - include: '#expression'
 
   lambda-parameter-list:
-    begin: (\()
+    begin: \(
     beginCaptures:
       '0': { name: punctuation.parenthesis.open.cs }
-    end: (\))
+    end: \)
     endCaptures:
       '0': { name: punctuation.parenthesis.close.cs }
     patterns:
