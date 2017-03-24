@@ -1791,6 +1791,10 @@
           </dict>
           <dict>
             <key>include</key>
+            <string>#expression-body</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#block</string>
           </dict>
           <dict>
@@ -1842,6 +1846,10 @@
           <dict>
             <key>include</key>
             <string>#attribute-section</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#expression-body</string>
           </dict>
           <dict>
             <key>include</key>

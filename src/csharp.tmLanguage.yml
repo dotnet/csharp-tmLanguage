@@ -635,6 +635,7 @@ repository:
       match: \b(set)\b
     - include: '#comment'
     - include: '#attribute-section'
+    - include: '#expression-body'
     - include: '#block'
     - include: '#punctuation-semicolon'
 
@@ -652,6 +653,7 @@ repository:
       match: \b(remove)\b
     - include: '#comment'
     - include: '#attribute-section'
+    - include: '#expression-body'
     - include: '#block'
     - include: '#punctuation-semicolon'
 

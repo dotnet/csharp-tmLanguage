@@ -1140,6 +1140,9 @@ repository:
         include: "#attribute-section"
       }
       {
+        include: "#expression-body"
+      }
+      {
         include: "#block"
       }
       {
@@ -1169,6 +1172,9 @@ repository:
       }
       {
         include: "#attribute-section"
+      }
+      {
+        include: "#expression-body"
       }
       {
         include: "#block"
