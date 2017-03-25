@@ -5094,7 +5094,7 @@
         <array>
           <dict>
             <key>include</key>
-            <string>#expression</string>
+            <string>#argument</string>
           </dict>
         </array>
       </dict>
