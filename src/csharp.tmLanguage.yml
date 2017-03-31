@@ -1316,7 +1316,7 @@ repository:
     patterns:
     - include: '#comment'
     - include: '#tuple-declaration-deconstruction-element-list'
-    - include: '#declaration-expression'
+    - include: '#declaration-expression-tuple'
     - include: '#punctuation-comma'
     - match: |-
         (?x) # e.g. x
@@ -1335,7 +1335,7 @@ repository:
     patterns:
     - include: '#comment'
     - include: '#tuple-deconstruction-element-list'
-    - include: '#declaration-expression'
+    - include: '#declaration-expression-tuple'
     - include: '#punctuation-comma'
     - match: |-
         (?x) # e.g. x
@@ -1344,7 +1344,40 @@ repository:
       captures:
         '1': { name: variable.other.readwrite.cs }
 
-  declaration-expression:
+  declaration-expression-local:
+    match: |-
+      (?x) # e.g. int x OR var x
+      (?:
+        \b(var)\b|
+        (?<type-name>
+          (?:
+              (?:(?<identifier>[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
+              (?<name-and-type-args> # identifier + type arguments (if any)
+                \g<identifier>\s*
+                (?<type-args>\s*<(?:[^<>]|\g<type-args>)+>\s*)?
+              )
+              (?:\s*\.\s*\g<name-and-type-args>)* # Are there any more names being dotted into?
+              (?:\s*\*\s*)* # pointer suffix?
+              (?:\s*\?\s*)? # nullable suffix?
+              (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
+          )|
+          (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
+        )
+      )\s+
+      \b(\g<identifier>)\b\s*
+      (?=[,)\]])
+    captures:
+      '1': { name: keyword.other.var.cs }
+      '2':
+        patterns:
+        - include: '#type'
+      # '3': ?<identifier> is a sub-expression. It's final value is not considered.
+      # '4': ?<name-and-type-args> is a sub-expression. It's final value is not considered.
+      # '5': ?<type-args> is a sub-expression. It's final value is not considered.
+      # '6': ?<tuple> is a sub-expression. It's final value is not considered.
+      '7': { name: entity.name.variable.local.cs }
+
+  declaration-expression-tuple:
     match: |-
       (?x) # e.g. int x OR var x
       (?:
@@ -1964,6 +1997,7 @@ repository:
     patterns:
     - name: storage.modifier.cs
       match: \b(ref|out)\b
+    - include: '#declaration-expression-local'
     - include: '#expression'
 
   query-expression:
