@@ -645,7 +645,7 @@ finally
                     Token.Keywords.Control.Try,
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
-                    Token.Keywords.Finally,
+                    Token.Keywords.Control.Finally,
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace
                 ]);
@@ -691,7 +691,7 @@ finally
                     Token.Keywords.Control.Catch,
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
-                    Token.Keywords.Finally,
+                    Token.Keywords.Control.Finally,
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace
                 ]);
@@ -817,7 +817,7 @@ int x;`);
                     Token.Keywords.Control.Try,
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
-                    Token.Keywords.Finally,
+                    Token.Keywords.Control.Finally,
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
                     Token.PrimitiveType.Int,

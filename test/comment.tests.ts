@@ -310,5 +310,135 @@ event EventHandler E {
                 Token.Comment.SingleLine.Text(" comment2"),
                 Token.Punctuation.CloseBrace]);
         });
+
+        it("after try (issue #60)", () => {
+            const input = Input.InMethod(`
+try //comment
+{
+}
+finally
+{
+}
+`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Control.Try,
+                Token.Comment.SingleLine.Start,
+                Token.Comment.SingleLine.Text("comment"),
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace,
+                Token.Keywords.Control.Finally,
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace]);
+        });
+
+        it("after finally (issue #60)", () => {
+            const input = Input.InMethod(`
+try
+{
+}
+finally //comment
+{
+}
+`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Control.Try,
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace,
+                Token.Keywords.Control.Finally,
+                Token.Comment.SingleLine.Start,
+                Token.Comment.SingleLine.Text("comment"),
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace]);
+        });
+
+        it("after catch (issue #60)", () => {
+            const input = Input.InMethod(`
+try
+{
+}
+catch //comment
+{
+}
+`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Control.Try,
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace,
+                Token.Keywords.Control.Catch,
+                Token.Comment.SingleLine.Start,
+                Token.Comment.SingleLine.Text("comment"),
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace]);
+        });
+
+        it("after catch with exception (issue #60)", () => {
+            const input = Input.InMethod(`
+try
+{
+}
+catch (Exception) //comment
+{
+}
+`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Control.Try,
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace,
+                Token.Keywords.Control.Catch,
+                Token.Punctuation.OpenParen,
+                Token.Type("Exception"),
+                Token.Punctuation.CloseParen,
+                Token.Comment.SingleLine.Start,
+                Token.Comment.SingleLine.Text("comment"),
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace]);
+        });
+
+        it("after exception filter (issue #60)", () => {
+            const input = Input.InMethod(`
+try
+{
+}
+catch (DataNotFoundException dnfe) when (dnfe.GetType() == typeof(DataNotFoundException)) //Only catch exceptions that are distinctly DataNotFoundException
+{
+}
+`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Control.Try,
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace,
+                Token.Keywords.Control.Catch,
+                Token.Punctuation.OpenParen,
+                Token.Type("DataNotFoundException"),
+                Token.Identifiers.LocalName("dnfe"),
+                Token.Punctuation.CloseParen,
+                Token.Keywords.Control.When,
+                Token.Punctuation.OpenParen,
+                Token.Variables.Object("dnfe"),
+                Token.Punctuation.Accessor,
+                Token.Identifiers.MethodName("GetType"),
+                Token.Punctuation.OpenParen,
+                Token.Punctuation.CloseParen,
+                Token.Operators.Relational.Equals,
+                Token.Keywords.TypeOf,
+                Token.Punctuation.OpenParen,
+                Token.Type("DataNotFoundException"),
+                Token.Punctuation.CloseParen,
+                Token.Punctuation.CloseParen,
+                Token.Comment.SingleLine.Start,
+                Token.Comment.SingleLine.Text("Only catch exceptions that are distinctly DataNotFoundException"),
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace]);
+        });
     });
 });
