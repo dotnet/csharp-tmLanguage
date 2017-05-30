@@ -1743,8 +1743,33 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
                 ]);
             });
 
+            it("no arguments with space (issue #54)", () => {
+                const input = Input.InMethod(`M ();`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Identifiers.MethodName("M"),
+                    Token.Punctuation.OpenParen,
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
             it("one argument", () => {
                 const input = Input.InMethod(`M(42);`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Identifiers.MethodName("M"),
+                    Token.Punctuation.OpenParen,
+                    Token.Literals.Numeric.Decimal("42"),
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
+            it("one argument with space (issue #54)", () => {
+                const input = Input.InMethod(`M (42);`);
                 const tokens = tokenize(input);
 
                 tokens.should.deep.equal([
@@ -1992,6 +2017,36 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
                     Token.Variables.Object("N"),
                     Token.Punctuation.Accessor,
                     Token.Variables.Property("C"),
+                    Token.Punctuation.Accessor,
+                    Token.Identifiers.MethodName("M"),
+                    Token.Punctuation.OpenParen,
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
+            it("qualified method with no arguments and space 1 (issue #54)", () => {
+                const input = Input.InMethod(`N.C.M ();`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Variables.Object("N"),
+                    Token.Punctuation.Accessor,
+                    Token.Variables.Property("C"),
+                    Token.Punctuation.Accessor,
+                    Token.Identifiers.MethodName("M"),
+                    Token.Punctuation.OpenParen,
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
+            it("qualified method with no arguments and space 2 (issue #54)", () => {
+                const input = Input.InMethod(`C.M ();`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Variables.Object("C"),
                     Token.Punctuation.Accessor,
                     Token.Identifiers.MethodName("M"),
                     Token.Punctuation.OpenParen,
