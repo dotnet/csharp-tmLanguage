@@ -1392,6 +1392,28 @@ class C
                 ]);
             });
 
+            it("out argument declaration", () => {
+                const input = Input.InMethod(`var o = P[out int x, out var y];`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("o"),
+                    Token.Operators.Assignment,
+                    Token.Variables.Property("P"),
+                    Token.Punctuation.OpenBracket,
+                    Token.Keywords.Modifiers.Out,
+                    Token.PrimitiveType.Int,
+                    Token.Identifiers.LocalName("x"),
+                    Token.Punctuation.Comma,
+                    Token.Keywords.Modifiers.Out,
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("y"),
+                    Token.Punctuation.CloseBracket,
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
             it("member of generic with no arguments", () => {
                 const input = Input.InMethod(`var o = C<int>.P[];`);
                 const tokens = tokenize(input);
@@ -1823,6 +1845,25 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
                     Token.Punctuation.Colon,
                     Token.Keywords.Modifiers.Out,
                     Token.Variables.ReadWrite("y"),
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
+            it("out argument declaration", () => {
+                const input = Input.InMethod(`M(out int x, out var y);`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Identifiers.MethodName("M"),
+                    Token.Punctuation.OpenParen,
+                    Token.Keywords.Modifiers.Out,
+                    Token.PrimitiveType.Int,
+                    Token.Identifiers.LocalName("x"),
+                    Token.Punctuation.Comma,
+                    Token.Keywords.Modifiers.Out,
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("y"),
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.Semicolon
                 ]);
