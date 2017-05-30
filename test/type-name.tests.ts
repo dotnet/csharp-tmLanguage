@@ -115,6 +115,37 @@ describe("Grammar", () => {
                 Token.Punctuation.Semicolon]);
         });
 
+        it("nullable tuple type - (int, int)?", () => {
+            const input = Input.InClass(`(int, int)? x;`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.OpenParen,
+                Token.PrimitiveType.Int,
+                Token.Punctuation.Comma,
+                Token.PrimitiveType.Int,
+                Token.Punctuation.CloseParen,
+                Token.Punctuation.QuestionMark,
+                Token.Identifiers.FieldName("x"),
+                Token.Punctuation.Semicolon]);
+        });
+
+        it("array tuple type - (int, int)[]", () => {
+            const input = Input.InClass(`(int, int)[] x;`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.OpenParen,
+                Token.PrimitiveType.Int,
+                Token.Punctuation.Comma,
+                Token.PrimitiveType.Int,
+                Token.Punctuation.CloseParen,
+                Token.Punctuation.OpenBracket,
+                Token.Punctuation.CloseBracket,
+                Token.Identifiers.FieldName("x"),
+                Token.Punctuation.Semicolon]);
+        });
+
         it("generic type - List<int>", () => {
             const input = Input.InClass(`List<int> x;`);
             const tokens = tokenize(input);

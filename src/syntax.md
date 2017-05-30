@@ -10,16 +10,18 @@
 ```
 (?<type-name>
     (?:
-        (?:(?<identifier>[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
-        (?<name-and-type-args> # identifier + type arguments (if any)
-            \g<identifier>\s*
-            (?<type-args>\s*<(?:[^<>]|\g<type-args>)+>\s*)?
+        (?:
+            (?:(?<identifier>[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
+            (?<name-and-type-args> # identifier + type arguments (if any)
+                \g<identifier>\s*
+                (?<type-args>\s*<(?:[^<>]|\g<type-args>)+>\s*)?
+            )
+            (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
+            (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
         )
-        (?:\s*\.\s*\g<name-and-type-args>)* # Are there any more names being dotted into?
         (?:\s*\*\s*)* # pointer suffix?
         (?:\s*\?\s*)? # nullable suffix?
         (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
-    )|
-    (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
+    )
 )
 ```
