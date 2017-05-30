@@ -3018,6 +3018,10 @@
         <array>
           <dict>
             <key>include</key>
+            <string>#comment</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#block</string>
           </dict>
         </array>
@@ -3038,6 +3042,10 @@
         <string>(?&lt;=\})</string>
         <key>patterns</key>
         <array>
+          <dict>
+            <key>include</key>
+            <string>#comment</string>
+          </dict>
           <dict>
             <key>include</key>
             <string>#block</string>
@@ -3130,6 +3138,10 @@
           </dict>
           <dict>
             <key>include</key>
+            <string>#comment</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#block</string>
           </dict>
         </array>
@@ -3166,6 +3178,10 @@
           <dict>
             <key>include</key>
             <string>#expression</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#comment</string>
           </dict>
         </array>
       </dict>

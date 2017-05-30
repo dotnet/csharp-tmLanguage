@@ -1103,6 +1103,7 @@ repository:
       '1': { name: keyword.control.try.cs }
     end: (?<=\})
     patterns:
+    - include: '#comment'
     - include: '#block'
 
   finally-clause:
@@ -1111,6 +1112,7 @@ repository:
       '1': { name: keyword.control.try.finally.cs }
     end: (?<=\})
     patterns:
+    - include: '#comment'
     - include: '#block'
 
   catch-clause:
@@ -1155,6 +1157,7 @@ repository:
           # '5': ?<tuple> is a sub-expression. It's final value is not considered.
           '6': { name: entity.name.variable.local.cs }
     - include: '#when-clause'
+    - include: '#comment'
     - include: '#block'
 
   when-clause:
@@ -1167,6 +1170,7 @@ repository:
       '0': { name: punctuation.parenthesis.close.cs }
     patterns:
     - include: '#expression'
+    - include: '#comment'
 
   checked-unchecked-statement:
     begin: (?<!\.)\b(?:(checked)|(unchecked))\b\s*(?!\()

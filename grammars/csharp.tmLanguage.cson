@@ -1849,6 +1849,9 @@ repository:
     end: "(?<=\\})"
     patterns: [
       {
+        include: "#comment"
+      }
+      {
         include: "#block"
       }
     ]
@@ -1859,6 +1862,9 @@ repository:
         name: "keyword.control.try.finally.cs"
     end: "(?<=\\})"
     patterns: [
+      {
+        include: "#comment"
+      }
       {
         include: "#block"
       }
@@ -1917,6 +1923,9 @@ repository:
         include: "#when-clause"
       }
       {
+        include: "#comment"
+      }
+      {
         include: "#block"
       }
     ]
@@ -1934,6 +1943,9 @@ repository:
     patterns: [
       {
         include: "#expression"
+      }
+      {
+        include: "#comment"
       }
     ]
   "checked-unchecked-statement":
