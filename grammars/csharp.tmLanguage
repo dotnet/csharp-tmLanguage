@@ -425,11 +425,11 @@
           </dict>
           <dict>
             <key>include</key>
-            <string>#member-access-expression</string>
+            <string>#invocation-expression</string>
           </dict>
           <dict>
             <key>include</key>
-            <string>#invocation-expression</string>
+            <string>#member-access-expression</string>
           </dict>
           <dict>
             <key>include</key>

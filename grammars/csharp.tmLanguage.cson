@@ -301,10 +301,10 @@ repository:
         include: "#anonymous-object-creation-expression"
       }
       {
-        include: "#member-access-expression"
+        include: "#invocation-expression"
       }
       {
-        include: "#invocation-expression"
+        include: "#member-access-expression"
       }
       {
         include: "#element-access-expression"
