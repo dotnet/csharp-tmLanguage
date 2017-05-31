@@ -10,6 +10,7 @@
 ```
 (?<type-name>
     (?:
+        (?:ref\s+)?   # only in certain place with ref local/return
         (?:
             (?:(?<identifier>[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
             (?<name-and-type-args> # identifier + type arguments (if any)

@@ -642,6 +642,26 @@ describe("Grammar", () => {
                 ]);
             });
 
+            it("lambda expression with ref return", () => {
+                const input = Input.InMethod(`M((ref int x) => ref x);`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Identifiers.MethodName("M"),
+                    Token.Punctuation.OpenParen,
+                    Token.Punctuation.OpenParen,
+                    Token.Keywords.Modifiers.Ref,
+                    Token.PrimitiveType.Int,
+                    Token.Identifiers.ParameterName("x"),
+                    Token.Punctuation.CloseParen,
+                    Token.Operators.Arrow,
+                    Token.Keywords.Modifiers.Ref,
+                    Token.Variables.ReadWrite("x"),
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
             it("anonymous method with no parameter list (passed as argument)", () => {
                 const input = Input.InMethod(`M(delegate { });`);
                 const tokens = tokenize(input);

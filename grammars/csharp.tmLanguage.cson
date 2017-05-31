@@ -562,6 +562,7 @@ repository:
       (?:\\b(delegate)\\b)\\s+
       (?<type-name>
         (?:
+          (?:ref\\s+)?   # ref return
           (?:
             (?:(?<identifier>[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
             (?<name-and-type-args> # identifier + type arguments (if any)
@@ -939,6 +940,7 @@ repository:
       (?<return-type>
         (?<type-name>
           (?:
+            (?:ref\\s+)?   # ref return
             (?:
               (?:(?<identifier>[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
               (?<name-and-type-args> # identifier + type arguments (if any)
@@ -1000,6 +1002,7 @@ repository:
       (?<return-type>
         (?<type-name>
           (?:
+            (?:ref\\s+)?   # ref return
             (?:
               (?:(?<identifier>[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
               (?<name-and-type-args> # identifier + type arguments (if any)
@@ -1199,6 +1202,7 @@ repository:
       (?<return-type>
         (?<type-name>
           (?:
+            (?:ref\\s+)?   # ref return
             (?:
               (?:(?<identifier>[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
               (?<name-and-type-args> # identifier + type arguments (if any)
@@ -1339,6 +1343,7 @@ repository:
       (?x)
       (?<type-name>
         (?:
+          (?:ref\\s+)?   # ref return
           (?:
             (?:(?<identifier>[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
             (?<name-and-type-args> # identifier + type arguments (if any)
@@ -1390,6 +1395,7 @@ repository:
       (?<operator-keyword>(?:\\b(?:operator)))\\s*
       (?<type-name>
         (?:
+          (?:ref\\s+)?   # ref return
           (?:
             (?:(?<identifier>[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
             (?<name-and-type-args> # identifier + type arguments (if any)
@@ -1467,6 +1473,9 @@ repository:
     end: "(?=[,\\)\\];}])"
     patterns: [
       {
+        include: "#ref-modifier"
+      }
+      {
         include: "#expression"
       }
     ]
@@ -1477,6 +1486,9 @@ repository:
         name: "keyword.operator.arrow.cs"
     end: "(?=[,\\);}])"
     patterns: [
+      {
+        include: "#ref-modifier"
+      }
       {
         include: "#expression"
       }
@@ -1518,6 +1530,9 @@ repository:
         name: "keyword.control.flow.return.cs"
     end: "(?=;)"
     patterns: [
+      {
+        include: "#ref-modifier"
+      }
       {
         include: "#expression"
       }
@@ -2039,9 +2054,10 @@ repository:
     begin: '''
       (?x)
       (?:
-        (\\bvar\\b)|
+        (?:(\\bref)\\s+)?(\\bvar\\b)| # ref local
         (?<type-name>
           (?:
+            (?:ref\\s+)?   # ref local
             (?:
               (?:(?<identifier>[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
               (?<name-and-type-args> # identifier + type arguments (if any)
@@ -2062,14 +2078,16 @@ repository:
     '''
     beginCaptures:
       "1":
-        name: "keyword.other.var.cs"
+        name: "storage.modifier.cs"
       "2":
+        name: "keyword.other.var.cs"
+      "3":
         patterns: [
           {
             include: "#type"
           }
         ]
-      "7":
+      "8":
         name: "entity.name.variable.local.cs"
     end: "(?=;|\\))"
     patterns: [
@@ -3435,6 +3453,9 @@ repository:
             include: "#block"
           }
           {
+            include: "#ref-modifier"
+          }
+          {
             include: "#expression"
           }
         ]
@@ -3461,6 +3482,9 @@ repository:
         patterns: [
           {
             include: "#block"
+          }
+          {
+            include: "#ref-modifier"
           }
           {
             include: "#expression"
@@ -3556,6 +3580,9 @@ repository:
         include: "#comment"
       }
       {
+        include: "#ref-modifier"
+      }
+      {
         include: "#tuple-type"
       }
       {
@@ -3574,6 +3601,9 @@ repository:
         include: "#type-nullable-suffix"
       }
     ]
+  "ref-modifier":
+    name: "storage.modifier.cs"
+    match: "ref"
   "tuple-type":
     begin: "\\("
     beginCaptures:

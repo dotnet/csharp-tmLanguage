@@ -697,5 +697,49 @@ describe("Grammar", () => {
                 Token.Variables.ReadWrite("value"),
                 Token.Punctuation.Semicolon]);
         });
+
+        it("ref return", () => {
+            const input = Input.InClass(`public static ref int operator +(int value) { return ref x; }`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Modifiers.Public,
+                Token.Keywords.Modifiers.Static,
+                Token.Keywords.Modifiers.Ref,
+                Token.PrimitiveType.Int,
+                Token.Keywords.Operator,
+                Token.Identifiers.MethodName("+"),
+                Token.Punctuation.OpenParen,
+                Token.PrimitiveType.Int,
+                Token.Identifiers.ParameterName("value"),
+                Token.Punctuation.CloseParen,
+                Token.Punctuation.OpenBrace,
+                Token.Keywords.Control.Return,
+                Token.Keywords.Modifiers.Ref,
+                Token.Variables.ReadWrite("x"),
+                Token.Punctuation.Semicolon,
+                Token.Punctuation.CloseBrace]);
+        });
+
+        it("expression body ref return", () => {
+            const input = Input.InClass(`public static ref int operator +(int value) => ref x;`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Modifiers.Public,
+                Token.Keywords.Modifiers.Static,
+                Token.Keywords.Modifiers.Ref,
+                Token.PrimitiveType.Int,
+                Token.Keywords.Operator,
+                Token.Identifiers.MethodName("+"),
+                Token.Punctuation.OpenParen,
+                Token.PrimitiveType.Int,
+                Token.Identifiers.ParameterName("value"),
+                Token.Punctuation.CloseParen,
+                Token.Operators.Arrow,
+                Token.Keywords.Modifiers.Ref,
+                Token.Variables.ReadWrite("x"),
+                Token.Punctuation.Semicolon]);
+        });
     });
 });
