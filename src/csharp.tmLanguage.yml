@@ -266,6 +266,7 @@ repository:
       (?:\b(delegate)\b)\s+
       (?<type-name>
         (?:
+          (?:ref\s+)?   # ref return
           (?:
             (?:(?<identifier>[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
             (?<name-and-type-args> # identifier + type arguments (if any)
@@ -492,6 +493,7 @@ repository:
       (?<return-type>
         (?<type-name>
           (?:
+            (?:ref\s+)?   # ref return
             (?:
               (?:(?<identifier>[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
               (?<name-and-type-args> # identifier + type arguments (if any)
@@ -538,6 +540,7 @@ repository:
       (?<return-type>
         (?<type-name>
           (?:
+            (?:ref\s+)?   # ref return
             (?:
               (?:(?<identifier>[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
               (?<name-and-type-args> # identifier + type arguments (if any)
@@ -673,6 +676,7 @@ repository:
       (?<return-type>
         (?<type-name>
           (?:
+            (?:ref\s+)?   # ref return
             (?:
               (?:(?<identifier>[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
               (?<name-and-type-args> # identifier + type arguments (if any)
@@ -762,6 +766,7 @@ repository:
       (?x)
       (?<type-name>
         (?:
+          (?:ref\s+)?   # ref return
           (?:
             (?:(?<identifier>[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
             (?<name-and-type-args> # identifier + type arguments (if any)
@@ -803,6 +808,7 @@ repository:
       (?<operator-keyword>(?:\b(?:operator)))\s*
       (?<type-name>
         (?:
+          (?:ref\s+)?   # ref return
           (?:
             (?:(?<identifier>[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
             (?<name-and-type-args> # identifier + type arguments (if any)
@@ -854,6 +860,7 @@ repository:
       '1': { name: keyword.operator.assignment.cs }
     end: (?=[,\)\];}])
     patterns:
+    - include: '#ref-modifier'
     - include: '#expression'
 
   expression-body:
@@ -862,6 +869,7 @@ repository:
       '0': { name: keyword.operator.arrow.cs }
     end: (?=[,\);}])
     patterns:
+    - include: '#ref-modifier'
     - include: '#expression'
 
   goto-statement:
@@ -888,6 +896,7 @@ repository:
       '1': { name: keyword.control.flow.return.cs }
     end: (?=;)
     patterns:
+    - include: '#ref-modifier'
     - include: '#expression'
 
   break-or-continue-statement:
@@ -1230,9 +1239,10 @@ repository:
     begin: |-
       (?x)
       (?:
-        (\bvar\b)|
+        (?:(\bref)\s+)?(\bvar\b)| # ref local
         (?<type-name>
           (?:
+            (?:ref\s+)?   # ref local
             (?:
               (?:(?<identifier>[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
               (?<name-and-type-args> # identifier + type arguments (if any)
@@ -1251,15 +1261,16 @@ repository:
       (\g<identifier>)\s*
       (?=,|;|=|\))
     beginCaptures:
-      '1': { name: keyword.other.var.cs }
-      '2':
+      '1': { name: storage.modifier.cs }
+      '2': { name: keyword.other.var.cs }
+      '3':
         patterns:
         - include: '#type'
-      # '3': ?<identifier> is a sub-expression. It's final value is not considered.
-      # '4': ?<name-and-type-args> is a sub-expression. It's final value is not considered.
-      # '5': ?<type-args> is a sub-expression. It's final value is not considered.
-      # '6': ?<tuple> is a sub-expression. It's final value is not considered.
-      '7': { name: entity.name.variable.local.cs }
+      # '4': ?<identifier> is a sub-expression. It's final value is not considered.
+      # '5': ?<name-and-type-args> is a sub-expression. It's final value is not considered.
+      # '6': ?<type-args> is a sub-expression. It's final value is not considered.
+      # '7': ?<tuple> is a sub-expression. It's final value is not considered.
+      '8': { name: entity.name.variable.local.cs }
     end: (?=;|\))
     patterns:
     - name: entity.name.variable.local.cs
@@ -2242,6 +2253,7 @@ repository:
       end: (?=\)|;|}|,)
       patterns:
       - include: '#block'
+      - include: '#ref-modifier'
       - include: '#expression'
     - begin: |-
         (?x)
@@ -2257,6 +2269,7 @@ repository:
       end: (?=\)|;|}|,)
       patterns:
       - include: '#block'
+      - include: '#ref-modifier'
       - include: '#expression'
     - begin: |-
         (?x)
@@ -2321,12 +2334,17 @@ repository:
     name: meta.type.cs
     patterns:
     - include: '#comment'
+    - include: '#ref-modifier'
     - include: '#tuple-type'
     - include: '#type-builtin'
     - include: '#type-name'
     - include: '#type-arguments'
     - include: '#type-array-suffix'
     - include: '#type-nullable-suffix'
+
+  ref-modifier:
+    name: storage.modifier.cs
+    match: ref
 
   tuple-type:
     begin: \(

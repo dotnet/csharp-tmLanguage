@@ -879,6 +879,7 @@
 (?:\b(delegate)\b)\s+
 (?&lt;type-name&gt;
   (?:
+    (?:ref\s+)?   # ref return
     (?:
       (?:(?&lt;identifier&gt;[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
       (?&lt;name-and-type-args&gt; # identifier + type arguments (if any)
@@ -1498,6 +1499,7 @@
 (?&lt;return-type&gt;
   (?&lt;type-name&gt;
     (?:
+      (?:ref\s+)?   # ref return
       (?:
         (?:(?&lt;identifier&gt;[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
         (?&lt;name-and-type-args&gt; # identifier + type arguments (if any)
@@ -1581,6 +1583,7 @@
 (?&lt;return-type&gt;
   (?&lt;type-name&gt;
     (?:
+      (?:ref\s+)?   # ref return
       (?:
         (?:(?&lt;identifier&gt;[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
         (?&lt;name-and-type-args&gt; # identifier + type arguments (if any)
@@ -1878,6 +1881,7 @@
 (?&lt;return-type&gt;
   (?&lt;type-name&gt;
     (?:
+      (?:ref\s+)?   # ref return
       (?:
         (?:(?&lt;identifier&gt;[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
         (?&lt;name-and-type-args&gt; # identifier + type arguments (if any)
@@ -2100,6 +2104,7 @@
         <string>(?x)
 (?&lt;type-name&gt;
   (?:
+    (?:ref\s+)?   # ref return
     (?:
       (?:(?&lt;identifier&gt;[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
       (?&lt;name-and-type-args&gt; # identifier + type arguments (if any)
@@ -2170,6 +2175,7 @@
 (?&lt;operator-keyword&gt;(?:\b(?:operator)))\s*
 (?&lt;type-name&gt;
   (?:
+    (?:ref\s+)?   # ref return
     (?:
       (?:(?&lt;identifier&gt;[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
       (?&lt;name-and-type-args&gt; # identifier + type arguments (if any)
@@ -2303,6 +2309,10 @@
         <array>
           <dict>
             <key>include</key>
+            <string>#ref-modifier</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#expression</string>
           </dict>
         </array>
@@ -2323,6 +2333,10 @@
         <string>(?=[,\);}])</string>
         <key>patterns</key>
         <array>
+          <dict>
+            <key>include</key>
+            <string>#ref-modifier</string>
+          </dict>
           <dict>
             <key>include</key>
             <string>#expression</string>
@@ -2402,6 +2416,10 @@
         <string>(?=;)</string>
         <key>patterns</key>
         <array>
+          <dict>
+            <key>include</key>
+            <string>#ref-modifier</string>
+          </dict>
           <dict>
             <key>include</key>
             <string>#expression</string>
@@ -3359,9 +3377,10 @@
         <key>begin</key>
         <string>(?x)
 (?:
-  (\bvar\b)|
+  (?:(\bref)\s+)?(\bvar\b)| # ref local
   (?&lt;type-name&gt;
     (?:
+      (?:ref\s+)?   # ref local
       (?:
         (?:(?&lt;identifier&gt;[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
         (?&lt;name-and-type-args&gt; # identifier + type arguments (if any)
@@ -3384,9 +3403,14 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.other.var.cs</string>
+            <string>storage.modifier.cs</string>
           </dict>
           <key>2</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.other.var.cs</string>
+          </dict>
+          <key>3</key>
           <dict>
             <key>patterns</key>
             <array>
@@ -3396,7 +3420,7 @@
               </dict>
             </array>
           </dict>
-          <key>7</key>
+          <key>8</key>
           <dict>
             <key>name</key>
             <string>entity.name.variable.local.cs</string>
@@ -5688,6 +5712,10 @@
               </dict>
               <dict>
                 <key>include</key>
+                <string>#ref-modifier</string>
+              </dict>
+              <dict>
+                <key>include</key>
                 <string>#expression</string>
               </dict>
             </array>
@@ -5728,6 +5756,10 @@
               <dict>
                 <key>include</key>
                 <string>#block</string>
+              </dict>
+              <dict>
+                <key>include</key>
+                <string>#ref-modifier</string>
               </dict>
               <dict>
                 <key>include</key>
@@ -5874,6 +5906,10 @@
           </dict>
           <dict>
             <key>include</key>
+            <string>#ref-modifier</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#tuple-type</string>
           </dict>
           <dict>
@@ -5897,6 +5933,13 @@
             <string>#type-nullable-suffix</string>
           </dict>
         </array>
+      </dict>
+      <key>ref-modifier</key>
+      <dict>
+        <key>name</key>
+        <string>storage.modifier.cs</string>
+        <key>match</key>
+        <string>ref</string>
       </dict>
       <key>tuple-type</key>
       <dict>

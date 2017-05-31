@@ -629,5 +629,40 @@ void M(string p = null) { }
                 Token.Punctuation.CloseBrace
             ]);
         });
+
+        it("ref return", () => {
+            const input = Input.InClass(`ref int M() { return ref x; }`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Modifiers.Ref,
+                Token.PrimitiveType.Int,
+                Token.Identifiers.MethodName("M"),
+                Token.Punctuation.OpenParen,
+                Token.Punctuation.CloseParen,
+                Token.Punctuation.OpenBrace,
+                Token.Keywords.Control.Return,
+                Token.Keywords.Modifiers.Ref,
+                Token.Variables.ReadWrite("x"),
+                Token.Punctuation.Semicolon,
+                Token.Punctuation.CloseBrace
+            ]);
+        });
+
+        it("expression body ref return", () => {
+            const input = Input.InClass(`ref int M() => ref x;`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Modifiers.Ref,
+                Token.PrimitiveType.Int,
+                Token.Identifiers.MethodName("M"),
+                Token.Punctuation.OpenParen,
+                Token.Punctuation.CloseParen,
+                Token.Operators.Arrow,
+                Token.Keywords.Modifiers.Ref,
+                Token.Variables.ReadWrite("x"),
+                Token.Punctuation.Semicolon]);
+        });
     });
 });

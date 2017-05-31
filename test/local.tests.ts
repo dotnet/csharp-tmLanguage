@@ -95,5 +95,32 @@ describe("Grammar", () => {
                 Token.Punctuation.Semicolon
             ]);
         });
+
+        it("ref local", () => {
+            const input = Input.InMethod(`ref int x;`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Modifiers.Ref,
+                Token.PrimitiveType.Int,
+                Token.Identifiers.LocalName("x"),
+                Token.Punctuation.Semicolon
+            ]);
+        });
+
+        it("ref local with initializer", () => {
+            const input = Input.InMethod(`ref int x = ref y;`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Modifiers.Ref,
+                Token.PrimitiveType.Int,
+                Token.Identifiers.LocalName("x"),
+                Token.Operators.Assignment,
+                Token.Keywords.Modifiers.Ref,
+                Token.Variables.ReadWrite("y"),
+                Token.Punctuation.Semicolon
+            ]);
+        });
     });
 });
