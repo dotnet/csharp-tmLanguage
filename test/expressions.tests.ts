@@ -3027,7 +3027,54 @@ private static readonly Parser<Node> NodeParser =
                     Token.Punctuation.Semicolon
                 ]);
             });
+        });
 
+        describe("Throw expressions", () => {
+            it("throw expression in expression-bodied member (issue #69)", () => {
+                const input = Input.InClass(`public static void A(string str) => throw new Exception(str);`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Keywords.Modifiers.Public,
+                    Token.Keywords.Modifiers.Static,
+                    Token.PrimitiveType.Void,
+                    Token.Identifiers.MethodName("A"),
+                    Token.Punctuation.OpenParen,
+                    Token.PrimitiveType.String,
+                    Token.Identifiers.ParameterName("str"),
+                    Token.Punctuation.CloseParen,
+                    Token.Operators.Arrow,
+                    Token.Keywords.Control.Throw,
+                    Token.Keywords.New,
+                    Token.Type("Exception"),
+                    Token.Punctuation.OpenParen,
+                    Token.Variables.ReadWrite("str"),
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
+            it("throw expression in assignment", () => {
+                const input = Input.InMethod(`_field = field ?? throw new ArgumentNullException(nameof(field));`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Variables.ReadWrite("_field"),
+                    Token.Operators.Assignment,
+                    Token.Variables.ReadWrite("field"),
+                    Token.Operators.NullCoalescing,
+                    Token.Keywords.Control.Throw,
+                    Token.Keywords.New,
+                    Token.Type("ArgumentNullException"),
+                    Token.Punctuation.OpenParen,
+                    Token.Keywords.NameOf,
+                    Token.Punctuation.OpenParen,
+                    Token.Variables.ReadWrite("field"),
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Semicolon
+                ]);
+            });
         });
     });
 });
