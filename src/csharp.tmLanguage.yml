@@ -108,6 +108,7 @@ repository:
     - include: '#checked-unchecked-expression'
     - include: '#typeof-or-default-expression'
     - include: '#nameof-expression'
+    - include: '#throw-expression'
     - include: '#interpolated-string'
     - include: '#verbatim-interpolated-string'
     - include: '#this-or-base-expression'
@@ -1485,6 +1486,14 @@ repository:
     end: \)
     endCaptures:
       '0': { name: punctuation.parenthesis.close.cs }
+    patterns:
+    - include: '#expression'
+
+  throw-expression:
+    begin: (?<!\.)\b(throw)\b
+    beginCaptures:
+      '1': { name: keyword.control.flow.throw.cs }
+    end: (?=;)
     patterns:
     - include: '#expression'
 

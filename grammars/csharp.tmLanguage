@@ -373,6 +373,10 @@
           </dict>
           <dict>
             <key>include</key>
+            <string>#throw-expression</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#interpolated-string</string>
           </dict>
           <dict>
@@ -3896,6 +3900,28 @@
             <string>punctuation.parenthesis.close.cs</string>
           </dict>
         </dict>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#expression</string>
+          </dict>
+        </array>
+      </dict>
+      <key>throw-expression</key>
+      <dict>
+        <key>begin</key>
+        <string>(?&lt;!\.)\b(throw)\b</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.control.flow.throw.cs</string>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>(?=;)</string>
         <key>patterns</key>
         <array>
           <dict>
