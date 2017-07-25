@@ -3779,13 +3779,13 @@ repository:
         include: "#preprocessor-region"
       }
       {
+        include: "#preprocessor-endregion"
+      }
+      {
         include: "#preprocessor-load"
       }
       {
         include: "#preprocessor-r"
-      }
-      {
-        include: "#preprocessor-endregion"
       }
       {
         include: "#preprocessor-line"
@@ -3839,19 +3839,33 @@ repository:
       "3":
         name: "string.unquoted.preprocessor.message.cs"
   "preprocessor-load":
-    match: "\\b(load)\\b\\s*(\\\"[^\"]*\\\")"
-    captures:
+    begin: "\\b(load)\\b"
+    beginCaptures:
       "1":
         name: "keyword.preprocessor.load.cs"
-      "2":
-        name: "string.quoted.double.cs"
+    end: "(?=$)"
+    patterns: [
+      {
+        match: "\\\"[^\"]*\\\""
+        captures:
+          "0":
+            name: "string.quoted.double.cs"
+      }
+    ]
   "preprocessor-r":
-    match: "\\b(r)\\b\\s*(\\\"[^\"]*\\\")"
-    captures:
+    begin: "\\b(r)\\b"
+    beginCaptures:
       "1":
         name: "keyword.preprocessor.r.cs"
-      "2":
-        name: "string.quoted.double.cs"
+    end: "(?=$)"
+    patterns: [
+      {
+        match: "\\\"[^\"]*\\\""
+        captures:
+          "0":
+            name: "string.quoted.double.cs"
+      }
+    ]
   "preprocessor-region":
     match: "\\b(region)\\b\\s*(.*)(?=$)"
     captures:

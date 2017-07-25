@@ -673,6 +673,16 @@ public ActionResult Register()
             ]);
         });
 
+        it("#load", () => {
+            const input = "#load";
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Keywords.Preprocessor.Load
+            ]);
+        });
+
         it(`#load "foo.csx"`, () => {
             const input = `#load "foo.csx"`;
             const tokens = tokenize(input);
@@ -681,6 +691,16 @@ public ActionResult Register()
                 Token.Punctuation.Hash,
                 Token.Keywords.Preprocessor.Load,
                 Token.Literals.String(`"foo.csx"`)
+            ]);
+        });
+
+        it("#r", () => {
+            const input = "#r";
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Keywords.Preprocessor.R
             ]);
         });
 
