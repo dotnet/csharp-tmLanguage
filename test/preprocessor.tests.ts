@@ -672,5 +672,47 @@ public ActionResult Register()
                 Token.Keywords.Preprocessor.EndIf,
             ]);
         });
+
+        it("#load", () => {
+            const input = "#load";
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Keywords.Preprocessor.Load
+            ]);
+        });
+
+        it(`#load "foo.csx"`, () => {
+            const input = `#load "foo.csx"`;
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Keywords.Preprocessor.Load,
+                Token.Literals.String(`"foo.csx"`)
+            ]);
+        });
+
+        it("#r", () => {
+            const input = "#r";
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Keywords.Preprocessor.R
+            ]);
+        });
+
+        it(`#r "System.Net.dll"`, () => {
+            const input = `#r "System.Net.dll"`;
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Keywords.Preprocessor.R,
+                Token.Literals.String(`"System.Net.dll"`)
+            ]);
+        });
     });
 });

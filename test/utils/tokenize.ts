@@ -260,6 +260,8 @@ export namespace Token {
             export const Restore = createToken('restore', 'keyword.preprocessor.restore.cs');
             export const Undef = createToken('undef', 'keyword.preprocessor.undef.cs');
             export const Warning = createToken('warning', 'keyword.preprocessor.warning.cs');
+            export const R = createToken('r', 'keyword.preprocessor.r.cs');
+            export const Load = createToken('load', 'keyword.preprocessor.load.cs');
         }
 
         export namespace Queries {

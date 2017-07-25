@@ -6274,6 +6274,14 @@
           </dict>
           <dict>
             <key>include</key>
+            <string>#preprocessor-load</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#preprocessor-r</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#preprocessor-line</string>
           </dict>
           <dict>
@@ -6380,6 +6388,66 @@
             <string>string.unquoted.preprocessor.message.cs</string>
           </dict>
         </dict>
+      </dict>
+      <key>preprocessor-load</key>
+      <dict>
+        <key>begin</key>
+        <string>\b(load)\b</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.preprocessor.load.cs</string>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>(?=$)</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>match</key>
+            <string>\"[^"]*\"</string>
+            <key>captures</key>
+            <dict>
+              <key>0</key>
+              <dict>
+                <key>name</key>
+                <string>string.quoted.double.cs</string>
+              </dict>
+            </dict>
+          </dict>
+        </array>
+      </dict>
+      <key>preprocessor-r</key>
+      <dict>
+        <key>begin</key>
+        <string>\b(r)\b</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.preprocessor.r.cs</string>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>(?=$)</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>match</key>
+            <string>\"[^"]*\"</string>
+            <key>captures</key>
+            <dict>
+              <key>0</key>
+              <dict>
+                <key>name</key>
+                <string>string.quoted.double.cs</string>
+              </dict>
+            </dict>
+          </dict>
+        </array>
       </dict>
       <key>preprocessor-region</key>
       <dict>

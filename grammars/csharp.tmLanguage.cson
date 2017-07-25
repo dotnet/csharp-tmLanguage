@@ -3782,6 +3782,12 @@ repository:
         include: "#preprocessor-endregion"
       }
       {
+        include: "#preprocessor-load"
+      }
+      {
+        include: "#preprocessor-r"
+      }
+      {
         include: "#preprocessor-line"
       }
       {
@@ -3832,6 +3838,34 @@ repository:
         name: "keyword.preprocessor.error.cs"
       "3":
         name: "string.unquoted.preprocessor.message.cs"
+  "preprocessor-load":
+    begin: "\\b(load)\\b"
+    beginCaptures:
+      "1":
+        name: "keyword.preprocessor.load.cs"
+    end: "(?=$)"
+    patterns: [
+      {
+        match: "\\\"[^\"]*\\\""
+        captures:
+          "0":
+            name: "string.quoted.double.cs"
+      }
+    ]
+  "preprocessor-r":
+    begin: "\\b(r)\\b"
+    beginCaptures:
+      "1":
+        name: "keyword.preprocessor.r.cs"
+    end: "(?=$)"
+    patterns: [
+      {
+        match: "\\\"[^\"]*\\\""
+        captures:
+          "0":
+            name: "string.quoted.double.cs"
+      }
+    ]
   "preprocessor-region":
     match: "\\b(region)\\b\\s*(.*)(?=$)"
     captures:
