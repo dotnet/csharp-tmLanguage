@@ -2474,6 +2474,8 @@ repository:
     - include: '#preprocessor-else-or-endif'
     - include: '#preprocessor-warning-or-error'
     - include: '#preprocessor-region'
+    - include: '#preprocessor-load'
+    - include: '#preprocessor-r'
     - include: '#preprocessor-endregion'
     - include: '#preprocessor-line'
     - include: '#preprocessor-pragma-warning'
@@ -2508,6 +2510,18 @@ repository:
       '1': { name: keyword.preprocessor.warning.cs }
       '2': { name: keyword.preprocessor.error.cs }
       '3': { name: string.unquoted.preprocessor.message.cs }
+
+  preprocessor-load:
+    match: \b(load)\b\s*(\"[^"]*\")
+    captures:
+      '1': { name: keyword.preprocessor.load.cs }
+      '2': { name: string.quoted.double.cs }
+
+  preprocessor-r:
+    match: \b(r)\b\s*(\"[^"]*\")
+    captures:
+      '1': { name: keyword.preprocessor.r.cs }
+      '2': { name: string.quoted.double.cs }
 
   preprocessor-region:
     match: \b(region)\b\s*(.*)(?=$)

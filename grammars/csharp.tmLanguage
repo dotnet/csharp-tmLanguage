@@ -6270,6 +6270,14 @@
           </dict>
           <dict>
             <key>include</key>
+            <string>#preprocessor-load</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#preprocessor-r</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#preprocessor-endregion</string>
           </dict>
           <dict>
@@ -6378,6 +6386,42 @@
           <dict>
             <key>name</key>
             <string>string.unquoted.preprocessor.message.cs</string>
+          </dict>
+        </dict>
+      </dict>
+      <key>preprocessor-load</key>
+      <dict>
+        <key>match</key>
+        <string>\b(load)\b\s*(\"[^"]*\")</string>
+        <key>captures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.preprocessor.load.cs</string>
+          </dict>
+          <key>2</key>
+          <dict>
+            <key>name</key>
+            <string>string.quoted.double.cs</string>
+          </dict>
+        </dict>
+      </dict>
+      <key>preprocessor-r</key>
+      <dict>
+        <key>match</key>
+        <string>\b(r)\b\s*(\"[^"]*\")</string>
+        <key>captures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.preprocessor.r.cs</string>
+          </dict>
+          <key>2</key>
+          <dict>
+            <key>name</key>
+            <string>string.quoted.double.cs</string>
           </dict>
         </dict>
       </dict>
