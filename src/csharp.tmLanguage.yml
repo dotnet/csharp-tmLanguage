@@ -91,6 +91,7 @@ repository:
     - include: '#break-or-continue-statement'
     - include: '#throw-statement'
     - include: '#yield-statement'
+    - include: '#await-statement'
     - include: '#try-statement'
     - include: '#checked-unchecked-statement'
     - include: '#lock-statement'
@@ -933,6 +934,16 @@ repository:
     captures:
       '1': { name: keyword.control.flow.yield.cs }
       '2': { name: keyword.control.flow.break.cs }
+
+  # Technically, there isn't an "await statement" in the C# grammar. However, including one here makes it easier to handle
+  # the scenario where an await-expression will be match by local-declaration first. (e.g. await x;)
+  await-statement:
+    begin: (?<!\.)\b(await)\b
+    beginCaptures:
+      '1': { name: keyword.other.await.cs }
+    end: (?=;)
+    patterns:
+    - include: '#expression'
 
   if-statement:
     begin: (?<!\.)\b(if)\b\s*(?=\()
