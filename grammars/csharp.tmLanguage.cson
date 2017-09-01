@@ -217,6 +217,9 @@ repository:
         include: "#yield-statement"
       }
       {
+        include: "#await-statement"
+      }
+      {
         include: "#try-statement"
       }
       {
@@ -1587,6 +1590,17 @@ repository:
         name: "keyword.control.flow.yield.cs"
       "2":
         name: "keyword.control.flow.break.cs"
+  "await-statement":
+    begin: "(?<!\\.)\\b(await)\\b"
+    beginCaptures:
+      "1":
+        name: "keyword.other.await.cs"
+    end: "(?=;)"
+    patterns: [
+      {
+        include: "#expression"
+      }
+    ]
   "if-statement":
     begin: "(?<!\\.)\\b(if)\\b\\s*(?=\\()"
     beginCaptures:

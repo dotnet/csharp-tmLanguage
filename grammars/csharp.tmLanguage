@@ -311,6 +311,10 @@
           </dict>
           <dict>
             <key>include</key>
+            <string>#await-statement</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#try-statement</string>
           </dict>
           <dict>
@@ -2528,6 +2532,28 @@
             <string>keyword.control.flow.break.cs</string>
           </dict>
         </dict>
+      </dict>
+      <key>await-statement</key>
+      <dict>
+        <key>begin</key>
+        <string>(?&lt;!\.)\b(await)\b</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.other.await.cs</string>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>(?=;)</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#expression</string>
+          </dict>
+        </array>
       </dict>
       <key>if-statement</key>
       <dict>

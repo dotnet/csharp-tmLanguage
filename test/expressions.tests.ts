@@ -968,6 +968,17 @@ var x = new
                     Token.Punctuation.Semicolon
                 ]);
             });
+
+            it("statement level (issue #83)", () => {
+                const input = Input.InMethod(`await x;`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Keywords.Await,
+                    Token.Variables.ReadWrite("x"),
+                    Token.Punctuation.Semicolon
+                ]);
+            });
         });
 
         describe("Casts", () => {
