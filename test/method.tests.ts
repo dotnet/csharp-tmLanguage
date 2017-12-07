@@ -664,5 +664,28 @@ void M(string p = null) { }
                 Token.Variables.ReadWrite("x"),
                 Token.Punctuation.Semicolon]);
         });
+
+        it("closing parenthesis of parameter list on next line", () => {
+            const input = Input.InClass(`
+void M(
+    string s
+    )
+{
+}`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.PrimitiveType.Void,
+                Token.Identifiers.MethodName("M"),
+                Token.Punctuation.OpenParen,
+
+                Token.PrimitiveType.String,
+                Token.Identifiers.ParameterName("s"),
+                
+                Token.Punctuation.CloseParen,
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace
+            ]);
+        });
     });
 });
