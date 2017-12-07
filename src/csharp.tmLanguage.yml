@@ -1501,12 +1501,9 @@ repository:
     - include: '#expression'
 
   throw-expression:
-    begin: (?<!\.)\b(throw)\b
-    beginCaptures:
+    match: (?<!\.)\b(throw)\b
+    captures:
       '1': { name: keyword.control.flow.throw.cs }
-    end: (?=;)
-    patterns:
-    - include: '#expression'
 
   interpolated-string:
     name: string.quoted.double.cs

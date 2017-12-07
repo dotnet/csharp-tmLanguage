@@ -3936,9 +3936,9 @@
       </dict>
       <key>throw-expression</key>
       <dict>
-        <key>begin</key>
+        <key>match</key>
         <string>(?&lt;!\.)\b(throw)\b</string>
-        <key>beginCaptures</key>
+        <key>captures</key>
         <dict>
           <key>1</key>
           <dict>
@@ -3946,15 +3946,6 @@
             <string>keyword.control.flow.throw.cs</string>
           </dict>
         </dict>
-        <key>end</key>
-        <string>(?=;)</string>
-        <key>patterns</key>
-        <array>
-          <dict>
-            <key>include</key>
-            <string>#expression</string>
-          </dict>
-        </array>
       </dict>
       <key>interpolated-string</key>
       <dict>
