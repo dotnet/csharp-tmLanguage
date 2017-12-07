@@ -5077,34 +5077,16 @@
                 <string>#attribute-section</string>
               </dict>
               <dict>
-                <key>name</key>
-                <string>storage.modifier.cs</string>
-                <key>match</key>
-                <string>\b(ref|params|out)\b</string>
-              </dict>
-              <dict>
-                <key>match</key>
-                <string>\s+([_[:alpha:]][_[:alnum:]]*)\s*(?=[=,\]])</string>
-                <key>captures</key>
-                <dict>
-                  <key>1</key>
-                  <dict>
-                    <key>name</key>
-                    <string>entity.name.variable.parameter.cs</string>
-                  </dict>
-                </dict>
-              </dict>
-              <dict>
                 <key>include</key>
-                <string>#variable-initializer</string>
-              </dict>
-              <dict>
-                <key>include</key>
-                <string>#type</string>
+                <string>#parameter</string>
               </dict>
               <dict>
                 <key>include</key>
                 <string>#punctuation-comma</string>
+              </dict>
+              <dict>
+                <key>include</key>
+                <string>#variable-initializer</string>
               </dict>
             </array>
           </dict>
@@ -5143,36 +5125,65 @@
             <string>#attribute-section</string>
           </dict>
           <dict>
-            <key>name</key>
-            <string>storage.modifier.cs</string>
-            <key>match</key>
-            <string>\b(ref|params|out|this)\b</string>
-          </dict>
-          <dict>
-            <key>match</key>
-            <string>\b([_[:alpha:]][_[:alnum:]]*)\s*(?=[=,)])</string>
-            <key>captures</key>
-            <dict>
-              <key>1</key>
-              <dict>
-                <key>name</key>
-                <string>entity.name.variable.parameter.cs</string>
-              </dict>
-            </dict>
-          </dict>
-          <dict>
             <key>include</key>
-            <string>#variable-initializer</string>
-          </dict>
-          <dict>
-            <key>include</key>
-            <string>#type</string>
+            <string>#parameter</string>
           </dict>
           <dict>
             <key>include</key>
             <string>#punctuation-comma</string>
           </dict>
+          <dict>
+            <key>include</key>
+            <string>#variable-initializer</string>
+          </dict>
         </array>
+      </dict>
+      <key>parameter</key>
+      <dict>
+        <key>match</key>
+        <string>(?x)
+(?:(?:\b(ref|params|out|this)\b)\s+)?
+(?&lt;type-name&gt;
+  (?:
+    (?:ref\s+)?   # ref return
+    (?:
+      (?:(?&lt;identifier&gt;[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
+      (?&lt;name-and-type-args&gt; # identifier + type arguments (if any)
+        \g&lt;identifier&gt;\s*
+        (?&lt;type-args&gt;\s*&lt;(?:[^&lt;&gt;]|\g&lt;type-args&gt;)+&gt;\s*)?
+      )
+      (?:\s*\.\s*\g&lt;name-and-type-args&gt;)* | # Are there any more names being dotted into?
+      (?&lt;tuple&gt;\s*\((?:[^\(\)]|\g&lt;tuple&gt;)+\))
+    )
+    (?:\s*\*\s*)* # pointer suffix?
+    (?:\s*\?\s*)? # nullable suffix?
+    (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
+  )
+)\s+
+(\g&lt;identifier&gt;)</string>
+        <key>captures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>storage.modifier.cs</string>
+          </dict>
+          <key>2</key>
+          <dict>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#type</string>
+              </dict>
+            </array>
+          </dict>
+          <key>7</key>
+          <dict>
+            <key>name</key>
+            <string>entity.name.variable.parameter.cs</string>
+          </dict>
+        </dict>
       </dict>
       <key>argument-list</key>
       <dict>

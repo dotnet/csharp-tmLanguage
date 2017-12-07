@@ -249,9 +249,6 @@ internal WaitHandle(Task self, TT.Task /*task)
                 Token.Type("Task"),
                 Token.Identifiers.ParameterName("self"),
                 Token.Punctuation.Comma,
-                Token.Type("TT"),
-                Token.Punctuation.Accessor,
-                Token.Type("Task"),
                 Token.Comment.MultiLine.Start,
                 Token.Comment.MultiLine.Text("task)"),
                 Token.Comment.MultiLine.Text("{"),
@@ -349,6 +346,71 @@ public class A
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace,
+                Token.Punctuation.CloseBrace
+            ]);
+        });
+
+        it("closing parenthesis of parameter list on next line", () => {
+            const input = Input.InClass(`
+public C(
+    string s
+    )
+{
+}`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Modifiers.Public,
+                Token.Identifiers.MethodName("C"),
+                Token.Punctuation.OpenParen,
+
+                Token.PrimitiveType.String,
+                Token.Identifiers.ParameterName("s"),
+                
+                Token.Punctuation.CloseParen,
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace
+            ]);
+        });
+
+        it("closing parenthesis of parameter list on next line (issue #88)", () => {
+            const input = Input.InClass(`
+public AccountController(
+    UserManager<User> userManager,
+    SignInManager<User> signInManager,
+    ILogger<AccountController> logger
+    )
+{
+}`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Modifiers.Public,
+                Token.Identifiers.MethodName("AccountController"),
+                Token.Punctuation.OpenParen,
+
+                Token.Type("UserManager"),
+                Token.Punctuation.TypeParameters.Begin,
+                Token.Type("User"),
+                Token.Punctuation.TypeParameters.End,
+                Token.Identifiers.ParameterName("userManager"),
+                Token.Punctuation.Comma,
+
+                Token.Type("SignInManager"),
+                Token.Punctuation.TypeParameters.Begin,
+                Token.Type("User"),
+                Token.Punctuation.TypeParameters.End,
+                Token.Identifiers.ParameterName("signInManager"),
+                Token.Punctuation.Comma,
+                
+                Token.Type("ILogger"),
+                Token.Punctuation.TypeParameters.Begin,
+                Token.Type("AccountController"),
+                Token.Punctuation.TypeParameters.End,
+                Token.Identifiers.ParameterName("logger"),
+                
+                Token.Punctuation.CloseParen,
+                Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace
             ]);
         });
