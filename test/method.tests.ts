@@ -731,5 +731,44 @@ public void LinearRegression(double[,] samples, double[] standardDeviations, int
                 Token.Punctuation.Semicolon,
             ]);
         });
+
+        it("expression body and type constraint (issue #74)", () => {
+            const input = Input.InClass(`
+T id1<T>(T a) => a;
+T id2<T>(T a) where T : class => a;`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Type("T"),
+                Token.Identifiers.MethodName("id1"),
+                Token.Punctuation.TypeParameters.Begin,
+                Token.Identifiers.TypeParameterName("T"),
+                Token.Punctuation.TypeParameters.End,
+                Token.Punctuation.OpenParen,
+                Token.Type("T"),
+                Token.Identifiers.ParameterName("a"),
+                Token.Punctuation.CloseParen,
+                Token.Operators.Arrow,
+                Token.Variables.ReadWrite("a"),
+                Token.Punctuation.Semicolon,
+
+                Token.Type("T"),
+                Token.Identifiers.MethodName("id2"),
+                Token.Punctuation.TypeParameters.Begin,
+                Token.Identifiers.TypeParameterName("T"),
+                Token.Punctuation.TypeParameters.End,
+                Token.Punctuation.OpenParen,
+                Token.Type("T"),
+                Token.Identifiers.ParameterName("a"),
+                Token.Punctuation.CloseParen,
+                Token.Keywords.Where,
+                Token.Type("T"),
+                Token.Punctuation.Colon,
+                Token.Keywords.Class,
+                Token.Operators.Arrow,
+                Token.Variables.ReadWrite("a"),
+                Token.Punctuation.Semicolon
+            ]);
+        });
     });
 });
