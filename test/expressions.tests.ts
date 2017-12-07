@@ -774,10 +774,32 @@ describe("Grammar", () => {
             });
 
             it("lambda expression with throw statement passed as argument (issue #90)", () => {
-                const input = Input.InMethod(`app.Command(_ => throw new InvalidOperationException());`);
+                const input = Input.InClass(`
+[Fact]
+public void Method1()
+{
+    app.Command(_ => throw new InvalidOperationException());
+}
+
+[Fact]
+public void Method2()
+{
+    app.Command()
+}`);
                 const tokens = tokenize(input);
 
                 tokens.should.deep.equal([
+                    Token.Punctuation.OpenBracket,
+                    Token.Type("Fact"),
+                    Token.Punctuation.CloseBracket,
+                    Token.Keywords.Modifiers.Public,
+                    Token.PrimitiveType.Void,
+                    Token.Identifiers.MethodName("Method1"),
+                    Token.Punctuation.OpenParen,
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.OpenBrace,
+
+                    // app.Command(_ => throw new InvalidOperationException());
                     Token.Variables.Object("app"),
                     Token.Punctuation.Accessor,
                     Token.Identifiers.MethodName("Command"),
@@ -790,7 +812,26 @@ describe("Grammar", () => {
                     Token.Punctuation.OpenParen,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.CloseParen,
-                    Token.Punctuation.Semicolon
+                    Token.Punctuation.Semicolon,
+
+                    Token.Punctuation.CloseBrace,
+                    Token.Punctuation.OpenBracket,
+                    Token.Type("Fact"),
+                    Token.Punctuation.CloseBracket,
+                    Token.Keywords.Modifiers.Public,
+                    Token.PrimitiveType.Void,
+                    Token.Identifiers.MethodName("Method2"),
+                    Token.Punctuation.OpenParen,
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.OpenBrace,
+                    
+                    // app.Command()
+                    Token.Variables.Object("app"),
+                    Token.Punctuation.Accessor,
+                    Token.Identifiers.MethodName("Command"),
+                    Token.Punctuation.OpenParen,
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.CloseBrace,
                 ]);
             });
         });
