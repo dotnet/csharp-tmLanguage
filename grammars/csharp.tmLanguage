@@ -1380,7 +1380,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=\{|where|;)</string>
+        <string>(?=\{|where|;|=&gt;)</string>
         <key>patterns</key>
         <array>
           <dict>

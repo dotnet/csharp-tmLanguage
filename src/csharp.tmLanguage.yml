@@ -434,7 +434,7 @@ repository:
       '1': { name: keyword.other.where.cs }
       '2': { name: storage.type.cs }
       '3': { name: punctuation.separator.colon.cs }
-    end: (?=\{|where|;)
+    end: (?=\{|where|;|=>)
     patterns:
     - name: keyword.other.class.cs
       match: \bclass\b
