@@ -3051,7 +3051,7 @@ repository:
     beginCaptures:
       "1":
         name: "keyword.other.new.cs"
-    end: "(?=\\)|;|})"
+    end: "(?<=\\})"
     patterns: [
       {
         include: "#initializer-expression"

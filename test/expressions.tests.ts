@@ -1277,6 +1277,60 @@ class C
                     Token.Punctuation.Semicolon
                 ]);
             });
+
+            it("in nested anonymous objects (issue #85)", () => {
+                const input = Input.InMethod(`
+var result = list.Select(l => new {
+    w = l != null ? new {
+        h = l.ToUpper()
+    } : null
+});`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    // var result = list.Select(l => new {
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("result"),
+                    Token.Operators.Assignment,
+                    Token.Variables.Object("list"),
+                    Token.Punctuation.Accessor,
+                    Token.Identifiers.MethodName("Select"),
+                    Token.Punctuation.OpenParen,
+                    Token.Identifiers.ParameterName("l"),
+                    Token.Operators.Arrow,
+                    Token.Keywords.New,
+                    Token.Punctuation.OpenBrace,
+
+                    // w = l != null ? new {
+                    Token.Variables.ReadWrite("w"),
+                    Token.Operators.Assignment,
+                    Token.Variables.ReadWrite("l"),
+                    Token.Operators.Relational.NotEqual,
+                    Token.Literals.Null,
+                    Token.Operators.Conditional.QuestionMark,
+                    Token.Keywords.New,
+                    Token.Punctuation.OpenBrace,
+
+                    // h = l.ToUpper()
+                    Token.Variables.ReadWrite("h"),
+                    Token.Operators.Assignment,
+                    Token.Variables.Object("l"),
+                    Token.Punctuation.Accessor,
+                    Token.Identifiers.MethodName("ToUpper"),
+                    Token.Punctuation.OpenParen,
+                    Token.Punctuation.CloseParen,
+
+                    // } : null
+                    Token.Punctuation.CloseBrace,
+                    Token.Operators.Conditional.Colon,
+                    Token.Literals.Null,
+
+                    // });
+                    Token.Punctuation.CloseBrace,
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Semicolon
+                ]);
+            });
         });
 
         describe("Element Access", () => {
@@ -3035,6 +3089,65 @@ private static readonly Parser<Node> NodeParser =
                     Token.Operators.Assignment,
                     Token.Variables.ReadWrite("children"),
                     Token.Punctuation.CloseBrace,
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+            
+            it("query join with anonymous type (issue #89)", () => {
+                const input = Input.InMethod(`
+var q = from x in list1
+join y in list2
+    on new
+    {
+        x.Key1,
+        x.Key2
+    }
+    equals new
+    {
+        y.Key1,
+        y.Key2
+    }
+select x.Key1;`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("q"),
+                    Token.Operators.Assignment,
+                    Token.Keywords.Queries.From,
+                    Token.Identifiers.RangeVariableName("x"),
+                    Token.Keywords.Queries.In,
+                    Token.Variables.ReadWrite("list1"),
+                    Token.Keywords.Queries.Join,
+                    Token.Identifiers.RangeVariableName("y"),
+                    Token.Keywords.Queries.In,
+                    Token.Variables.ReadWrite("list2"),
+                    Token.Keywords.Queries.On,
+                    Token.Keywords.New,
+                    Token.Punctuation.OpenBrace,
+                    Token.Variables.Object("x"),
+                    Token.Punctuation.Accessor,
+                    Token.Variables.Property("Key1"),
+                    Token.Punctuation.Comma,
+                    Token.Variables.Object("x"),
+                    Token.Punctuation.Accessor,
+                    Token.Variables.Property("Key2"),
+                    Token.Punctuation.CloseBrace,
+                    Token.Keywords.Queries.Equals,
+                    Token.Keywords.New,
+                    Token.Punctuation.OpenBrace,
+                    Token.Variables.Object("y"),
+                    Token.Punctuation.Accessor,
+                    Token.Variables.Property("Key1"),
+                    Token.Punctuation.Comma,
+                    Token.Variables.Object("y"),
+                    Token.Punctuation.Accessor,
+                    Token.Variables.Property("Key2"),
+                    Token.Punctuation.CloseBrace,
+                    Token.Keywords.Queries.Select,
+                    Token.Variables.Object("x"),
+                    Token.Punctuation.Accessor,
+                    Token.Variables.Property("Key1"),
                     Token.Punctuation.Semicolon
                 ]);
             });
