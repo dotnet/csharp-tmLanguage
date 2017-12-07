@@ -687,5 +687,49 @@ void M(
                 Token.Punctuation.CloseBrace
             ]);
         });
+
+        it("parameters with multi-dimensional arrays (issue #86)", () => {
+            const input = Input.InClass(`
+public void LinearRegression(double[,] samples, double[] standardDeviations, int variables){
+    int info;
+    alglib.linearmodel linearmodel;
+    alglib.lrreport ar;`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Modifiers.Public,
+                Token.PrimitiveType.Void,
+                Token.Identifiers.MethodName("LinearRegression"),
+                Token.Punctuation.OpenParen,
+                Token.PrimitiveType.Double,
+                Token.Punctuation.OpenBracket,
+                Token.Punctuation.Comma,
+                Token.Punctuation.CloseBracket,
+                Token.Identifiers.ParameterName("samples"),
+                Token.Punctuation.Comma,
+                Token.PrimitiveType.Double,
+                Token.Punctuation.OpenBracket,
+                Token.Punctuation.CloseBracket,
+                Token.Identifiers.ParameterName("standardDeviations"),
+                Token.Punctuation.Comma,
+                Token.PrimitiveType.Int,
+                Token.Identifiers.ParameterName("variables"),
+                Token.Punctuation.CloseParen,
+                Token.Punctuation.OpenBrace,
+                Token.PrimitiveType.Int,
+                Token.Identifiers.LocalName("info"),
+                Token.Punctuation.Semicolon,
+                Token.Type("alglib"),
+                Token.Punctuation.Accessor,
+                Token.Type("linearmodel"),
+                Token.Identifiers.LocalName("linearmodel"),
+                Token.Punctuation.Semicolon,
+                Token.Type("alglib"),
+                Token.Punctuation.Accessor,
+                Token.Type("lrreport"),
+                Token.Identifiers.LocalName("ar"),
+                Token.Punctuation.Semicolon,
+            ]);
+        });
     });
 });
