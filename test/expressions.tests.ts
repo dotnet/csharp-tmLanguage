@@ -772,6 +772,27 @@ describe("Grammar", () => {
                     Token.Punctuation.Semicolon
                 ]);
             });
+
+            it("lambda expression with throw statement passed as argument (issue #90)", () => {
+                const input = Input.InMethod(`app.Command(_ => throw new InvalidOperationException());`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Variables.Object("app"),
+                    Token.Punctuation.Accessor,
+                    Token.Identifiers.MethodName("Command"),
+                    Token.Punctuation.OpenParen,
+                    Token.Identifiers.ParameterName("_"),
+                    Token.Operators.Arrow,
+                    Token.Keywords.Control.Throw,
+                    Token.Keywords.New,
+                    Token.Type("InvalidOperationException"),
+                    Token.Punctuation.OpenParen,
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Semicolon
+                ]);
+            });
         });
 
         describe("Anonymous Objects", () => {
