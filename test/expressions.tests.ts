@@ -834,6 +834,64 @@ public void Method2()
                     Token.Punctuation.CloseBrace,
                 ]);
             });
+
+            it("lambda expression with parameter whose name starts with ref (issue #95)", () => {
+                const input = Input.InMethod(`
+var refObjectsToKeep = allRefObjects.Where(refObject => refObject.ShouldKeep);
+var intObjectsToKeep = allIntObjects.Where(intObject => intObject.ShouldKeep);
+var outObjectsToKeep = allOutObjects.Where(outObject => outObject.ShouldKeep);`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    // var refObjectsToKeep = allRefObjects.Where(refObject => refObject.ShouldKeep);
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("refObjectsToKeep"),
+                    Token.Operators.Assignment,
+                    Token.Variables.Object("allRefObjects"),
+                    Token.Punctuation.Accessor,
+                    Token.Identifiers.MethodName("Where"),
+                    Token.Punctuation.OpenParen,
+                    Token.Identifiers.ParameterName("refObject"),
+                    Token.Operators.Arrow,
+                    Token.Variables.Object("refObject"),
+                    Token.Punctuation.Accessor,
+                    Token.Variables.Property("ShouldKeep"),
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Semicolon,
+
+                    // var intObjectsToKeep = allIntObjects.Where(intObject => intObject.ShouldKeep);
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("intObjectsToKeep"),
+                    Token.Operators.Assignment,
+                    Token.Variables.Object("allIntObjects"),
+                    Token.Punctuation.Accessor,
+                    Token.Identifiers.MethodName("Where"),
+                    Token.Punctuation.OpenParen,
+                    Token.Identifiers.ParameterName("intObject"),
+                    Token.Operators.Arrow,
+                    Token.Variables.Object("intObject"),
+                    Token.Punctuation.Accessor,
+                    Token.Variables.Property("ShouldKeep"),
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Semicolon,
+                    
+                    // var outObjectsToKeep = allOutObjects.Where(outObject => outObject.ShouldKeep);;
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("outObjectsToKeep"),
+                    Token.Operators.Assignment,
+                    Token.Variables.Object("allOutObjects"),
+                    Token.Punctuation.Accessor,
+                    Token.Identifiers.MethodName("Where"),
+                    Token.Punctuation.OpenParen,
+                    Token.Identifiers.ParameterName("outObject"),
+                    Token.Operators.Arrow,
+                    Token.Variables.Object("outObject"),
+                    Token.Punctuation.Accessor,
+                    Token.Variables.Property("ShouldKeep"),
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Semicolon,
+                ]);
+            });
         });
 
         describe("Anonymous Objects", () => {

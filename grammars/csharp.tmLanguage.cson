@@ -3639,7 +3639,7 @@ repository:
     ]
   "ref-modifier":
     name: "storage.modifier.cs"
-    match: "ref"
+    match: "\\b(ref)\\b"
   "tuple-type":
     begin: "\\("
     beginCaptures:
