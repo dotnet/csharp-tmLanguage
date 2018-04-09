@@ -3258,6 +3258,10 @@
             <key>include</key>
             <string>#block</string>
           </dict>
+          <dict>
+            <key>include</key>
+            <string>#comment</string>
+          </dict>
         </array>
       </dict>
       <key>lock-statement</key>

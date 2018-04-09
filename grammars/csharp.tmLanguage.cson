@@ -1992,6 +1992,9 @@ repository:
       {
         include: "#block"
       }
+      {
+        include: "#comment"
+      }
     ]
   "lock-statement":
     begin: "(?<!\\.)\\b(lock)\\b\\s*(?=\\()"
