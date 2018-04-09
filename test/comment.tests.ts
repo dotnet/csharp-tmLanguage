@@ -440,5 +440,37 @@ catch (DataNotFoundException dnfe) when (dnfe.GetType() == typeof(DataNotFoundEx
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace]);
         });
+
+        it("after checked (issue #104)", () => {
+            const input = Input.InMethod(`
+checked //comment
+{
+}
+`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Checked,
+                Token.Comment.SingleLine.Start,
+                Token.Comment.SingleLine.Text("comment"),
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace]);
+        });
+
+        it("after unchecked (issue #104)", () => {
+            const input = Input.InMethod(`
+unchecked //comment
+{
+}
+`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Unchecked,
+                Token.Comment.SingleLine.Start,
+                Token.Comment.SingleLine.Text("comment"),
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace]);
+        });
     });
 });
