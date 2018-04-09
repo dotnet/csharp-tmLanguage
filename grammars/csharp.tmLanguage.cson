@@ -3691,7 +3691,7 @@ repository:
       "6":
         name: "entity.name.variable.tuple-element.cs"
   "type-builtin":
-    match: "\\b(bool|byte|char|decimal|double|float|int|long|object|sbyte|short|string|uint|ulong|ushort|void)\\b"
+    match: "\\b(bool|byte|char|decimal|double|float|int|long|object|sbyte|short|string|uint|ulong|ushort|void|dynamic)\\b"
     captures:
       "1":
         name: "keyword.type.cs"

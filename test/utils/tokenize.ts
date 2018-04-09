@@ -417,6 +417,7 @@ export namespace Token {
         export const ULong = createToken('ulong', 'keyword.type.cs');
         export const UShort = createToken('ushort', 'keyword.type.cs');
         export const Void = createToken('void', 'keyword.type.cs');
+        export const Dynamic = createToken('dynamic', 'keyword.type.cs');
     }
 
     export namespace Punctuation {
