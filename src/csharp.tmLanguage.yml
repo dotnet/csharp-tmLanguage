@@ -2543,22 +2543,22 @@ repository:
   preprocessor-load:
     begin: \b(load)\b
     beginCaptures:
-      '1': { name: keyword.preprocessor.load.cs }  
+      '1': { name: keyword.preprocessor.load.cs }
     end: (?=$)
     patterns:
     - match: \"[^"]*\"
       captures:
-        '0': { name: string.quoted.double.cs } 
+        '0': { name: string.quoted.double.cs }
 
   preprocessor-r:
     begin: \b(r)\b
     beginCaptures:
-      '1': { name: keyword.preprocessor.r.cs }  
+      '1': { name: keyword.preprocessor.r.cs }
     end: (?=$)
     patterns:
     - match: \"[^"]*\"
       captures:
-        '0': { name: string.quoted.double.cs } 
+        '0': { name: string.quoted.double.cs }
 
   preprocessor-region:
     match: \b(region)\b\s*(.*)(?=$)
@@ -2653,7 +2653,7 @@ repository:
         patterns:
         - include: '#xml-doc-comment'
       - name: comment.line.double-slash.cs
-        begin: (?<!/)//(?!/)
+        begin: (?<!/)//(?:(?!/)|(?=//))
         beginCaptures:
           '0': { name: punctuation.definition.comment.cs }
         end: (?=$)

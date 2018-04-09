@@ -29,6 +29,15 @@ describe("Grammar", () => {
                 Token.Comment.SingleLine.Text(" foo")]);
         });
 
+        it("single-line double comment (issue #100)", () => {
+            const input = `//// foo`;
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Comment.SingleLine.Start,
+                Token.Comment.SingleLine.Text("// foo")]);
+        });
+
         it("multi-line comment", () => {
             const input = `/* foo */`;
             const tokens = tokenize(input);

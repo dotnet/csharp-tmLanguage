@@ -6794,7 +6794,7 @@
                 <key>name</key>
                 <string>comment.line.double-slash.cs</string>
                 <key>begin</key>
-                <string>(?&lt;!/)//(?!/)</string>
+                <string>(?&lt;!/)//(?:(?!/)|(?=//))</string>
                 <key>beginCaptures</key>
                 <dict>
                   <key>0</key>
