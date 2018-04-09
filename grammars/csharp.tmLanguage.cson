@@ -4038,7 +4038,7 @@ repository:
           }
           {
             name: "comment.line.double-slash.cs"
-            begin: "(?<!/)//(?!/)"
+            begin: "(?<!/)//(?:(?!/)|(?=//))"
             beginCaptures:
               "0":
                 name: "punctuation.definition.comment.cs"
