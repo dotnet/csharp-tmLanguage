@@ -897,7 +897,6 @@
       (?:\s*\.\s*\g&lt;name-and-type-args&gt;)* | # Are there any more names being dotted into?
       (?&lt;tuple&gt;\s*\((?:[^\(\)]|\g&lt;tuple&gt;)+\))
     )
-    (?:\s*\*\s*)* # pointer suffix?
     (?:\s*\?\s*)? # nullable suffix?
     (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
   )
@@ -1446,7 +1445,6 @@
       (?:\s*\.\s*\g&lt;name-and-type-args&gt;)* | # Are there any more names being dotted into?
       (?&lt;tuple&gt;\s*\((?:[^\(\)]|\g&lt;tuple&gt;)+\))
     )
-    (?:\s*\*\s*)* # pointer suffix?
     (?:\s*\?\s*)? # nullable suffix?
     (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
   )
@@ -1517,7 +1515,6 @@
         (?:\s*\.\s*\g&lt;name-and-type-args&gt;)* | # Are there any more names being dotted into?
         (?&lt;tuple&gt;\s*\((?:[^\(\)]|\g&lt;tuple&gt;)+\))
       )
-      (?:\s*\*\s*)* # pointer suffix?
       (?:\s*\?\s*)? # nullable suffix?
       (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
     )
@@ -1601,7 +1598,6 @@
         (?:\s*\.\s*\g&lt;name-and-type-args&gt;)* | # Are there any more names being dotted into?
         (?&lt;tuple&gt;\s*\((?:[^\(\)]|\g&lt;tuple&gt;)+\))
       )
-      (?:\s*\*\s*)* # pointer suffix?
       (?:\s*\?\s*)? # nullable suffix?
       (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
     )
@@ -1685,7 +1681,6 @@
         (?:\s*\.\s*\g&lt;name-and-type-args&gt;)* | # Are there any more names being dotted into?
         (?&lt;tuple&gt;\s*\((?:[^\(\)]|\g&lt;tuple&gt;)+\))
       )
-      (?:\s*\*\s*)* # pointer suffix?
       (?:\s*\?\s*)? # nullable suffix?
       (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
     )
@@ -1899,7 +1894,6 @@
         (?:\s*\.\s*\g&lt;name-and-type-args&gt;)* | # Are there any more names being dotted into?
         (?&lt;tuple&gt;\s*\((?:[^\(\)]|\g&lt;tuple&gt;)+\))
       )
-      (?:\s*\*\s*)* # pointer suffix?
       (?:\s*\?\s*)? # nullable suffix?
       (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
     )
@@ -2122,7 +2116,6 @@
       (?:\s*\.\s*\g&lt;name-and-type-args&gt;)* | # Are there any more names being dotted into?
       (?&lt;tuple&gt;\s*\((?:[^\(\)]|\g&lt;tuple&gt;)+\))
     )
-    (?:\s*\*\s*)* # pointer suffix?
     (?:\s*\?\s*)? # nullable suffix?
     (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
   )
@@ -2193,7 +2186,6 @@
       (?:\s*\.\s*\g&lt;name-and-type-args&gt;)* | # Are there any more names being dotted into?
       (?&lt;tuple&gt;\s*\((?:[^\(\)]|\g&lt;tuple&gt;)+\))
     )
-    (?:\s*\*\s*)* # pointer suffix?
     (?:\s*\?\s*)? # nullable suffix?
     (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
   )
@@ -2951,7 +2943,6 @@
         (?:\s*\.\s*\g&lt;name-and-type-args&gt;)* | # Are there any more names being dotted into?
         (?&lt;tuple&gt;\s*\((?:[^\(\)]|\g&lt;tuple&gt;)+\))
       )
-      (?:\s*\*\s*)* # pointer suffix?
       (?:\s*\?\s*)? # nullable suffix?
       (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
     )
@@ -3153,7 +3144,6 @@
       (?:\s*\.\s*\g&lt;name-and-type-args&gt;)* | # Are there any more names being dotted into?
       (?&lt;tuple&gt;\s*\((?:[^\(\)]|\g&lt;tuple&gt;)+\))
     )
-    (?:\s*\*\s*)* # pointer suffix?
     (?:\s*\?\s*)? # nullable suffix?
     (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
   )
@@ -3424,7 +3414,6 @@
         (?:\s*\.\s*\g&lt;name-and-type-args&gt;)* | # Are there any more names being dotted into?
         (?&lt;tuple&gt;\s*\((?:[^\(\)]|\g&lt;tuple&gt;)+\))
       )
-      (?:\s*\*\s*)* # pointer suffix?
       (?:\s*\?\s*)? # nullable suffix?
       (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
     )
@@ -3500,7 +3489,6 @@
       (?:\s*\.\s*\g&lt;name-and-type-args&gt;)* | # Are there any more names being dotted into?
       (?&lt;tuple&gt;\s*\((?:[^\(\)]|\g&lt;tuple&gt;)+\))
     )
-    (?:\s*\*\s*)* # pointer suffix?
     (?:\s*\?\s*)? # nullable suffix?
     (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
   )
@@ -3742,7 +3730,6 @@
         (?:\s*\.\s*\g&lt;name-and-type-args&gt;)* | # Are there any more names being dotted into?
         (?&lt;tuple&gt;\s*\((?:[^\(\)]|\g&lt;tuple&gt;)+\))
       )
-      (?:\s*\*\s*)* # pointer suffix?
       (?:\s*\?\s*)? # nullable suffix?
       (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
     )
@@ -3791,7 +3778,6 @@
         (?:\s*\.\s*\g&lt;name-and-type-args&gt;)* | # Are there any more names being dotted into?
         (?&lt;tuple&gt;\s*\((?:[^\(\)]|\g&lt;tuple&gt;)+\))
       )
-      (?:\s*\*\s*)* # pointer suffix?
       (?:\s*\?\s*)? # nullable suffix?
       (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
     )
@@ -4555,7 +4541,6 @@
       (?:\s*\.\s*\g&lt;name-and-type-args&gt;)* | # Are there any more names being dotted into?
       (?&lt;tuple&gt;\s*\((?:[^\(\)]|\g&lt;tuple&gt;)+\))
     )
-    (?:\s*\*\s*)* # pointer suffix?
     (?:\s*\?\s*)? # nullable suffix?
     (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
   )
@@ -4601,7 +4586,6 @@
       (?:\s*\.\s*\g&lt;name-and-type-args&gt;)* | # Are there any more names being dotted into?
       (?&lt;tuple&gt;\s*\((?:[^\(\)]|\g&lt;tuple&gt;)+\))
     )
-    (?:\s*\*\s*)* # pointer suffix?
     (?:\s*\?\s*)? # nullable suffix?
     (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
   )
@@ -4641,7 +4625,6 @@
       (?:\s*\.\s*\g&lt;name-and-type-args&gt;)* | # Are there any more names being dotted into?
       (?&lt;tuple&gt;\s*\((?:[^\(\)]|\g&lt;tuple&gt;)+\))
     )
-    (?:\s*\*\s*)* # pointer suffix?
     (?:\s*\?\s*)? # nullable suffix?
     (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
   )
@@ -4885,7 +4868,6 @@
       (?:\s*\.\s*\g&lt;name-and-type-args&gt;)* | # Are there any more names being dotted into?
       (?&lt;tuple&gt;\s*\((?:[^\(\)]|\g&lt;tuple&gt;)+\))
     )
-    (?:\s*\*\s*)* # pointer suffix?
     (?:\s*\?\s*)? # nullable suffix?
     (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
   )
@@ -4935,7 +4917,6 @@
       (?:\s*\.\s*\g&lt;name-and-type-args&gt;)* | # Are there any more names being dotted into?
       (?&lt;tuple&gt;\s*\((?:[^\(\)]|\g&lt;tuple&gt;)+\))
     )
-    (?:\s*\*\s*)* # pointer suffix?
     (?:\s*\?\s*)? # nullable suffix?
     (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
   )
@@ -4976,7 +4957,6 @@
       (?:\s*\.\s*\g&lt;name-and-type-args&gt;)* | # Are there any more names being dotted into?
       (?&lt;tuple&gt;\s*\((?:[^\(\)]|\g&lt;tuple&gt;)+\))
     )
-    (?:\s*\*\s*)* # pointer suffix?
     (?:\s*\?\s*)? # nullable suffix?
     (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
   )
@@ -5150,7 +5130,6 @@
       (?:\s*\.\s*\g&lt;name-and-type-args&gt;)* | # Are there any more names being dotted into?
       (?&lt;tuple&gt;\s*\((?:[^\(\)]|\g&lt;tuple&gt;)+\))
     )
-    (?:\s*\*\s*)* # pointer suffix?
     (?:\s*\?\s*)? # nullable suffix?
     (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
   )
@@ -5319,7 +5298,6 @@
       (?:\s*\.\s*\g&lt;name-and-type-args&gt;)* | # Are there any more names being dotted into?
       (?&lt;tuple&gt;\s*\((?:[^\(\)]|\g&lt;tuple&gt;)+\))
     )
-    (?:\s*\*\s*)* # pointer suffix?
     (?:\s*\?\s*)? # nullable suffix?
     (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
   )
@@ -5480,7 +5458,6 @@
       (?:\s*\.\s*\g&lt;name-and-type-args&gt;)* | # Are there any more names being dotted into?
       (?&lt;tuple&gt;\s*\((?:[^\(\)]|\g&lt;tuple&gt;)+\))
     )
-    (?:\s*\*\s*)* # pointer suffix?
     (?:\s*\?\s*)? # nullable suffix?
     (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
   )
@@ -5921,7 +5898,6 @@
       (?:\s*\.\s*\g&lt;name-and-type-args&gt;)* | # Are there any more names being dotted into?
       (?&lt;tuple&gt;\s*\((?:[^\(\)]|\g&lt;tuple&gt;)+\))
     )
-    (?:\s*\*\s*)* # pointer suffix?
     (?:\s*\?\s*)? # nullable suffix?
     (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
   )
@@ -6048,7 +6024,6 @@
       (?:\s*\.\s*\g&lt;name-and-type-args&gt;)* | # Are there any more names being dotted into?
       (?&lt;tuple&gt;\s*\((?:[^\(\)]|\g&lt;tuple&gt;)+\))
     )
-    (?:\s*\*\s*)* # pointer suffix?
     (?:\s*\?\s*)? # nullable suffix?
     (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
   )

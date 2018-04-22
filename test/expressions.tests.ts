@@ -10,6 +10,32 @@ describe("Grammar", () => {
     before(() => should());
 
     describe("Expressions", () => {
+        describe("Object creation", () => {
+            it("with argument multiplication (issue #82)", () => {
+                const input = Input.InMethod(`
+var newPoint = new Vector(point.x * z, 0);`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("newPoint"),
+                    Token.Operators.Assignment,
+                    Token.Keywords.New,
+                    Token.Type("Vector"),
+                    Token.Punctuation.OpenParen,
+                    Token.Variables.Object("point"),
+                    Token.Punctuation.Accessor,
+                    Token.Variables.Property("x"),
+                    Token.Operators.Arithmetic.Multiplication,
+                    Token.Variables.ReadWrite("z"),
+                    Token.Punctuation.Comma,
+                    Token.Literals.Numeric.Decimal("0"),
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+        });
+
         describe("Anonymous Methods", () => {
             it("lambda expression with no parameters (assignment)", () => {
                 const input = Input.InMethod(`Action a = () => { };`);
@@ -824,7 +850,7 @@ public void Method2()
                     Token.Punctuation.OpenParen,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.OpenBrace,
-                    
+
                     // app.Command()
                     Token.Variables.Object("app"),
                     Token.Punctuation.Accessor,
@@ -874,7 +900,7 @@ var outObjectsToKeep = allOutObjects.Where(outObject => outObject.ShouldKeep);`)
                     Token.Variables.Property("ShouldKeep"),
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.Semicolon,
-                    
+
                     // var outObjectsToKeep = allOutObjects.Where(outObject => outObject.ShouldKeep);;
                     Token.Keywords.Var,
                     Token.Identifiers.LocalName("outObjectsToKeep"),
@@ -2301,6 +2327,21 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
                 ]);
             });
 
+            it("multiplicated parameters (issue #99)", () => {
+                const input = Input.InMethod(`Multiply(n1 * n2);`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Identifiers.MethodName("Multiply"),
+                    Token.Punctuation.OpenParen,
+                    Token.Variables.ReadWrite("n1"),
+                    Token.Operators.Arithmetic.Multiplication,
+                    Token.Variables.ReadWrite("n2"),
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
             it("chained method calls", () => {
                 const input = Input.InMethod(`M1().M2();`);
                 const tokens = tokenize(input);
@@ -3212,7 +3253,7 @@ private static readonly Parser<Node> NodeParser =
                     Token.Punctuation.Semicolon
                 ]);
             });
-            
+
             it("query join with anonymous type (issue #89)", () => {
                 const input = Input.InMethod(`
 var q = from x in list1
