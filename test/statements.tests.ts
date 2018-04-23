@@ -142,6 +142,35 @@ for (int i = 0; i < 42; i++)
                     Token.Punctuation.CloseBrace,
                 ]);
             });
+
+            it("for loop with argument multiplication (issue #99)", () => {
+                const input = Input.InMethod(`
+    for (int i = 0; i < n1 * n2; i++)
+    {
+    }`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Keywords.Control.For,
+                    Token.Punctuation.OpenParen,
+                    Token.PrimitiveType.Int,
+                    Token.Identifiers.LocalName("i"),
+                    Token.Operators.Assignment,
+                    Token.Literals.Numeric.Decimal("0"),
+                    Token.Punctuation.Semicolon,
+                    Token.Variables.ReadWrite("i"),
+                    Token.Operators.Relational.LessThan,
+                    Token.Variables.ReadWrite("n1"),
+                    Token.Operators.Arithmetic.Multiplication,
+                    Token.Variables.ReadWrite("n2"),
+                    Token.Punctuation.Semicolon,
+                    Token.Variables.ReadWrite("i"),
+                    Token.Operators.Increment,
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.OpenBrace,
+                    Token.Punctuation.CloseBrace,
+                ]);
+            });
         });
 
         describe("ForEach", () => {

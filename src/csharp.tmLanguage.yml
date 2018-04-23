@@ -278,7 +278,6 @@ repository:
             (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
             (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
           )
-          (?:\s*\*\s*)* # pointer suffix?
           (?:\s*\?\s*)? # nullable suffix?
           (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
         )
@@ -463,7 +462,6 @@ repository:
             (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
             (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
           )
-          (?:\s*\*\s*)* # pointer suffix?
           (?:\s*\?\s*)? # nullable suffix?
           (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
         )
@@ -505,7 +503,6 @@ repository:
               (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
               (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
             )
-            (?:\s*\*\s*)* # pointer suffix?
             (?:\s*\?\s*)? # nullable suffix?
             (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
           )
@@ -552,7 +549,6 @@ repository:
               (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
               (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
             )
-            (?:\s*\*\s*)* # pointer suffix?
             (?:\s*\?\s*)? # nullable suffix?
             (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
           )
@@ -600,7 +596,6 @@ repository:
               (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
               (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
             )
-            (?:\s*\*\s*)* # pointer suffix?
             (?:\s*\?\s*)? # nullable suffix?
             (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
           )
@@ -688,7 +683,6 @@ repository:
               (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
               (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
             )
-            (?:\s*\*\s*)* # pointer suffix?
             (?:\s*\?\s*)? # nullable suffix?
             (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
           )
@@ -778,7 +772,6 @@ repository:
             (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
             (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
           )
-          (?:\s*\*\s*)* # pointer suffix?
           (?:\s*\?\s*)? # nullable suffix?
           (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
         )
@@ -820,7 +813,6 @@ repository:
             (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
             (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
           )
-          (?:\s*\*\s*)* # pointer suffix?
           (?:\s*\?\s*)? # nullable suffix?
           (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
         )
@@ -1079,7 +1071,6 @@ repository:
                   (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
                   (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
                 )
-                (?:\s*\*\s*)* # pointer suffix?
                 (?:\s*\?\s*)? # nullable suffix?
                 (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
               )
@@ -1162,7 +1153,6 @@ repository:
                 (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
                 (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
               )
-              (?:\s*\*\s*)* # pointer suffix?
               (?:\s*\?\s*)? # nullable suffix?
               (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
             )
@@ -1265,7 +1255,6 @@ repository:
               (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
               (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
             )
-            (?:\s*\*\s*)* # pointer suffix?
             (?:\s*\?\s*)? # nullable suffix?
             (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
           )
@@ -1307,7 +1296,6 @@ repository:
             (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
             (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
           )
-          (?:\s*\*\s*)* # pointer suffix?
           (?:\s*\?\s*)? # nullable suffix?
           (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
         )
@@ -1412,7 +1400,6 @@ repository:
               (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
               (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
             )
-            (?:\s*\*\s*)* # pointer suffix?
             (?:\s*\?\s*)? # nullable suffix?
             (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
           )
@@ -1447,7 +1434,6 @@ repository:
               (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
               (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
             )
-            (?:\s*\*\s*)* # pointer suffix?
             (?:\s*\?\s*)? # nullable suffix?
             (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
           )
@@ -1735,7 +1721,6 @@ repository:
             (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
             (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
           )
-          (?:\s*\*\s*)* # pointer suffix?
           (?:\s*\?\s*)? # nullable suffix?
           (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
         )
@@ -1767,7 +1752,6 @@ repository:
             (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
             (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
           )
-          (?:\s*\*\s*)* # pointer suffix?
           (?:\s*\?\s*)? # nullable suffix?
           (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
         )
@@ -1793,7 +1777,6 @@ repository:
             (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
             (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
           )
-          (?:\s*\*\s*)* # pointer suffix?
           (?:\s*\?\s*)? # nullable suffix?
           (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
         )
@@ -1909,7 +1892,6 @@ repository:
             (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
             (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
           )
-          (?:\s*\*\s*)* # pointer suffix?
           (?:\s*\?\s*)? # nullable suffix?
           (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
         )
@@ -1939,7 +1921,6 @@ repository:
             (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
             (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
           )
-          (?:\s*\*\s*)* # pointer suffix?
           (?:\s*\?\s*)? # nullable suffix?
           (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
         )
@@ -1966,7 +1947,6 @@ repository:
             (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
             (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
           )
-          (?:\s*\*\s*)* # pointer suffix?
           (?:\s*\?\s*)? # nullable suffix?
           (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
         )
@@ -2037,7 +2017,6 @@ repository:
             (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
             (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
           )
-          (?:\s*\*\s*)* # pointer suffix?
           (?:\s*\?\s*)? # nullable suffix?
           (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
         )
@@ -2109,7 +2088,6 @@ repository:
             (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
             (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
           )
-          (?:\s*\*\s*)* # pointer suffix?
           (?:\s*\?\s*)? # nullable suffix?
           (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
         )
@@ -2182,7 +2160,6 @@ repository:
             (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
             (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
           )
-          (?:\s*\*\s*)* # pointer suffix?
           (?:\s*\?\s*)? # nullable suffix?
           (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
         )
@@ -2351,7 +2328,6 @@ repository:
             (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
             (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
           )
-          (?:\s*\*\s*)* # pointer suffix?
           (?:\s*\?\s*)? # nullable suffix?
           (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
         )
@@ -2410,7 +2386,6 @@ repository:
             (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
             (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
           )
-          (?:\s*\*\s*)* # pointer suffix?
           (?:\s*\?\s*)? # nullable suffix?
           (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
         )
