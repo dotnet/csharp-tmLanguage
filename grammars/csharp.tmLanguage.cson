@@ -335,7 +335,7 @@ repository:
       }
     ]
   "extern-alias-directive":
-    begin: "\\s*(extern)\\b\\s*(alias)\\b\\s*([_[:alpha:]][_[:alnum:]]*)"
+    begin: "\\s*(extern)\\b\\s*(alias)\\b\\s*(@?[_[:alpha:]][_[:alnum:]]*)"
     beginCaptures:
       "1":
         name: "keyword.other.extern.cs"
@@ -361,7 +361,7 @@ repository:
         ]
       }
       {
-        begin: "\\b(using)\\s+(?=([_[:alpha:]][_[:alnum:]]*)\\s*=)"
+        begin: "\\b(using)\\s+(?=(@?[_[:alpha:]][_[:alnum:]]*)\\s*=)"
         beginCaptures:
           "1":
             name: "keyword.other.using.cs"
@@ -392,7 +392,7 @@ repository:
           }
           {
             name: "entity.name.type.namespace.cs"
-            match: "[_[:alpha:]][_[:alnum:]]*"
+            match: "@?[_[:alpha:]][_[:alnum:]]*"
           }
           {
             include: "#operator-assignment"
@@ -454,7 +454,7 @@ repository:
       }
     ]
   "attribute-named-argument":
-    begin: "([_[:alpha:]][_[:alnum:]]*)\\s*(?==)"
+    begin: "(@?[_[:alpha:]][_[:alnum:]]*)\\s*(?==)"
     beginCaptures:
       "1":
         name: "entity.name.variable.property.cs"
@@ -479,7 +479,7 @@ repository:
       }
       {
         name: "entity.name.type.namespace.cs"
-        match: "[_[:alpha:]][_[:alnum:]]*"
+        match: "@?[_[:alpha:]][_[:alnum:]]*"
       }
       {
         include: "#punctuation-accessor"
@@ -517,7 +517,7 @@ repository:
         begin: '''
           (?x)
           \\b(class)\\b\\s+
-          ([_[:alpha:]][_[:alnum:]]*)\\s*
+          (@?[_[:alpha:]][_[:alnum:]]*)\\s*
         '''
         beginCaptures:
           "1":
@@ -570,7 +570,7 @@ repository:
         (?:
           (?:ref\\s+)?   # ref return
           (?:
-            (?:(?<identifier>[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
+            (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
             (?<name-and-type-args> # identifier + type arguments (if any)
               \\g<identifier>\\s*
               (?<type-args>\\s*<(?:[^<>]|\\g<type-args>)+>\\s*)?
@@ -627,7 +627,7 @@ repository:
             include: "#comment"
           }
           {
-            match: "(enum)\\s+([_[:alpha:]][_[:alnum:]]*)"
+            match: "(enum)\\s+(@?[_[:alpha:]][_[:alnum:]]*)"
             captures:
               "1":
                 name: "keyword.other.enum.cs"
@@ -671,7 +671,7 @@ repository:
             include: "#punctuation-comma"
           }
           {
-            begin: "[_[:alpha:]][_[:alnum:]]*"
+            begin: "@?[_[:alpha:]][_[:alnum:]]*"
             beginCaptures:
               "0":
                 name: "entity.name.variable.enum-member.cs"
@@ -702,7 +702,7 @@ repository:
         begin: '''
           (?x)
           (interface)\\b\\s+
-          ([_[:alpha:]][_[:alnum:]]*)
+          (@?[_[:alpha:]][_[:alnum:]]*)
         '''
         beginCaptures:
           "1":
@@ -755,7 +755,7 @@ repository:
         begin: '''
           (?x)
           (struct)\\b\\s+
-          ([_[:alpha:]][_[:alnum:]]*)
+          (@?[_[:alpha:]][_[:alnum:]]*)
         '''
         beginCaptures:
           "1":
@@ -817,7 +817,7 @@ repository:
             name: "storage.modifier.cs"
       }
       {
-        match: "\\b([_[:alpha:]][_[:alnum:]]*)\\b"
+        match: "(@?\\b[_[:alpha:]][_[:alnum:]]*)\\b"
         captures:
           "1":
             name: "entity.name.type.type-parameter.cs"
@@ -850,7 +850,7 @@ repository:
       }
     ]
   "generic-constraints":
-    begin: "(where)\\s+([_[:alpha:]][_[:alnum:]]*)\\s*(:)"
+    begin: "(where)\\s+(@?[_[:alpha:]][_[:alnum:]]*)\\s*(:)"
     beginCaptures:
       "1":
         name: "keyword.other.where.cs"
@@ -894,7 +894,7 @@ repository:
       (?<type-name>
         (?:
           (?:
-            (?:(?<identifier>[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
+            (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
             (?<name-and-type-args> # identifier + type arguments (if any)
               \\g<identifier>\\s*
               (?<type-args>\\s*<(?:[^<>]|\\g<type-args>)+>\\s*)?
@@ -922,7 +922,7 @@ repository:
     patterns: [
       {
         name: "entity.name.variable.field.cs"
-        match: "[_[:alpha:]][_[:alnum:]]*"
+        match: "@?[_[:alpha:]][_[:alnum:]]*"
       }
       {
         include: "#punctuation-comma"
@@ -946,7 +946,7 @@ repository:
           (?:
             (?:ref\\s+)?   # ref return
             (?:
-              (?:(?<identifier>[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
+              (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
               (?<name-and-type-args> # identifier + type arguments (if any)
                 \\g<identifier>\\s*
                 (?<type-args>\\s*<(?:[^<>]|\\g<type-args>)+>\\s*)?
@@ -1007,7 +1007,7 @@ repository:
           (?:
             (?:ref\\s+)?   # ref return
             (?:
-              (?:(?<identifier>[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
+              (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
               (?<name-and-type-args> # identifier + type arguments (if any)
                 \\g<identifier>\\s*
                 (?<type-args>\\s*<(?:[^<>]|\\g<type-args>)+>\\s*)?
@@ -1068,7 +1068,7 @@ repository:
         (?<type-name>
           (?:
             (?:
-              (?:(?<identifier>[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
+              (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
               (?<name-and-type-args> # identifier + type arguments (if any)
                 \\g<identifier>\\s*
                 (?<type-args>\\s*<(?:[^<>]|\\g<type-args>)+>\\s*)?
@@ -1107,7 +1107,7 @@ repository:
         patterns: [
           {
             name: "entity.name.variable.event.cs"
-            match: "[_[:alpha:]][_[:alnum:]]*"
+            match: "@?[_[:alpha:]][_[:alnum:]]*"
           }
           {
             include: "#punctuation-comma"
@@ -1205,7 +1205,7 @@ repository:
           (?:
             (?:ref\\s+)?   # ref return
             (?:
-              (?:(?<identifier>[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
+              (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
               (?<name-and-type-args> # identifier + type arguments (if any)
                 \\g<identifier>\\s*
                 (?<type-args>\\s*<(?:[^<>]|\\g<type-args>)+>\\s*)?
@@ -1266,11 +1266,11 @@ repository:
       }
     ]
   "constructor-declaration":
-    begin: "(?=[_[:alpha:]][_[:alnum:]]*\\s*\\()"
+    begin: "(?=@?[_[:alpha:]][_[:alnum:]]*\\s*\\()"
     end: "(?<=\\})|(?=;)"
     patterns: [
       {
-        match: "\\b([_[:alpha:]][_[:alnum:]]*)\\b"
+        match: "(@?\\b[_[:alpha:]][_[:alnum:]]*)\\b"
         captures:
           "1":
             name: "entity.name.function.cs"
@@ -1317,7 +1317,7 @@ repository:
       }
     ]
   "destructor-declaration":
-    begin: "(~)([_[:alpha:]][_[:alnum:]]*)\\s*(?=\\()"
+    begin: "(~)(@?[_[:alpha:]][_[:alnum:]]*)\\s*(?=\\()"
     beginCaptures:
       "1":
         name: "punctuation.tilde.cs"
@@ -1345,7 +1345,7 @@ repository:
         (?:
           (?:ref\\s+)?   # ref return
           (?:
-            (?:(?<identifier>[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
+            (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
             (?<name-and-type-args> # identifier + type arguments (if any)
               \\g<identifier>\\s*
               (?<type-args>\\s*<(?:[^<>]|\\g<type-args>)+>\\s*)?
@@ -1396,7 +1396,7 @@ repository:
         (?:
           (?:ref\\s+)?   # ref return
           (?:
-            (?:(?<identifier>[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
+            (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
             (?<name-and-type-args> # identifier + type arguments (if any)
               \\g<identifier>\\s*
               (?<type-args>\\s*<(?:[^<>]|\\g<type-args>)+>\\s*)?
@@ -1518,7 +1518,7 @@ repository:
       }
       {
         name: "entity.name.label.cs"
-        match: "[_[:alpha:]][_[:alnum:]]*"
+        match: "@?[_[:alpha:]][_[:alnum:]]*"
       }
     ]
   "return-statement":
@@ -1794,7 +1794,7 @@ repository:
                 (?<type-name>
                   (?:
                     (?:
-                      (?:(?<identifier>[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
+                      (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
                       (?<name-and-type-args> # identifier + type arguments (if any)
                         \\g<identifier>\\s*
                         (?<type-args>\\s*<(?:[^<>]|\\g<type-args>)+>\\s*)?
@@ -1915,7 +1915,7 @@ repository:
               (?<type-name>
                 (?:
                   (?:
-                    (?:(?<identifier>[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
+                    (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
                     (?<name-and-type-args> # identifier + type arguments (if any)
                       \\g<identifier>\\s*
                       (?<type-args>\\s*<(?:[^<>]|\\g<type-args>)+>\\s*)?
@@ -1927,7 +1927,7 @@ repository:
                   (?:\\s*\\[(?:\\s*,\\s*)*\\]\\s*)* # array suffix?
                 )
               )\\s*
-              (?:\\b(\\g<identifier>)\\b)?
+              (?:(\\g<identifier>)\\b)?
             '''
             captures:
               "1":
@@ -2042,7 +2042,7 @@ repository:
       }
     ]
   "labeled-statement":
-    match: "([_[:alpha:]][_[:alnum:]]*)\\s*(:)"
+    match: "(@?[_[:alpha:]][_[:alnum:]]*)\\s*(:)"
     captures:
       "1":
         name: "entity.name.label.cs"
@@ -2069,7 +2069,7 @@ repository:
           (?:
             (?:ref\\s+)?   # ref local
             (?:
-              (?:(?<identifier>[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
+              (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
               (?<name-and-type-args> # identifier + type arguments (if any)
                 \\g<identifier>\\s*
                 (?<type-args>\\s*<(?:[^<>]|\\g<type-args>)+>\\s*)?
@@ -2102,7 +2102,7 @@ repository:
     patterns: [
       {
         name: "entity.name.variable.local.cs"
-        match: "[_[:alpha:]][_[:alnum:]]*"
+        match: "@?[_[:alpha:]][_[:alnum:]]*"
       }
       {
         include: "#punctuation-comma"
@@ -2121,7 +2121,7 @@ repository:
       (?<type-name>
         (?:
           (?:
-            (?:(?<identifier>[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
+            (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
             (?<name-and-type-args> # identifier + type arguments (if any)
               \\g<identifier>\\s*
               (?<type-args>\\s*<(?:[^<>]|\\g<type-args>)+>\\s*)?
@@ -2151,7 +2151,7 @@ repository:
     patterns: [
       {
         name: "entity.name.variable.local.cs"
-        match: "[_[:alpha:]][_[:alnum:]]*"
+        match: "@?[_[:alpha:]][_[:alnum:]]*"
       }
       {
         include: "#punctuation-comma"
@@ -2226,7 +2226,7 @@ repository:
       {
         match: '''
           (?x) # e.g. x
-          \\b([_[:alpha:]][_[:alnum:]]*)\\b\\s*
+          (@?\\b[_[:alpha:]][_[:alnum:]]*)\\b\\s*
           (?=[,)])
         '''
         captures:
@@ -2259,7 +2259,7 @@ repository:
       {
         match: '''
           (?x) # e.g. x
-          \\b([_[:alpha:]][_[:alnum:]]*)\\b\\s*
+          (@?\\b[_[:alpha:]][_[:alnum:]]*)\\b\\s*
           (?=[,)])
         '''
         captures:
@@ -2275,7 +2275,7 @@ repository:
         (?<type-name>
           (?:
             (?:
-              (?:(?<identifier>[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
+              (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
               (?<name-and-type-args> # identifier + type arguments (if any)
                 \\g<identifier>\\s*
                 (?<type-args>\\s*<(?:[^<>]|\\g<type-args>)+>\\s*)?
@@ -2288,7 +2288,7 @@ repository:
           )
         )
       )\\s+
-      \\b(\\g<identifier>)\\b\\s*
+      (\\g<identifier>)\\b\\s*
       (?=[,)\\]])
     '''
     captures:
@@ -2310,7 +2310,7 @@ repository:
         (?<type-name>
           (?:
             (?:
-              (?:(?<identifier>[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
+              (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
               (?<name-and-type-args> # identifier + type arguments (if any)
                 \\g<identifier>\\s*
                 (?<type-args>\\s*<(?:[^<>]|\\g<type-args>)+>\\s*)?
@@ -2323,7 +2323,7 @@ repository:
           )
         )
       )\\s+
-      \\b(\\g<identifier>)\\b\\s*
+      (\\g<identifier>)\\b\\s*
       (?=[,)])
     '''
     captures:
@@ -2592,7 +2592,7 @@ repository:
   "tuple-literal-element":
     begin: '''
       (?x)
-      (?:([_[:alpha:]][_[:alnum:]]*)\\s*(:)\\s*)?
+      (?:(@?[_[:alpha:]][_[:alnum:]]*)\\s*(:)\\s*)?
       (?![,)])
     '''
     beginCaptures:
@@ -2707,7 +2707,7 @@ repository:
     ]
   identifier:
     name: "variable.other.readwrite.cs"
-    match: "[_[:alpha:]][_[:alnum:]]*"
+    match: "@?[_[:alpha:]][_[:alnum:]]*"
   "cast-expression":
     match: '''
       (?x)
@@ -2715,7 +2715,7 @@ repository:
       (?<type-name>
         (?:
           (?:
-            (?:(?<identifier>[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
+            (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
             (?<name-and-type-args> # identifier + type arguments (if any)
               \\g<identifier>\\s*
               (?<type-args>\\s*<(?:[^<>]|\\g<type-args>)+>\\s*)?
@@ -2727,7 +2727,7 @@ repository:
           (?:\\s*\\[(?:\\s*,\\s*)*\\]\\s*)* # array suffix?
         )
       )\\s*
-      (\\))(?=\\s*[_[:alnum:]\\(])
+      (\\))(?=\\s*@?[_[:alnum:]\\(])
     '''
     captures:
       "1":
@@ -2747,7 +2747,7 @@ repository:
       (?<type-name>
         (?:
           (?:
-            (?:(?<identifier>[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
+            (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
             (?<name-and-type-args> # identifier + type arguments (if any)
               \\g<identifier>\\s*
               (?<type-args>\\s*<(?:[^<>]|\\g<type-args>)+>\\s*)?
@@ -2776,7 +2776,7 @@ repository:
       (?<type-name>
         (?:
           (?:
-            (?:(?<identifier>[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
+            (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
             (?<name-and-type-args> # identifier + type arguments (if any)
               \\g<identifier>\\s*
               (?<type-args>\\s*<(?:[^<>]|\\g<type-args>)+>\\s*)?
@@ -2810,7 +2810,7 @@ repository:
       (?x)
       (?:(\\?)\\s*)?                                     # preceding null-conditional operator?
       (?:(\\.)\\s*)?                                     # preceding dot?
-      ([_[:alpha:]][_[:alnum:]]*)\\s*                   # method name
+      (@?[_[:alpha:]][_[:alnum:]]*)\\s*                   # method name
       (?<type-args>\\s*<([^<>]|\\g<type-args>)+>\\s*)?\\s* # type arguments
       (?=\\()                                           # open paren of argument list
     '''
@@ -2838,7 +2838,7 @@ repository:
       (?x)
       (?:(\\?)\\s*)?                        # preceding null-conditional operator?
       (?:(\\.)\\s*)?                        # preceding dot?
-      (?:([_[:alpha:]][_[:alnum:]]*)\\s*)? # property name
+      (?:(@?[_[:alpha:]][_[:alnum:]]*)\\s*)? # property name
       (?:(\\?)\\s*)?                        # null-conditional operator?
       (?=\\[)                              # open bracket of argument list
     '''
@@ -2864,7 +2864,7 @@ repository:
           (?x)
           (?:(\\?)\\s*)?                   # preceding null-conditional operator?
           (\\.)\\s*                        # preceding dot
-          ([_[:alpha:]][_[:alnum:]]*)\\s* # property name
+          (@?[_[:alpha:]][_[:alnum:]]*)\\s* # property name
           (?![_[:alnum:]]|\\(|(\\?)?\\[|<)  # next character is not alpha-numeric, nor a (, [, or <. Also, test for ?[
         '''
         captures:
@@ -2879,11 +2879,11 @@ repository:
         match: '''
           (?x)
           (\\.)?\\s*
-          ([_[:alpha:]][_[:alnum:]]*)
+          (@?[_[:alpha:]][_[:alnum:]]*)
           (?<type-params>\\s*<([^<>]|\\g<type-params>)+>\\s*)
           (?=
             (\\s*\\?)?
-            \\s*\\.\\s*[_[:alpha:]][_[:alnum:]]*
+            \\s*\\.\\s*@?[_[:alpha:]][_[:alnum:]]*
           )
         '''
         captures:
@@ -2901,10 +2901,10 @@ repository:
       {
         match: '''
           (?x)
-          ([_[:alpha:]][_[:alnum:]]*)
+          (@?[_[:alpha:]][_[:alnum:]]*)
           (?=
             (\\s*\\?)?
-            \\s*\\.\\s*[_[:alpha:]][_[:alnum:]]*
+            \\s*\\.\\s*@?[_[:alpha:]][_[:alnum:]]*
           )
         '''
         captures:
@@ -2928,7 +2928,7 @@ repository:
       (?<type-name>
         (?:
           (?:
-            (?:(?<identifier>[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
+            (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
             (?<name-and-type-args> # identifier + type arguments (if any)
               \\g<identifier>\\s*
               (?<type-args>\\s*<(?:[^<>]|\\g<type-args>)+>\\s*)?
@@ -2964,7 +2964,7 @@ repository:
       (?<type-name>
         (?:
           (?:
-            (?:(?<identifier>[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
+            (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
             (?<name-and-type-args> # identifier + type arguments (if any)
               \\g<identifier>\\s*
               (?<type-args>\\s*<(?:[^<>]|\\g<type-args>)+>\\s*)?
@@ -2994,7 +2994,7 @@ repository:
       (?<type-name>
         (?:
           (?:
-            (?:(?<identifier>[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
+            (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
             (?<name-and-type-args> # identifier + type arguments (if any)
               \\g<identifier>\\s*
               (?<type-args>\\s*<(?:[^<>]|\\g<type-args>)+>\\s*)?
@@ -3100,7 +3100,7 @@ repository:
         (?:
           (?:ref\\s+)?   # ref return
           (?:
-            (?:(?<identifier>[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
+            (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
             (?<name-and-type-args> # identifier + type arguments (if any)
               \\g<identifier>\\s*
               (?<type-args>\\s*<(?:[^<>]|\\g<type-args>)+>\\s*)?
@@ -3166,7 +3166,7 @@ repository:
       }
     ]
   "named-argument":
-    begin: "([_[:alpha:]][_[:alnum:]]*)\\s*(:)"
+    begin: "(@?[_[:alpha:]][_[:alnum:]]*)\\s*(:)"
     beginCaptures:
       "1":
         name: "entity.name.variable.parameter.cs"
@@ -3198,7 +3198,7 @@ repository:
       (?<type-name>
         (?:
           (?:
-            (?:(?<identifier>[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
+            (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
             (?<name-and-type-args> # identifier + type arguments (if any)
               \\g<identifier>\\s*
               (?<type-args>\\s*<(?:[^<>]|\\g<type-args>)+>\\s*)?
@@ -3210,7 +3210,7 @@ repository:
           (?:\\s*\\[(?:\\s*,\\s*)*\\]\\s*)* # array suffix?
         )
       )?
-      \\b(\\g<identifier>)\\b\\s*
+      \\s+(\\g<identifier>)\\b\\s*
       \\b(in)\\b\\s*
     '''
     beginCaptures:
@@ -3260,7 +3260,7 @@ repository:
     begin: '''
       (?x)
       \\b(let)\\b\\s*
-      \\b([_[:alpha:]][_[:alnum:]]*)\\b\\s*
+      (@?\\b[_[:alpha:]][_[:alnum:]]*)\\b\\s*
       (=)\\s*
     '''
     beginCaptures:
@@ -3303,7 +3303,7 @@ repository:
       (?<type-name>
         (?:
           (?:
-            (?:(?<identifier>[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
+            (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
             (?<name-and-type-args> # identifier + type arguments (if any)
               \\g<identifier>\\s*
               (?<type-args>\\s*<(?:[^<>]|\\g<type-args>)+>\\s*)?
@@ -3315,7 +3315,7 @@ repository:
           (?:\\s*\\[(?:\\s*,\\s*)*\\]\\s*)* # array suffix?
         )
       )?
-      \\b(\\g<identifier>)\\b\\s*
+      \\s+(\\g<identifier>)\\b\\s*
       \\b(in)\\b\\s*
     '''
     beginCaptures:
@@ -3363,7 +3363,7 @@ repository:
     match: '''
       (?x)
       \\b(into)\\b\\s*
-      \\b([_[:alpha:]][_[:alnum:]]*)\\b\\s*
+      (@?\\b[_[:alpha:]][_[:alnum:]]*)\\b\\s*
     '''
     captures:
       "1":
@@ -3440,7 +3440,7 @@ repository:
     match: '''
       (?x)
       \\b(into)\\b\\s*
-      \\b([_[:alpha:]][_[:alnum:]]*)\\b\\s*
+      (@?\\b[_[:alpha:]][_[:alnum:]]*)\\b\\s*
     '''
     captures:
       "1":
@@ -3453,7 +3453,7 @@ repository:
         begin: '''
           (?x)
           (?:\\b(async)\\b\\s*)?
-          \\b([_[:alpha:]][_[:alnum:]]*)\\b\\s*
+          (@?\\b[_[:alpha:]][_[:alnum:]]*)\\b\\s*
           (=>)
         '''
         beginCaptures:
@@ -3562,7 +3562,7 @@ repository:
       (?<type-name>
         (?:
           (?:
-            (?:(?<identifier>[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
+            (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
             (?<name-and-type-args> # identifier + type arguments (if any)
               \\g<identifier>\\s*
               (?<type-args>\\s*<(?:[^<>]|\\g<type-args>)+>\\s*)?
@@ -3574,7 +3574,7 @@ repository:
           (?:\\s*\\[(?:\\s*,\\s*)*\\]\\s*)* # array suffix?
         )
       )?
-      \\b(\\g<identifier>)\\b\\s*
+      (\\g<identifier>)\\b\\s*
       (?=[,)])
     '''
     captures:
@@ -3642,7 +3642,7 @@ repository:
       (?<type-name>
         (?:
           (?:
-            (?:(?<identifier>[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
+            (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
             (?<name-and-type-args> # identifier + type arguments (if any)
               \\g<identifier>\\s*
               (?<type-args>\\s*<(?:[^<>]|\\g<type-args>)+>\\s*)?
@@ -3654,7 +3654,7 @@ repository:
           (?:\\s*\\[(?:\\s*,\\s*)*\\]\\s*)* # array suffix?
         )
       )
-      (?:\\b(?<tuple-name>\\g<identifier>)\\b)?
+      (?:(?<tuple-name>\\g<identifier>)\\b)?
     '''
     captures:
       "1":
@@ -3673,7 +3673,7 @@ repository:
   "type-name":
     patterns: [
       {
-        match: "([_[:alpha:]][_[:alnum:]]*)\\s*(\\:\\:)"
+        match: "(@?[_[:alpha:]][_[:alnum:]]*)\\s*(\\:\\:)"
         captures:
           "1":
             name: "entity.name.type.alias.cs"
@@ -3681,7 +3681,7 @@ repository:
             name: "punctuation.separator.coloncolon.cs"
       }
       {
-        match: "([_[:alpha:]][_[:alnum:]]*)\\s*(\\.)"
+        match: "(@?[_[:alpha:]][_[:alnum:]]*)\\s*(\\.)"
         captures:
           "1":
             name: "storage.type.cs"
@@ -3689,7 +3689,7 @@ repository:
             name: "punctuation.accessor.cs"
       }
       {
-        match: "(\\.)\\s*([_[:alpha:]][_[:alnum:]]*)"
+        match: "(\\.)\\s*(@?[_[:alpha:]][_[:alnum:]]*)"
         captures:
           "1":
             name: "punctuation.accessor.cs"
@@ -3698,7 +3698,7 @@ repository:
       }
       {
         name: "storage.type.cs"
-        match: "[_[:alpha:]][_[:alnum:]]*"
+        match: "@?[_[:alpha:]][_[:alnum:]]*"
       }
     ]
   "type-arguments":

@@ -472,7 +472,7 @@
       <key>extern-alias-directive</key>
       <dict>
         <key>begin</key>
-        <string>\s*(extern)\b\s*(alias)\b\s*([_[:alpha:]][_[:alnum:]]*)</string>
+        <string>\s*(extern)\b\s*(alias)\b\s*(@?[_[:alpha:]][_[:alnum:]]*)</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
@@ -526,7 +526,7 @@
           </dict>
           <dict>
             <key>begin</key>
-            <string>\b(using)\s+(?=([_[:alpha:]][_[:alnum:]]*)\s*=)</string>
+            <string>\b(using)\s+(?=(@?[_[:alpha:]][_[:alnum:]]*)\s*=)</string>
             <key>beginCaptures</key>
             <dict>
               <key>1</key>
@@ -581,7 +581,7 @@
                 <key>name</key>
                 <string>entity.name.type.namespace.cs</string>
                 <key>match</key>
-                <string>[_[:alpha:]][_[:alnum:]]*</string>
+                <string>@?[_[:alpha:]][_[:alnum:]]*</string>
               </dict>
               <dict>
                 <key>include</key>
@@ -694,7 +694,7 @@
       <key>attribute-named-argument</key>
       <dict>
         <key>begin</key>
-        <string>([_[:alpha:]][_[:alnum:]]*)\s*(?==)</string>
+        <string>(@?[_[:alpha:]][_[:alnum:]]*)\s*(?==)</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
@@ -741,7 +741,7 @@
             <key>name</key>
             <string>entity.name.type.namespace.cs</string>
             <key>match</key>
-            <string>[_[:alpha:]][_[:alnum:]]*</string>
+            <string>@?[_[:alpha:]][_[:alnum:]]*</string>
           </dict>
           <dict>
             <key>include</key>
@@ -805,7 +805,7 @@
             <key>begin</key>
             <string>(?x)
 \b(class)\b\s+
-([_[:alpha:]][_[:alnum:]]*)\s*</string>
+(@?[_[:alpha:]][_[:alnum:]]*)\s*</string>
             <key>beginCaptures</key>
             <dict>
               <key>1</key>
@@ -889,7 +889,7 @@
   (?:
     (?:ref\s+)?   # ref return
     (?:
-      (?:(?&lt;identifier&gt;[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
+      (?:(?&lt;identifier&gt;@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
       (?&lt;name-and-type-args&gt; # identifier + type arguments (if any)
         \g&lt;identifier&gt;\s*
         (?&lt;type-args&gt;\s*&lt;(?:[^&lt;&gt;]|\g&lt;type-args&gt;)+&gt;\s*)?
@@ -976,7 +976,7 @@
               </dict>
               <dict>
                 <key>match</key>
-                <string>(enum)\s+([_[:alpha:]][_[:alnum:]]*)</string>
+                <string>(enum)\s+(@?[_[:alpha:]][_[:alnum:]]*)</string>
                 <key>captures</key>
                 <dict>
                   <key>1</key>
@@ -1055,7 +1055,7 @@
               </dict>
               <dict>
                 <key>begin</key>
-                <string>[_[:alpha:]][_[:alnum:]]*</string>
+                <string>@?[_[:alpha:]][_[:alnum:]]*</string>
                 <key>beginCaptures</key>
                 <dict>
                   <key>0</key>
@@ -1102,7 +1102,7 @@
             <key>begin</key>
             <string>(?x)
 (interface)\b\s+
-([_[:alpha:]][_[:alnum:]]*)</string>
+(@?[_[:alpha:]][_[:alnum:]]*)</string>
             <key>beginCaptures</key>
             <dict>
               <key>1</key>
@@ -1189,7 +1189,7 @@
             <key>begin</key>
             <string>(?x)
 (struct)\b\s+
-([_[:alpha:]][_[:alnum:]]*)</string>
+(@?[_[:alpha:]][_[:alnum:]]*)</string>
             <key>beginCaptures</key>
             <dict>
               <key>1</key>
@@ -1302,7 +1302,7 @@
           </dict>
           <dict>
             <key>match</key>
-            <string>\b([_[:alpha:]][_[:alnum:]]*)\b</string>
+            <string>(@?\b[_[:alpha:]][_[:alnum:]]*)\b</string>
             <key>captures</key>
             <dict>
               <key>1</key>
@@ -1359,7 +1359,7 @@
       <key>generic-constraints</key>
       <dict>
         <key>begin</key>
-        <string>(where)\s+([_[:alpha:]][_[:alnum:]]*)\s*(:)</string>
+        <string>(where)\s+(@?[_[:alpha:]][_[:alnum:]]*)\s*(:)</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
@@ -1437,7 +1437,7 @@
 (?&lt;type-name&gt;
   (?:
     (?:
-      (?:(?&lt;identifier&gt;[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
+      (?:(?&lt;identifier&gt;@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
       (?&lt;name-and-type-args&gt; # identifier + type arguments (if any)
         \g&lt;identifier&gt;\s*
         (?&lt;type-args&gt;\s*&lt;(?:[^&lt;&gt;]|\g&lt;type-args&gt;)+&gt;\s*)?
@@ -1477,7 +1477,7 @@
             <key>name</key>
             <string>entity.name.variable.field.cs</string>
             <key>match</key>
-            <string>[_[:alpha:]][_[:alnum:]]*</string>
+            <string>@?[_[:alpha:]][_[:alnum:]]*</string>
           </dict>
           <dict>
             <key>include</key>
@@ -1507,7 +1507,7 @@
     (?:
       (?:ref\s+)?   # ref return
       (?:
-        (?:(?&lt;identifier&gt;[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
+        (?:(?&lt;identifier&gt;@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
         (?&lt;name-and-type-args&gt; # identifier + type arguments (if any)
           \g&lt;identifier&gt;\s*
           (?&lt;type-args&gt;\s*&lt;(?:[^&lt;&gt;]|\g&lt;type-args&gt;)+&gt;\s*)?
@@ -1590,7 +1590,7 @@
     (?:
       (?:ref\s+)?   # ref return
       (?:
-        (?:(?&lt;identifier&gt;[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
+        (?:(?&lt;identifier&gt;@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
         (?&lt;name-and-type-args&gt; # identifier + type arguments (if any)
           \g&lt;identifier&gt;\s*
           (?&lt;type-args&gt;\s*&lt;(?:[^&lt;&gt;]|\g&lt;type-args&gt;)+&gt;\s*)?
@@ -1673,7 +1673,7 @@
   (?&lt;type-name&gt;
     (?:
       (?:
-        (?:(?&lt;identifier&gt;[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
+        (?:(?&lt;identifier&gt;@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
         (?&lt;name-and-type-args&gt; # identifier + type arguments (if any)
           \g&lt;identifier&gt;\s*
           (?&lt;type-args&gt;\s*&lt;(?:[^&lt;&gt;]|\g&lt;type-args&gt;)+&gt;\s*)?
@@ -1728,7 +1728,7 @@
                 <key>name</key>
                 <string>entity.name.variable.event.cs</string>
                 <key>match</key>
-                <string>[_[:alpha:]][_[:alnum:]]*</string>
+                <string>@?[_[:alpha:]][_[:alnum:]]*</string>
               </dict>
               <dict>
                 <key>include</key>
@@ -1886,7 +1886,7 @@
     (?:
       (?:ref\s+)?   # ref return
       (?:
-        (?:(?&lt;identifier&gt;[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
+        (?:(?&lt;identifier&gt;@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
         (?&lt;name-and-type-args&gt; # identifier + type arguments (if any)
           \g&lt;identifier&gt;\s*
           (?&lt;type-args&gt;\s*&lt;(?:[^&lt;&gt;]|\g&lt;type-args&gt;)+&gt;\s*)?
@@ -1974,14 +1974,14 @@
       <key>constructor-declaration</key>
       <dict>
         <key>begin</key>
-        <string>(?=[_[:alpha:]][_[:alnum:]]*\s*\()</string>
+        <string>(?=@?[_[:alpha:]][_[:alnum:]]*\s*\()</string>
         <key>end</key>
         <string>(?&lt;=\})|(?=;)</string>
         <key>patterns</key>
         <array>
           <dict>
             <key>match</key>
-            <string>\b([_[:alpha:]][_[:alnum:]]*)\b</string>
+            <string>(@?\b[_[:alpha:]][_[:alnum:]]*)\b</string>
             <key>captures</key>
             <dict>
               <key>1</key>
@@ -2064,7 +2064,7 @@
       <key>destructor-declaration</key>
       <dict>
         <key>begin</key>
-        <string>(~)([_[:alpha:]][_[:alnum:]]*)\s*(?=\()</string>
+        <string>(~)(@?[_[:alpha:]][_[:alnum:]]*)\s*(?=\()</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
@@ -2108,7 +2108,7 @@
   (?:
     (?:ref\s+)?   # ref return
     (?:
-      (?:(?&lt;identifier&gt;[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
+      (?:(?&lt;identifier&gt;@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
       (?&lt;name-and-type-args&gt; # identifier + type arguments (if any)
         \g&lt;identifier&gt;\s*
         (?&lt;type-args&gt;\s*&lt;(?:[^&lt;&gt;]|\g&lt;type-args&gt;)+&gt;\s*)?
@@ -2178,7 +2178,7 @@
   (?:
     (?:ref\s+)?   # ref return
     (?:
-      (?:(?&lt;identifier&gt;[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
+      (?:(?&lt;identifier&gt;@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
       (?&lt;name-and-type-args&gt; # identifier + type arguments (if any)
         \g&lt;identifier&gt;\s*
         (?&lt;type-args&gt;\s*&lt;(?:[^&lt;&gt;]|\g&lt;type-args&gt;)+&gt;\s*)?
@@ -2396,7 +2396,7 @@
             <key>name</key>
             <string>entity.name.label.cs</string>
             <key>match</key>
-            <string>[_[:alpha:]][_[:alnum:]]*</string>
+            <string>@?[_[:alpha:]][_[:alnum:]]*</string>
           </dict>
         </array>
       </dict>
@@ -2935,7 +2935,7 @@
   (?&lt;type-name&gt;
     (?:
       (?:
-        (?:(?&lt;identifier&gt;[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
+        (?:(?&lt;identifier&gt;@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
         (?&lt;name-and-type-args&gt; # identifier + type arguments (if any)
           \g&lt;identifier&gt;\s*
           (?&lt;type-args&gt;\s*&lt;(?:[^&lt;&gt;]|\g&lt;type-args&gt;)+&gt;\s*)?
@@ -3136,7 +3136,7 @@
 (?&lt;type-name&gt;
   (?:
     (?:
-      (?:(?&lt;identifier&gt;[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
+      (?:(?&lt;identifier&gt;@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
       (?&lt;name-and-type-args&gt; # identifier + type arguments (if any)
         \g&lt;identifier&gt;\s*
         (?&lt;type-args&gt;\s*&lt;(?:[^&lt;&gt;]|\g&lt;type-args&gt;)+&gt;\s*)?
@@ -3148,7 +3148,7 @@
     (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
   )
 )\s*
-(?:\b(\g&lt;identifier&gt;)\b)?</string>
+(?:(\g&lt;identifier&gt;)\b)?</string>
                 <key>captures</key>
                 <dict>
                   <key>1</key>
@@ -3363,7 +3363,7 @@
       <key>labeled-statement</key>
       <dict>
         <key>match</key>
-        <string>([_[:alpha:]][_[:alnum:]]*)\s*(:)</string>
+        <string>(@?[_[:alpha:]][_[:alnum:]]*)\s*(:)</string>
         <key>captures</key>
         <dict>
           <key>1</key>
@@ -3406,7 +3406,7 @@
     (?:
       (?:ref\s+)?   # ref local
       (?:
-        (?:(?&lt;identifier&gt;[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
+        (?:(?&lt;identifier&gt;@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
         (?&lt;name-and-type-args&gt; # identifier + type arguments (if any)
           \g&lt;identifier&gt;\s*
           (?&lt;type-args&gt;\s*&lt;(?:[^&lt;&gt;]|\g&lt;type-args&gt;)+&gt;\s*)?
@@ -3457,7 +3457,7 @@
             <key>name</key>
             <string>entity.name.variable.local.cs</string>
             <key>match</key>
-            <string>[_[:alpha:]][_[:alnum:]]*</string>
+            <string>@?[_[:alpha:]][_[:alnum:]]*</string>
           </dict>
           <dict>
             <key>include</key>
@@ -3481,7 +3481,7 @@
 (?&lt;type-name&gt;
   (?:
     (?:
-      (?:(?&lt;identifier&gt;[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
+      (?:(?&lt;identifier&gt;@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
       (?&lt;name-and-type-args&gt; # identifier + type arguments (if any)
         \g&lt;identifier&gt;\s*
         (?&lt;type-args&gt;\s*&lt;(?:[^&lt;&gt;]|\g&lt;type-args&gt;)+&gt;\s*)?
@@ -3526,7 +3526,7 @@
             <key>name</key>
             <string>entity.name.variable.local.cs</string>
             <key>match</key>
-            <string>[_[:alpha:]][_[:alnum:]]*</string>
+            <string>@?[_[:alpha:]][_[:alnum:]]*</string>
           </dict>
           <dict>
             <key>include</key>
@@ -3644,7 +3644,7 @@
           <dict>
             <key>match</key>
             <string>(?x) # e.g. x
-\b([_[:alpha:]][_[:alnum:]]*)\b\s*
+(@?\b[_[:alpha:]][_[:alnum:]]*)\b\s*
 (?=[,)])</string>
             <key>captures</key>
             <dict>
@@ -3700,7 +3700,7 @@
           <dict>
             <key>match</key>
             <string>(?x) # e.g. x
-\b([_[:alpha:]][_[:alnum:]]*)\b\s*
+(@?\b[_[:alpha:]][_[:alnum:]]*)\b\s*
 (?=[,)])</string>
             <key>captures</key>
             <dict>
@@ -3722,7 +3722,7 @@
   (?&lt;type-name&gt;
     (?:
       (?:
-        (?:(?&lt;identifier&gt;[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
+        (?:(?&lt;identifier&gt;@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
         (?&lt;name-and-type-args&gt; # identifier + type arguments (if any)
           \g&lt;identifier&gt;\s*
           (?&lt;type-args&gt;\s*&lt;(?:[^&lt;&gt;]|\g&lt;type-args&gt;)+&gt;\s*)?
@@ -3735,7 +3735,7 @@
     )
   )
 )\s+
-\b(\g&lt;identifier&gt;)\b\s*
+(\g&lt;identifier&gt;)\b\s*
 (?=[,)\]])</string>
         <key>captures</key>
         <dict>
@@ -3770,7 +3770,7 @@
   (?&lt;type-name&gt;
     (?:
       (?:
-        (?:(?&lt;identifier&gt;[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
+        (?:(?&lt;identifier&gt;@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
         (?&lt;name-and-type-args&gt; # identifier + type arguments (if any)
           \g&lt;identifier&gt;\s*
           (?&lt;type-args&gt;\s*&lt;(?:[^&lt;&gt;]|\g&lt;type-args&gt;)+&gt;\s*)?
@@ -3783,7 +3783,7 @@
     )
   )
 )\s+
-\b(\g&lt;identifier&gt;)\b\s*
+(\g&lt;identifier&gt;)\b\s*
 (?=[,)])</string>
         <key>captures</key>
         <dict>
@@ -4314,7 +4314,7 @@
       <dict>
         <key>begin</key>
         <string>(?x)
-(?:([_[:alpha:]][_[:alnum:]]*)\s*(:)\s*)?
+(?:(@?[_[:alpha:]][_[:alnum:]]*)\s*(:)\s*)?
 (?![,)])</string>
         <key>beginCaptures</key>
         <dict>
@@ -4523,7 +4523,7 @@
         <key>name</key>
         <string>variable.other.readwrite.cs</string>
         <key>match</key>
-        <string>[_[:alpha:]][_[:alnum:]]*</string>
+        <string>@?[_[:alpha:]][_[:alnum:]]*</string>
       </dict>
       <key>cast-expression</key>
       <dict>
@@ -4533,7 +4533,7 @@
 (?&lt;type-name&gt;
   (?:
     (?:
-      (?:(?&lt;identifier&gt;[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
+      (?:(?&lt;identifier&gt;@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
       (?&lt;name-and-type-args&gt; # identifier + type arguments (if any)
         \g&lt;identifier&gt;\s*
         (?&lt;type-args&gt;\s*&lt;(?:[^&lt;&gt;]|\g&lt;type-args&gt;)+&gt;\s*)?
@@ -4545,7 +4545,7 @@
     (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
   )
 )\s*
-(\))(?=\s*[_[:alnum:]\(])</string>
+(\))(?=\s*@?[_[:alnum:]\(])</string>
         <key>captures</key>
         <dict>
           <key>1</key>
@@ -4578,7 +4578,7 @@
 (?&lt;type-name&gt;
   (?:
     (?:
-      (?:(?&lt;identifier&gt;[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
+      (?:(?&lt;identifier&gt;@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
       (?&lt;name-and-type-args&gt; # identifier + type arguments (if any)
         \g&lt;identifier&gt;\s*
         (?&lt;type-args&gt;\s*&lt;(?:[^&lt;&gt;]|\g&lt;type-args&gt;)+&gt;\s*)?
@@ -4617,7 +4617,7 @@
 (?&lt;type-name&gt;
   (?:
     (?:
-      (?:(?&lt;identifier&gt;[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
+      (?:(?&lt;identifier&gt;@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
       (?&lt;name-and-type-args&gt; # identifier + type arguments (if any)
         \g&lt;identifier&gt;\s*
         (?&lt;type-args&gt;\s*&lt;(?:[^&lt;&gt;]|\g&lt;type-args&gt;)+&gt;\s*)?
@@ -4672,7 +4672,7 @@
         <string>(?x)
 (?:(\?)\s*)?                                     # preceding null-conditional operator?
 (?:(\.)\s*)?                                     # preceding dot?
-([_[:alpha:]][_[:alnum:]]*)\s*                   # method name
+(@?[_[:alpha:]][_[:alnum:]]*)\s*                   # method name
 (?&lt;type-args&gt;\s*&lt;([^&lt;&gt;]|\g&lt;type-args&gt;)+&gt;\s*)?\s* # type arguments
 (?=\()                                           # open paren of argument list</string>
         <key>beginCaptures</key>
@@ -4719,7 +4719,7 @@
         <string>(?x)
 (?:(\?)\s*)?                        # preceding null-conditional operator?
 (?:(\.)\s*)?                        # preceding dot?
-(?:([_[:alpha:]][_[:alnum:]]*)\s*)? # property name
+(?:(@?[_[:alpha:]][_[:alnum:]]*)\s*)? # property name
 (?:(\?)\s*)?                        # null-conditional operator?
 (?=\[)                              # open bracket of argument list</string>
         <key>beginCaptures</key>
@@ -4764,7 +4764,7 @@
             <string>(?x)
 (?:(\?)\s*)?                   # preceding null-conditional operator?
 (\.)\s*                        # preceding dot
-([_[:alpha:]][_[:alnum:]]*)\s* # property name
+(@?[_[:alpha:]][_[:alnum:]]*)\s* # property name
 (?![_[:alnum:]]|\(|(\?)?\[|&lt;)  # next character is not alpha-numeric, nor a (, [, or &lt;. Also, test for ?[</string>
             <key>captures</key>
             <dict>
@@ -4789,11 +4789,11 @@
             <key>match</key>
             <string>(?x)
 (\.)?\s*
-([_[:alpha:]][_[:alnum:]]*)
+(@?[_[:alpha:]][_[:alnum:]]*)
 (?&lt;type-params&gt;\s*&lt;([^&lt;&gt;]|\g&lt;type-params&gt;)+&gt;\s*)
 (?=
   (\s*\?)?
-  \s*\.\s*[_[:alpha:]][_[:alnum:]]*
+  \s*\.\s*@?[_[:alpha:]][_[:alnum:]]*
 )</string>
             <key>captures</key>
             <dict>
@@ -4822,10 +4822,10 @@
           <dict>
             <key>match</key>
             <string>(?x)
-([_[:alpha:]][_[:alnum:]]*)
+(@?[_[:alpha:]][_[:alnum:]]*)
 (?=
   (\s*\?)?
-  \s*\.\s*[_[:alpha:]][_[:alnum:]]*
+  \s*\.\s*@?[_[:alpha:]][_[:alnum:]]*
 )</string>
             <key>captures</key>
             <dict>
@@ -4860,7 +4860,7 @@
 (?&lt;type-name&gt;
   (?:
     (?:
-      (?:(?&lt;identifier&gt;[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
+      (?:(?&lt;identifier&gt;@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
       (?&lt;name-and-type-args&gt; # identifier + type arguments (if any)
         \g&lt;identifier&gt;\s*
         (?&lt;type-args&gt;\s*&lt;(?:[^&lt;&gt;]|\g&lt;type-args&gt;)+&gt;\s*)?
@@ -4909,7 +4909,7 @@
 (?&lt;type-name&gt;
   (?:
     (?:
-      (?:(?&lt;identifier&gt;[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
+      (?:(?&lt;identifier&gt;@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
       (?&lt;name-and-type-args&gt; # identifier + type arguments (if any)
         \g&lt;identifier&gt;\s*
         (?&lt;type-args&gt;\s*&lt;(?:[^&lt;&gt;]|\g&lt;type-args&gt;)+&gt;\s*)?
@@ -4949,7 +4949,7 @@
 (?&lt;type-name&gt;
   (?:
     (?:
-      (?:(?&lt;identifier&gt;[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
+      (?:(?&lt;identifier&gt;@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
       (?&lt;name-and-type-args&gt; # identifier + type arguments (if any)
         \g&lt;identifier&gt;\s*
         (?&lt;type-args&gt;\s*&lt;(?:[^&lt;&gt;]|\g&lt;type-args&gt;)+&gt;\s*)?
@@ -5122,7 +5122,7 @@
   (?:
     (?:ref\s+)?   # ref return
     (?:
-      (?:(?&lt;identifier&gt;[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
+      (?:(?&lt;identifier&gt;@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
       (?&lt;name-and-type-args&gt; # identifier + type arguments (if any)
         \g&lt;identifier&gt;\s*
         (?&lt;type-args&gt;\s*&lt;(?:[^&lt;&gt;]|\g&lt;type-args&gt;)+&gt;\s*)?
@@ -5238,7 +5238,7 @@
       <key>named-argument</key>
       <dict>
         <key>begin</key>
-        <string>([_[:alpha:]][_[:alnum:]]*)\s*(:)</string>
+        <string>(@?[_[:alpha:]][_[:alnum:]]*)\s*(:)</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
@@ -5290,7 +5290,7 @@
 (?&lt;type-name&gt;
   (?:
     (?:
-      (?:(?&lt;identifier&gt;[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
+      (?:(?&lt;identifier&gt;@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
       (?&lt;name-and-type-args&gt; # identifier + type arguments (if any)
         \g&lt;identifier&gt;\s*
         (?&lt;type-args&gt;\s*&lt;(?:[^&lt;&gt;]|\g&lt;type-args&gt;)+&gt;\s*)?
@@ -5302,7 +5302,7 @@
     (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
   )
 )?
-\b(\g&lt;identifier&gt;)\b\s*
+\s+(\g&lt;identifier&gt;)\b\s*
 \b(in)\b\s*</string>
         <key>beginCaptures</key>
         <dict>
@@ -5381,7 +5381,7 @@
         <key>begin</key>
         <string>(?x)
 \b(let)\b\s*
-\b([_[:alpha:]][_[:alnum:]]*)\b\s*
+(@?\b[_[:alpha:]][_[:alnum:]]*)\b\s*
 (=)\s*</string>
         <key>beginCaptures</key>
         <dict>
@@ -5450,7 +5450,7 @@
 (?&lt;type-name&gt;
   (?:
     (?:
-      (?:(?&lt;identifier&gt;[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
+      (?:(?&lt;identifier&gt;@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
       (?&lt;name-and-type-args&gt; # identifier + type arguments (if any)
         \g&lt;identifier&gt;\s*
         (?&lt;type-args&gt;\s*&lt;(?:[^&lt;&gt;]|\g&lt;type-args&gt;)+&gt;\s*)?
@@ -5462,7 +5462,7 @@
     (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
   )
 )?
-\b(\g&lt;identifier&gt;)\b\s*
+\s+(\g&lt;identifier&gt;)\b\s*
 \b(in)\b\s*</string>
         <key>beginCaptures</key>
         <dict>
@@ -5549,7 +5549,7 @@
         <key>match</key>
         <string>(?x)
 \b(into)\b\s*
-\b([_[:alpha:]][_[:alnum:]]*)\b\s*</string>
+(@?\b[_[:alpha:]][_[:alnum:]]*)\b\s*</string>
         <key>captures</key>
         <dict>
           <key>1</key>
@@ -5694,7 +5694,7 @@
         <key>match</key>
         <string>(?x)
 \b(into)\b\s*
-\b([_[:alpha:]][_[:alnum:]]*)\b\s*</string>
+(@?\b[_[:alpha:]][_[:alnum:]]*)\b\s*</string>
         <key>captures</key>
         <dict>
           <key>1</key>
@@ -5717,7 +5717,7 @@
             <key>begin</key>
             <string>(?x)
 (?:\b(async)\b\s*)?
-\b([_[:alpha:]][_[:alnum:]]*)\b\s*
+(@?\b[_[:alpha:]][_[:alnum:]]*)\b\s*
 (=&gt;)</string>
             <key>beginCaptures</key>
             <dict>
@@ -5890,7 +5890,7 @@
 (?&lt;type-name&gt;
   (?:
     (?:
-      (?:(?&lt;identifier&gt;[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
+      (?:(?&lt;identifier&gt;@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
       (?&lt;name-and-type-args&gt; # identifier + type arguments (if any)
         \g&lt;identifier&gt;\s*
         (?&lt;type-args&gt;\s*&lt;(?:[^&lt;&gt;]|\g&lt;type-args&gt;)+&gt;\s*)?
@@ -5902,7 +5902,7 @@
     (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
   )
 )?
-\b(\g&lt;identifier&gt;)\b\s*
+(\g&lt;identifier&gt;)\b\s*
 (?=[,)])</string>
         <key>captures</key>
         <dict>
@@ -6016,7 +6016,7 @@
 (?&lt;type-name&gt;
   (?:
     (?:
-      (?:(?&lt;identifier&gt;[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
+      (?:(?&lt;identifier&gt;@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
       (?&lt;name-and-type-args&gt; # identifier + type arguments (if any)
         \g&lt;identifier&gt;\s*
         (?&lt;type-args&gt;\s*&lt;(?:[^&lt;&gt;]|\g&lt;type-args&gt;)+&gt;\s*)?
@@ -6028,7 +6028,7 @@
     (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
   )
 )
-(?:\b(?&lt;tuple-name&gt;\g&lt;identifier&gt;)\b)?</string>
+(?:(?&lt;tuple-name&gt;\g&lt;identifier&gt;)\b)?</string>
         <key>captures</key>
         <dict>
           <key>1</key>
@@ -6067,7 +6067,7 @@
         <array>
           <dict>
             <key>match</key>
-            <string>([_[:alpha:]][_[:alnum:]]*)\s*(\:\:)</string>
+            <string>(@?[_[:alpha:]][_[:alnum:]]*)\s*(\:\:)</string>
             <key>captures</key>
             <dict>
               <key>1</key>
@@ -6084,7 +6084,7 @@
           </dict>
           <dict>
             <key>match</key>
-            <string>([_[:alpha:]][_[:alnum:]]*)\s*(\.)</string>
+            <string>(@?[_[:alpha:]][_[:alnum:]]*)\s*(\.)</string>
             <key>captures</key>
             <dict>
               <key>1</key>
@@ -6101,7 +6101,7 @@
           </dict>
           <dict>
             <key>match</key>
-            <string>(\.)\s*([_[:alpha:]][_[:alnum:]]*)</string>
+            <string>(\.)\s*(@?[_[:alpha:]][_[:alnum:]]*)</string>
             <key>captures</key>
             <dict>
               <key>1</key>
@@ -6120,7 +6120,7 @@
             <key>name</key>
             <string>storage.type.cs</string>
             <key>match</key>
-            <string>[_[:alpha:]][_[:alnum:]]*</string>
+            <string>@?[_[:alpha:]][_[:alnum:]]*</string>
           </dict>
         </array>
       </dict>
