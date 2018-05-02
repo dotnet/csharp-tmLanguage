@@ -5117,7 +5117,7 @@
       <dict>
         <key>match</key>
         <string>(?x)
-(?:(?:\b(ref|params|out|this)\b)\s+)?
+(?:(?:\b(ref|params|out|in|this)\b)\s+)?
 (?&lt;type-name&gt;
   (?:
     (?:ref\s+)?   # ref return
@@ -5270,7 +5270,7 @@
             <key>name</key>
             <string>storage.modifier.cs</string>
             <key>match</key>
-            <string>\b(ref|out)\b</string>
+            <string>\b(ref|out|in)\b</string>
           </dict>
           <dict>
             <key>include</key>
@@ -5886,7 +5886,7 @@
       <dict>
         <key>match</key>
         <string>(?x)
-(ref|out)?\s*
+(?:\b(ref|out|in)\b)?\s*
 (?&lt;type-name&gt;
   (?:
     (?:
