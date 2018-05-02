@@ -688,6 +688,25 @@ var newPoint = new Vector(point.x * z, 0);`);
                 ]);
             });
 
+            it("lambda expression with in parameter - in int", () => {
+                const input = Input.InMethod(`M((in int x) => x);`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Identifiers.MethodName("M"),
+                    Token.Punctuation.OpenParen,
+                    Token.Punctuation.OpenParen,
+                    Token.Keywords.Modifiers.In,
+                    Token.PrimitiveType.Int,
+                    Token.Identifiers.ParameterName("x"),
+                    Token.Punctuation.CloseParen,
+                    Token.Operators.Arrow,
+                    Token.Variables.ReadWrite("x"),
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Semicolon
+                ]);
+            })
+
             it("anonymous method with no parameter list (passed as argument)", () => {
                 const input = Input.InMethod(`M(delegate { });`);
                 const tokens = tokenize(input);
@@ -1585,6 +1604,23 @@ var result = list.Select(l => new {
                 ]);
             });
 
+            it("in argument", () => {
+                const input = Input.InMethod(`var o = P[in x];`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("o"),
+                    Token.Operators.Assignment,
+                    Token.Variables.Property("P"),
+                    Token.Punctuation.OpenBracket,
+                    Token.Keywords.Modifiers.In,
+                    Token.Variables.ReadWrite("x"),
+                    Token.Punctuation.CloseBracket,
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
             it("named ref argument", () => {
                 const input = Input.InMethod(`var o = P[x: ref y];`);
                 const tokens = tokenize(input);
@@ -1623,6 +1659,25 @@ var result = list.Select(l => new {
                 ]);
             });
 
+            it("named in argument", () => {
+                const input = Input.InMethod(`var o = P[x: in y];`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("o"),
+                    Token.Operators.Assignment,
+                    Token.Variables.Property("P"),
+                    Token.Punctuation.OpenBracket,
+                    Token.Identifiers.ParameterName("x"),
+                    Token.Punctuation.Colon,
+                    Token.Keywords.Modifiers.In,
+                    Token.Variables.ReadWrite("y"),
+                    Token.Punctuation.CloseBracket,
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
             it("out argument declaration", () => {
                 const input = Input.InMethod(`var o = P[out int x, out var y];`);
                 const tokens = tokenize(input);
@@ -1638,6 +1693,28 @@ var result = list.Select(l => new {
                     Token.Identifiers.LocalName("x"),
                     Token.Punctuation.Comma,
                     Token.Keywords.Modifiers.Out,
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("y"),
+                    Token.Punctuation.CloseBracket,
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
+            it("in argument declaration", () => {
+                const input = Input.InMethod(`var o = P[in int x, in var y];`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("o"),
+                    Token.Operators.Assignment,
+                    Token.Variables.Property("P"),
+                    Token.Punctuation.OpenBracket,
+                    Token.Keywords.Modifiers.In,
+                    Token.PrimitiveType.Int,
+                    Token.Identifiers.LocalName("x"),
+                    Token.Punctuation.Comma,
+                    Token.Keywords.Modifiers.In,
                     Token.Keywords.Var,
                     Token.Identifiers.LocalName("y"),
                     Token.Punctuation.CloseBracket,
@@ -2074,6 +2151,20 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
                 ]);
             });
 
+            it("in argument", () => {
+                const input = Input.InMethod(`M(in x);`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Identifiers.MethodName("M"),
+                    Token.Punctuation.OpenParen,
+                    Token.Keywords.Modifiers.In,
+                    Token.Variables.ReadWrite("x"),
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
             it("named ref argument", () => {
                 const input = Input.InMethod(`M(x: ref y);`);
                 const tokens = tokenize(input);
@@ -2106,6 +2197,22 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
                 ]);
             });
 
+            it("named in argument", () => {
+                const input = Input.InMethod(`M(x: in y);`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Identifiers.MethodName("M"),
+                    Token.Punctuation.OpenParen,
+                    Token.Identifiers.ParameterName("x"),
+                    Token.Punctuation.Colon,
+                    Token.Keywords.Modifiers.In,
+                    Token.Variables.ReadWrite("y"),
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
             it("out argument declaration", () => {
                 const input = Input.InMethod(`M(out int x, out var y);`);
                 const tokens = tokenize(input);
@@ -2118,6 +2225,25 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
                     Token.Identifiers.LocalName("x"),
                     Token.Punctuation.Comma,
                     Token.Keywords.Modifiers.Out,
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("y"),
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
+            it("in argument declaration", () => {
+                const input = Input.InMethod(`M(in int x, in var y);`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Identifiers.MethodName("M"),
+                    Token.Punctuation.OpenParen,
+                    Token.Keywords.Modifiers.In,
+                    Token.PrimitiveType.Int,
+                    Token.Identifiers.LocalName("x"),
+                    Token.Punctuation.Comma,
+                    Token.Keywords.Modifiers.In,
                     Token.Keywords.Var,
                     Token.Identifiers.LocalName("y"),
                     Token.Punctuation.CloseParen,

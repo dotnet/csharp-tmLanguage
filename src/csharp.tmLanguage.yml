@@ -2004,7 +2004,7 @@ repository:
   parameter:
     match: |-
       (?x)
-      (?:(?:\b(ref|params|out|this)\b)\s+)?
+      (?:(?:\b(ref|params|out|in|this)\b)\s+)?
       (?<type-name>
         (?:
           (?:ref\s+)?   # ref return
@@ -2069,7 +2069,7 @@ repository:
   argument:
     patterns:
     - name: storage.modifier.cs
-      match: \b(ref|out)\b
+      match: \b(ref|out|in)\b
     - include: '#declaration-expression-local'
     - include: '#expression'
 
@@ -2316,7 +2316,7 @@ repository:
   lambda-parameter:
     match: |-
       (?x)
-      (ref|out)?\s*
+      (?:\b(ref|out|in)\b)?\s*
       (?<type-name>
         (?:
           (?:
