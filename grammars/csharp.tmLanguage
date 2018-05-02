@@ -1302,7 +1302,7 @@
           </dict>
           <dict>
             <key>match</key>
-            <string>(@?\b[_[:alpha:]][_[:alnum:]]*)\b</string>
+            <string>(@?[_[:alpha:]][_[:alnum:]]*)\b</string>
             <key>captures</key>
             <dict>
               <key>1</key>
@@ -1981,7 +1981,7 @@
         <array>
           <dict>
             <key>match</key>
-            <string>(@?\b[_[:alpha:]][_[:alnum:]]*)\b</string>
+            <string>(@?[_[:alpha:]][_[:alnum:]]*)\b</string>
             <key>captures</key>
             <dict>
               <key>1</key>
@@ -3644,7 +3644,7 @@
           <dict>
             <key>match</key>
             <string>(?x) # e.g. x
-(@?\b[_[:alpha:]][_[:alnum:]]*)\b\s*
+(@?[_[:alpha:]][_[:alnum:]]*)\b\s*
 (?=[,)])</string>
             <key>captures</key>
             <dict>
@@ -3700,7 +3700,7 @@
           <dict>
             <key>match</key>
             <string>(?x) # e.g. x
-(@?\b[_[:alpha:]][_[:alnum:]]*)\b\s*
+(@?[_[:alpha:]][_[:alnum:]]*)\b\s*
 (?=[,)])</string>
             <key>captures</key>
             <dict>
@@ -5381,7 +5381,7 @@
         <key>begin</key>
         <string>(?x)
 \b(let)\b\s*
-(@?\b[_[:alpha:]][_[:alnum:]]*)\b\s*
+(@?[_[:alpha:]][_[:alnum:]]*)\b\s*
 (=)\s*</string>
         <key>beginCaptures</key>
         <dict>
@@ -5549,7 +5549,7 @@
         <key>match</key>
         <string>(?x)
 \b(into)\b\s*
-(@?\b[_[:alpha:]][_[:alnum:]]*)\b\s*</string>
+(@?[_[:alpha:]][_[:alnum:]]*)\b\s*</string>
         <key>captures</key>
         <dict>
           <key>1</key>
@@ -5694,7 +5694,7 @@
         <key>match</key>
         <string>(?x)
 \b(into)\b\s*
-(@?\b[_[:alpha:]][_[:alnum:]]*)\b\s*</string>
+(@?[_[:alpha:]][_[:alnum:]]*)\b\s*</string>
         <key>captures</key>
         <dict>
           <key>1</key>
@@ -5717,7 +5717,7 @@
             <key>begin</key>
             <string>(?x)
 (?:\b(async)\b\s*)?
-(@?\b[_[:alpha:]][_[:alnum:]]*)\b\s*
+(@?[_[:alpha:]][_[:alnum:]]*)\b\s*
 (=&gt;)</string>
             <key>beginCaptures</key>
             <dict>

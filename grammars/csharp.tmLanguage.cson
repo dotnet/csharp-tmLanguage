@@ -817,7 +817,7 @@ repository:
             name: "storage.modifier.cs"
       }
       {
-        match: "(@?\\b[_[:alpha:]][_[:alnum:]]*)\\b"
+        match: "(@?[_[:alpha:]][_[:alnum:]]*)\\b"
         captures:
           "1":
             name: "entity.name.type.type-parameter.cs"
@@ -1270,7 +1270,7 @@ repository:
     end: "(?<=\\})|(?=;)"
     patterns: [
       {
-        match: "(@?\\b[_[:alpha:]][_[:alnum:]]*)\\b"
+        match: "(@?[_[:alpha:]][_[:alnum:]]*)\\b"
         captures:
           "1":
             name: "entity.name.function.cs"
@@ -2226,7 +2226,7 @@ repository:
       {
         match: '''
           (?x) # e.g. x
-          (@?\\b[_[:alpha:]][_[:alnum:]]*)\\b\\s*
+          (@?[_[:alpha:]][_[:alnum:]]*)\\b\\s*
           (?=[,)])
         '''
         captures:
@@ -2259,7 +2259,7 @@ repository:
       {
         match: '''
           (?x) # e.g. x
-          (@?\\b[_[:alpha:]][_[:alnum:]]*)\\b\\s*
+          (@?[_[:alpha:]][_[:alnum:]]*)\\b\\s*
           (?=[,)])
         '''
         captures:
@@ -3260,7 +3260,7 @@ repository:
     begin: '''
       (?x)
       \\b(let)\\b\\s*
-      (@?\\b[_[:alpha:]][_[:alnum:]]*)\\b\\s*
+      (@?[_[:alpha:]][_[:alnum:]]*)\\b\\s*
       (=)\\s*
     '''
     beginCaptures:
@@ -3363,7 +3363,7 @@ repository:
     match: '''
       (?x)
       \\b(into)\\b\\s*
-      (@?\\b[_[:alpha:]][_[:alnum:]]*)\\b\\s*
+      (@?[_[:alpha:]][_[:alnum:]]*)\\b\\s*
     '''
     captures:
       "1":
@@ -3440,7 +3440,7 @@ repository:
     match: '''
       (?x)
       \\b(into)\\b\\s*
-      (@?\\b[_[:alpha:]][_[:alnum:]]*)\\b\\s*
+      (@?[_[:alpha:]][_[:alnum:]]*)\\b\\s*
     '''
     captures:
       "1":
@@ -3453,7 +3453,7 @@ repository:
         begin: '''
           (?x)
           (?:\\b(async)\\b\\s*)?
-          (@?\\b[_[:alpha:]][_[:alnum:]]*)\\b\\s*
+          (@?[_[:alpha:]][_[:alnum:]]*)\\b\\s*
           (=>)
         '''
         beginCaptures:
