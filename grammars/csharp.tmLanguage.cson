@@ -508,7 +508,7 @@ repository:
     ]
   "storage-modifier":
     name: "storage.modifier.cs"
-    match: "(?<!\\.)\\b(new|public|protected|internal|private|abstract|virtual|override|sealed|static|partial|readonly|volatile|const|extern|async|unsafe)\\b"
+    match: "(?<!\\.)\\b(new|public|protected|internal|private|abstract|virtual|override|sealed|static|partial|readonly|volatile|const|extern|async|unsafe|ref)\\b"
   "class-declaration":
     begin: "(?=\\bclass\\b)"
     end: "(?<=\\})"

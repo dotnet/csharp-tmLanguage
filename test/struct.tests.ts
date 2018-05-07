@@ -84,5 +84,30 @@ struct S<T1, T2> where T1 : T2 { }
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace]);
         });
+
+        it("ref struct", () => {
+            const input = `ref struct S { }`;
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Modifiers.Ref,
+                Token.Keywords.Struct,
+                Token.Identifiers.StructName("S"),
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace]);
+        });
+
+        it("readonly ref struct", () => {
+            const input = `readonly ref struct S { }`;
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Modifiers.ReadOnly,
+                Token.Keywords.Modifiers.Ref,
+                Token.Keywords.Struct,
+                Token.Identifiers.StructName("S"),
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace]);
+        });
     });
 });
