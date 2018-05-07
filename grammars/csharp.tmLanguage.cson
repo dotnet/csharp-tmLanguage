@@ -2064,10 +2064,10 @@ repository:
     begin: '''
       (?x)
       (?:
-        (?:(\\bref)\\s+)?(\\bvar\\b)| # ref local
+        (?:(\\bref)\\s+(?:(\\breadonly)\\s+)?)?(\\bvar\\b)| # ref local
         (?<type-name>
           (?:
-            (?:ref\\s+)?   # ref local
+            (?:ref\\s+(?:readonly\\s+)?)?   # ref local
             (?:
               (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
               (?<name-and-type-args> # identifier + type arguments (if any)
@@ -2089,14 +2089,16 @@ repository:
       "1":
         name: "storage.modifier.cs"
       "2":
-        name: "keyword.other.var.cs"
+        name: "storage.modifier.cs"
       "3":
+        name: "keyword.other.var.cs"
+      "4":
         patterns: [
           {
             include: "#type"
           }
         ]
-      "8":
+      "9":
         name: "entity.name.variable.local.cs"
     end: "(?=;|\\))"
     patterns: [

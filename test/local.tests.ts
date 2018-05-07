@@ -108,6 +108,19 @@ describe("Grammar", () => {
             ]);
         });
 
+        it("ref readonly local", () => {
+            const input = Input.InMethod(`ref readonly int x;`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Modifiers.Ref,
+                Token.Keywords.Modifiers.ReadOnly,
+                Token.PrimitiveType.Int,
+                Token.Identifiers.LocalName("x"),
+                Token.Punctuation.Semicolon
+            ]);
+        });
+
         it("ref local with initializer", () => {
             const input = Input.InMethod(`ref int x = ref y;`);
             const tokens = tokenize(input);
@@ -115,6 +128,38 @@ describe("Grammar", () => {
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Ref,
                 Token.PrimitiveType.Int,
+                Token.Identifiers.LocalName("x"),
+                Token.Operators.Assignment,
+                Token.Keywords.Modifiers.Ref,
+                Token.Variables.ReadWrite("y"),
+                Token.Punctuation.Semicolon
+            ]);
+        });
+
+        it("ref readonly local with initializer", () => {
+            const input = Input.InMethod(`ref readonly int x = ref y;`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Modifiers.Ref,
+                Token.Keywords.Modifiers.ReadOnly,
+                Token.PrimitiveType.Int,
+                Token.Identifiers.LocalName("x"),
+                Token.Operators.Assignment,
+                Token.Keywords.Modifiers.Ref,
+                Token.Variables.ReadWrite("y"),
+                Token.Punctuation.Semicolon
+            ]);
+        });
+
+        it("ref readonly local var with initializer", () => {
+            const input = Input.InMethod(`ref readonly var x = ref y;`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Modifiers.Ref,
+                Token.Keywords.Modifiers.ReadOnly,
+                Token.Keywords.Var,
                 Token.Identifiers.LocalName("x"),
                 Token.Operators.Assignment,
                 Token.Keywords.Modifiers.Ref,

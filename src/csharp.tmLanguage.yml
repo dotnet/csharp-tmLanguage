@@ -1242,10 +1242,10 @@ repository:
     begin: |-
       (?x)
       (?:
-        (?:(\bref)\s+)?(\bvar\b)| # ref local
+        (?:(\bref)\s+(?:(\breadonly)\s+)?)?(\bvar\b)| # ref local
         (?<type-name>
           (?:
-            (?:ref\s+)?   # ref local
+            (?:ref\s+(?:readonly\s+)?)?   # ref local
             (?:
               (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
               (?<name-and-type-args> # identifier + type arguments (if any)
@@ -1264,15 +1264,16 @@ repository:
       (?=,|;|=|\))
     beginCaptures:
       '1': { name: storage.modifier.cs }
-      '2': { name: keyword.other.var.cs }
-      '3':
+      '2': { name: storage.modifier.cs }
+      '3': { name: keyword.other.var.cs }
+      '4':
         patterns:
         - include: '#type'
-      # '4': ?<identifier> is a sub-expression. It's final value is not considered.
-      # '5': ?<name-and-type-args> is a sub-expression. It's final value is not considered.
-      # '6': ?<type-args> is a sub-expression. It's final value is not considered.
-      # '7': ?<tuple> is a sub-expression. It's final value is not considered.
-      '8': { name: entity.name.variable.local.cs }
+      # '5': ?<identifier> is a sub-expression. It's final value is not considered.
+      # '6': ?<name-and-type-args> is a sub-expression. It's final value is not considered.
+      # '7': ?<type-args> is a sub-expression. It's final value is not considered.
+      # '8': ?<tuple> is a sub-expression. It's final value is not considered.
+      '9': { name: entity.name.variable.local.cs }
     end: (?=;|\))
     patterns:
     - name: entity.name.variable.local.cs

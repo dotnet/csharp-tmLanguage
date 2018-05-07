@@ -3401,10 +3401,10 @@
         <key>begin</key>
         <string>(?x)
 (?:
-  (?:(\bref)\s+)?(\bvar\b)| # ref local
+  (?:(\bref)\s+(?:(\breadonly)\s+)?)?(\bvar\b)| # ref local
   (?&lt;type-name&gt;
     (?:
-      (?:ref\s+)?   # ref local
+      (?:ref\s+(?:readonly\s+)?)?   # ref local
       (?:
         (?:(?&lt;identifier&gt;@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
         (?&lt;name-and-type-args&gt; # identifier + type arguments (if any)
@@ -3431,9 +3431,14 @@
           <key>2</key>
           <dict>
             <key>name</key>
-            <string>keyword.other.var.cs</string>
+            <string>storage.modifier.cs</string>
           </dict>
           <key>3</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.other.var.cs</string>
+          </dict>
+          <key>4</key>
           <dict>
             <key>patterns</key>
             <array>
@@ -3443,7 +3448,7 @@
               </dict>
             </array>
           </dict>
-          <key>8</key>
+          <key>9</key>
           <dict>
             <key>name</key>
             <string>entity.name.variable.local.cs</string>
