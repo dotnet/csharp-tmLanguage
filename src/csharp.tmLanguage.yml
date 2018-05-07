@@ -268,7 +268,7 @@ repository:
       (?:\b(delegate)\b)\s+
       (?<type-name>
         (?:
-          (?:ref\s+)?   # ref return
+          (?:ref\s+(?:readonly\s+)?)?   # ref return
           (?:
             (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
             (?<name-and-type-args> # identifier + type arguments (if any)
@@ -493,7 +493,7 @@ repository:
       (?<return-type>
         (?<type-name>
           (?:
-            (?:ref\s+)?   # ref return
+            (?:ref\s+(?:readonly\s+)?)?   # ref return
             (?:
               (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
               (?<name-and-type-args> # identifier + type arguments (if any)
@@ -539,7 +539,7 @@ repository:
       (?<return-type>
         (?<type-name>
           (?:
-            (?:ref\s+)?   # ref return
+            (?:ref\s+(?:readonly\s+)?)?   # ref return
             (?:
               (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
               (?<name-and-type-args> # identifier + type arguments (if any)
@@ -673,7 +673,7 @@ repository:
       (?<return-type>
         (?<type-name>
           (?:
-            (?:ref\s+)?   # ref return
+            (?:ref\s+(?:readonly\s+)?)?   # ref return
             (?:
               (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
               (?<name-and-type-args> # identifier + type arguments (if any)
@@ -762,7 +762,7 @@ repository:
       (?x)
       (?<type-name>
         (?:
-          (?:ref\s+)?   # ref return
+          (?:ref\s+(?:readonly\s+)?)?   # ref return
           (?:
             (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
             (?<name-and-type-args> # identifier + type arguments (if any)
@@ -803,7 +803,7 @@ repository:
       (?<operator-keyword>(?:\b(?:operator)))\s*
       (?<type-name>
         (?:
-          (?:ref\s+)?   # ref return
+          (?:ref\s+(?:readonly\s+)?)?   # ref return
           (?:
             (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
             (?<name-and-type-args> # identifier + type arguments (if any)
@@ -2350,6 +2350,7 @@ repository:
     patterns:
     - include: '#comment'
     - include: '#ref-modifier'
+    - include: '#readonly-modifier'
     - include: '#tuple-type'
     - include: '#type-builtin'
     - include: '#type-name'
@@ -2360,6 +2361,9 @@ repository:
   ref-modifier:
     name: storage.modifier.cs
     match: \b(ref)\b
+  readonly-modifier:
+    name: storage.modifier.cs
+    match: \b(readonly)\b
 
   tuple-type:
     begin: \(

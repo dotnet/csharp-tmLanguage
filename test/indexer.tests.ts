@@ -155,6 +155,25 @@ int this[string p = null] { }
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace]);
         });
+
+        it("ref readonly return", () => {
+            const input = Input.InInterface(`ref readonly int this[int index] { get; }`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Modifiers.Ref,
+                Token.Keywords.Modifiers.ReadOnly,
+                Token.PrimitiveType.Int,
+                Token.Keywords.This,
+                Token.Punctuation.OpenBracket,
+                Token.PrimitiveType.Int,
+                Token.Identifiers.ParameterName("index"),
+                Token.Punctuation.CloseBracket,
+                Token.Punctuation.OpenBrace,
+                Token.Keywords.Get,
+                Token.Punctuation.Semicolon,
+                Token.Punctuation.CloseBrace]);
+        });
         
         it("closing bracket of parameter list on next line", () => {
             const input = Input.InClass(`

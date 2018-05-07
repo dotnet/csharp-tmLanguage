@@ -366,12 +366,42 @@ public int Timeout
                 Token.Punctuation.CloseBrace]);
         });
 
+        it("ref readonly return", () => {
+            const input = Input.InInterface(`ref readonly int P { get; }`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Modifiers.Ref,
+                Token.Keywords.Modifiers.ReadOnly,
+                Token.PrimitiveType.Int,
+                Token.Identifiers.PropertyName("P"),
+                Token.Punctuation.OpenBrace,
+                Token.Keywords.Get,
+                Token.Punctuation.Semicolon,
+                Token.Punctuation.CloseBrace]);
+        });
+
         it("expression body ref return", () => {
             const input = Input.InClass(`ref int P => ref x;`);
             const tokens = tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Ref,
+                Token.PrimitiveType.Int,
+                Token.Identifiers.PropertyName("P"),
+                Token.Operators.Arrow,
+                Token.Keywords.Modifiers.Ref,
+                Token.Variables.ReadWrite("x"),
+                Token.Punctuation.Semicolon]);
+        });
+
+        it("expression body ref readonly return", () => {
+            const input = Input.InClass(`ref readonly int P => ref x;`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Modifiers.Ref,
+                Token.Keywords.Modifiers.ReadOnly,
                 Token.PrimitiveType.Int,
                 Token.Identifiers.PropertyName("P"),
                 Token.Operators.Arrow,

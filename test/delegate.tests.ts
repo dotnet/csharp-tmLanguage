@@ -139,5 +139,20 @@ delegate void D<T1, T2>()
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.Semicolon]);
         });
+
+        it("ref readonly return", () => {
+            const input = `delegate ref readonly int D();`;
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Delegate,
+                Token.Keywords.Modifiers.Ref,
+                Token.Keywords.Modifiers.ReadOnly,
+                Token.PrimitiveType.Int,
+                Token.Identifiers.DelegateName("D"),
+                Token.Punctuation.OpenParen,
+                Token.Punctuation.CloseParen,
+                Token.Punctuation.Semicolon]);
+        });
     });
 });
