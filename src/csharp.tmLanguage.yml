@@ -2362,6 +2362,7 @@ repository:
   ref-modifier:
     name: storage.modifier.cs
     match: \b(ref)\b
+
   readonly-modifier:
     name: storage.modifier.cs
     match: \b(readonly)\b
