@@ -7,7 +7,7 @@ import { should } from 'chai';
 import { tokenize, Input, Token } from './utils/tokenize';
 
 describe("Grammar", () => {
-    before(() => should());
+    before(() => { should(); });
     describe("Tuples", () => {
         it("Tuple literal", () => {
             const input = Input.InMethod(`var p = (42, "hello");`);

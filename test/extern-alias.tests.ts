@@ -7,7 +7,7 @@ import { should } from 'chai';
 import { tokenize, Token } from './utils/tokenize';
 
 describe("Grammar", () => {
-    before(() => should());
+    before(() => { should(); });
 
     describe("Extern aliases", () => {
         it("declaration", () => {

@@ -7,7 +7,7 @@ import { should } from 'chai';
 import { tokenize, Input, Token } from './utils/tokenize';
 
 describe("Grammar", () => {
-    before(() => should());
+    before(() => { should(); });
 
     describe("Methods", () => {
         it("single-line declaration with no parameters", () => {
