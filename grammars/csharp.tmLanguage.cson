@@ -508,7 +508,7 @@ repository:
     ]
   "storage-modifier":
     name: "storage.modifier.cs"
-    match: "(?<!\\.)\\b(new|public|protected|internal|private|abstract|virtual|override|sealed|static|partial|readonly|volatile|const|extern|async|unsafe)\\b"
+    match: "(?<!\\.)\\b(new|public|protected|internal|private|abstract|virtual|override|sealed|static|partial|readonly|volatile|const|extern|async|unsafe|ref)\\b"
   "class-declaration":
     begin: "(?=\\bclass\\b)"
     end: "(?<=\\})"
@@ -568,7 +568,7 @@ repository:
       (?:\\b(delegate)\\b)\\s+
       (?<type-name>
         (?:
-          (?:ref\\s+)?   # ref return
+          (?:ref\\s+(?:readonly\\s+)?)?   # ref return
           (?:
             (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
             (?<name-and-type-args> # identifier + type arguments (if any)
@@ -944,7 +944,7 @@ repository:
       (?<return-type>
         (?<type-name>
           (?:
-            (?:ref\\s+)?   # ref return
+            (?:ref\\s+(?:readonly\\s+)?)?   # ref return
             (?:
               (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
               (?<name-and-type-args> # identifier + type arguments (if any)
@@ -1005,7 +1005,7 @@ repository:
       (?<return-type>
         (?<type-name>
           (?:
-            (?:ref\\s+)?   # ref return
+            (?:ref\\s+(?:readonly\\s+)?)?   # ref return
             (?:
               (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
               (?<name-and-type-args> # identifier + type arguments (if any)
@@ -1203,7 +1203,7 @@ repository:
       (?<return-type>
         (?<type-name>
           (?:
-            (?:ref\\s+)?   # ref return
+            (?:ref\\s+(?:readonly\\s+)?)?   # ref return
             (?:
               (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
               (?<name-and-type-args> # identifier + type arguments (if any)
@@ -1343,7 +1343,7 @@ repository:
       (?x)
       (?<type-name>
         (?:
-          (?:ref\\s+)?   # ref return
+          (?:ref\\s+(?:readonly\\s+)?)?   # ref return
           (?:
             (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
             (?<name-and-type-args> # identifier + type arguments (if any)
@@ -1394,7 +1394,7 @@ repository:
       (?<operator-keyword>(?:\\b(?:operator)))\\s*
       (?<type-name>
         (?:
-          (?:ref\\s+)?   # ref return
+          (?:ref\\s+(?:readonly\\s+)?)?   # ref return
           (?:
             (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
             (?<name-and-type-args> # identifier + type arguments (if any)
@@ -2064,10 +2064,10 @@ repository:
     begin: '''
       (?x)
       (?:
-        (?:(\\bref)\\s+)?(\\bvar\\b)| # ref local
+        (?:(\\bref)\\s+(?:(\\breadonly)\\s+)?)?(\\bvar\\b)| # ref local
         (?<type-name>
           (?:
-            (?:ref\\s+)?   # ref local
+            (?:ref\\s+(?:readonly\\s+)?)?   # ref local
             (?:
               (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
               (?<name-and-type-args> # identifier + type arguments (if any)
@@ -2089,14 +2089,16 @@ repository:
       "1":
         name: "storage.modifier.cs"
       "2":
-        name: "keyword.other.var.cs"
+        name: "storage.modifier.cs"
       "3":
+        name: "keyword.other.var.cs"
+      "4":
         patterns: [
           {
             include: "#type"
           }
         ]
-      "8":
+      "9":
         name: "entity.name.variable.local.cs"
     end: "(?=;|\\))"
     patterns: [
@@ -3598,6 +3600,9 @@ repository:
         include: "#ref-modifier"
       }
       {
+        include: "#readonly-modifier"
+      }
+      {
         include: "#tuple-type"
       }
       {
@@ -3619,6 +3624,9 @@ repository:
   "ref-modifier":
     name: "storage.modifier.cs"
     match: "\\b(ref)\\b"
+  "readonly-modifier":
+    name: "storage.modifier.cs"
+    match: "\\b(readonly)\\b"
   "tuple-type":
     begin: "\\("
     beginCaptures:

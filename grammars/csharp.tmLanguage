@@ -791,7 +791,7 @@
         <key>name</key>
         <string>storage.modifier.cs</string>
         <key>match</key>
-        <string>(?&lt;!\.)\b(new|public|protected|internal|private|abstract|virtual|override|sealed|static|partial|readonly|volatile|const|extern|async|unsafe)\b</string>
+        <string>(?&lt;!\.)\b(new|public|protected|internal|private|abstract|virtual|override|sealed|static|partial|readonly|volatile|const|extern|async|unsafe|ref)\b</string>
       </dict>
       <key>class-declaration</key>
       <dict>
@@ -887,7 +887,7 @@
 (?:\b(delegate)\b)\s+
 (?&lt;type-name&gt;
   (?:
-    (?:ref\s+)?   # ref return
+    (?:ref\s+(?:readonly\s+)?)?   # ref return
     (?:
       (?:(?&lt;identifier&gt;@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
       (?&lt;name-and-type-args&gt; # identifier + type arguments (if any)
@@ -1505,7 +1505,7 @@
 (?&lt;return-type&gt;
   (?&lt;type-name&gt;
     (?:
-      (?:ref\s+)?   # ref return
+      (?:ref\s+(?:readonly\s+)?)?   # ref return
       (?:
         (?:(?&lt;identifier&gt;@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
         (?&lt;name-and-type-args&gt; # identifier + type arguments (if any)
@@ -1588,7 +1588,7 @@
 (?&lt;return-type&gt;
   (?&lt;type-name&gt;
     (?:
-      (?:ref\s+)?   # ref return
+      (?:ref\s+(?:readonly\s+)?)?   # ref return
       (?:
         (?:(?&lt;identifier&gt;@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
         (?&lt;name-and-type-args&gt; # identifier + type arguments (if any)
@@ -1884,7 +1884,7 @@
 (?&lt;return-type&gt;
   (?&lt;type-name&gt;
     (?:
-      (?:ref\s+)?   # ref return
+      (?:ref\s+(?:readonly\s+)?)?   # ref return
       (?:
         (?:(?&lt;identifier&gt;@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
         (?&lt;name-and-type-args&gt; # identifier + type arguments (if any)
@@ -2106,7 +2106,7 @@
         <string>(?x)
 (?&lt;type-name&gt;
   (?:
-    (?:ref\s+)?   # ref return
+    (?:ref\s+(?:readonly\s+)?)?   # ref return
     (?:
       (?:(?&lt;identifier&gt;@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
       (?&lt;name-and-type-args&gt; # identifier + type arguments (if any)
@@ -2176,7 +2176,7 @@
 (?&lt;operator-keyword&gt;(?:\b(?:operator)))\s*
 (?&lt;type-name&gt;
   (?:
-    (?:ref\s+)?   # ref return
+    (?:ref\s+(?:readonly\s+)?)?   # ref return
     (?:
       (?:(?&lt;identifier&gt;@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
       (?&lt;name-and-type-args&gt; # identifier + type arguments (if any)
@@ -3401,10 +3401,10 @@
         <key>begin</key>
         <string>(?x)
 (?:
-  (?:(\bref)\s+)?(\bvar\b)| # ref local
+  (?:(\bref)\s+(?:(\breadonly)\s+)?)?(\bvar\b)| # ref local
   (?&lt;type-name&gt;
     (?:
-      (?:ref\s+)?   # ref local
+      (?:ref\s+(?:readonly\s+)?)?   # ref local
       (?:
         (?:(?&lt;identifier&gt;@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
         (?&lt;name-and-type-args&gt; # identifier + type arguments (if any)
@@ -3431,9 +3431,14 @@
           <key>2</key>
           <dict>
             <key>name</key>
-            <string>keyword.other.var.cs</string>
+            <string>storage.modifier.cs</string>
           </dict>
           <key>3</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.other.var.cs</string>
+          </dict>
+          <key>4</key>
           <dict>
             <key>patterns</key>
             <array>
@@ -3443,7 +3448,7 @@
               </dict>
             </array>
           </dict>
-          <key>8</key>
+          <key>9</key>
           <dict>
             <key>name</key>
             <string>entity.name.variable.local.cs</string>
@@ -5944,6 +5949,10 @@
           </dict>
           <dict>
             <key>include</key>
+            <string>#readonly-modifier</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#tuple-type</string>
           </dict>
           <dict>
@@ -5974,6 +5983,13 @@
         <string>storage.modifier.cs</string>
         <key>match</key>
         <string>\b(ref)\b</string>
+      </dict>
+      <key>readonly-modifier</key>
+      <dict>
+        <key>name</key>
+        <string>storage.modifier.cs</string>
+        <key>match</key>
+        <string>\b(readonly)\b</string>
       </dict>
       <key>tuple-type</key>
       <dict>
