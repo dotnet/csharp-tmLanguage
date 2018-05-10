@@ -7,7 +7,7 @@ import { should } from 'chai';
 import { tokenize, Input, Token } from './utils/tokenize';
 
 describe("Grammar", () => {
-    before(() => should());
+    before(() => { should(); });
 
     describe("Incomplete code", () => {
         it("Don't eat the next lines if there isn't a semicolon (issue #15)", () => {
