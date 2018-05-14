@@ -48,6 +48,18 @@ describe("Grammar", () => {
                 Token.Comment.MultiLine.End]);
         });
 
+        it("multi-line comment spanning lines", () => {
+            const input = `/* hello
+world */`;
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Comment.MultiLine.Start,
+                Token.Comment.MultiLine.Text(" hello"),
+                Token.Comment.MultiLine.Text("world "),
+                Token.Comment.MultiLine.End]);
+        });
+
         it("in namespace", () => {
             const input = Input.InNamespace(`// foo`);
             const tokens = tokenize(input);
@@ -100,6 +112,34 @@ describe("Grammar", () => {
             tokens.should.deep.equal([
                 Token.Comment.SingleLine.Start,
                 Token.Comment.SingleLine.Text(" foo")]);
+        });
+
+        it("in string literal (single-line)", () => {
+            const input = Input.InMethod(`var s = "// foo";`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Var,
+                Token.Identifiers.LocalName("s"),
+                Token.Operators.Assignment,
+                Token.Punctuation.String.Begin,
+                Token.Literals.String("// foo"),
+                Token.Punctuation.String.End,
+                Token.Punctuation.Semicolon]);
+        });
+
+        it("in string literal (multi-line)", () => {
+            const input = Input.InMethod(`var s = "/* foo */";`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Var,
+                Token.Identifiers.LocalName("s"),
+                Token.Operators.Assignment,
+                Token.Punctuation.String.Begin,
+                Token.Literals.String("/* foo */"),
+                Token.Punctuation.String.End,
+                Token.Punctuation.Semicolon]);
         });
 
         it("comment should colorize if there isn't a space before it (issue omnisharp-vscode#225)", () => {
@@ -479,6 +519,144 @@ unchecked //comment
                 Token.Comment.SingleLine.Start,
                 Token.Comment.SingleLine.Text("comment"),
                 Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace]);
+        });
+
+        it("after property with 'enum' keyword - single-line (issue #75)", () => {
+            const input = Input.InClass(`
+public List<Guid> Associations { get; set; } //enum
+public Emotion Feeling { get; set; }
+`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Modifiers.Public,
+                Token.Type("List"),
+                Token.Punctuation.TypeParameters.Begin,
+                Token.Type("Guid"),
+                Token.Punctuation.TypeParameters.End,
+                Token.Identifiers.PropertyName("Associations"),
+                Token.Punctuation.OpenBrace,
+                Token.Keywords.Get,
+                Token.Punctuation.Semicolon,
+                Token.Keywords.Set,
+                Token.Punctuation.Semicolon,
+                Token.Punctuation.CloseBrace,
+                Token.Comment.SingleLine.Start,
+                Token.Comment.SingleLine.Text("enum"),
+                Token.Keywords.Modifiers.Public,
+                Token.Type("Emotion"),
+                Token.Identifiers.PropertyName("Feeling"),
+                Token.Punctuation.OpenBrace,
+                Token.Keywords.Get,
+                Token.Punctuation.Semicolon,
+                Token.Keywords.Set,
+                Token.Punctuation.Semicolon,
+                Token.Punctuation.CloseBrace]);
+        });
+
+        it("after property with 'event' keyword - single-line (issue #115)", () => {
+            const input = Input.InClass(`
+// The word "event" in the comment below breaks highlighting in the rest
+// of the file.  Adding or removing any characters in "event" such that
+// it no longer matches \bevent\b will restore highlighting.
+public string Bar { get; set; } // comment comment event comment
+public string Baz { get; set; }
+`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Comment.SingleLine.Start,
+                Token.Comment.SingleLine.Text(` The word "event" in the comment below breaks highlighting in the rest`),
+                Token.Comment.SingleLine.Start,
+                Token.Comment.SingleLine.Text(` of the file.  Adding or removing any characters in "event" such that`),
+                Token.Comment.SingleLine.Start,
+                Token.Comment.SingleLine.Text(` it no longer matches \bevent\b will restore highlighting.`),
+                Token.Keywords.Modifiers.Public,
+                Token.PrimitiveType.String,
+                Token.Identifiers.PropertyName("Bar"),
+                Token.Punctuation.OpenBrace,
+                Token.Keywords.Get,
+                Token.Punctuation.Semicolon,
+                Token.Keywords.Set,
+                Token.Punctuation.Semicolon,
+                Token.Punctuation.CloseBrace,
+                Token.Comment.SingleLine.Start,
+                Token.Comment.SingleLine.Text(" comment comment event comment"),
+                Token.Keywords.Modifiers.Public,
+                Token.PrimitiveType.String,
+                Token.Identifiers.PropertyName("Baz"),
+                Token.Punctuation.OpenBrace,
+                Token.Keywords.Get,
+                Token.Punctuation.Semicolon,
+                Token.Keywords.Set,
+                Token.Punctuation.Semicolon,
+                Token.Punctuation.CloseBrace]);
+        });
+
+        it("after property with 'event' keyword - multi-line (issue #115)", () => {
+            const input = Input.InClass(`
+/* The word "event" in the comment below breaks highlighting in the rest
+   of the file.  Adding or removing any characters in "event" such that
+   it no longer matches \bevent\b will restore highlighting. */
+public string Bar { get; set; } /* comment comment event comment */
+public string Baz { get; set; }
+`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Comment.MultiLine.Start,
+                Token.Comment.MultiLine.Text(` The word "event" in the comment below breaks highlighting in the rest`),
+                Token.Comment.MultiLine.Text(`   of the file.  Adding or removing any characters in "event" such that`),
+                Token.Comment.MultiLine.Text(`   it no longer matches \bevent\b will restore highlighting. `),
+                Token.Comment.MultiLine.End,
+                Token.Keywords.Modifiers.Public,
+                Token.PrimitiveType.String,
+                Token.Identifiers.PropertyName("Bar"),
+                Token.Punctuation.OpenBrace,
+                Token.Keywords.Get,
+                Token.Punctuation.Semicolon,
+                Token.Keywords.Set,
+                Token.Punctuation.Semicolon,
+                Token.Punctuation.CloseBrace,
+                Token.Comment.MultiLine.Start,
+                Token.Comment.MultiLine.Text(" comment comment event comment "),
+                Token.Comment.MultiLine.End,
+                Token.Keywords.Modifiers.Public,
+                Token.PrimitiveType.String,
+                Token.Identifiers.PropertyName("Baz"),
+                Token.Punctuation.OpenBrace,
+                Token.Keywords.Get,
+                Token.Punctuation.Semicolon,
+                Token.Keywords.Set,
+                Token.Punctuation.Semicolon,
+                Token.Punctuation.CloseBrace]);
+        });
+        
+        it("after property with 'struct' keyword - multi-line (issue #115)", () => {
+            const input = `
+public struct MyPoco
+{
+    public ETag Tag { get; } /* note: struct ETag was previously defined ... */
+}
+`;
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Modifiers.Public,
+                Token.Keywords.Struct,
+                Token.Identifiers.StructName("MyPoco"),
+                Token.Punctuation.OpenBrace,
+                Token.Keywords.Modifiers.Public,
+                Token.Type("ETag"),
+                Token.Identifiers.PropertyName("Tag"),
+                Token.Punctuation.OpenBrace,
+                Token.Keywords.Get,
+                Token.Punctuation.Semicolon,
+                Token.Punctuation.CloseBrace,
+                Token.Comment.MultiLine.Start,
+                Token.Comment.MultiLine.Text(" note: struct ETag was previously defined ... "),
+                Token.Comment.MultiLine.End,
                 Token.Punctuation.CloseBrace]);
         });
     });

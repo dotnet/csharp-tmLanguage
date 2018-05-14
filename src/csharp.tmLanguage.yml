@@ -51,9 +51,9 @@ repository:
     - include: '#comment'
     - include: '#storage-modifier'
     - include: '#type-declarations'
+    - include: '#property-declaration'
     - include: '#field-declaration'
     - include: '#event-declaration'
-    - include: '#property-declaration'
     - include: '#indexer-declaration'
     - include: '#variable-initializer'
     - include: '#constructor-declaration'
@@ -68,8 +68,8 @@ repository:
     patterns:
     - include: '#preprocessor'
     - include: '#comment'
-    - include: '#event-declaration'
     - include: '#property-declaration'
+    - include: '#event-declaration'
     - include: '#indexer-declaration'
     - include: '#method-declaration'
     - include: '#attribute-section'
@@ -489,7 +489,11 @@ repository:
   property-declaration:
     begin: |-
       (?x)
-      (?!.*\b(?:class|interface|struct|enum|event)\b)\s*
+
+      # The negative lookahead below ensures that we don't match nested types
+      # or other declarations as properties.
+      (?![[:word:][:space:]]*\b(?:class|interface|struct|enum|event)\b)
+
       (?<return-type>
         (?<type-name>
           (?:

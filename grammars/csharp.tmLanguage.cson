@@ -109,13 +109,13 @@ repository:
         include: "#type-declarations"
       }
       {
+        include: "#property-declaration"
+      }
+      {
         include: "#field-declaration"
       }
       {
         include: "#event-declaration"
-      }
-      {
-        include: "#property-declaration"
       }
       {
         include: "#indexer-declaration"
@@ -154,10 +154,10 @@ repository:
         include: "#comment"
       }
       {
-        include: "#event-declaration"
+        include: "#property-declaration"
       }
       {
-        include: "#property-declaration"
+        include: "#event-declaration"
       }
       {
         include: "#indexer-declaration"
@@ -940,7 +940,11 @@ repository:
   "property-declaration":
     begin: '''
       (?x)
-      (?!.*\\b(?:class|interface|struct|enum|event)\\b)\\s*
+      
+      # The negative lookahead below ensures that we don't match nested types
+      # or other declarations as properties.
+      (?![[:word:][:space:]]*\\b(?:class|interface|struct|enum|event)\\b)
+      
       (?<return-type>
         (?<type-name>
           (?:

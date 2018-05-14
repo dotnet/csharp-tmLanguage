@@ -7,7 +7,7 @@ import { should } from 'chai';
 import { tokenize, Input, Token } from './utils/tokenize';
 
 describe("Grammar", () => {
-    before(() => should());
+    before(() => { should() });
 
     describe("Verbatim identifier", () => {
         it("in extern alias directive", () => {

@@ -247,6 +247,31 @@ class PublicClass<T, X> : Dictionary<T, List<string>[]>, ISomething
             const input = Input.InNamespace(`
 class Klass
 {
+    class Nested
+    {
+
+    }
+}`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Class,
+                Token.Identifiers.ClassName("Klass"),
+                Token.Punctuation.OpenBrace,
+
+                Token.Keywords.Class,
+                Token.Identifiers.ClassName("Nested"),
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace,
+
+                Token.Punctuation.CloseBrace]);
+        });
+
+        it("nested class with modifier", () => {
+
+            const input = Input.InNamespace(`
+class Klass
+{
     public class Nested
     {
 

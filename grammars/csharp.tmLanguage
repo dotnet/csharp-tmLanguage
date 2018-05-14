@@ -163,15 +163,15 @@
           </dict>
           <dict>
             <key>include</key>
+            <string>#property-declaration</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#field-declaration</string>
           </dict>
           <dict>
             <key>include</key>
             <string>#event-declaration</string>
-          </dict>
-          <dict>
-            <key>include</key>
-            <string>#property-declaration</string>
           </dict>
           <dict>
             <key>include</key>
@@ -225,11 +225,11 @@
           </dict>
           <dict>
             <key>include</key>
-            <string>#event-declaration</string>
+            <string>#property-declaration</string>
           </dict>
           <dict>
             <key>include</key>
-            <string>#property-declaration</string>
+            <string>#event-declaration</string>
           </dict>
           <dict>
             <key>include</key>
@@ -1501,7 +1501,11 @@
       <dict>
         <key>begin</key>
         <string>(?x)
-(?!.*\b(?:class|interface|struct|enum|event)\b)\s*
+
+# The negative lookahead below ensures that we don't match nested types
+# or other declarations as properties.
+(?![[:word:][:space:]]*\b(?:class|interface|struct|enum|event)\b)
+
 (?&lt;return-type&gt;
   (?&lt;type-name&gt;
     (?:
