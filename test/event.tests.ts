@@ -131,6 +131,42 @@ public event Type Event
                 Token.Punctuation.Semicolon]);
         });
 
+        it("declaration in interface with properties", () => {
+            const input = `
+interface IObj
+{
+    int Prop1
+    {
+        get;
+    }
+    event EventHandler Event;
+    int Prop2 { get; }
+}`;
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Interface,
+                Token.Identifiers.InterfaceName("IObj"),
+                Token.Punctuation.OpenBrace,
+                Token.PrimitiveType.Int,
+                Token.Identifiers.PropertyName("Prop1"),
+                Token.Punctuation.OpenBrace,
+                Token.Keywords.Get,
+                Token.Punctuation.Semicolon,
+                Token.Punctuation.CloseBrace,
+                Token.Keywords.Event,
+                Token.Type("EventHandler"),
+                Token.Identifiers.EventName("Event"),
+                Token.Punctuation.Semicolon,
+                Token.PrimitiveType.Int,
+                Token.Identifiers.PropertyName("Prop2"),
+                Token.Punctuation.OpenBrace,
+                Token.Keywords.Get,
+                Token.Punctuation.Semicolon,
+                Token.Punctuation.CloseBrace,
+                Token.Punctuation.CloseBrace]);
+        });
+
         it("declaration with attributes", () => {
             const input = Input.InClass(`
 [event: Test]

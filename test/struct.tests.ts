@@ -43,6 +43,57 @@ struct S : IFoo { }
                 Token.Punctuation.CloseBrace]);
         });
 
+        it("nested struct", () => {
+
+            const input = `
+class Klass
+{
+    struct Nested
+    {
+
+    }
+}`;
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Class,
+                Token.Identifiers.ClassName("Klass"),
+                Token.Punctuation.OpenBrace,
+
+                Token.Keywords.Struct,
+                Token.Identifiers.StructName("Nested"),
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace,
+
+                Token.Punctuation.CloseBrace]);
+        });
+
+        it("nested struct with modifier", () => {
+
+            const input = `
+class Klass
+{
+    public struct Nested
+    {
+
+    }
+}`;
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Class,
+                Token.Identifiers.ClassName("Klass"),
+                Token.Punctuation.OpenBrace,
+
+                Token.Keywords.Modifiers.Public,
+                Token.Keywords.Struct,
+                Token.Identifiers.StructName("Nested"),
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace,
+
+                Token.Punctuation.CloseBrace]);
+        });
+
         it("generic struct", () => {
 
             const input = `
