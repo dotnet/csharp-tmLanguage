@@ -2322,7 +2322,7 @@ repository:
     match: |-
       (?x)
       (?:\b(ref|out|in)\b)?\s*
-      (?<type-name>
+      (?:(?<type-name>
         (?:
           (?:
             (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
@@ -2336,7 +2336,7 @@ repository:
           (?:\s*\?\s*)? # nullable suffix?
           (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
         )
-      )?
+      )\s+)?
       (\g<identifier>)\b\s*
       (?=[,)])
     captures:
