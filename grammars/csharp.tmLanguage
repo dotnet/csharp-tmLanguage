@@ -5896,7 +5896,7 @@
         <key>match</key>
         <string>(?x)
 (?:\b(ref|out|in)\b)?\s*
-(?&lt;type-name&gt;
+(?:(?&lt;type-name&gt;
   (?:
     (?:
       (?:(?&lt;identifier&gt;@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
@@ -5910,7 +5910,7 @@
     (?:\s*\?\s*)? # nullable suffix?
     (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
   )
-)?
+)\s+)?
 (\g&lt;identifier&gt;)\b\s*
 (?=[,)])</string>
         <key>captures</key>

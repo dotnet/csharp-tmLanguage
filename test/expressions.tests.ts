@@ -141,6 +141,31 @@ var newPoint = new Vector(point.x * z, 0);`);
                 ]);
             });
 
+            it("lambda expression with multiple parameters with long names (assignment)", () => {
+                const input = Input.InMethod(`Action<int, int> a = (parameterNo1, parameterNo2) => { };`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Type("Action"),
+                    Token.Punctuation.TypeParameters.Begin,
+                    Token.PrimitiveType.Int,
+                    Token.Punctuation.Comma,
+                    Token.PrimitiveType.Int,
+                    Token.Punctuation.TypeParameters.End,
+                    Token.Identifiers.LocalName("a"),
+                    Token.Operators.Assignment,
+                    Token.Punctuation.OpenParen,
+                    Token.Identifiers.ParameterName("parameterNo1"),
+                    Token.Punctuation.Comma,
+                    Token.Identifiers.ParameterName("parameterNo2"),
+                    Token.Punctuation.CloseParen,
+                    Token.Operators.Arrow,
+                    Token.Punctuation.OpenBrace,
+                    Token.Punctuation.CloseBrace,
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
             it("lambda expression with multiple typed parameters (assignment)", () => {
                 const input = Input.InMethod(`Action<int, int> a = (int x, int y) => { };`);
                 const tokens = tokenize(input);
