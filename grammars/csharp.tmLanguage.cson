@@ -2992,7 +2992,7 @@ repository:
   "array-creation-expression":
     begin: '''
       (?x)
-      \\b(new)\\b\\s*
+      \\b(new|stackalloc)\\b\\s*
       (?<type-name>
         (?:
           (?:
