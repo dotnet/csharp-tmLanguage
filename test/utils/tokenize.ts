@@ -303,6 +303,7 @@ export namespace Token {
         export const NameOf = createToken('nameof', 'keyword.other.nameof.cs');
         export const Namespace = createToken('namespace', 'keyword.other.namespace.cs');
         export const New = createToken('new', 'keyword.other.new.cs');
+        export const Stackalloc = createToken('stackalloc', 'keyword.other.new.cs');
         export const Operator = createToken('operator', 'keyword.other.operator-decl.cs');
         export const Remove = createToken('remove', 'keyword.other.remove.cs');
         export const Set = createToken('set', 'keyword.other.set.cs');

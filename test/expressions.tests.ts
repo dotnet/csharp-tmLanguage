@@ -12,8 +12,7 @@ describe("Grammar", () => {
     describe("Expressions", () => {
         describe("Object creation", () => {
             it("with argument multiplication (issue #82)", () => {
-                const input = Input.InMethod(`
-var newPoint = new Vector(point.x * z, 0);`);
+                const input = Input.InMethod(`var newPoint = new Vector(point.x * z, 0);`);
                 const tokens = tokenize(input);
 
                 tokens.should.deep.equal([
@@ -31,6 +30,40 @@ var newPoint = new Vector(point.x * z, 0);`);
                     Token.Punctuation.Comma,
                     Token.Literals.Numeric.Decimal("0"),
                     Token.Punctuation.CloseParen,
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
+            it("with stackalloc keyword and byte array", () => {
+                const input = Input.InMethod(`var bytes = stackalloc byte[10];`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("bytes"),
+                    Token.Operators.Assignment,
+                    Token.Keywords.Stackalloc,
+                    Token.PrimitiveType.Byte,
+                    Token.Punctuation.OpenBracket,
+                    Token.Literals.Numeric.Decimal("10"),
+                    Token.Punctuation.CloseBracket,
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
+            it("with stackalloc keyword and int array", () => {
+                const input = Input.InMethod(`var ints = stackalloc int[42];`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("ints"),
+                    Token.Operators.Assignment,
+                    Token.Keywords.Stackalloc,
+                    Token.PrimitiveType.Int,
+                    Token.Punctuation.OpenBracket,
+                    Token.Literals.Numeric.Decimal("42"),
+                    Token.Punctuation.CloseBracket,
                     Token.Punctuation.Semicolon
                 ]);
             });

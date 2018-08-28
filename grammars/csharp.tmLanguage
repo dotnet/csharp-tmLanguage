@@ -4954,7 +4954,7 @@
       <dict>
         <key>begin</key>
         <string>(?x)
-\b(new)\b\s*
+\b(new|stackalloc)\b\s*
 (?&lt;type-name&gt;
   (?:
     (?:
