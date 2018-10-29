@@ -77,6 +77,76 @@ describe("Grammar", () => {
                     Token.Punctuation.Char.End,
                     Token.Punctuation.Semicolon]);
             });
+
+            it("escaped character escape \\t", () => {
+                const input = Input.InClass(`char x = '\\t';`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.PrimitiveType.Char,
+                    Token.Identifiers.FieldName("x"),
+                    Token.Operators.Assignment,
+                    Token.Punctuation.Char.Begin,
+                    Token.Literals.CharacterEscape("\\t"),
+                    Token.Punctuation.Char.End,
+                    Token.Punctuation.Semicolon]);
+            });
+
+            it("escaped character escape \\n", () => {
+                const input = Input.InClass(`char x = '\\n';`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.PrimitiveType.Char,
+                    Token.Identifiers.FieldName("x"),
+                    Token.Operators.Assignment,
+                    Token.Punctuation.Char.Begin,
+                    Token.Literals.CharacterEscape("\\n"),
+                    Token.Punctuation.Char.End,
+                    Token.Punctuation.Semicolon]);
+            });
+
+            it("escaped character escape \\x1f2d", () => {
+                const input = Input.InClass(`char x = '\\x1f2d';`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.PrimitiveType.Char,
+                    Token.Identifiers.FieldName("x"),
+                    Token.Operators.Assignment,
+                    Token.Punctuation.Char.Begin,
+                    Token.Literals.CharacterEscape("\\x1f2d"),
+                    Token.Punctuation.Char.End,
+                    Token.Punctuation.Semicolon]);
+            });
+
+            it("escaped character escape \\x1", () => {
+                const input = Input.InClass(`char x = '\\x1';`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.PrimitiveType.Char,
+                    Token.Identifiers.FieldName("x"),
+                    Token.Operators.Assignment,
+                    Token.Punctuation.Char.Begin,
+                    Token.Literals.CharacterEscape("\\x1"),
+                    Token.Punctuation.Char.End,
+                    Token.Punctuation.Semicolon]);
+            });
+
+            it("escaped character escape \\ude12", () => {
+                const input = Input.InClass(`char x = '\\ude12';`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.PrimitiveType.Char,
+                    Token.Identifiers.FieldName("x"),
+                    Token.Operators.Assignment,
+                    Token.Punctuation.Char.Begin,
+                    Token.Literals.CharacterEscape("\\ude12"),
+                    Token.Punctuation.Char.End,
+                    Token.Punctuation.Semicolon]);
+            });
         });
 
         describe("Numbers", () => {
@@ -157,6 +227,102 @@ describe("Grammar", () => {
                     Token.Literals.CharacterEscape("\\\""),
                     Token.Literals.String("world!"),
                     Token.Literals.CharacterEscape("\\\""),
+                    Token.Punctuation.String.End,
+                    Token.Punctuation.Semicolon]);
+            });
+            
+            it("escaped character escape \\t", () => {
+                const input = Input.InClass(`string test = "hello\\tworld!";`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.PrimitiveType.String,
+                    Token.Identifiers.FieldName("test"),
+                    Token.Operators.Assignment,
+                    Token.Punctuation.String.Begin,
+                    Token.Literals.String("hello"),
+                    Token.Literals.CharacterEscape("\\t"),
+                    Token.Literals.String("world!"),
+                    Token.Punctuation.String.End,
+                    Token.Punctuation.Semicolon]);
+            });
+
+            it("escaped character escape \\n", () => {
+                const input = Input.InClass(`string test = "hello\\nworld!";`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.PrimitiveType.String,
+                    Token.Identifiers.FieldName("test"),
+                    Token.Operators.Assignment,
+                    Token.Punctuation.String.Begin,
+                    Token.Literals.String("hello"),
+                    Token.Literals.CharacterEscape("\\n"),
+                    Token.Literals.String("world!"),
+                    Token.Punctuation.String.End,
+                    Token.Punctuation.Semicolon]);
+            });
+
+            it("escaped character escape \\x1f2d", () => {
+                const input = Input.InClass(`string test = "hello\\x1f2da world!";`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.PrimitiveType.String,
+                    Token.Identifiers.FieldName("test"),
+                    Token.Operators.Assignment,
+                    Token.Punctuation.String.Begin,
+                    Token.Literals.String("hello"),
+                    Token.Literals.CharacterEscape("\\x1f2d"),
+                    Token.Literals.String("a world!"),
+                    Token.Punctuation.String.End,
+                    Token.Punctuation.Semicolon]);
+            });
+
+            it("escaped character escape \\x1", () => {
+                const input = Input.InClass(`string test = "hello\\x1 a world!";`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.PrimitiveType.String,
+                    Token.Identifiers.FieldName("test"),
+                    Token.Operators.Assignment,
+                    Token.Punctuation.String.Begin,
+                    Token.Literals.String("hello"),
+                    Token.Literals.CharacterEscape("\\x1"),
+                    Token.Literals.String(" a world!"),
+                    Token.Punctuation.String.End,
+                    Token.Punctuation.Semicolon]);
+            });
+
+            it("escaped character escape \\ude12", () => {
+                const input = Input.InClass(`string test = "hello\\ude12a world!";`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.PrimitiveType.String,
+                    Token.Identifiers.FieldName("test"),
+                    Token.Operators.Assignment,
+                    Token.Punctuation.String.Begin,
+                    Token.Literals.String("hello"),
+                    Token.Literals.CharacterEscape("\\ude12"),
+                    Token.Literals.String("a world!"),
+                    Token.Punctuation.String.End,
+                    Token.Punctuation.Semicolon]);
+            });
+
+            it("escaped character escape \\U0001de12", () => {
+                const input = Input.InClass(`string test = "hello\\U0001de12a world!";`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.PrimitiveType.String,
+                    Token.Identifiers.FieldName("test"),
+                    Token.Operators.Assignment,
+                    Token.Punctuation.String.Begin,
+                    Token.Literals.String("hello"),
+                    Token.Literals.CharacterEscape("\\U0001de12"),
+                    Token.Literals.String("a world!"),
                     Token.Punctuation.String.End,
                     Token.Punctuation.Semicolon]);
             });

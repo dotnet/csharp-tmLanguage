@@ -2534,9 +2534,12 @@ repository:
         name: "invalid.illegal.newline.cs"
     patterns: [
       {
-        include: "#string-character-escape"
+        include: "#char-character-escape"
       }
     ]
+  "char-character-escape":
+    name: "constant.character.escape.cs"
+    match: "\\\\(['\"\\\\0abfnrtv]|x[0-9a-fA-F]{1,4}|u[0-9a-fA-F]{4})"
   "string-literal":
     name: "string.quoted.double.cs"
     begin: "(?<!@)\""
@@ -2556,7 +2559,7 @@ repository:
     ]
   "string-character-escape":
     name: "constant.character.escape.cs"
-    match: "\\\\."
+    match: "\\\\(['\"\\\\0abfnrtv]|x[0-9a-fA-F]{1,4}|U[0-9a-fA-F]{8}|u[0-9a-fA-F]{4})"
   "verbatim-string-literal":
     name: "string.quoted.double.cs"
     begin: "@\""
