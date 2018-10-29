@@ -479,7 +479,7 @@ repository:
       }
       {
         name: "entity.name.type.namespace.cs"
-        match: "@?[_[:alpha:]][_[:alnum:]]*"
+        match: "@?(?:[_[:alpha:]]|\\\\u[0-9a-fA-F]{4}|\\\\U[0-9a-fA-F]{8})(?:[_[:alnum:]]|\\\\u[0-9a-fA-F]{4}|\\\\U[0-9a-fA-F]{4})*"
       }
       {
         include: "#punctuation-accessor"
@@ -517,7 +517,7 @@ repository:
         begin: '''
           (?x)
           \\b(class)\\b\\s+
-          (@?[_[:alpha:]][_[:alnum:]]*)\\s*
+          (@?(?:[_[:alpha:]]|\\\\u[0-9a-fA-F]{4}|\\\\U[0-9a-fA-F]{8})(?:[_[:alnum:]]|\\\\u[0-9a-fA-F]{4}|\\\\U[0-9a-fA-F]{4})*)\\s*
         '''
         beginCaptures:
           "1":
@@ -950,7 +950,7 @@ repository:
           (?:
             (?:ref\\s+(?:readonly\\s+)?)?   # ref return
             (?:
-              (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
+              (?:(?<identifier>@?(?:[_[:alpha:]]|\\\\u[0-9a-fA-F]{4}|\\\\U[0-9a-fA-F]{8})(?:[_[:alnum:]]|\\\\u[0-9a-fA-F]{4}|\\\\U[0-9a-fA-F]{4})*)\\s*\\:\\:\\s*)? # alias-qualification
               (?<name-and-type-args> # identifier + type arguments (if any)
                 \\g<identifier>\\s*
                 (?<type-args>\\s*<(?:[^<>]|\\g<type-args>)+>\\s*)?
@@ -1209,7 +1209,7 @@ repository:
           (?:
             (?:ref\\s+(?:readonly\\s+)?)?   # ref return
             (?:
-              (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
+              (?:(?<identifier>@?(?:[_[:alpha:]]|\\\\u[0-9a-fA-F]{4}|\\\\U[0-9a-fA-F]{8})(?:[_[:alnum:]]|\\\\u[0-9a-fA-F]{4}|\\\\U[0-9a-fA-F]{4})*)\\s*\\:\\:\\s*)? # alias-qualification
               (?<name-and-type-args> # identifier + type arguments (if any)
                 \\g<identifier>\\s*
                 (?<type-args>\\s*<(?:[^<>]|\\g<type-args>)+>\\s*)?

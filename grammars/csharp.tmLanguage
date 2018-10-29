@@ -741,7 +741,7 @@
             <key>name</key>
             <string>entity.name.type.namespace.cs</string>
             <key>match</key>
-            <string>@?[_[:alpha:]][_[:alnum:]]*</string>
+            <string>@?(?:[_[:alpha:]]|\\u[0-9a-fA-F]{4}|\\U[0-9a-fA-F]{8})(?:[_[:alnum:]]|\\u[0-9a-fA-F]{4}|\\U[0-9a-fA-F]{4})*</string>
           </dict>
           <dict>
             <key>include</key>
@@ -805,7 +805,7 @@
             <key>begin</key>
             <string>(?x)
 \b(class)\b\s+
-(@?[_[:alpha:]][_[:alnum:]]*)\s*</string>
+(@?(?:[_[:alpha:]]|\\u[0-9a-fA-F]{4}|\\U[0-9a-fA-F]{8})(?:[_[:alnum:]]|\\u[0-9a-fA-F]{4}|\\U[0-9a-fA-F]{4})*)\s*</string>
             <key>beginCaptures</key>
             <dict>
               <key>1</key>
@@ -1511,7 +1511,7 @@
     (?:
       (?:ref\s+(?:readonly\s+)?)?   # ref return
       (?:
-        (?:(?&lt;identifier&gt;@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
+        (?:(?&lt;identifier&gt;@?(?:[_[:alpha:]]|\\u[0-9a-fA-F]{4}|\\U[0-9a-fA-F]{8})(?:[_[:alnum:]]|\\u[0-9a-fA-F]{4}|\\U[0-9a-fA-F]{4})*)\s*\:\:\s*)? # alias-qualification
         (?&lt;name-and-type-args&gt; # identifier + type arguments (if any)
           \g&lt;identifier&gt;\s*
           (?&lt;type-args&gt;\s*&lt;(?:[^&lt;&gt;]|\g&lt;type-args&gt;)+&gt;\s*)?
@@ -1890,7 +1890,7 @@
     (?:
       (?:ref\s+(?:readonly\s+)?)?   # ref return
       (?:
-        (?:(?&lt;identifier&gt;@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
+        (?:(?&lt;identifier&gt;@?(?:[_[:alpha:]]|\\u[0-9a-fA-F]{4}|\\U[0-9a-fA-F]{8})(?:[_[:alnum:]]|\\u[0-9a-fA-F]{4}|\\U[0-9a-fA-F]{4})*)\s*\:\:\s*)? # alias-qualification
         (?&lt;name-and-type-args&gt; # identifier + type arguments (if any)
           \g&lt;identifier&gt;\s*
           (?&lt;type-args&gt;\s*&lt;(?:[^&lt;&gt;]|\g&lt;type-args&gt;)+&gt;\s*)?

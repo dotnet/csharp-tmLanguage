@@ -91,6 +91,30 @@ public    abstract class PublicAbstractClass { }
                 Token.Punctuation.CloseBrace]);
         });
 
+        it("\\uxxxx unicode sequence in identifier", () => {
+
+            const input = `class \\u1234yCl\\u123fss { }`;
+            let tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Class,
+                Token.Identifiers.ClassName("\\u1234yCl\\u123fss"),
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace]);
+        });
+
+        it("\\Uxxxxxxxx unicode sequence in identifier", () => {
+
+            const input = `class \\U00001234yCl\\U0000123fss { }`;
+            let tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Class,
+                Token.Identifiers.ClassName("\\U00001234yCl\\U0000123fss"),
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace]);
+        });
+
         it("generics in identifier", () => {
 
             const input = Input.InNamespace(`class Dictionary<TKey, TValue> { }`);

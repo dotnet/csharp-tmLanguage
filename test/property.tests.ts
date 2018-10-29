@@ -114,6 +114,36 @@ public IBooom Property
                 Token.Punctuation.CloseBrace]);
         });
 
+        it("\\uxxxx unicode sequence in identifier", () => {
+            const input = Input.InClass(`int \\u0050rope\\u0072ty { get; set; }`);
+            let tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.PrimitiveType.Int,
+                Token.Identifiers.PropertyName("\\u0050rope\\u0072ty"),
+                Token.Punctuation.OpenBrace,
+                Token.Keywords.Get,
+                Token.Punctuation.Semicolon,
+                Token.Keywords.Set,
+                Token.Punctuation.Semicolon,
+                Token.Punctuation.CloseBrace]);
+        });
+
+        it("\\Uxxxxxxxx unicode sequence in identifier", () => {
+            const input = Input.InClass(`int \\U00000050rope\\U00000072ty { get; set; }`);
+            let tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.PrimitiveType.Int,
+                Token.Identifiers.PropertyName("\\U00000050rope\\U00000072ty"),
+                Token.Punctuation.OpenBrace,
+                Token.Keywords.Get,
+                Token.Punctuation.Semicolon,
+                Token.Keywords.Set,
+                Token.Punctuation.Semicolon,
+                Token.Punctuation.CloseBrace]);
+        });
+
         it("auto-property", () => {
             const input = Input.InClass(`
 public IBooom Property

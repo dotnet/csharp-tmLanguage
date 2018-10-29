@@ -42,6 +42,40 @@ namespace Test.Namespace
                 Token.Punctuation.CloseBrace]);
         });
 
+        it("has a namespace keyword and a \\uxxxx unicode sequence", () => {
+
+            const input = `
+namespace \\u1234Test.Na\\u123fmespace
+{
+}`;
+            let tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Namespace,
+                Token.Identifiers.NamespaceName("\\u1234Test"),
+                Token.Punctuation.Accessor,
+                Token.Identifiers.NamespaceName("Na\\u123fmespace"),
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace]);
+        });
+
+        it("has a namespace keyword and a \\Uxxxxxxxx unicode sequence", () => {
+
+            const input = `
+namespace \\U00001234Test.Na\\U0000123fmespace
+{
+}`;
+            let tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Namespace,
+                Token.Identifiers.NamespaceName("\\U00001234Test"),
+                Token.Punctuation.Accessor,
+                Token.Identifiers.NamespaceName("Na\\U0000123fmespace"),
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace]);
+        });
+
         it("can be nested", () => {
 
             const input = `

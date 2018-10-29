@@ -23,6 +23,32 @@ describe("Grammar", () => {
                 Token.Punctuation.CloseBrace]);
         });
 
+        it("\\uxxxx unicode sequence in identifier", () => {
+            const input = Input.InClass(`void \\u004De\\u0074hod() { }`);
+            let tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.PrimitiveType.Void,
+                Token.Identifiers.MethodName("\\u004De\\u0074hod"),
+                Token.Punctuation.OpenParen,
+                Token.Punctuation.CloseParen,
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace]);
+        });
+
+        it("\\Uxxxxxxxx unicode sequence in identifier", () => {
+            const input = Input.InClass(`void \\U0000004De\\U00000074hod() { }`);
+            let tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.PrimitiveType.Void,
+                Token.Identifiers.MethodName("\\U0000004De\\U00000074hod"),
+                Token.Punctuation.OpenParen,
+                Token.Punctuation.CloseParen,
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace]);
+        });
+
         it("declaration with two parameters", () => {
             const input = Input.InClass(`
 int Add(int x, int y)
