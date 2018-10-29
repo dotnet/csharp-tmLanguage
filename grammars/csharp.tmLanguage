@@ -4194,9 +4194,16 @@
         <array>
           <dict>
             <key>include</key>
-            <string>#string-character-escape</string>
+            <string>#char-character-escape</string>
           </dict>
         </array>
+      </dict>
+      <key>char-character-escape</key>
+      <dict>
+        <key>name</key>
+        <string>constant.character.escape.cs</string>
+        <key>match</key>
+        <string>\\(['"\\0abfnrtv]|x[0-9a-fA-F]{1,4}|u[0-9a-fA-F]{4})</string>
       </dict>
       <key>string-literal</key>
       <dict>
@@ -4240,7 +4247,7 @@
         <key>name</key>
         <string>constant.character.escape.cs</string>
         <key>match</key>
-        <string>\\.</string>
+        <string>\\(['"\\0abfnrtv]|x[0-9a-fA-F]{1,4}|U[0-9a-fA-F]{8}|u[0-9a-fA-F]{4})</string>
       </dict>
       <key>verbatim-string-literal</key>
       <dict>
