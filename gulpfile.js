@@ -18,10 +18,7 @@ function handleError(err) {
     process.exit(-1);
 }
 
-
-gulp.task("default", ["test", "buildAtom", "buildTmLanguage"]);
-
-gulp.task("buildTmLanguage", function () {
+gulp.task('buildTmLanguage', done => {
     const text = fs.readFileSync(inputGrammar);
     const jsonData = js_yaml.safeLoad(text);
     const plistData = plist.build(jsonData);
@@ -30,10 +27,12 @@ gulp.task("buildTmLanguage", function () {
         fs.mkdirSync(grammarsDirectory);
     }
 
-    fs.writeFileSync(path.join(grammarsDirectory, "csharp.tmLanguage"), plistData);
+    fs.writeFileSync(path.join(grammarsDirectory, 'csharp.tmLanguage'), plistData);
+
+    done();
 });
 
-gulp.task("buildAtom", function () {
+gulp.task('buildAtom', () => {
     return gulp.src(inputGrammar)
         .pipe(yaml())
         .pipe(json2cson())
@@ -41,15 +40,24 @@ gulp.task("buildAtom", function () {
         .on("error", handleError);
 });
 
-gulp.task("compile", function () {
+gulp.task('compile', () => {
     const tsProject = ts.createProject("./tsconfig.json");
     return tsProject.src()
         .pipe(tsProject())
         .pipe(gulp.dest(jsOut));
 });
 
-gulp.task("test", ["compile"], () => {
-    return gulp.src(jsOut + "test/**/*.tests.js")
+gulp.task('test', gulp.series('compile', done => {
+    const result = gulp.src(jsOut + "test/**/*.tests.js")
         .pipe(mocha())
         .on("error", handleError);
-});
+
+    done();
+
+    return result;
+}));
+
+gulp.task('default',
+    gulp.series(
+        gulp.parallel('buildAtom', 'buildTmLanguage'),
+        'test'));
