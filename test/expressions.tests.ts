@@ -376,6 +376,27 @@ describe("Grammar", () => {
                 ]);
             });
 
+            it("async lambda assigned to dotted name (issue #142)", () => {
+                const input = Input.InMethod(`Something.listener = async args => { return true; };`);
+                const tokens = tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Variables.Object("Something"),
+                    Token.Punctuation.Accessor,
+                    Token.Variables.Property("listener"),
+                    Token.Operators.Assignment,
+                    Token.Keywords.Modifiers.Async,
+                    Token.Identifiers.ParameterName("args"),
+                    Token.Operators.Arrow,
+                    Token.Punctuation.OpenBrace,
+                    Token.Keywords.Control.Return,
+                    Token.Literals.Boolean.True,
+                    Token.Punctuation.Semicolon,
+                    Token.Punctuation.CloseBrace,
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+            
             it("anonymous method with no parameter list (assignment)", () => {
                 const input = Input.InMethod(`Action a = delegate { };`);
                 const tokens = tokenize(input);

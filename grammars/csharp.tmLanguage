@@ -3424,6 +3424,7 @@
   )
 )\s+
 (\g&lt;identifier&gt;)\s*
+(?!=&gt;)
 (?=,|;|=|\))</string>
         <key>beginCaptures</key>
         <dict>
