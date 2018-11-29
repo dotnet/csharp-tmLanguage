@@ -1265,6 +1265,7 @@ repository:
         )
       )\s+
       (\g<identifier>)\s*
+      (?!=>)
       (?=,|;|=|\))
     beginCaptures:
       '1': { name: storage.modifier.cs }
