@@ -479,10 +479,10 @@ throw new InvalidCastException(
 
             it("properly treat verbatim interpolated string substitutions when they exist at the start of a new line (bug #131)", () => {
                 const input = Input.InMethod(`
-var str = $@\"
+var str = $@"
 I am a multiline string with a
 {parameter} that starts after a newline!
-\";
+";
 `);
                 const tokens = tokenize(input);
 
