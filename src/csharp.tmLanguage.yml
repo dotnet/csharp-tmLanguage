@@ -1525,7 +1525,7 @@ repository:
 
   interpolation:
     name: meta.interpolation.cs
-    begin: (?<=[^\{])((?:\{\{)*)(\{)(?=[^\{])
+    begin: (?<=[^\{]|^)((?:\{\{)*)(\{)(?=[^\{])
     beginCaptures:
       '1': { name: string.quoted.double.cs }
       '2': { name: punctuation.definition.interpolation.begin.cs }
