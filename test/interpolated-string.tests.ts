@@ -202,10 +202,10 @@ world {two}!";`);
 
         it("break across two lines and start with a new line with an interpolation (verbatim)", () => {
             const input = Input.InMethod(`
-var str = $@\"
+var str = $@"
 I am a multiline string with a
 {parameter} that starts after a newline!
-\";
+";
 `);
             const tokens = tokenize(input);
 
