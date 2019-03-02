@@ -200,6 +200,30 @@ world {two}!";`);
                 Token.Punctuation.Semicolon]);
         });
 
+        it("break across two lines and start with a new line with an interpolation (verbatim)", () => {
+            const input = Input.InMethod(`
+var str = $@\"
+I am a multiline string with a
+{parameter} that starts after a newline!
+\";
+`);
+            const tokens = tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Var,
+                Token.Identifiers.LocalName("str"),
+                Token.Operators.Assignment,
+                Token.Punctuation.InterpolatedString.VerbatimBegin,
+                Token.Literals.String("I am a multiline string with a"),
+                Token.Punctuation.Interpolation.Begin,
+                Token.Variables.ReadWrite("parameter"),
+                Token.Punctuation.Interpolation.End,
+                Token.Literals.String(" that starts after a newline!"),
+                Token.Punctuation.InterpolatedString.End,
+                Token.Punctuation.Semicolon
+            ]);
+        });
+
         it("break across two lines with no interpolations (verbatim)", () => {
 
             const input = Input.InClass(`

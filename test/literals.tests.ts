@@ -230,7 +230,7 @@ describe("Grammar", () => {
                     Token.Punctuation.String.End,
                     Token.Punctuation.Semicolon]);
             });
-            
+
             it("escaped character escape \\t", () => {
                 const input = Input.InClass(`string test = "hello\\tworld!";`);
                 const tokens = tokenize(input);
@@ -477,29 +477,6 @@ throw new InvalidCastException(
                 ]);
             });
 
-            it("properly treat verbatim interpolated string substitutions when they exist at the start of a new line (bug #131)", () => {
-                const input = Input.InMethod(`
-var str = $@\"
-I am a multiline string with a
-{parameter} that starts after a newline!
-\";
-`);
-                const tokens = tokenize(input);
-
-                tokens.should.deep.equal([
-                    Token.Keywords.Var,
-                    Token.Identifiers.LocalName("str"),
-                    Token.Operators.Assignment,
-                    Token.Punctuation.InterpolatedString.VerbatimBegin,
-                    Token.Literals.String("I am a multiline string with a"),
-                    Token.Punctuation.Interpolation.Begin,
-                    Token.Variables.ReadWrite("parameter"),
-                    Token.Punctuation.Interpolation.End,
-                    Token.Literals.String(" that starts after a newline!"),
-                    Token.Punctuation.InterpolatedString.End,
-                    Token.Punctuation.Semicolon
-                ]);
-            });
             it("highlight strings containing braces correctly (issue omnisharp-vscode#746)", () => {
                 const input = `
 namespace X
