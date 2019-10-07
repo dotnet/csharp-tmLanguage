@@ -10,13 +10,13 @@ describe("Grammar", () => {
     before(() => { should(); });
 
     describe("Field", () => {
-        it("declaration", () => {
+        it("declaration", async () => {
             const input = Input.InClass(`
 private List _field;
 private List field;
 private List field123;`);
 
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Private,
@@ -35,9 +35,9 @@ private List field123;`);
                 Token.Punctuation.Semicolon]);
         });
 
-        it("generic", () => {
+        it("generic", async () => {
             const input = Input.InClass(`private Dictionary< List<T>, Dictionary<T, D>> _field;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Private,
@@ -60,13 +60,13 @@ private List field123;`);
         });
 
 
-        it("modifiers", () => {
+        it("modifiers", async () => {
             const input = Input.InClass(`
 private static readonly List _field;
 readonly string _field2;
 string _field3;`);
 
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Private,
@@ -86,12 +86,12 @@ string _field3;`);
                 Token.Punctuation.Semicolon]);
         });
 
-        it("types", () => {
+        it("types", async () => {
             const input = Input.InClass(`
 string field123;
 string[] field123;`);
 
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
@@ -105,12 +105,12 @@ string[] field123;`);
                 Token.Punctuation.Semicolon]);
         });
 
-        it("assignment", () => {
+        it("assignment", async () => {
             const input = Input.InClass(`
 private string field = "hello";
 const   bool   field = true;`);
 
-            let tokens = tokenize(input);
+            let tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Private,
@@ -130,9 +130,9 @@ const   bool   field = true;`);
                 Token.Punctuation.Semicolon]);
         });
 
-        it("declaration with multiple declarators", () => {
+        it("declaration with multiple declarators", async () => {
             const input = Input.InClass(`int x = 19, y = 23, z = 42;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.Int,
@@ -150,9 +150,9 @@ const   bool   field = true;`);
                 Token.Punctuation.Semicolon]);
         });
 
-        it("tuple type with no names and no modifiers", () => {
+        it("tuple type with no names and no modifiers", async () => {
             const input = Input.InClass(`(int, int) x;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.OpenParen,
@@ -164,9 +164,9 @@ const   bool   field = true;`);
                 Token.Punctuation.Semicolon]);
         });
 
-        it("tuple type with no names and private modifier", () => {
+        it("tuple type with no names and private modifier", async () => {
             const input = Input.InClass(`private (int, int) x;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Private,
@@ -179,9 +179,9 @@ const   bool   field = true;`);
                 Token.Punctuation.Semicolon]);
         });
 
-        it("tuple type with names and no modifiers", () => {
+        it("tuple type with names and no modifiers", async () => {
             const input = Input.InClass(`(int x, int y) z;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.OpenParen,
@@ -195,9 +195,9 @@ const   bool   field = true;`);
                 Token.Punctuation.Semicolon]);
         });
 
-        it("tuple type with names and private modifier", () => {
+        it("tuple type with names and private modifier", async () => {
             const input = Input.InClass(`private (int x, int y) z;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Private,
@@ -212,12 +212,12 @@ const   bool   field = true;`);
                 Token.Punctuation.Semicolon]);
         });
 
-        it("Fields with fully-qualified names are highlighted properly (issue omnisharp-vscode#1097)", () => {
+        it("Fields with fully-qualified names are highlighted properly (issue omnisharp-vscode#1097)", async () => {
             const input = Input.InClass(`
 private CanvasGroup[] groups;
 private UnityEngine.UI.Image[] selectedImages;
 `);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Private,
@@ -239,7 +239,7 @@ private UnityEngine.UI.Image[] selectedImages;
             ]);
         });
 
-        it("Fields with dictionary initializer highlights properly (issue omnisharp-vscode#1096)", () => {
+        it("Fields with dictionary initializer highlights properly (issue omnisharp-vscode#1096)", async () => {
             const input = Input.InClass(`
 private readonly Dictionary<string, int> languageToIndex = new Dictionary<string, int>()
 {
@@ -249,7 +249,7 @@ private readonly Dictionary<string, int> languageToIndex = new Dictionary<string
     {"Korean", 3}
 };
 `);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Private,
@@ -307,13 +307,13 @@ private readonly Dictionary<string, int> languageToIndex = new Dictionary<string
                 Token.Punctuation.Semicolon
             ]);
         });
-        
-        it("initializer on multiple lines (issue omnisharp-vscode#316)", () => {
+
+        it("initializer on multiple lines (issue omnisharp-vscode#316)", async () => {
             const input = Input.InClass(`
 private readonly string initSportMessageFormatString = "line1"
     + "line2";`);
 
-            let tokens = tokenize(input);
+            let tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Private,
@@ -331,8 +331,8 @@ private readonly string initSportMessageFormatString = "line1"
                 Token.Punctuation.Semicolon
             ]);
         });
-        
-        it("initializer containing lambda (issue #31)", () => {
+
+        it("initializer containing lambda (issue #31)", async () => {
             const input = `
 class C
 {
@@ -344,7 +344,7 @@ class C
     public C(int x, int y) { }
 }`;
 
-            let tokens = tokenize(input);
+            let tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Class,

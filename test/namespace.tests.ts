@@ -10,13 +10,13 @@ describe("Grammar", () => {
     before(() => { should(); });
 
     describe("Namespace", () => {
-        it("has a namespace keyword and a name", () => {
+        it("has a namespace keyword and a name", async () => {
 
             const input = `
 namespace TestNamespace
 {
 }`;
-            let tokens = tokenize(input);
+            let tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Namespace,
@@ -25,13 +25,13 @@ namespace TestNamespace
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("has a namespace keyword and a dotted name", () => {
+        it("has a namespace keyword and a dotted name", async () => {
 
             const input = `
 namespace Test.Namespace
 {
 }`;
-            let tokens = tokenize(input);
+            let tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Namespace,
@@ -42,7 +42,7 @@ namespace Test.Namespace
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("can be nested", () => {
+        it("can be nested", async () => {
 
             const input = `
 namespace TestNamespace
@@ -51,7 +51,7 @@ namespace TestNamespace
 
     }
 }`;
-            let tokens = tokenize(input);
+            let tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Namespace,
@@ -66,7 +66,7 @@ namespace TestNamespace
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("can contain using statements", () => {
+        it("can contain using statements", async () => {
 
             const input = `
 using UsingOne;
@@ -83,7 +83,7 @@ namespace TestNamespace
         using three = UsingThree.Something;
     }
 }`;
-            let tokens = tokenize(input);
+            let tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Using,

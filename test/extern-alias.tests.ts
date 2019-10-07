@@ -10,13 +10,13 @@ describe("Grammar", () => {
     before(() => { should(); });
 
     describe("Extern aliases", () => {
-        it("declaration", () => {
+        it("declaration", async () => {
 
             const input = `
 extern alias X;
 extern alias Y;`;
 
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Extern,

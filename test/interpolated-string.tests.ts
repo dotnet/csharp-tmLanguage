@@ -10,10 +10,10 @@ describe("Grammar", () => {
     before(() => { should(); });
 
     describe("Interpolated strings", () => {
-        it("two interpolations", () => {
+        it("two interpolations", async () => {
 
             const input = Input.InClass(`string test = $"hello {one} world {two}!";`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
@@ -33,10 +33,10 @@ describe("Grammar", () => {
                 Token.Punctuation.Semicolon]);
         });
 
-        it("no interpolations", () => {
+        it("no interpolations", async () => {
 
             const input = Input.InClass(`string test = $"hello world!";`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
@@ -48,10 +48,10 @@ describe("Grammar", () => {
                 Token.Punctuation.Semicolon]);
         });
 
-        it("no interpolations due to escaped braces", () => {
+        it("no interpolations due to escaped braces", async () => {
 
             const input = Input.InClass(`string test = $"hello {{one}} world {{two}}!";`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
@@ -63,10 +63,10 @@ describe("Grammar", () => {
                 Token.Punctuation.Semicolon]);
         });
 
-        it("two interpolations with escaped braces", () => {
+        it("two interpolations with escaped braces", async () => {
 
             const input = Input.InClass(`string test = $"hello {{{one}}} world {{{two}}}!";`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
@@ -88,10 +88,10 @@ describe("Grammar", () => {
                 Token.Punctuation.Semicolon]);
         });
 
-        it("no interpolations due to double-escaped braces", () => {
+        it("no interpolations due to double-escaped braces", async () => {
 
             const input = Input.InClass(`string test = $"hello {{{{one}}}} world {{{{two}}}}!";`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
@@ -103,12 +103,12 @@ describe("Grammar", () => {
                 Token.Punctuation.Semicolon]);
         });
 
-        it("break across two lines (non-verbatim)", () => {
+        it("break across two lines (non-verbatim)", async () => {
 
             const input = Input.InClass(`
 string test = $"hello
 world!";`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
@@ -125,10 +125,10 @@ world!";`);
                 Token.IllegalNewLine(";")]);
         });
 
-        it("verbatim with two interpolations", () => {
+        it("verbatim with two interpolations", async () => {
 
             const input = Input.InClass(`string test = $@"hello {one} world {two}!";`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
@@ -148,10 +148,10 @@ world!";`);
                 Token.Punctuation.Semicolon]);
         });
 
-        it("verbatim with two interpolations and escaped double-quotes", () => {
+        it("verbatim with two interpolations and escaped double-quotes", async () => {
 
             const input = Input.InClass(`string test = $@"hello {one} ""world"" {two}!";`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
@@ -175,12 +175,12 @@ world!";`);
                 Token.Punctuation.Semicolon]);
         });
 
-        it("break across two lines with two interpolations (verbatim)", () => {
+        it("break across two lines with two interpolations (verbatim)", async () => {
 
             const input = Input.InClass(`
 string test = $@"hello {one}
 world {two}!";`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
@@ -200,12 +200,12 @@ world {two}!";`);
                 Token.Punctuation.Semicolon]);
         });
 
-        it("break across two lines with no interpolations (verbatim)", () => {
+        it("break across two lines with no interpolations (verbatim)", async () => {
 
             const input = Input.InClass(`
 string test = $@"hello
 world!";`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,

@@ -10,9 +10,9 @@ describe("Grammar", () => {
     before(() => { should(); });
 
     describe("Preprocessor", () => {
-        it("#define Foo", () => {
+        it("#define Foo", async () => {
             const input = `#define Foo`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
@@ -21,9 +21,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("#define Foo//Foo", () => {
+        it("#define Foo//Foo", async () => {
             const input = `#define Foo//Foo`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
@@ -34,9 +34,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("#define Foo //Foo", () => {
+        it("#define Foo //Foo", async () => {
             const input = `#define Foo //Foo`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
@@ -47,9 +47,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("#undef Foo", () => {
+        it("#undef Foo", async () => {
             const input = `#undef Foo`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
@@ -58,9 +58,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("#undef Foo//Foo", () => {
+        it("#undef Foo//Foo", async () => {
             const input = `#undef Foo//Foo`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
@@ -71,9 +71,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("#undef Foo //Foo", () => {
+        it("#undef Foo //Foo", async () => {
             const input = `#undef Foo //Foo`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
@@ -84,9 +84,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("#if true", () => {
+        it("#if true", async () => {
             const input = `#if true`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
@@ -95,9 +95,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("#if false", () => {
+        it("#if false", async () => {
             const input = `#if false`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
@@ -106,9 +106,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("#if Foo", () => {
+        it("#if Foo", async () => {
             const input = `#if Foo`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
@@ -117,9 +117,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("#if Foo || true", () => {
+        it("#if Foo || true", async () => {
             const input = `#if Foo || true`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
@@ -130,9 +130,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("#if Foo && true", () => {
+        it("#if Foo && true", async () => {
             const input = `#if Foo && true`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
@@ -143,9 +143,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("#if Foo == true", () => {
+        it("#if Foo == true", async () => {
             const input = `#if Foo == true`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
@@ -156,9 +156,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("#if Foo != true", () => {
+        it("#if Foo != true", async () => {
             const input = `#if Foo != true`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
@@ -169,9 +169,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("#if !Foo", () => {
+        it("#if !Foo", async () => {
             const input = `#if !Foo`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
@@ -181,9 +181,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("#if (Foo != true) && Bar", () => {
+        it("#if (Foo != true) && Bar", async () => {
             const input = `#if (Foo != true) && Bar`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
@@ -198,9 +198,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("#if (Foo != true) && Bar //Foo", () => {
+        it("#if (Foo != true) && Bar //Foo", async () => {
             const input = `#if (Foo != true) && Bar //Foo`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
@@ -217,9 +217,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("#if (Foo != true) && Bar //Foo", () => {
+        it("#if (Foo != true) && Bar //Foo", async () => {
             const input = `#if (Foo != true) && Bar //Foo`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
@@ -236,9 +236,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("#elif true", () => {
+        it("#elif true", async () => {
             const input = `#elif true`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
@@ -247,9 +247,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("#elif false", () => {
+        it("#elif false", async () => {
             const input = `#elif false`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
@@ -258,9 +258,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("#elif Foo", () => {
+        it("#elif Foo", async () => {
             const input = `#elif Foo`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
@@ -269,9 +269,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("#elif Foo || true", () => {
+        it("#elif Foo || true", async () => {
             const input = `#elif Foo || true`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
@@ -282,9 +282,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("#elif Foo && true", () => {
+        it("#elif Foo && true", async () => {
             const input = `#elif Foo && true`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
@@ -295,9 +295,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("#elif Foo == true", () => {
+        it("#elif Foo == true", async () => {
             const input = `#elif Foo == true`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
@@ -308,9 +308,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("#elif Foo != true", () => {
+        it("#elif Foo != true", async () => {
             const input = `#elif Foo != true`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
@@ -321,9 +321,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("#elif !Foo", () => {
+        it("#elif !Foo", async () => {
             const input = `#elif !Foo`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
@@ -333,9 +333,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("#elif (Foo != true) && Bar", () => {
+        it("#elif (Foo != true) && Bar", async () => {
             const input = `#elif (Foo != true) && Bar`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
@@ -350,9 +350,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("#elif (Foo != true) && Bar//Foo", () => {
+        it("#elif (Foo != true) && Bar//Foo", async () => {
             const input = `#elif (Foo != true) && Bar//Foo`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
@@ -369,9 +369,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("#elif (Foo != true) && Bar //Foo", () => {
+        it("#elif (Foo != true) && Bar //Foo", async () => {
             const input = `#elif (Foo != true) && Bar //Foo`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
@@ -388,9 +388,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("#else", () => {
+        it("#else", async () => {
             const input = `#else`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
@@ -398,9 +398,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("#else//Foo", () => {
+        it("#else//Foo", async () => {
             const input = `#else//Foo`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
@@ -410,9 +410,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("#else //Foo", () => {
+        it("#else //Foo", async () => {
             const input = `#else //Foo`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
@@ -422,9 +422,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("#endif", () => {
+        it("#endif", async () => {
             const input = `#endif`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
@@ -432,9 +432,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("#endif//Foo", () => {
+        it("#endif//Foo", async () => {
             const input = `#endif//Foo`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
@@ -444,9 +444,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("#endif //Foo", () => {
+        it("#endif //Foo", async () => {
             const input = `#endif //Foo`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
@@ -456,9 +456,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("#warning This is a warning", () => {
+        it("#warning This is a warning", async () => {
             const input = `#warning This is a warning`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
@@ -467,9 +467,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("#error This is an error", () => {
+        it("#error This is an error", async () => {
             const input = `#error This is an error`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
@@ -478,9 +478,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("#region My Region", () => {
+        it("#region My Region", async () => {
             const input = `#region My Region`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
@@ -489,9 +489,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("#region \"My Region\"", () => {
+        it("#region \"My Region\"", async () => {
             const input = `#region "My Region"`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
@@ -500,9 +500,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("#endregion", () => {
+        it("#endregion", async () => {
             const input = `#endregion`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
@@ -510,9 +510,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("#endregion//Foo", () => {
+        it("#endregion//Foo", async () => {
             const input = `#endregion//Foo`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
@@ -522,9 +522,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("#endregion //Foo", () => {
+        it("#endregion //Foo", async () => {
             const input = `#endregion //Foo`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
@@ -534,7 +534,7 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("preprocessor in enum members", () => {
+        it("preprocessor in enum members", async () => {
             const input = `
 public enum E
 {
@@ -547,7 +547,7 @@ public enum E
 #endif
 
 }`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -579,7 +579,7 @@ public enum E
             ]);
         });
 
-        it("region name with double-quotes should be highlighted properly (issue omnisharp-vscode#731)", () => {
+        it("region name with double-quotes should be highlighted properly (issue omnisharp-vscode#731)", async () => {
             const input = Input.InClass(`
 #region  " Register / Create New  "
 // GET: /Account/Register
@@ -590,7 +590,7 @@ public ActionResult Register()
     return View();
 }
 `);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
@@ -630,7 +630,7 @@ public ActionResult Register()
             ]);
         });
 
-        it("preprocessor in base lists (issue #32)", () => {
+        it("preprocessor in base lists (issue #32)", async () => {
             const input = Input.FromText(`
 #if !PCL
     [Serializable]
@@ -640,7 +640,7 @@ public ActionResult Register()
         , ISerializable
 #endif
 `);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
@@ -673,9 +673,9 @@ public ActionResult Register()
             ]);
         });
 
-        it("#load", () => {
+        it("#load", async () => {
             const input = "#load";
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
@@ -683,9 +683,9 @@ public ActionResult Register()
             ]);
         });
 
-        it(`#load "foo.csx"`, () => {
+        it(`#load "foo.csx"`, async () => {
             const input = `#load "foo.csx"`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
@@ -694,9 +694,9 @@ public ActionResult Register()
             ]);
         });
 
-        it("#r", () => {
+        it("#r", async () => {
             const input = "#r";
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
@@ -704,9 +704,9 @@ public ActionResult Register()
             ]);
         });
 
-        it(`#r "System.Net.dll"`, () => {
+        it(`#r "System.Net.dll"`, async () => {
             const input = `#r "System.Net.dll"`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,

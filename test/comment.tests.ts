@@ -10,18 +10,18 @@ describe("Grammar", () => {
     before(() => { should(); });
 
     describe("Comments", () => {
-        it("single-line comment", () => {
+        it("single-line comment", async () => {
             const input = `// foo`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Comment.SingleLine.Start,
                 Token.Comment.SingleLine.Text(" foo")]);
         });
 
-        it("single-line comment after whitespace", () => {
+        it("single-line comment after whitespace", async () => {
             const input = `    // foo`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Comment.LeadingWhitespace("    "),
@@ -29,18 +29,18 @@ describe("Grammar", () => {
                 Token.Comment.SingleLine.Text(" foo")]);
         });
 
-        it("single-line double comment (issue #100)", () => {
+        it("single-line double comment (issue #100)", async () => {
             const input = `//// foo`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Comment.SingleLine.Start,
                 Token.Comment.SingleLine.Text("// foo")]);
         });
 
-        it("multi-line comment", () => {
+        it("multi-line comment", async () => {
             const input = `/* foo */`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Comment.MultiLine.Start,
@@ -48,10 +48,10 @@ describe("Grammar", () => {
                 Token.Comment.MultiLine.End]);
         });
 
-        it("multi-line comment spanning lines", () => {
+        it("multi-line comment spanning lines", async () => {
             const input = `/* hello
 world */`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Comment.MultiLine.Start,
@@ -60,63 +60,63 @@ world */`;
                 Token.Comment.MultiLine.End]);
         });
 
-        it("in namespace", () => {
+        it("in namespace", async () => {
             const input = Input.InNamespace(`// foo`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Comment.SingleLine.Start,
                 Token.Comment.SingleLine.Text(" foo")]);
         });
 
-        it("in class", () => {
+        it("in class", async () => {
             const input = Input.InClass(`// foo`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Comment.SingleLine.Start,
                 Token.Comment.SingleLine.Text(" foo")]);
         });
 
-        it("in enum", () => {
+        it("in enum", async () => {
             const input = Input.InEnum(`// foo`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Comment.SingleLine.Start,
                 Token.Comment.SingleLine.Text(" foo")]);
         });
 
-        it("in interface", () => {
+        it("in interface", async () => {
             const input = Input.InInterface(`// foo`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Comment.SingleLine.Start,
                 Token.Comment.SingleLine.Text(" foo")]);
         });
 
-        it("in struct", () => {
+        it("in struct", async () => {
             const input = Input.InStruct(`// foo`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Comment.SingleLine.Start,
                 Token.Comment.SingleLine.Text(" foo")]);
         });
 
-        it("in method", () => {
+        it("in method", async () => {
             const input = Input.InMethod(`// foo`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Comment.SingleLine.Start,
                 Token.Comment.SingleLine.Text(" foo")]);
         });
 
-        it("in string literal (single-line)", () => {
+        it("in string literal (single-line)", async () => {
             const input = Input.InMethod(`var s = "// foo";`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Var,
@@ -128,9 +128,9 @@ world */`;
                 Token.Punctuation.Semicolon]);
         });
 
-        it("in string literal (multi-line)", () => {
+        it("in string literal (multi-line)", async () => {
             const input = Input.InMethod(`var s = "/* foo */";`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Var,
@@ -142,11 +142,11 @@ world */`;
                 Token.Punctuation.Semicolon]);
         });
 
-        it("comment should colorize if there isn't a space before it (issue omnisharp-vscode#225)", () => {
+        it("comment should colorize if there isn't a space before it (issue omnisharp-vscode#225)", async () => {
             const input = Input.InClass(`
 private char GetChar()//Метод возвращающий
 `);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Private,
@@ -158,13 +158,13 @@ private char GetChar()//Метод возвращающий
                 Token.Comment.SingleLine.Text("Метод возвращающий")]);
         });
 
-        it("comment out class declaration base type list - single line (issue #41)", () => {
+        it("comment out class declaration base type list - single line (issue #41)", async () => {
             const input = Input.FromText(`
 public class CustomBootstrapper // : DefaultNancyBootstrapper
 {
 }
 `);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -176,13 +176,13 @@ public class CustomBootstrapper // : DefaultNancyBootstrapper
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("comment out class declaration base type list - multi line (issue #41)", () => {
+        it("comment out class declaration base type list - multi line (issue #41)", async () => {
             const input = Input.FromText(`
 public class CustomBootstrapper /* : DefaultNancyBootstrapper */
 {
 }
 `);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -195,13 +195,13 @@ public class CustomBootstrapper /* : DefaultNancyBootstrapper */
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("comment out interface declaration base type list - single line (issue #41)", () => {
+        it("comment out interface declaration base type list - single line (issue #41)", async () => {
             const input = Input.FromText(`
 public interface CustomBootstrapper // : DefaultNancyBootstrapper
 {
 }
 `);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -213,13 +213,13 @@ public interface CustomBootstrapper // : DefaultNancyBootstrapper
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("comment out interface declaration base type list - multi line (issue #41)", () => {
+        it("comment out interface declaration base type list - multi line (issue #41)", async () => {
             const input = Input.FromText(`
 public interface CustomBootstrapper /* : DefaultNancyBootstrapper */
 {
 }
 `);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -232,13 +232,13 @@ public interface CustomBootstrapper /* : DefaultNancyBootstrapper */
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("comment out struct declaration base type list - single line (issue #41)", () => {
+        it("comment out struct declaration base type list - single line (issue #41)", async () => {
             const input = Input.FromText(`
 public struct CustomBootstrapper // : DefaultNancyBootstrapper
 {
 }
 `);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -250,13 +250,13 @@ public struct CustomBootstrapper // : DefaultNancyBootstrapper
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("comment out struct declaration base type list - multi line (issue #41)", () => {
+        it("comment out struct declaration base type list - multi line (issue #41)", async () => {
             const input = Input.FromText(`
 public struct CustomBootstrapper /* : DefaultNancyBootstrapper */
 {
 }
 `);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -269,13 +269,13 @@ public struct CustomBootstrapper /* : DefaultNancyBootstrapper */
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("comment out enum declaration base type list - single line (issue #41)", () => {
+        it("comment out enum declaration base type list - single line (issue #41)", async () => {
             const input = Input.FromText(`
 public enum CustomBootstrapper // : byte
 {
 }
 `);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -287,13 +287,13 @@ public enum CustomBootstrapper // : byte
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("comment out enum declaration base type list - multi line (issue #41)", () => {
+        it("comment out enum declaration base type list - multi line (issue #41)", async () => {
             const input = Input.FromText(`
 public enum CustomBootstrapper /* : byte */
 {
 }
 `);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -306,13 +306,13 @@ public enum CustomBootstrapper /* : byte */
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("after property accessor (issue #50)", () => {
+        it("after property accessor (issue #50)", async () => {
             const input = Input.InClass(`
 int P {
     get { return 42; } // comment1
     set { } // comment2
 }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.Int,
@@ -334,13 +334,13 @@ int P {
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("after event accessor (issue #50)", () => {
+        it("after event accessor (issue #50)", async () => {
             const input = Input.InClass(`
 event EventHandler E {
     add { } // comment1
     remove { } // comment2
 }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Event,
@@ -360,7 +360,7 @@ event EventHandler E {
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("after try (issue #60)", () => {
+        it("after try (issue #60)", async () => {
             const input = Input.InMethod(`
 try //comment
 {
@@ -369,7 +369,7 @@ finally
 {
 }
 `);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Control.Try,
@@ -382,7 +382,7 @@ finally
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("after finally (issue #60)", () => {
+        it("after finally (issue #60)", async () => {
             const input = Input.InMethod(`
 try
 {
@@ -391,7 +391,7 @@ finally //comment
 {
 }
 `);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Control.Try,
@@ -404,7 +404,7 @@ finally //comment
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("after catch (issue #60)", () => {
+        it("after catch (issue #60)", async () => {
             const input = Input.InMethod(`
 try
 {
@@ -413,7 +413,7 @@ catch //comment
 {
 }
 `);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Control.Try,
@@ -426,7 +426,7 @@ catch //comment
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("after catch with exception (issue #60)", () => {
+        it("after catch with exception (issue #60)", async () => {
             const input = Input.InMethod(`
 try
 {
@@ -435,7 +435,7 @@ catch (Exception) //comment
 {
 }
 `);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Control.Try,
@@ -451,7 +451,7 @@ catch (Exception) //comment
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("after exception filter (issue #60)", () => {
+        it("after exception filter (issue #60)", async () => {
             const input = Input.InMethod(`
 try
 {
@@ -460,7 +460,7 @@ catch (DataNotFoundException dnfe) when (dnfe.GetType() == typeof(DataNotFoundEx
 {
 }
 `);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Control.Try,
@@ -490,13 +490,13 @@ catch (DataNotFoundException dnfe) when (dnfe.GetType() == typeof(DataNotFoundEx
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("after checked (issue #104)", () => {
+        it("after checked (issue #104)", async () => {
             const input = Input.InMethod(`
 checked //comment
 {
 }
 `);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Checked,
@@ -506,13 +506,13 @@ checked //comment
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("after unchecked (issue #104)", () => {
+        it("after unchecked (issue #104)", async () => {
             const input = Input.InMethod(`
 unchecked //comment
 {
 }
 `);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Unchecked,
@@ -522,12 +522,12 @@ unchecked //comment
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("after property with 'enum' keyword - single-line (issue #75)", () => {
+        it("after property with 'enum' keyword - single-line (issue #75)", async () => {
             const input = Input.InClass(`
 public List<Guid> Associations { get; set; } //enum
 public Emotion Feeling { get; set; }
 `);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -555,7 +555,7 @@ public Emotion Feeling { get; set; }
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("after property with 'event' keyword - single-line (issue #115)", () => {
+        it("after property with 'event' keyword - single-line (issue #115)", async () => {
             const input = Input.InClass(`
 // The word "event" in the comment below breaks highlighting in the rest
 // of the file.  Adding or removing any characters in "event" such that
@@ -563,7 +563,7 @@ public Emotion Feeling { get; set; }
 public string Bar { get; set; } // comment comment event comment
 public string Baz { get; set; }
 `);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Comment.SingleLine.Start,
@@ -594,7 +594,7 @@ public string Baz { get; set; }
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("after property with 'event' keyword - multi-line (issue #115)", () => {
+        it("after property with 'event' keyword - multi-line (issue #115)", async () => {
             const input = Input.InClass(`
 /* The word "event" in the comment below breaks highlighting in the rest
    of the file.  Adding or removing any characters in "event" such that
@@ -602,7 +602,7 @@ public string Baz { get; set; }
 public string Bar { get; set; } /* comment comment event comment */
 public string Baz { get; set; }
 `);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Comment.MultiLine.Start,
@@ -632,15 +632,15 @@ public string Baz { get; set; }
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace]);
         });
-        
-        it("after property with 'struct' keyword - multi-line (issue #115)", () => {
+
+        it("after property with 'struct' keyword - multi-line (issue #115)", async () => {
             const input = `
 public struct MyPoco
 {
     public ETag Tag { get; } /* note: struct ETag was previously defined ... */
 }
 `;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
