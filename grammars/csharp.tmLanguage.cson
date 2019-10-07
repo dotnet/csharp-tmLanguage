@@ -1594,7 +1594,7 @@ repository:
     end: "(?=;)"
     patterns: [
       {
-        include: "#expression"
+        include: "#statement"
       }
     ]
   "if-statement":

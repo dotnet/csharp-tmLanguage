@@ -27,6 +27,7 @@ gulp.task('buildTmLanguage', done => {
         fs.mkdirSync(grammarsDirectory);
     }
 
+    fs.writeFileSync(path.join(grammarsDirectory, 'csharp.tmLanguage.json'), JSON.stringify(jsonData));
     fs.writeFileSync(path.join(grammarsDirectory, 'csharp.tmLanguage'), plistData);
 
     done();

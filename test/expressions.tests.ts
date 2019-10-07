@@ -1223,6 +1223,34 @@ var x = new
                     Token.Punctuation.Semicolon
                 ]);
             });
+
+            it("await foreach should tokenize correctly as a statement", async () => {
+                const input = Input.InMethod(`await foreach (var item in list)
+                {
+                    
+                }
+                
+                var i = 1;`);
+                const tokens = await tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Keywords.Await,
+                    Token.Keywords.Control.ForEach,
+                    Token.Punctuation.OpenParen,
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName('item'),
+                    Token.Keywords.Control.In,
+                    Token.Variables.ReadWrite('list'),
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.OpenBrace,
+                    Token.Punctuation.CloseBrace,
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName('i'),
+                    Token.Operators.Assignment,
+                    Token.Literals.Numeric.Decimal('1'),
+                    Token.Punctuation.Semicolon
+                ]);
+            });
         });
 
         describe("Casts", () => {
@@ -3566,5 +3594,220 @@ select x.Key1;`);
                 ]);
             });
         });
+
+        describe("Switch Expresisons", () => {
+            it('simple switch expression', async () => {
+                const input = Input.InClass(`                
+                public decimal Calculate(object thing) =>
+                    thing switch
+                    {
+                        Car c => 2.00m - 1.0m,
+                        Bus b when ((double)b.Riders / (double)b.Capacity) < 0.50 => 5.00m + 2.00m,
+                        Bus b => 5.00m,
+                        { }  => throw new ArgumentException(message: "Not a known vehicle type", paramName: nameof(vehicle)),
+                        null => throw new ArgumentNullException(nameof(vehicle)),
+                        _ => 3.50m - 1.00m,
+                    };
+                `);
+                const tokens = await tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Keywords.Modifiers.Public,
+                    Token.PrimitiveType.Decimal,
+                    Token.Identifiers.MethodName('Calculate'),
+                    Token.Punctuation.OpenParen,
+                    Token.PrimitiveType.Object,
+                    Token.Identifiers.ParameterName('thing'),
+                    Token.Punctuation.CloseParen,
+                    Token.Operators.Arrow,
+                    Token.Variables.ReadWrite('thing'),
+                    Token.Keywords.Control.Switch,
+                    Token.Punctuation.OpenBrace,
+                    Token.Type('Car'),
+                    Token.Identifiers.LocalName('c'),
+                    Token.Operators.Arrow,
+                    Token.Literals.Numeric.Decimal("2.00m"),
+                    Token.Operators.Arithmetic.Subtraction,
+                    Token.Literals.Numeric.Decimal("1.0m"),
+                    Token.Punctuation.Comma,
+                    Token.Type('Bus'),
+                    Token.Identifiers.LocalName('b'),
+                    Token.Keywords.Control.When,
+                    Token.Punctuation.OpenParen,
+                    Token.Punctuation.OpenParen,
+                    Token.PrimitiveType.Double,
+                    Token.Punctuation.CloseParen,
+                    Token.Identifiers.LocalName('b'),
+                    Token.Punctuation.Accessor,
+                    Token.Identifiers.PropertyName('Riders'),
+                    Token.Operators.Arithmetic.Division,
+                    Token.Punctuation.OpenParen,
+                    Token.PrimitiveType.Double,
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.CloseParen,
+                    Token.Operators.Relational.LessThan,
+                    Token.Literals.Numeric.Decimal("0.50"),
+                    Token.Operators.Arrow,
+                    Token.Literals.Numeric.Decimal("5.00m"),
+                    Token.Operators.Arithmetic.Addition,
+                    Token.Literals.Numeric.Decimal("2.00m"),
+                    Token.Punctuation.Comma,
+                    Token.Type('Bus'),
+                    Token.Identifiers.LocalName('b'),
+                    Token.Operators.Arrow,
+                    Token.Literals.Numeric.Decimal("5.00m"),
+                    Token.Punctuation.Comma,
+                    Token.Punctuation.OpenBrace,
+                    Token.Operators.Arrow,
+                    Token.Keywords.Control.Throw,
+                    Token.Keywords.New,
+                    Token.Type('ArgumentException'),
+                    Token.Punctuation.OpenParen,
+                    Token.Identifiers.ParameterName('message'),
+                    Token.Punctuation.Colon,
+                    Token.Punctuation.String.Begin,
+                    Token.Literals.String('Not a known vehicle type'),
+                    Token.Punctuation.String.End,
+                    Token.Punctuation.Comma,
+                    Token.Identifiers.ParameterName('paramName'),
+                    Token.Punctuation.Colon,
+                    Token.Keywords.NameOf,
+                    Token.Punctuation.OpenParen,
+                    Token.Identifiers.AliasName('vehicle'),
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Comma,
+                    Token.Literals.Null,
+                    Token.Operators.Arrow,
+                    Token.Keywords.Control.Throw,
+                    Token.Keywords.New,
+                    Token.Type('ArgumentNullException'),
+                    Token.Keywords.NameOf,
+                    Token.Punctuation.OpenParen,
+                    Token.Identifiers.AliasName('vehicle'),
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Comma,
+                    Token.Punctuation.CloseBrace,
+                    Token.Punctuation.CloseBrace,
+                    /*
+  { text: 'c', type: 'entity.name.variable.local.cs' },
+  { text: 'm', type: 'storage.type.cs' },
+  { text: 'm', type: 'storage.type.cs' },
+  { text: 'Bus', type: 'storage.type.cs' },
+  { text: 'b', type: 'entity.name.variable.local.cs' },
+  { text: 'when', type: 'storage.type.cs' },
+  { text: '(', type: 'punctuation.parenthesis.open.cs' },
+  { text: '(', type: 'punctuation.parenthesis.open.cs' },
+  { text: 'double', type: 'keyword.type.cs' },
+  { text: ')', type: 'punctuation.parenthesis.close.cs' },
+  { text: 'b', type: 'entity.name.variable.tuple-element.cs' },
+  { text: 'Riders', type: 'storage.type.cs' },
+  { text: '(', type: 'punctuation.parenthesis.open.cs' },
+  { text: 'double', type: 'keyword.type.cs' },
+  { text: ')', type: 'punctuation.parenthesis.close.cs' },
+  { text: 'b', type: 'entity.name.variable.tuple-element.cs' },
+  { text: 'Capacity', type: 'storage.type.cs' },
+  { text: ')', type: 'punctuation.parenthesis.close.cs' },
+  { text: 'm', type: 'storage.type.cs' },
+  { text: 'm', type: 'storage.type.cs' },
+  { text: 'Bus', type: 'storage.type.cs' },
+  { text: 'b', type: 'entity.name.variable.local.cs' },
+  { text: 'm', type: 'storage.type.cs' },
+  { text: '}', type: 'punctuation.curlybrace.close.cs' },
+  { text: '=', type: 'keyword.operator.assignment.cs' },
+  { text: '>', type: 'keyword.operator.relational.cs' },
+  { text: 'throw', type: 'keyword.control.flow.throw.cs' },
+  { text: 'new', type: 'keyword.other.new.cs' },
+  { text: 'ArgumentException', type: 'storage.type.cs' },
+  { text: '(', type: 'punctuation.parenthesis.open.cs' },
+  { text: 'message', type: 'entity.name.variable.parameter.cs' },
+  { text: ':', type: 'punctuation.separator.colon.cs' },
+  { text: '"', type: 'punctuation.definition.string.begin.cs' },
+  { text: 'Not a known vehicle type',
+    type: 'string.quoted.double.cs' },
+  { text: '"', type: 'punctuation.definition.string.end.cs' },
+  { text: ',', type: 'punctuation.separator.comma.cs' },
+  { text: 'paramName', type: 'entity.name.variable.parameter.cs' },
+  { text: ':', type: 'punctuation.separator.colon.cs' },
+  { text: 'nameof', type: 'keyword.other.nameof.cs' },
+  { text: '(', type: 'punctuation.parenthesis.open.cs' },
+  { text: 'vehicle', type: 'variable.other.readwrite.cs' },
+  { text: ')', type: 'punctuation.parenthesis.close.cs' },
+  { text: ')', type: 'punctuation.parenthesis.close.cs' },
+  { text: '=>', type: 'keyword.operator.arrow.cs' },
+  { text: 'throw', type: 'keyword.control.flow.throw.cs' },
+  { text: 'new', type: 'keyword.other.new.cs' },
+  { text: 'ArgumentNullException', type: 'storage.type.cs' },
+  { text: '(', type: 'punctuation.parenthesis.open.cs' },
+  { text: 'nameof', type: 'keyword.other.nameof.cs' },
+  { text: '(', type: 'punctuation.parenthesis.open.cs' },
+  { text: 'vehicle', type: 'variable.other.readwrite.cs' },
+  { text: ')', type: 'punctuation.parenthesis.close.cs' },
+  { text: ')', type: 'punctuation.parenthesis.close.cs' },
+  { text: '_', type: 'entity.name.variable.parameter.cs' },
+  { text: '=>', type: 'keyword.operator.arrow.cs' },
+  { text: '3.50m', type: 'constant.numeric.decimal.cs' },
+  { text: '-', type: 'keyword.operator.arithmetic.cs' },
+  { text: '1.00m', type: 'constant.numeric.decimal.cs' },
+  { text: ';', type: 'punctuation.terminator.statement.cs' } ]
+   */
+                ]);
+
+            })
+            // it('nested switch expression', async () => {
+
+            //     const input = Input.InClass(`                
+            //     public decimal CalculateToll(object vehicle) =>
+            //         vehicle switch
+            //         {
+            //             Car c => c.Passengers switch
+            //             {
+            //                 0 => 2.00m + 0.5m,
+            //                 1 => 2.0m,
+            //                 2 => 2.0m - 0.5m,
+            //                 _ => 2.00m - 1.0m
+            //             },
+
+            //             Taxi t => t.Fares switch
+            //             {
+            //                 0 => 3.50m + 1.00m,
+            //                 1 => 3.50m,
+            //                 2 => 3.50m - 0.50m,
+            //                 _ => 3.50m - 1.00m
+            //             },
+
+            //             Bus b when ((double)b.Riders / (double)b.Capacity) < 0.50 => 5.00m + 2.00m,
+            //             Bus b when ((double)b.Riders / (double)b.Capacity) > 0.90 => 5.00m - 1.00m,
+            //             Bus b => 5.00m,
+
+            //             DeliveryTruck t when (t.GrossWeightClass > 5000) => 10.00m + 5.00m,
+            //             DeliveryTruck t when (t.GrossWeightClass < 3000) => 10.00m - 2.00m,
+            //             DeliveryTruck t => 10.00m,
+
+            //             { }  => throw new ArgumentException(message: "Not a known vehicle type", paramName: nameof(vehicle)),
+            //             null => throw new ArgumentNullException(nameof(vehicle))
+            //         };
+            //     `);
+            //     const tokens = await tokenize(input);
+
+            //     tokens.should.deep.equal([
+            //         Token.Variables.ReadWrite("_field"),
+            //         Token.Operators.Assignment,
+            //         Token.Variables.ReadWrite("field"),
+            //         Token.Operators.NullCoalescing,
+            //         Token.Keywords.Control.Throw,
+            //         Token.Keywords.New,
+            //         Token.Type("ArgumentNullException"),
+            //         Token.Punctuation.OpenParen,
+            //         Token.Keywords.NameOf,
+            //         Token.Punctuation.OpenParen,
+            //         Token.Variables.ReadWrite("field"),
+            //         Token.Punctuation.CloseParen,
+            //         Token.Punctuation.CloseParen,
+            //         Token.Punctuation.Semicolon
+            //     ]);
+
+            // })
+        })
     });
 });

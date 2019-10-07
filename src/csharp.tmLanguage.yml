@@ -112,7 +112,8 @@ repository:
     - include: '#throw-expression'
     - include: '#interpolated-string'
     - include: '#verbatim-interpolated-string'
-    - include: '#this-or-base-expression'
+    - include: '#this-or-base-expression'    
+    - include: '#switch-expression'
     - include: '#conditional-operator'
     - include: '#expression-operators'
     - include: '#await-expression'
@@ -939,7 +940,7 @@ repository:
       '1': { name: keyword.other.await.cs }
     end: (?=;)
     patterns:
-    - include: '#expression'
+    - include: '#statement'
 
   if-statement:
     begin: (?<!\.)\b(if)\b\s*(?=\()
@@ -988,6 +989,51 @@ repository:
       patterns:
       - include: '#switch-label'
       - include: '#statement'
+
+  switch-expression:
+    begin: (?x) (?<!\.)\b(switch)
+    beginCaptures:
+      '1': { name: keyword.control.switch.cs }
+    end: (?<=\})
+    patterns:
+    - begin: \{
+      beginCaptures:
+        '0': { name: punctuation.curlybrace.open.cs }
+      end: \}
+      endCaptures:
+        '0': { name: punctuation.curlybrace.close.cs }
+      patterns:
+      - begin: |-
+          (?x) # e.g. int x OR var x
+          (?<type-name>
+            (?:
+              (?:
+                (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
+                (?<name-and-type-args> # identifier + type arguments (if any)
+                  \g<identifier>\s*
+                  (?<type-args>\s*<(?:[^<>]|\g<type-args>)+>\s*)?
+                )
+                (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
+                (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
+              )
+              (?:\s*\?\s*)? # nullable suffix?
+              (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
+            )
+          )\s+
+          (\g<identifier>)\b\s*
+        beginCaptures:
+          '1':
+            patterns:
+            - include: '#type'
+          '2': { name: entity.name.variable.local.cs }
+        end: (?==>)
+        # patterns:
+      - include: '#comment'
+      - include: '#expression-body'
+      - include: '#when-clause'
+      - include: '#punctuation-comma'
+        # captures:
+        #   '0': { name: switch.expression.cs }
 
   switch-label:
     patterns:
