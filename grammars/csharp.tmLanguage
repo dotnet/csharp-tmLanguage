@@ -4289,7 +4289,7 @@
         <key>name</key>
         <string>string.quoted.double.cs</string>
         <key>begin</key>
-        <string>\$@"</string>
+        <string>(?:\$@|@\$)"</string>
         <key>beginCaptures</key>
         <dict>
           <key>0</key>

@@ -1632,7 +1632,7 @@ repository:
 
   verbatim-interpolated-string:
     name: string.quoted.double.cs
-    begin: '\$@"'
+    begin: '(?:\$@|@\$)"'
     beginCaptures:
       '0': { name: punctuation.definition.string.begin.cs }
     end: '"(?=[^"])'
