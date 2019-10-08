@@ -2722,6 +2722,14 @@
         </dict>
         <key>end</key>
         <string>(?&lt;=\})</string>
+        <key>endCaptures</key>
+        <dict>
+          <key>0</key>
+          <dict>
+            <key>name</key>
+            <string>punctuation.curlybrace.close.cs</string>
+          </dict>
+        </dict>
         <key>patterns</key>
         <array>
           <dict>
@@ -2748,8 +2756,45 @@
             <key>patterns</key>
             <array>
               <dict>
-                <key>begin</key>
-                <string>(?x) # e.g. int x OR var x
+                <key>include</key>
+                <string>#comment</string>
+              </dict>
+              <dict>
+                <key>include</key>
+                <string>#literal</string>
+              </dict>
+              <dict>
+                <key>include</key>
+                <string>#switch-var-pattern</string>
+              </dict>
+              <dict>
+                <key>include</key>
+                <string>#switch-property-expression</string>
+              </dict>
+              <dict>
+                <key>include</key>
+                <string>#member-access-expression</string>
+              </dict>
+              <dict>
+                <key>include</key>
+                <string>#switch-pattern</string>
+              </dict>
+              <dict>
+                <key>include</key>
+                <string>#expression-body</string>
+              </dict>
+              <dict>
+                <key>include</key>
+                <string>#punctuation-comma</string>
+              </dict>
+            </array>
+          </dict>
+        </array>
+      </dict>
+      <key>switch-pattern</key>
+      <dict>
+        <key>begin</key>
+        <string>(?x) # e.g. int x OR var x
 (?&lt;type-name&gt;
   (?:
     (?:
@@ -2766,44 +2811,192 @@
   )
 )\s+
 (\g&lt;identifier&gt;)\b\s*</string>
-                <key>beginCaptures</key>
-                <dict>
-                  <key>1</key>
-                  <dict>
-                    <key>patterns</key>
-                    <array>
-                      <dict>
-                        <key>include</key>
-                        <string>#type</string>
-                      </dict>
-                    </array>
-                  </dict>
-                  <key>2</key>
-                  <dict>
-                    <key>name</key>
-                    <string>entity.name.variable.local.cs</string>
-                  </dict>
-                </dict>
-                <key>end</key>
-                <string>(?==&gt;)</string>
-              </dict>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>patterns</key>
+            <array>
               <dict>
                 <key>include</key>
-                <string>#comment</string>
-              </dict>
-              <dict>
-                <key>include</key>
-                <string>#expression-body</string>
-              </dict>
-              <dict>
-                <key>include</key>
-                <string>#when-clause</string>
-              </dict>
-              <dict>
-                <key>include</key>
-                <string>#punctuation-comma</string>
+                <string>#type</string>
               </dict>
             </array>
+          </dict>
+          <key>2</key>
+          <dict>
+            <key>name</key>
+            <string>entity.name.variable.local.cs</string>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>(?==&gt;)</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#comment</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#switch-when-clause</string>
+          </dict>
+        </array>
+      </dict>
+      <key>switch-property-expression</key>
+      <dict>
+        <key>begin</key>
+        <string>(?x) # e.g. int x OR var x
+(?&lt;type-name&gt;
+  (?:
+    (?:
+      (?:(?&lt;identifier&gt;@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
+      (?&lt;name-and-type-args&gt; # identifier + type arguments (if any)
+        \g&lt;identifier&gt;\s*
+        (?&lt;type-args&gt;\s*&lt;(?:[^&lt;&gt;]|\g&lt;type-args&gt;)+&gt;\s*)?
+      )
+      (?:\s*\.\s*\g&lt;name-and-type-args&gt;)* | # Are there any more names being dotted into?
+      (?&lt;tuple&gt;\s*\((?:[^\(\)]|\g&lt;tuple&gt;)+\))
+    )
+    (?:\s*\?\s*)? # nullable suffix?
+    (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
+  )
+)?\s*
+(\{)</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#type</string>
+              </dict>
+            </array>
+          </dict>
+          <key>6</key>
+          <dict>
+            <key>name</key>
+            <string>punctuation.curlybrace.open.cs</string>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>\}</string>
+        <key>endCaptures</key>
+        <dict>
+          <key>0</key>
+          <dict>
+            <key>name</key>
+            <string>punctuation.curlybrace.close.cs</string>
+          </dict>
+        </dict>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#expression</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#punctuation-comma</string>
+          </dict>
+        </array>
+      </dict>
+      <key>switch-var-pattern</key>
+      <dict>
+        <key>begin</key>
+        <string>(?x) # match foreach (var (x, y) in ...)
+(?:\b(var)\b\s*)
+(?&lt;tuple&gt;\((?:[^\(\)]|\g&lt;tuple&gt;)+\))\s*</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.other.var.cs</string>
+          </dict>
+          <key>2</key>
+          <dict>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#tuple-declaration-deconstruction-element-list</string>
+              </dict>
+            </array>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>(?==&gt;)</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#comment</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#switch-when-clause</string>
+          </dict>
+        </array>
+      </dict>
+      <key>switch-when-clause</key>
+      <dict>
+        <key>begin</key>
+        <string>(?&lt;!\.)\b(when)\b\s*(\()?</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.control.try.when.cs</string>
+          </dict>
+          <key>2</key>
+          <dict>
+            <key>name</key>
+            <string>punctuation.parenthesis.open.cs</string>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>(?==&gt;)</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#comment</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#expression</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#punctuation-comma</string>
+          </dict>
+          <dict>
+            <key>match</key>
+            <string>\(</string>
+            <key>captures</key>
+            <dict>
+              <key>0</key>
+              <dict>
+                <key>name</key>
+                <string>punctuation.parenthesis.open.cs</string>
+              </dict>
+            </dict>
+          </dict>
+          <dict>
+            <key>match</key>
+            <string>\)</string>
+            <key>captures</key>
+            <dict>
+              <key>0</key>
+              <dict>
+                <key>name</key>
+                <string>punctuation.parenthesis.close.cs</string>
+              </dict>
+            </dict>
           </dict>
         </array>
       </dict>
@@ -4534,6 +4727,36 @@
             <string>keyword.operator.null-coalescing.cs</string>
             <key>match</key>
             <string>\?\?</string>
+          </dict>
+        </array>
+      </dict>
+      <key>switch-literal</key>
+      <dict>
+        <key>name</key>
+        <string>constant.language.null.cs</string>
+        <key>match</key>
+        <string>(?&lt;!\.)\bnull\b</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>constant.language.null.cs</string>
+          </dict>
+        </dict>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#comment</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#punctuation-comma</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#expression-body</string>
           </dict>
         </array>
       </dict>
