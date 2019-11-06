@@ -10,7 +10,7 @@ describe("Grammar", () => {
     before(() => { should(); });
 
     describe("Indexers", () => {
-        it("declaration", () => {
+        it("declaration", async () => {
 
             const input = Input.InClass(`
 public string this[int index]
@@ -18,7 +18,7 @@ public string this[int index]
     get { return index.ToString(); }
 }`);
 
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -42,10 +42,10 @@ public string this[int index]
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("explicitly-implemented interface member", () => {
+        it("explicitly-implemented interface member", async () => {
 
             const input = Input.InClass(`string IFoo<string>.this[int index];`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
@@ -62,10 +62,10 @@ public string this[int index]
                 Token.Punctuation.Semicolon]);
         });
 
-        it("declaration in interface", () => {
+        it("declaration in interface", async () => {
 
             const input = Input.InInterface(`string this[int index] { get; set; }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
@@ -82,10 +82,10 @@ public string this[int index]
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("declaration in interface (read-only)", () => {
+        it("declaration in interface (read-only)", async () => {
 
             const input = Input.InInterface(`string this[int index] { get; }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
@@ -100,10 +100,10 @@ public string this[int index]
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("declaration in interface (write-only)", () => {
+        it("declaration in interface (write-only)", async () => {
 
             const input = Input.InInterface(`string this[int index] { set; }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
@@ -118,11 +118,11 @@ public string this[int index]
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("parameters with default values (issue #30)", () => {
+        it("parameters with default values (issue #30)", async () => {
             const input = Input.InClass(`
 int this[string p = null] { }
 `);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.Int,
@@ -138,9 +138,9 @@ int this[string p = null] { }
             ]);
         });
 
-        it("ref return", () => {
+        it("ref return", async () => {
             const input = Input.InInterface(`ref int this[int index] { get; }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Ref,
@@ -156,9 +156,9 @@ int this[string p = null] { }
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("ref readonly return", () => {
+        it("ref readonly return", async () => {
             const input = Input.InInterface(`ref readonly int this[int index] { get; }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Ref,
@@ -174,15 +174,15 @@ int this[string p = null] { }
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace]);
         });
-        
-        it("closing bracket of parameter list on next line", () => {
+
+        it("closing bracket of parameter list on next line", async () => {
             const input = Input.InClass(`
 string this[
     int index
     ]
 {
 }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
@@ -191,21 +191,21 @@ string this[
 
                 Token.PrimitiveType.Int,
                 Token.Identifiers.ParameterName("index"),
-                
+
                 Token.Punctuation.CloseBracket,
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace
             ]);
         });
-        
-        it("closing bracket of parameter list on next line with attribute", () => {
+
+        it("closing bracket of parameter list on next line with attribute", async () => {
             const input = Input.InClass(`
 string this[
     [In] int index
     ]
 {
 }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
@@ -215,10 +215,10 @@ string this[
                 Token.Punctuation.OpenBracket,
                 Token.Type("In"),
                 Token.Punctuation.CloseBracket,
-                
+
                 Token.PrimitiveType.Int,
                 Token.Identifiers.ParameterName("index"),
-                
+
                 Token.Punctuation.CloseBracket,
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace

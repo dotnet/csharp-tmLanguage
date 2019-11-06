@@ -10,7 +10,7 @@ describe("Grammar", () => {
     before(() => { should(); });
 
     describe("Class", () => {
-        it("class keyword and storage modifiers", () => {
+        it("class keyword and storage modifiers", async () => {
 
             const input = Input.InNamespace(`
 public             class PublicClass { }
@@ -31,7 +31,7 @@ public    abstract class PublicAbstractClass { }
 
             abstract class DefaultAbstractClass { }`);
 
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -91,10 +91,10 @@ public    abstract class PublicAbstractClass { }
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("generics in identifier", () => {
+        it("generics in identifier", async () => {
 
             const input = Input.InNamespace(`class Dictionary<TKey, TValue> { }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Class,
@@ -108,14 +108,14 @@ public    abstract class PublicAbstractClass { }
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("inheritance", () => {
+        it("inheritance", async () => {
 
             const input = Input.InNamespace(`
 class PublicClass    : IInterface,    IInterfaceTwo { }
 class PublicClass<T> : Root.IInterface<Something.Nested>, Something.IInterfaceTwo { }
 class PublicClass<T> : Dictionary<T, Dictionary<string, string>>, IMap<T, Dictionary<string, string>> { }`);
 
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Class,
@@ -181,7 +181,7 @@ class PublicClass<T> : Dictionary<T, Dictionary<string, string>>, IMap<T, Dictio
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("generic constraints", () => {
+        it("generic constraints", async () => {
 
             const input = Input.InNamespace(`
 class PublicClass<T> where T : ISomething { }
@@ -190,7 +190,7 @@ class PublicClass<T, X> : Dictionary<T, List<string>[]>, ISomething
     where X : struct
 {
 }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Class,
@@ -242,7 +242,7 @@ class PublicClass<T, X> : Dictionary<T, List<string>[]>, ISomething
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("nested class", () => {
+        it("nested class", async () => {
 
             const input = Input.InNamespace(`
 class Klass
@@ -252,7 +252,7 @@ class Klass
 
     }
 }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Class,
@@ -267,7 +267,7 @@ class Klass
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("nested class with modifier", () => {
+        it("nested class with modifier", async () => {
 
             const input = Input.InNamespace(`
 class Klass
@@ -277,7 +277,7 @@ class Klass
 
     }
 }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Class,
@@ -293,12 +293,12 @@ class Klass
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("unsafe class", () => {
+        it("unsafe class", async () => {
             const input = Input.InNamespace(`
 unsafe class C
 {
 }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Unsafe,

@@ -10,9 +10,9 @@ describe("Grammar", () => {
     before(() => { should(); });
 
     describe("Labels", () => {
-        it("declaration", () => {
+        it("declaration", async () => {
             const input = Input.InMethod(`Foo:`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Identifiers.LabelName("Foo"),

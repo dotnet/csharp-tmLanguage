@@ -10,14 +10,14 @@ describe("Grammar", () => {
     before(() => { should() });
 
     describe("Verbatim identifier", () => {
-        it("in extern alias directive", () => {
+        it("in extern alias directive", async () => {
             const input = `
 extern alias @foo;
 extern alias @class;
 extern alias @namespace;
 `;
 
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Extern,
@@ -34,7 +34,7 @@ extern alias @namespace;
                 Token.Punctuation.Semicolon]);
         });
 
-        it("in using directive", () => {
+        it("in using directive", async () => {
             const input = `
 using @if;
 using @class;
@@ -42,7 +42,7 @@ using @Foo.Bar;
 using@Foo.Baz;
 `;
 
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Using,
@@ -61,9 +61,9 @@ using@Foo.Baz;
                 Token.Punctuation.Semicolon]);
         });
 
-        it("in attribute's named argument", () => {
+        it("in attribute's named argument", async () => {
             const input = `[Foo(@class = 1)]`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.OpenBracket,
@@ -76,13 +76,13 @@ using@Foo.Baz;
                 Token.Punctuation.CloseBracket]);
         });
 
-        it("in namespace directive", () => {
+        it("in namespace directive", async () => {
             const input = `
 namespace @class
 {
 }
 `;
-            let tokens = tokenize(input);
+            let tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Namespace,
@@ -91,12 +91,12 @@ namespace @class
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("in class declaration", () => {
+        it("in class declaration", async () => {
             const input = `
 public class @class { }
 public class @ClassName { }
 `;
-            let tokens = tokenize(input);
+            let tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -111,9 +111,9 @@ public class @ClassName { }
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("in delegate declaration", () => {
+        it("in delegate declaration", async () => {
             const input = `delegate void @class();`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Delegate,
@@ -124,9 +124,9 @@ public class @ClassName { }
                 Token.Punctuation.Semicolon]);
         });
 
-        it("in enum declaration", () => {
+        it("in enum declaration", async () => {
             const input = `enum @class { }`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Enum,
@@ -135,7 +135,7 @@ public class @ClassName { }
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("in enum member", () => {
+        it("in enum member", async () => {
             const input = `
 enum E
 {
@@ -144,7 +144,7 @@ enum E
     other
 }
 `;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Enum,
@@ -160,12 +160,12 @@ enum E
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("in interface declaration", () => {
+        it("in interface declaration", async () => {
             const input = `
 public interface @interface { }
 public interface @IClassName { }
 `;
-            let tokens = tokenize(input);
+            let tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -180,12 +180,12 @@ public interface @IClassName { }
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("in struct declaration", () => {
+        it("in struct declaration", async () => {
             const input = `
 public struct @class { }
 public struct @StructName { }
 `;
-            let tokens = tokenize(input);
+            let tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -200,12 +200,12 @@ public struct @StructName { }
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("in type parameter list", () => {
+        it("in type parameter list", async () => {
             const input = `
 public class Foo<@class, Bar> { }
 public class Baz<@Bar, T> { }
 `;
-            let tokens = tokenize(input);
+            let tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -230,9 +230,9 @@ public class Baz<@Bar, T> { }
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("in generic constraints", () => {
+        it("in generic constraints", async () => {
             const input = `class S<T1, T2> where T1 : @class { }`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Class,
@@ -250,9 +250,9 @@ public class Baz<@Bar, T> { }
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("in field declaration", () => {
+        it("in field declaration", async () => {
             const input = Input.InClass(`private String @class;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Private,
@@ -261,9 +261,9 @@ public class Baz<@Bar, T> { }
                 Token.Punctuation.Semicolon]);
         });
 
-        it("in property declaration", () => {
+        it("in property declaration", async () => {
             const input = Input.InClass(`public Boolean @public { get; set; }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -277,9 +277,9 @@ public class Baz<@Bar, T> { }
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("in indexer declaration", () => {
+        it("in indexer declaration", async () => {
             const input = Input.InInterface(`string this[string @class] { get; set; }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
@@ -296,9 +296,9 @@ public class Baz<@Bar, T> { }
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("in event declaration", () => {
+        it("in event declaration", async () => {
             const input = Input.InClass(`public event Type @class;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -308,9 +308,9 @@ public class Baz<@Bar, T> { }
                 Token.Punctuation.Semicolon]);
         });
 
-        it("in method declaration", () => {
+        it("in method declaration", async () => {
             const input = Input.InClass(`public void @void() { }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -323,14 +323,14 @@ public class Baz<@Bar, T> { }
             ]);
         });
 
-        it("in constructor declaration", () => {
+        it("in constructor declaration", async () => {
             const input = `
 public class @class
 {
     public @class() { }
 }
 `;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -346,9 +346,9 @@ public class @class
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("in destructor declaration", () => {
+        it("in destructor declaration", async () => {
             const input = Input.InClass(`~@class() { }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.Tilde,
@@ -359,9 +359,9 @@ public class @class
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("in operator declaration", () => {
+        it("in operator declaration", async () => {
             const input = Input.InClass(`public static @class operator +(int value) { return null; }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -380,9 +380,9 @@ public class @class
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("in conversion operator declaration", () => {
+        it("in conversion operator declaration", async () => {
             const input = Input.InClass(`public static implicit operator @class(int x) { return null; }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -401,14 +401,14 @@ public class @class
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("in goto statement", () => {
+        it("in goto statement", async () => {
             const input = Input.InMethod(`
 @Make:
     var a = 1;
 
 goto @Make;
 `);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Identifiers.LabelName("@Make"),
@@ -423,9 +423,9 @@ goto @Make;
                 Token.Punctuation.Semicolon]);
         });
 
-        it("in foreach statement", () => {
+        it("in foreach statement", async () => {
             const input = Input.InMethod(`foreach (int @class in @classes) { }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Control.ForEach,
@@ -440,7 +440,7 @@ goto @Make;
             ]);
         });
 
-        it("in catch clause", () => {
+        it("in catch clause", async () => {
             const input = Input.InMethod(`
 try
 {
@@ -448,7 +448,7 @@ try
 catch (@class @ex)
 {
 }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Control.Try,
@@ -464,10 +464,10 @@ catch (@class @ex)
             ]);
         });
 
-        it("in local variable declaration", () => {
+        it("in local variable declaration", async () => {
             const input = Input.InMethod(`
 var @class = @event.x;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Var,
@@ -480,10 +480,10 @@ var @class = @event.x;`);
             ]);
         });
 
-        it("in local constant declaration", () => {
+        it("in local constant declaration", async () => {
             const input = Input.InMethod(`
 const string @class = obj.@class;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Const,
@@ -497,9 +497,9 @@ const string @class = obj.@class;`);
             ]);
         });
 
-        it("in tuple deconstruction", () => {
+        it("in tuple deconstruction", async () => {
             const input = Input.InMethod(`(int x, string @class) = (@count, "test");`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.OpenParen,
@@ -521,9 +521,9 @@ const string @class = obj.@class;`);
             ]);
         });
 
-        it("in declaration expression local", () => {
+        it("in declaration expression local", async () => {
             const input = Input.InMethod(`M(out int @x, out var @y);`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Identifiers.MethodName("M"),
@@ -540,9 +540,9 @@ const string @class = obj.@class;`);
             ]);
         });
 
-        it("in cast expression", () => {
+        it("in cast expression", async () => {
             const input = Input.InMethod(`var x = (@class)@variable;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Var,
@@ -556,9 +556,9 @@ const string @class = obj.@class;`);
             ]);
         });
 
-        it("in as expression", () => {
+        it("in as expression", async () => {
             const input = Input.InMethod(`var x = @variable as @class;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Var,
@@ -571,9 +571,9 @@ const string @class = obj.@class;`);
             ]);
         });
 
-        it("in is expression", () => {
+        it("in is expression", async () => {
             const input = Input.InMethod(`var x = @variable is @class;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Var,
@@ -586,9 +586,9 @@ const string @class = obj.@class;`);
             ]);
         });
 
-        it("in object creation with parameters", () => {
+        it("in object creation with parameters", async () => {
             const input = Input.InMethod(`var x = new @class(@event, y);`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Var,
@@ -605,9 +605,9 @@ const string @class = obj.@class;`);
             ]);
         });
 
-        it("in array creation", () => {
+        it("in array creation", async () => {
             const input = Input.InMethod(`@class[] x = new @class[0];`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Type("@class"),
@@ -624,9 +624,9 @@ const string @class = obj.@class;`);
             ]);
         });
 
-        it("in named arguments", () => {
+        it("in named arguments", async () => {
             const input = Input.InMethod(`var x = Test(@default = 1);`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Var,
@@ -642,9 +642,9 @@ const string @class = obj.@class;`);
             ]);
         });
 
-        it("in query expression", () => {
+        it("in query expression", async () => {
             const input = Input.InMethod(`var query = from @class in numbers`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Var,
@@ -657,14 +657,14 @@ const string @class = obj.@class;`);
             ]);
         });
 
-        it("in let clause", () => {
+        it("in let clause", async () => {
             const input = Input.InMethod(`
 var earlyBirdQuery =
     from sentence in strings
     let @words = sentence.Split(' ')
     from word in @words
     select word;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Var,
@@ -695,13 +695,13 @@ var earlyBirdQuery =
             ]);
         });
 
-        it("in join clause", () => {
+        it("in join clause", async () => {
             const input = Input.InMethod(`
 var query =
     from category in categories
     join @prod in products on category.ID equals @prod.CategoryID into prodGroup
     select new { CategoryName = category.Name, Products = prodGroup };`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Var,
@@ -742,13 +742,13 @@ var query =
             ]);
         });
 
-        it("in join into", () => {
+        it("in join into", async () => {
             const input = Input.InMethod(`
 var query =
     from category in categories
     join prod in products on category.ID equals prod.CategoryID into @prodGroup
     select new { CategoryName = category.Name, Products = @prodGroup };`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Var,
@@ -789,13 +789,13 @@ var query =
             ]);
         });
 
-        it("in group into", () => {
+        it("in group into", async () => {
             const input = Input.InMethod(`
 var results =
     from p in people
     group p.Car by p.PersonId into @group
     select new { PersonId = @group.Key, Cars = @group };`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Var,
@@ -832,9 +832,9 @@ var results =
             ]);
         });
 
-        it("in lambda parameters", () => {
+        it("in lambda parameters", async () => {
             const input = Input.InMethod(`Action<int, int> a = (@x, y) => { };`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Type("Action"),
@@ -857,9 +857,9 @@ var results =
             ]);
         });
 
-        it("in tuple element", () => {
+        it("in tuple element", async () => {
             const input = Input.InMethod(`(int @x, int y) p = point;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.OpenParen,
@@ -876,9 +876,9 @@ var results =
             ]);
         });
 
-        it("in anonymous method expression", () => {
+        it("in anonymous method expression", async () => {
             const input = Input.InMethod(`Action<int> a = @x => { };`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Type("Action"),

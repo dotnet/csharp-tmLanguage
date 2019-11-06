@@ -10,9 +10,9 @@ describe("Grammar", () => {
     before(() => { should(); });
 
     describe("Constructors", () => {
-        it("instance constructor with no parameters", () => {
+        it("instance constructor with no parameters", async () => {
             const input = Input.InClass(`TestClass() { }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Identifiers.MethodName("TestClass"),
@@ -22,9 +22,9 @@ describe("Grammar", () => {
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("public instance constructor with no parameters", () => {
+        it("public instance constructor with no parameters", async () => {
             const input = Input.InClass(`public TestClass() { }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -35,9 +35,9 @@ describe("Grammar", () => {
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("public instance constructor with one parameter", () => {
+        it("public instance constructor with one parameter", async () => {
             const input = Input.InClass(`public TestClass(int x) { }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -50,9 +50,9 @@ describe("Grammar", () => {
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("public instance constructor with one ref parameter", () => {
+        it("public instance constructor with one ref parameter", async () => {
             const input = Input.InClass(`public TestClass(ref int x) { }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -66,12 +66,12 @@ describe("Grammar", () => {
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("instance constructor with two parameters", () => {
+        it("instance constructor with two parameters", async () => {
             const input = Input.InClass(`
 TestClass(int x, int y)
 {
 }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Identifiers.MethodName("TestClass"),
@@ -86,9 +86,9 @@ TestClass(int x, int y)
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("instance constructor with expression body", () => {
+        it("instance constructor with expression body", async () => {
             const input = Input.InClass(`TestClass(int x, int y) => Foo();`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Identifiers.MethodName("TestClass"),
@@ -106,9 +106,9 @@ TestClass(int x, int y)
                 Token.Punctuation.Semicolon]);
         });
 
-        it("static constructor no parameters", () => {
+        it("static constructor no parameters", async () => {
             const input = Input.InClass(`TestClass() { }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Identifiers.MethodName("TestClass"),
@@ -118,9 +118,9 @@ TestClass(int x, int y)
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("instance constructor with 'this' initializer", () => {
+        it("instance constructor with 'this' initializer", async () => {
             const input = Input.InClass(`TestClass() : this(42) { }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Identifiers.MethodName("TestClass"),
@@ -135,9 +135,9 @@ TestClass(int x, int y)
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("public instance constructor with 'this' initializer", () => {
+        it("public instance constructor with 'this' initializer", async () => {
             const input = Input.InClass(`public TestClass() : this(42) { }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -153,9 +153,9 @@ TestClass(int x, int y)
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("instance constructor with 'this' initializer with ref parameter", () => {
+        it("instance constructor with 'this' initializer with ref parameter", async () => {
             const input = Input.InClass(`TestClass(int x) : this(ref x) { }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Identifiers.MethodName("TestClass"),
@@ -173,9 +173,9 @@ TestClass(int x, int y)
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("instance constructor with 'this' initializer with named parameter", () => {
+        it("instance constructor with 'this' initializer with named parameter", async () => {
             const input = Input.InClass(`TestClass(int x) : this(y: x) { }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Identifiers.MethodName("TestClass"),
@@ -194,9 +194,9 @@ TestClass(int x, int y)
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("instance constructor with 'base' initializer", () => {
+        it("instance constructor with 'base' initializer", async () => {
             const input = Input.InClass(`TestClass() : base(42) { }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Identifiers.MethodName("TestClass"),
@@ -211,13 +211,13 @@ TestClass(int x, int y)
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("instance constructor with 'base' initializer on separate line", () => {
+        it("instance constructor with 'base' initializer on separate line", async () => {
             const input = Input.InClass(`
 TestClass() :
     base(42)
 {
 }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Identifiers.MethodName("TestClass"),
@@ -232,7 +232,7 @@ TestClass() :
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("Open multiline comment in front of parameter highlights properly (issue omnisharp-vscode#861)", () => {
+        it("Open multiline comment in front of parameter highlights properly (issue omnisharp-vscode#861)", async () => {
             const input = Input.InClass(`
 internal WaitHandle(Task self, TT.Task /*task)
 {
@@ -240,7 +240,7 @@ internal WaitHandle(Task self, TT.Task /*task)
     this.selff = self;
 }
 `);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Internal,
@@ -259,7 +259,7 @@ internal WaitHandle(Task self, TT.Task /*task)
             ]);
         });
 
-        it("Highlight properly within base constructor initializer (issue omnisharp-vscode#782)", () => {
+        it("Highlight properly within base constructor initializer (issue omnisharp-vscode#782)", async () => {
             const input = `
 public class A
 {
@@ -275,7 +275,7 @@ public class A
     }
 }
 `;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -350,14 +350,14 @@ public class A
             ]);
         });
 
-        it("closing parenthesis of parameter list on next line", () => {
+        it("closing parenthesis of parameter list on next line", async () => {
             const input = Input.InClass(`
 public C(
     string s
     )
 {
 }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -366,14 +366,14 @@ public C(
 
                 Token.PrimitiveType.String,
                 Token.Identifiers.ParameterName("s"),
-                
+
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace
             ]);
         });
 
-        it("closing parenthesis of parameter list on next line (issue #88)", () => {
+        it("closing parenthesis of parameter list on next line (issue #88)", async () => {
             const input = Input.InClass(`
 public AccountController(
     UserManager<User> userManager,
@@ -382,7 +382,7 @@ public AccountController(
     )
 {
 }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -402,13 +402,13 @@ public AccountController(
                 Token.Punctuation.TypeParameters.End,
                 Token.Identifiers.ParameterName("signInManager"),
                 Token.Punctuation.Comma,
-                
+
                 Token.Type("ILogger"),
                 Token.Punctuation.TypeParameters.Begin,
                 Token.Type("AccountController"),
                 Token.Punctuation.TypeParameters.End,
                 Token.Identifiers.ParameterName("logger"),
-                
+
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace

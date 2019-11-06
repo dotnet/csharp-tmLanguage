@@ -10,9 +10,9 @@ describe("Grammar", () => {
     before(() => { should(); });
 
     describe("Type names", () => {
-        it("built-in type - object", () => {
+        it("built-in type - object", async () => {
             const input = Input.InClass(`object x;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.Object,
@@ -20,9 +20,9 @@ describe("Grammar", () => {
                 Token.Punctuation.Semicolon]);
         });
 
-        it("qualified name - System.Object", () => {
+        it("qualified name - System.Object", async () => {
             const input = Input.InClass(`System.Object x;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Type("System"),
@@ -32,9 +32,9 @@ describe("Grammar", () => {
                 Token.Punctuation.Semicolon]);
         });
 
-        it("globally-qualified name - global::System.Object", () => {
+        it("globally-qualified name - global::System.Object", async () => {
             const input = Input.InClass(`global::System.Object x;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Identifiers.AliasName("global"),
@@ -46,9 +46,9 @@ describe("Grammar", () => {
                 Token.Punctuation.Semicolon]);
         });
 
-        it("tuple type - (int, int)", () => {
+        it("tuple type - (int, int)", async () => {
             const input = Input.InClass(`(int, int) x;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.OpenParen,
@@ -60,9 +60,9 @@ describe("Grammar", () => {
                 Token.Punctuation.Semicolon]);
         });
 
-        it("tuple type with element names - (int i, int j)", () => {
+        it("tuple type with element names - (int i, int j)", async () => {
             const input = Input.InClass(`(int i, int j) x;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.OpenParen,
@@ -76,9 +76,9 @@ describe("Grammar", () => {
                 Token.Punctuation.Semicolon]);
         });
 
-        it("nested tuple type - (int, (int, int))", () => {
+        it("nested tuple type - (int, (int, int))", async () => {
             const input = Input.InClass(`(int, (int, int)) x;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.OpenParen,
@@ -94,9 +94,9 @@ describe("Grammar", () => {
                 Token.Punctuation.Semicolon]);
         });
 
-        it("nested tuple type with element names - (int i, (int j, int k))", () => {
+        it("nested tuple type with element names - (int i, (int j, int k))", async () => {
             const input = Input.InClass(`(int i, (int j, int k)) x;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.OpenParen,
@@ -115,9 +115,9 @@ describe("Grammar", () => {
                 Token.Punctuation.Semicolon]);
         });
 
-        it("nullable tuple type - (int, int)?", () => {
+        it("nullable tuple type - (int, int)?", async () => {
             const input = Input.InClass(`(int, int)? x;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.OpenParen,
@@ -130,9 +130,9 @@ describe("Grammar", () => {
                 Token.Punctuation.Semicolon]);
         });
 
-        it("array tuple type - (int, int)[]", () => {
+        it("array tuple type - (int, int)[]", async () => {
             const input = Input.InClass(`(int, int)[] x;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.OpenParen,
@@ -146,9 +146,9 @@ describe("Grammar", () => {
                 Token.Punctuation.Semicolon]);
         });
 
-        it("generic type - List<int>", () => {
+        it("generic type - List<int>", async () => {
             const input = Input.InClass(`List<int> x;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Type("List"),
@@ -159,9 +159,9 @@ describe("Grammar", () => {
                 Token.Punctuation.Semicolon]);
         });
 
-        it("generic type with tuple - List<(int, int)>", () => {
+        it("generic type with tuple - List<(int, int)>", async () => {
             const input = Input.InClass(`List<(int, int)> x;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Type("List"),
@@ -176,9 +176,9 @@ describe("Grammar", () => {
                 Token.Punctuation.Semicolon]);
         });
 
-        it("generic type with tuple with element names - List<(int i, int j)>", () => {
+        it("generic type with tuple with element names - List<(int i, int j)>", async () => {
             const input = Input.InClass(`List<(int i, int j)> x;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Type("List"),
@@ -195,9 +195,9 @@ describe("Grammar", () => {
                 Token.Punctuation.Semicolon]);
         });
 
-        it("generic type with multiple parameters - Dictionary<int, int>", () => {
+        it("generic type with multiple parameters - Dictionary<int, int>", async () => {
             const input = Input.InClass(`Dictionary<int, int> x;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Type("Dictionary"),
@@ -210,9 +210,9 @@ describe("Grammar", () => {
                 Token.Punctuation.Semicolon]);
         });
 
-        it("qualified generic type - System.Collections.Generic.List<int>", () => {
+        it("qualified generic type - System.Collections.Generic.List<int>", async () => {
             const input = Input.InClass(`System.Collections.Generic.List<int> x;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Type("System"),
@@ -229,9 +229,9 @@ describe("Grammar", () => {
                 Token.Punctuation.Semicolon]);
         });
 
-        it("generic type with nested type - List<int>.Enumerator", () => {
+        it("generic type with nested type - List<int>.Enumerator", async () => {
             const input = Input.InClass(`List<int>.Enumerator x;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Type("List"),
@@ -244,9 +244,9 @@ describe("Grammar", () => {
                 Token.Punctuation.Semicolon]);
         });
 
-        it("nullable type - int?", () => {
+        it("nullable type - int?", async () => {
             const input = Input.InClass(`int? x;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.Int,
@@ -255,9 +255,9 @@ describe("Grammar", () => {
                 Token.Punctuation.Semicolon]);
         });
 
-        it("ref local type - ref int", () => {
+        it("ref local type - ref int", async () => {
             const input = Input.InMethod(`ref int x;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Ref,
@@ -266,9 +266,9 @@ describe("Grammar", () => {
                 Token.Punctuation.Semicolon]);
         });
 
-        it("ref implicit local type - ref int", () => {
+        it("ref implicit local type - ref int", async () => {
             const input = Input.InMethod(`ref var x;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Ref,

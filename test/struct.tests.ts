@@ -10,10 +10,10 @@ describe("Grammar", () => {
     before(() => { should(); });
 
     describe("Structs", () => {
-        it("simple struct", () => {
+        it("simple struct", async () => {
 
             const input = `struct S { }`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Struct,
@@ -22,13 +22,13 @@ describe("Grammar", () => {
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("struct interface implementation", () => {
+        it("struct interface implementation", async () => {
 
             const input = `
 interface IFoo { }
 struct S : IFoo { }
 `;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Interface,
@@ -43,7 +43,7 @@ struct S : IFoo { }
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("nested struct", () => {
+        it("nested struct", async () => {
 
             const input = `
 class Klass
@@ -53,7 +53,7 @@ class Klass
 
     }
 }`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Class,
@@ -68,7 +68,7 @@ class Klass
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("nested struct with modifier", () => {
+        it("nested struct with modifier", async () => {
 
             const input = `
 class Klass
@@ -78,7 +78,7 @@ class Klass
 
     }
 }`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Class,
@@ -94,12 +94,12 @@ class Klass
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("generic struct", () => {
+        it("generic struct", async () => {
 
             const input = `
 struct S<T1, T2> { }
 `;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Struct,
@@ -113,12 +113,12 @@ struct S<T1, T2> { }
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("generic struct with constraints", () => {
+        it("generic struct with constraints", async () => {
 
             const input = `
 struct S<T1, T2> where T1 : T2 { }
 `;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Struct,
@@ -136,9 +136,9 @@ struct S<T1, T2> where T1 : T2 { }
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("ref struct", () => {
+        it("ref struct", async () => {
             const input = `ref struct S { }`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Ref,
@@ -148,9 +148,9 @@ struct S<T1, T2> where T1 : T2 { }
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("readonly ref struct", () => {
+        it("readonly ref struct", async () => {
             const input = `readonly ref struct S { }`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.ReadOnly,

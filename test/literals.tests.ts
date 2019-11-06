@@ -11,9 +11,9 @@ describe("Grammar", () => {
 
     describe("Literals", () => {
         describe("Booleans", () => {
-            it("true", () => {
+            it("true", async () => {
                 const input = Input.InClass(`bool x = true;`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.PrimitiveType.Bool,
@@ -23,9 +23,9 @@ describe("Grammar", () => {
                     Token.Punctuation.Semicolon]);
             });
 
-            it("false", () => {
+            it("false", async () => {
                 const input = Input.InClass(`bool x = false;`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.PrimitiveType.Bool,
@@ -37,9 +37,9 @@ describe("Grammar", () => {
         });
 
         describe("Chars", () => {
-            it("empty", () => {
+            it("empty", async () => {
                 const input = Input.InMethod(`var x = '';`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -50,9 +50,9 @@ describe("Grammar", () => {
                     Token.Punctuation.Semicolon]);
             });
 
-            it("letter", () => {
+            it("letter", async () => {
                 const input = Input.InMethod(`var x = 'a';`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -64,9 +64,9 @@ describe("Grammar", () => {
                     Token.Punctuation.Semicolon]);
             });
 
-            it("escaped single quote", () => {
+            it("escaped single quote", async () => {
                 const input = Input.InMethod(`var x = '\\'';`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -78,9 +78,9 @@ describe("Grammar", () => {
                     Token.Punctuation.Semicolon]);
             });
 
-            it("escaped character escape \\t", () => {
+            it("escaped character escape \\t", async () => {
                 const input = Input.InClass(`char x = '\\t';`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.PrimitiveType.Char,
@@ -92,9 +92,9 @@ describe("Grammar", () => {
                     Token.Punctuation.Semicolon]);
             });
 
-            it("escaped character escape \\n", () => {
+            it("escaped character escape \\n", async () => {
                 const input = Input.InClass(`char x = '\\n';`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.PrimitiveType.Char,
@@ -106,9 +106,9 @@ describe("Grammar", () => {
                     Token.Punctuation.Semicolon]);
             });
 
-            it("escaped character escape \\x1f2d", () => {
+            it("escaped character escape \\x1f2d", async () => {
                 const input = Input.InClass(`char x = '\\x1f2d';`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.PrimitiveType.Char,
@@ -120,9 +120,9 @@ describe("Grammar", () => {
                     Token.Punctuation.Semicolon]);
             });
 
-            it("escaped character escape \\x1", () => {
+            it("escaped character escape \\x1", async () => {
                 const input = Input.InClass(`char x = '\\x1';`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.PrimitiveType.Char,
@@ -134,9 +134,9 @@ describe("Grammar", () => {
                     Token.Punctuation.Semicolon]);
             });
 
-            it("escaped character escape \\ude12", () => {
+            it("escaped character escape \\ude12", async () => {
                 const input = Input.InClass(`char x = '\\ude12';`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.PrimitiveType.Char,
@@ -150,9 +150,9 @@ describe("Grammar", () => {
         });
 
         describe("Numbers", () => {
-            it("decimal zero", () => {
+            it("decimal zero", async () => {
                 const input = Input.InClass(`int x = 0;`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.PrimitiveType.Int,
@@ -162,9 +162,9 @@ describe("Grammar", () => {
                     Token.Punctuation.Semicolon]);
             });
 
-            it("hexadecimal zero", () => {
+            it("hexadecimal zero", async () => {
                 const input = Input.InClass(`int x = 0x0;`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.PrimitiveType.Int,
@@ -174,9 +174,9 @@ describe("Grammar", () => {
                     Token.Punctuation.Semicolon]);
             });
 
-            it("binary zero", () => {
+            it("binary zero", async () => {
                 const input = Input.InClass(`int x = 0b0;`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.PrimitiveType.Int,
@@ -186,9 +186,9 @@ describe("Grammar", () => {
                     Token.Punctuation.Semicolon]);
             });
 
-            it("floating-point zero", () => {
+            it("floating-point zero", async () => {
                 const input = Input.InClass(`float x = 0.0;`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.PrimitiveType.Float,
@@ -200,9 +200,9 @@ describe("Grammar", () => {
         });
 
         describe("Strings", () => {
-            it("simple", () => {
+            it("simple", async () => {
                 const input = Input.InClass(`string test = "hello world!";`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.PrimitiveType.String,
@@ -214,9 +214,9 @@ describe("Grammar", () => {
                     Token.Punctuation.Semicolon]);
             });
 
-            it("escaped double-quote", () => {
+            it("escaped double-quote", async () => {
                 const input = Input.InClass(`string test = "hello \\"world!\\"";`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.PrimitiveType.String,
@@ -231,9 +231,9 @@ describe("Grammar", () => {
                     Token.Punctuation.Semicolon]);
             });
 
-            it("escaped character escape \\t", () => {
+            it("escaped character escape \\t", async () => {
                 const input = Input.InClass(`string test = "hello\\tworld!";`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.PrimitiveType.String,
@@ -247,9 +247,9 @@ describe("Grammar", () => {
                     Token.Punctuation.Semicolon]);
             });
 
-            it("escaped character escape \\n", () => {
+            it("escaped character escape \\n", async () => {
                 const input = Input.InClass(`string test = "hello\\nworld!";`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.PrimitiveType.String,
@@ -263,9 +263,9 @@ describe("Grammar", () => {
                     Token.Punctuation.Semicolon]);
             });
 
-            it("escaped character escape \\x1f2d", () => {
+            it("escaped character escape \\x1f2d", async () => {
                 const input = Input.InClass(`string test = "hello\\x1f2da world!";`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.PrimitiveType.String,
@@ -279,9 +279,9 @@ describe("Grammar", () => {
                     Token.Punctuation.Semicolon]);
             });
 
-            it("escaped character escape \\x1", () => {
+            it("escaped character escape \\x1", async () => {
                 const input = Input.InClass(`string test = "hello\\x1 a world!";`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.PrimitiveType.String,
@@ -295,9 +295,9 @@ describe("Grammar", () => {
                     Token.Punctuation.Semicolon]);
             });
 
-            it("escaped character escape \\ude12", () => {
+            it("escaped character escape \\ude12", async () => {
                 const input = Input.InClass(`string test = "hello\\ude12a world!";`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.PrimitiveType.String,
@@ -311,9 +311,9 @@ describe("Grammar", () => {
                     Token.Punctuation.Semicolon]);
             });
 
-            it("escaped character escape \\U0001de12", () => {
+            it("escaped character escape \\U0001de12", async () => {
                 const input = Input.InClass(`string test = "hello\\U0001de12a world!";`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.PrimitiveType.String,
@@ -327,11 +327,11 @@ describe("Grammar", () => {
                     Token.Punctuation.Semicolon]);
             });
 
-            it("line break before close quote", () => {
+            it("line break before close quote", async () => {
                 const input = Input.InClass(`
 string test = "hello 
 world!";`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.PrimitiveType.String,
@@ -348,9 +348,9 @@ world!";`);
                     Token.IllegalNewLine(";")]);
             });
 
-            it("simple (verbatim)", () => {
+            it("simple (verbatim)", async () => {
                 const input = Input.InClass(`string test = @"hello world!";`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.PrimitiveType.String,
@@ -362,9 +362,9 @@ world!";`);
                     Token.Punctuation.Semicolon]);
             });
 
-            it("escaped double-quote (verbatim)", () => {
+            it("escaped double-quote (verbatim)", async () => {
                 const input = Input.InClass("string test = @\"hello \"\"world!\"\"\";");
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.PrimitiveType.String,
@@ -379,11 +379,11 @@ world!";`);
                     Token.Punctuation.Semicolon]);
             });
 
-            it("line break before close quote (verbatim)", () => {
+            it("line break before close quote (verbatim)", async () => {
                 const input = Input.InClass(`
 string test = @"hello 
 world!";`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.PrimitiveType.String,
@@ -396,12 +396,12 @@ world!";`);
                     Token.Punctuation.Semicolon]);
             });
 
-            it("highlight escaped double-quote properly (issue omnisharp-vscode#1078 - repro 1)", () => {
+            it("highlight escaped double-quote properly (issue omnisharp-vscode#1078 - repro 1)", async () => {
                 const input = Input.InMethod(`
 configContent = rgx.Replace(configContent, $"name{suffix}\\"");
 File.WriteAllText(_testConfigFile, configContent);
 `);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Variables.ReadWrite("configContent"),
@@ -433,12 +433,12 @@ File.WriteAllText(_testConfigFile, configContent);
                 ]);
             });
 
-            it("highlight escaped double-quote properly (issue omnisharp-vscode#1078 - repro 2)", () => {
+            it("highlight escaped double-quote properly (issue omnisharp-vscode#1078 - repro 2)", async () => {
                 const input = Input.InMethod(`
 throw new InvalidCastException(
     $"The value \\"{this.Value} is of the type \\"{this.Type}\\". You asked for \\"{typeof(T)}\\".");
 `);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Control.Throw,
@@ -477,7 +477,7 @@ throw new InvalidCastException(
                 ]);
             });
 
-            it("highlight strings containing braces correctly (issue omnisharp-vscode#746)", () => {
+            it("highlight strings containing braces correctly (issue omnisharp-vscode#746)", async () => {
                 const input = `
 namespace X
 {
@@ -490,7 +490,7 @@ namespace X
     }
 }
 `;
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Namespace,

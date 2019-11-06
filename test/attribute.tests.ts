@@ -10,10 +10,10 @@ describe("Grammar", () => {
     before(() => { should(); });
 
     describe("Attributes", () => {
-        it("global attribute", () => {
+        it("global attribute", async () => {
 
             const input = `[Foo]`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.OpenBracket,
@@ -21,10 +21,10 @@ describe("Grammar", () => {
                 Token.Punctuation.CloseBracket]);
         });
 
-        it("global attribute with specifier", () => {
+        it("global attribute with specifier", async () => {
 
             const input = `[assembly: Foo]`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.OpenBracket,
@@ -34,10 +34,10 @@ describe("Grammar", () => {
                 Token.Punctuation.CloseBracket]);
         });
 
-        it("Two global attributes in same section with specifier", () => {
+        it("Two global attributes in same section with specifier", async () => {
 
             const input = `[module: Foo, Bar]`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.OpenBracket,
@@ -49,10 +49,10 @@ describe("Grammar", () => {
                 Token.Punctuation.CloseBracket]);
         });
 
-        it("Two global attributes in same section with specifier and empty argument lists", () => {
+        it("Two global attributes in same section with specifier and empty argument lists", async () => {
 
             const input = `[module: Foo(), Bar()]`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.OpenBracket,
@@ -68,10 +68,10 @@ describe("Grammar", () => {
                 Token.Punctuation.CloseBracket]);
         });
 
-        it("Global attribute with one argument", () => {
+        it("Global attribute with one argument", async () => {
 
             const input = `[Foo(true)]`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.OpenBracket,
@@ -82,10 +82,10 @@ describe("Grammar", () => {
                 Token.Punctuation.CloseBracket]);
         });
 
-        it("Global attribute with two arguments", () => {
+        it("Global attribute with two arguments", async () => {
 
             const input = `[Foo(true, 42)]`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.OpenBracket,
@@ -98,10 +98,10 @@ describe("Grammar", () => {
                 Token.Punctuation.CloseBracket]);
         });
 
-        it("Global attribute with three arguments", () => {
+        it("Global attribute with three arguments", async () => {
 
             const input = `[Foo(true, 42, "text")]`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.OpenBracket,
@@ -118,10 +118,10 @@ describe("Grammar", () => {
                 Token.Punctuation.CloseBracket]);
         });
 
-        it("Global attribute with named argument", () => {
+        it("Global attribute with named argument", async () => {
 
             const input = `[Foo(Bar = 42)]`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.OpenBracket,
@@ -134,10 +134,10 @@ describe("Grammar", () => {
                 Token.Punctuation.CloseBracket]);
         });
 
-        it("Global attribute with one positional argument and one named argument", () => {
+        it("Global attribute with one positional argument and one named argument", async () => {
 
             const input = `[Foo(true, Bar = 42)]`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.OpenBracket,
@@ -152,10 +152,10 @@ describe("Grammar", () => {
                 Token.Punctuation.CloseBracket]);
         });
 
-        it("Global attribute with specifier, one positional argument, and two named arguments", () => {
+        it("Global attribute with specifier, one positional argument, and two named arguments", async () => {
 
             const input = `[module: Foo(true, Bar = 42, Baz = "hello")]`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.OpenBracket,
