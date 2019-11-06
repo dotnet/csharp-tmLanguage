@@ -10,10 +10,10 @@ describe("Grammar", () => {
     before(() => { should(); });
 
     describe("Delegates", () => {
-        it("void delegate with no parameters", () => {
+        it("void delegate with no parameters", async () => {
 
             const input = `delegate void D();`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Delegate,
@@ -24,10 +24,10 @@ describe("Grammar", () => {
                 Token.Punctuation.Semicolon]);
         });
 
-        it("generic delegate with variance", () => {
+        it("generic delegate with variance", async () => {
 
             const input = `delegate TResult D<in T, out TResult>(T arg1);`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Delegate,
@@ -47,14 +47,14 @@ describe("Grammar", () => {
                 Token.Punctuation.Semicolon]);
         });
 
-        it("generic delegate with constraints", () => {
+        it("generic delegate with constraints", async () => {
 
             const input = `
 delegate void D<T1, T2>()
     where T1 : T2;
 `;
 
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Delegate,
@@ -74,10 +74,10 @@ delegate void D<T1, T2>()
                 Token.Punctuation.Semicolon]);
         });
 
-        it("generic delegate with attributes on type parameters", () => {
+        it("generic delegate with attributes on type parameters", async () => {
 
             const input = `delegate void D<[Foo] T1, [Bar] T2>();`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Delegate,
@@ -99,10 +99,10 @@ delegate void D<T1, T2>()
                 Token.Punctuation.Semicolon]);
         });
 
-        it("delegate with multiple parameters", () => {
+        it("delegate with multiple parameters", async () => {
 
             const input = `delegate int D(ref string x, out int y, params object[] z);`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Delegate,
@@ -126,9 +126,9 @@ delegate void D<T1, T2>()
                 Token.Punctuation.Semicolon]);
         });
 
-        it("ref return", () => {
+        it("ref return", async () => {
             const input = `delegate ref int D();`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Delegate,
@@ -140,9 +140,9 @@ delegate void D<T1, T2>()
                 Token.Punctuation.Semicolon]);
         });
 
-        it("ref readonly return", () => {
+        it("ref readonly return", async () => {
             const input = `delegate ref readonly int D();`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Delegate,

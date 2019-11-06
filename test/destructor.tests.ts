@@ -10,10 +10,10 @@ describe("Grammar", () => {
     before(() => { should(); });
 
     describe("Destructor", () => {
-        it("declaration", () => {
+        it("declaration", async () => {
 
             const input = Input.InClass(`~TestClass() { }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.Tilde,
@@ -24,10 +24,10 @@ describe("Grammar", () => {
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("with expression body", () => {
+        it("with expression body", async () => {
 
             const input = Input.InClass(`~TestClass() => Foo();`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.Tilde,

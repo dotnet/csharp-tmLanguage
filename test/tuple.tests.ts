@@ -9,9 +9,9 @@ import { tokenize, Input, Token } from './utils/tokenize';
 describe("Grammar", () => {
     before(() => { should(); });
     describe("Tuples", () => {
-        it("Tuple literal", () => {
+        it("Tuple literal", async () => {
             const input = Input.InMethod(`var p = (42, "hello");`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Var,
@@ -28,9 +28,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("Assign to tuple variable", () => {
+        it("Assign to tuple variable", async () => {
             const input = Input.InMethod(`(int x, int y) p = point;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.OpenParen,
@@ -47,9 +47,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("Deconstruct tuple into new locals", () => {
+        it("Deconstruct tuple into new locals", async () => {
             const input = Input.InMethod(`(int x, int y) = (19, 23);`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.OpenParen,
@@ -69,9 +69,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("Deconstruct tuple into new local and discard", () => {
+        it("Deconstruct tuple into new local and discard", async () => {
             const input = Input.InMethod(`(int x, _) = (19, 23);`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.OpenParen,
@@ -90,9 +90,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("Deconstruct into new locals", () => {
+        it("Deconstruct into new locals", async () => {
             const input = Input.InMethod(`(int x, int y) = point;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.OpenParen,
@@ -108,9 +108,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("Deconstruct into existing variables", () => {
+        it("Deconstruct into existing variables", async () => {
             const input = Input.InMethod(`(x, y) = point;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.OpenParen,
@@ -124,9 +124,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("Deconstruct into new locals with single var", () => {
+        it("Deconstruct into new locals with single var", async () => {
             const input = Input.InMethod(`var (x, y) = point;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Var,
@@ -141,9 +141,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("Deconstruct into new locals with multiple vars", () => {
+        it("Deconstruct into new locals with multiple vars", async () => {
             const input = Input.InMethod(`(var x, var y) = point;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.OpenParen,
@@ -159,9 +159,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("Deconstruct into new locals with mixed type names and var", () => {
+        it("Deconstruct into new locals with mixed type names and var", async () => {
             const input = Input.InMethod(`(string x, byte y, var z) = (null, 1, 2);`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.OpenParen,
@@ -186,9 +186,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("Deconstruct nested tuple into new locals", () => {
+        it("Deconstruct nested tuple into new locals", async () => {
             const input = Input.InMethod(`(int x, (int y, int z)) = (17, (2, 23));`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.OpenParen,
@@ -217,9 +217,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("Deconstruct nested tuple into new locals with multiple vars", () => {
+        it("Deconstruct nested tuple into new locals with multiple vars", async () => {
             const input = Input.InMethod(`(var x, (var y, var z)) = (17, (2, 23));`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.OpenParen,
@@ -248,9 +248,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("Deconstruct nested tuple into new locals with var", () => {
+        it("Deconstruct nested tuple into new locals with var", async () => {
             const input = Input.InMethod(`var (x, (y, z)) = (17, (2, 23));`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Var,
@@ -277,9 +277,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("Deconstruct into new tuple in foreach", () => {
+        it("Deconstruct into new tuple in foreach", async () => {
             const input = Input.InMethod(`foreach ((int x, int y) in GetPoints() { }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Control.ForEach,
@@ -300,9 +300,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("Deconstruct into new tuple with var in foreach", () => {
+        it("Deconstruct into new tuple with var in foreach", async () => {
             const input = Input.InMethod(`foreach (var (x, y) in GetPoints() { }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Control.ForEach,
@@ -322,9 +322,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("Deconstruct into new nested tuple in foreach", () => {
+        it("Deconstruct into new nested tuple in foreach", async () => {
             const input = Input.InMethod(`foreach ((int x, (int y, int z)) in data) { }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Control.ForEach,
@@ -349,9 +349,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("Deconstruct into new nested tuple with multiple vars in foreach", () => {
+        it("Deconstruct into new nested tuple with multiple vars in foreach", async () => {
             const input = Input.InMethod(`foreach ((var x, (var y, var z)) in data) { }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Control.ForEach,
@@ -376,9 +376,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("Deconstruct into new nested tuple with with var in foreach", () => {
+        it("Deconstruct into new nested tuple with with var in foreach", async () => {
             const input = Input.InMethod(`foreach (var (x, (y, z)) in data) { }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Control.ForEach,

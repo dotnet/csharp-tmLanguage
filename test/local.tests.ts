@@ -10,9 +10,9 @@ describe("Grammar", () => {
     before(() => { should(); });
 
     describe("Locals", () => {
-        it("declaration", () => {
+        it("declaration", async () => {
             const input = Input.InMethod(`int x;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.Int,
@@ -21,9 +21,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("declaration with initializer", () => {
+        it("declaration with initializer", async () => {
             const input = Input.InMethod(`int x = 42;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.Int,
@@ -34,9 +34,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("multiple declarators", () => {
+        it("multiple declarators", async () => {
             const input = Input.InMethod(`int x, y;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.Int,
@@ -47,9 +47,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("multiple declarators with initializers", () => {
+        it("multiple declarators with initializers", async () => {
             const input = Input.InMethod(`int x = 19, y = 23;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.Int,
@@ -64,9 +64,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("const declaration", () => {
+        it("const declaration", async () => {
             const input = Input.InMethod(`const int x = 42;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Const,
@@ -78,9 +78,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("const with multiple declarators", () => {
+        it("const with multiple declarators", async () => {
             const input = Input.InMethod(`const int x = 19, y = 23;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Const,
@@ -96,9 +96,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("ref local", () => {
+        it("ref local", async () => {
             const input = Input.InMethod(`ref int x;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Ref,
@@ -108,9 +108,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("ref readonly local", () => {
+        it("ref readonly local", async () => {
             const input = Input.InMethod(`ref readonly int x;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Ref,
@@ -121,9 +121,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("ref local with initializer", () => {
+        it("ref local with initializer", async () => {
             const input = Input.InMethod(`ref int x = ref y;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Ref,
@@ -136,9 +136,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("ref readonly local with initializer", () => {
+        it("ref readonly local with initializer", async () => {
             const input = Input.InMethod(`ref readonly int x = ref y;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Ref,
@@ -152,9 +152,9 @@ describe("Grammar", () => {
             ]);
         });
 
-        it("ref readonly local var with initializer", () => {
+        it("ref readonly local var with initializer", async () => {
             const input = Input.InMethod(`ref readonly var x = ref y;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Ref,

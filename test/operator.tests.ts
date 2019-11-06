@@ -10,10 +10,10 @@ describe("Grammar", () => {
     before(() => { should(); });
 
     describe("Operators", () => {
-        it("unary +", () => {
+        it("unary +", async () => {
 
             const input = Input.InClass(`public static int operator +(int value) { return +value; }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -33,10 +33,10 @@ describe("Grammar", () => {
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("unary -", () => {
+        it("unary -", async () => {
 
             const input = Input.InClass(`public static int operator -(int value) { return -value; }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -56,10 +56,10 @@ describe("Grammar", () => {
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("unary !", () => {
+        it("unary !", async () => {
 
             const input = Input.InClass(`public static bool operator !(int value) { return value == 0; }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -80,10 +80,10 @@ describe("Grammar", () => {
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("unary ~", () => {
+        it("unary ~", async () => {
 
             const input = Input.InClass(`public static int operator ~(int value) { return ~value; }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -103,10 +103,10 @@ describe("Grammar", () => {
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("unary ++", () => {
+        it("unary ++", async () => {
 
             const input = Input.InClass(`public static int operator ++(int value) { return ++value; }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -126,10 +126,10 @@ describe("Grammar", () => {
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("unary --", () => {
+        it("unary --", async () => {
 
             const input = Input.InClass(`public static int operator --(int value) { return --value; }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -149,10 +149,10 @@ describe("Grammar", () => {
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("unary true", () => {
+        it("unary true", async () => {
 
             const input = Input.InClass(`public static int operator true(int value) { return value != 0; }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -173,10 +173,10 @@ describe("Grammar", () => {
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("unary false", () => {
+        it("unary false", async () => {
 
             const input = Input.InClass(`public static int operator false(int value) { return value == 0; }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -197,10 +197,10 @@ describe("Grammar", () => {
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("binary +", () => {
+        it("binary +", async () => {
 
             const input = Input.InClass(`public static int operator +(int x, int y) { return x + y; }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -224,10 +224,10 @@ describe("Grammar", () => {
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("binary -", () => {
+        it("binary -", async () => {
 
             const input = Input.InClass(`public static int operator -(int x, int y) { return x - y; }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -251,10 +251,10 @@ describe("Grammar", () => {
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("binary *", () => {
+        it("binary *", async () => {
 
             const input = Input.InClass(`public static int operator *(int x, int y) { return x * y; }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -278,10 +278,10 @@ describe("Grammar", () => {
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("binary /", () => {
+        it("binary /", async () => {
 
             const input = Input.InClass(`public static int operator /(int x, int y) { return x / y; }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -305,10 +305,10 @@ describe("Grammar", () => {
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("binary %", () => {
+        it("binary %", async () => {
 
             const input = Input.InClass(`public static int operator %(int x, int y) { return x % y; }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -332,10 +332,10 @@ describe("Grammar", () => {
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("binary &", () => {
+        it("binary &", async () => {
 
             const input = Input.InClass(`public static int operator &(int x, int y) { return x & y; }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -359,10 +359,10 @@ describe("Grammar", () => {
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("binary |", () => {
+        it("binary |", async () => {
 
             const input = Input.InClass(`public static int operator |(int x, int y) { return x | y; }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -386,10 +386,10 @@ describe("Grammar", () => {
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("binary ^", () => {
+        it("binary ^", async () => {
 
             const input = Input.InClass(`public static int operator ^(int x, int y) { return x ^ y; }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -413,10 +413,10 @@ describe("Grammar", () => {
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("binary <<", () => {
+        it("binary <<", async () => {
 
             const input = Input.InClass(`public static int operator <<(int x, int y) { return x << y; }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -440,10 +440,10 @@ describe("Grammar", () => {
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("binary >>", () => {
+        it("binary >>", async () => {
 
             const input = Input.InClass(`public static int operator >>(int x, int y) { return x >> y; }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -467,10 +467,10 @@ describe("Grammar", () => {
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("binary ==", () => {
+        it("binary ==", async () => {
 
             const input = Input.InClass(`public static bool operator ==(int x, int y) { return x == y; }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -494,10 +494,10 @@ describe("Grammar", () => {
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("binary !=", () => {
+        it("binary !=", async () => {
 
             const input = Input.InClass(`public static bool operator !=(int x, int y) { return x != y; }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -521,10 +521,10 @@ describe("Grammar", () => {
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("binary >", () => {
+        it("binary >", async () => {
 
             const input = Input.InClass(`public static bool operator >(int x, int y) { return x > y; }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -548,10 +548,10 @@ describe("Grammar", () => {
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("binary <", () => {
+        it("binary <", async () => {
 
             const input = Input.InClass(`public static bool operator <(int x, int y) { return x < y; }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -575,10 +575,10 @@ describe("Grammar", () => {
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("binary >=", () => {
+        it("binary >=", async () => {
 
             const input = Input.InClass(`public static bool operator >=(int x, int y) { return x >= y; }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -602,10 +602,10 @@ describe("Grammar", () => {
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("binary <=", () => {
+        it("binary <=", async () => {
 
             const input = Input.InClass(`public static bool operator <=(int x, int y) { return x <= y; }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -629,10 +629,10 @@ describe("Grammar", () => {
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("implicit conversion", () => {
+        it("implicit conversion", async () => {
 
             const input = Input.InClass(`public static implicit operator bool(int x) { return x != 0; }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -653,10 +653,10 @@ describe("Grammar", () => {
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("explicit conversion", () => {
+        it("explicit conversion", async () => {
 
             const input = Input.InClass(`public static explicit operator bool(int x) { return x != 0; }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -677,10 +677,10 @@ describe("Grammar", () => {
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("with expression body", () => {
+        it("with expression body", async () => {
 
             const input = Input.InClass(`public static int operator +(int value) => +value;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -698,9 +698,9 @@ describe("Grammar", () => {
                 Token.Punctuation.Semicolon]);
         });
 
-        it("ref return", () => {
+        it("ref return", async () => {
             const input = Input.InClass(`public static ref int operator +(int value) { return ref x; }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -721,9 +721,9 @@ describe("Grammar", () => {
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("ref readonly return", () => {
+        it("ref readonly return", async () => {
             const input = Input.InClass(`public static ref readonly int operator +(int value) { return ref x; }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -745,9 +745,9 @@ describe("Grammar", () => {
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("expression body ref return", () => {
+        it("expression body ref return", async () => {
             const input = Input.InClass(`public static ref int operator +(int value) => ref x;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -766,9 +766,9 @@ describe("Grammar", () => {
                 Token.Punctuation.Semicolon]);
         });
 
-        it("expression body ref readonly return", () => {
+        it("expression body ref readonly return", async () => {
             const input = Input.InClass(`public static ref readonly int operator +(int value) => ref x;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,

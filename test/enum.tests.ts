@@ -10,10 +10,10 @@ describe("Grammar", () => {
     before(() => { should(); });
 
     describe("Enums", () => {
-        it("simple enum", () => {
+        it("simple enum", async () => {
 
             const input = `enum E { }`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Enum,
@@ -22,10 +22,10 @@ describe("Grammar", () => {
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("enum with base type", () => {
+        it("enum with base type", async () => {
 
             const input = `enum E : byte { }`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Enum,
@@ -36,10 +36,10 @@ describe("Grammar", () => {
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("enum with single member", () => {
+        it("enum with single member", async () => {
 
             const input = `enum E { M1 }`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Enum,
@@ -49,10 +49,10 @@ describe("Grammar", () => {
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("enum with multiple members", () => {
+        it("enum with multiple members", async () => {
 
             const input = `enum Color { Red, Green, Blue }`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Enum,
@@ -66,7 +66,7 @@ describe("Grammar", () => {
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("enum with initialized member", () => {
+        it("enum with initialized member", async () => {
 
             const input = `
 enum E
@@ -77,7 +77,7 @@ enum E
 }
 `;
 
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Enum,
@@ -93,7 +93,7 @@ enum E
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("enum members are highligted properly (issue omnisharp-vscode#1108)", () => {
+        it("enum members are highligted properly (issue omnisharp-vscode#1108)", async () => {
 
             const input = `
 public enum TestEnum
@@ -121,7 +121,7 @@ public class TestClass2
 }
 `;
 
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,

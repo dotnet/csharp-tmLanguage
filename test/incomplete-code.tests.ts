@@ -10,7 +10,7 @@ describe("Grammar", () => {
     before(() => { should(); });
 
     describe("Incomplete code", () => {
-        it("Don't eat the next lines if there isn't a semicolon (issue #15)", () => {
+        it("Don't eat the next lines if there isn't a semicolon (issue #15)", async () => {
             const input = Input.InClass(`
 private readonly string _color
 public ColorTest(string white)
@@ -19,7 +19,7 @@ public ColorTest(string white)
 }
 `);
 
-            let tokens = tokenize(input);
+            let tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Private,

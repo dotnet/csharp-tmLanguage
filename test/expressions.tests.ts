@@ -11,9 +11,9 @@ describe("Grammar", () => {
 
     describe("Expressions", () => {
         describe("Object creation", () => {
-            it("with argument multiplication (issue #82)", () => {
+            it("with argument multiplication (issue #82)", async () => {
                 const input = Input.InMethod(`var newPoint = new Vector(point.x * z, 0);`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -34,9 +34,9 @@ describe("Grammar", () => {
                 ]);
             });
 
-            it("with stackalloc keyword and byte array", () => {
+            it("with stackalloc keyword and byte array", async () => {
                 const input = Input.InMethod(`var bytes = stackalloc byte[10];`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -51,9 +51,9 @@ describe("Grammar", () => {
                 ]);
             });
 
-            it("with stackalloc keyword and int array", () => {
+            it("with stackalloc keyword and int array", async () => {
                 const input = Input.InMethod(`var ints = stackalloc int[42];`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -70,9 +70,9 @@ describe("Grammar", () => {
         });
 
         describe("Anonymous Methods", () => {
-            it("lambda expression with no parameters (assignment)", () => {
+            it("lambda expression with no parameters (assignment)", async () => {
                 const input = Input.InMethod(`Action a = () => { };`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Type("Action"),
@@ -87,9 +87,9 @@ describe("Grammar", () => {
                 ]);
             });
 
-            it("lambda expression with single parameter (assignment)", () => {
+            it("lambda expression with single parameter (assignment)", async () => {
                 const input = Input.InMethod(`Action<int> a = x => { };`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Type("Action"),
@@ -106,9 +106,9 @@ describe("Grammar", () => {
                 ]);
             });
 
-            it("lambda expression with single parenthesized parameter (assignment)", () => {
+            it("lambda expression with single parenthesized parameter (assignment)", async () => {
                 const input = Input.InMethod(`Action<int> a = (x) => { };`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Type("Action"),
@@ -127,9 +127,9 @@ describe("Grammar", () => {
                 ]);
             });
 
-            it("lambda expression with single typed parameter (assignment)", () => {
+            it("lambda expression with single typed parameter (assignment)", async () => {
                 const input = Input.InMethod(`Action<int> a = (int x) => { };`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Type("Action"),
@@ -149,9 +149,9 @@ describe("Grammar", () => {
                 ]);
             });
 
-            it("lambda expression with multiple parameters (assignment)", () => {
+            it("lambda expression with multiple parameters (assignment)", async () => {
                 const input = Input.InMethod(`Action<int, int> a = (x, y) => { };`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Type("Action"),
@@ -174,9 +174,9 @@ describe("Grammar", () => {
                 ]);
             });
 
-            it("lambda expression with multiple parameters with long names (assignment)", () => {
+            it("lambda expression with multiple parameters with long names (assignment)", async () => {
                 const input = Input.InMethod(`Action<int, int> a = (parameterNo1, parameterNo2) => { };`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Type("Action"),
@@ -199,9 +199,9 @@ describe("Grammar", () => {
                 ]);
             });
 
-            it("lambda expression with multiple typed parameters (assignment)", () => {
+            it("lambda expression with multiple typed parameters (assignment)", async () => {
                 const input = Input.InMethod(`Action<int, int> a = (int x, int y) => { };`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Type("Action"),
@@ -226,9 +226,9 @@ describe("Grammar", () => {
                 ]);
             });
 
-            it("async lambda expression with no parameters (assignment)", () => {
+            it("async lambda expression with no parameters (assignment)", async () => {
                 const input = Input.InMethod(`Func<Task> a = async () => { };`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Type("Func"),
@@ -247,9 +247,9 @@ describe("Grammar", () => {
                 ]);
             });
 
-            it("async lambda expression with single parameter (assignment)", () => {
+            it("async lambda expression with single parameter (assignment)", async () => {
                 const input = Input.InMethod(`Func<int, Task> a = async x => { };`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Type("Func"),
@@ -269,9 +269,9 @@ describe("Grammar", () => {
                 ]);
             });
 
-            it("async lambda expression with single parenthesized parameter (assignment)", () => {
+            it("async lambda expression with single parenthesized parameter (assignment)", async () => {
                 const input = Input.InMethod(`Func<int, Task> a = async (x) => { };`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Type("Func"),
@@ -293,9 +293,9 @@ describe("Grammar", () => {
                 ]);
             });
 
-            it("async lambda expression with single typed parameter (assignment)", () => {
+            it("async lambda expression with single typed parameter (assignment)", async () => {
                 const input = Input.InMethod(`Func<int, Task> a = async (int x) => { };`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Type("Func"),
@@ -318,9 +318,9 @@ describe("Grammar", () => {
                 ]);
             });
 
-            it("async lambda expression with multiple typed parameters (assignment)", () => {
+            it("async lambda expression with multiple typed parameters (assignment)", async () => {
                 const input = Input.InMethod(`Func<int, int, Task> a = async (int x, int y) => { };`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Type("Func"),
@@ -348,9 +348,9 @@ describe("Grammar", () => {
                 ]);
             });
 
-            it("async lambda expression with multiple parameters (assignment)", () => {
+            it("async lambda expression with multiple parameters (assignment)", async () => {
                 const input = Input.InMethod(`Func<int, int, Task> a = async (x, y) => { };`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Type("Func"),
@@ -376,9 +376,9 @@ describe("Grammar", () => {
                 ]);
             });
 
-            it("async lambda assigned to dotted name (issue #142)", () => {
+            it("async lambda assigned to dotted name (issue #142)", async () => {
                 const input = Input.InMethod(`Something.listener = async args => { return true; };`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Variables.Object("Something"),
@@ -396,10 +396,10 @@ describe("Grammar", () => {
                     Token.Punctuation.Semicolon
                 ]);
             });
-            
-            it("anonymous method with no parameter list (assignment)", () => {
+
+            it("anonymous method with no parameter list (assignment)", async () => {
                 const input = Input.InMethod(`Action a = delegate { };`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Type("Action"),
@@ -412,9 +412,9 @@ describe("Grammar", () => {
                 ]);
             });
 
-            it("anonymous method with empty parameter list (assignment)", () => {
+            it("anonymous method with empty parameter list (assignment)", async () => {
                 const input = Input.InMethod(`Action a = delegate() { };`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Type("Action"),
@@ -429,9 +429,9 @@ describe("Grammar", () => {
                 ]);
             });
 
-            it("anonymous method with parameters (assignment)", () => {
+            it("anonymous method with parameters (assignment)", async () => {
                 const input = Input.InMethod(`Action a = delegate(int x, int y) { };`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Type("Action"),
@@ -451,9 +451,9 @@ describe("Grammar", () => {
                 ]);
             });
 
-            it("async anonymous method with no parameter list (assignment)", () => {
+            it("async anonymous method with no parameter list (assignment)", async () => {
                 const input = Input.InMethod(`Func<Task> a = async delegate { };`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Type("Func"),
@@ -470,9 +470,9 @@ describe("Grammar", () => {
                 ]);
             });
 
-            it("async anonymous method with empty parameter list (assignment)", () => {
+            it("async anonymous method with empty parameter list (assignment)", async () => {
                 const input = Input.InMethod(`Func<Task> a = async delegate() { };`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Type("Func"),
@@ -491,9 +491,9 @@ describe("Grammar", () => {
                 ]);
             });
 
-            it("async anonymous method with parameters (assignment)", () => {
+            it("async anonymous method with parameters (assignment)", async () => {
                 const input = Input.InMethod(`Func<Task> a = async delegate(int x, int y) { };`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Type("Func"),
@@ -517,9 +517,9 @@ describe("Grammar", () => {
                 ]);
             });
 
-            it("lambda expression with no parameters (passed as argument)", () => {
+            it("lambda expression with no parameters (passed as argument)", async () => {
                 const input = Input.InMethod(`M(() => { });`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Identifiers.MethodName("M"),
@@ -534,9 +534,9 @@ describe("Grammar", () => {
                 ]);
             });
 
-            it("lambda expression with single parameter (passed as argument)", () => {
+            it("lambda expression with single parameter (passed as argument)", async () => {
                 const input = Input.InMethod(`M(x => { });`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Identifiers.MethodName("M"),
@@ -550,9 +550,9 @@ describe("Grammar", () => {
                 ]);
             });
 
-            it("lambda expression with single parenthesized parameter (passed as argument)", () => {
+            it("lambda expression with single parenthesized parameter (passed as argument)", async () => {
                 const input = Input.InMethod(`M((x) => { });`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Identifiers.MethodName("M"),
@@ -568,9 +568,9 @@ describe("Grammar", () => {
                 ]);
             });
 
-            it("lambda expression with single typed parameter (passed as argument)", () => {
+            it("lambda expression with single typed parameter (passed as argument)", async () => {
                 const input = Input.InMethod(`M((int x) => { });`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Identifiers.MethodName("M"),
@@ -587,9 +587,9 @@ describe("Grammar", () => {
                 ]);
             });
 
-            it("lambda expression with multiple parameters (passed as argument)", () => {
+            it("lambda expression with multiple parameters (passed as argument)", async () => {
                 const input = Input.InMethod(`M((x, y) => { });`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Identifiers.MethodName("M"),
@@ -607,9 +607,9 @@ describe("Grammar", () => {
                 ]);
             });
 
-            it("lambda expression with multiple typed parameters (passed as argument)", () => {
+            it("lambda expression with multiple typed parameters (passed as argument)", async () => {
                 const input = Input.InMethod(`M((int x, int y) => { });`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Identifiers.MethodName("M"),
@@ -629,9 +629,9 @@ describe("Grammar", () => {
                 ]);
             });
 
-            it("async lambda expression with no parameters (passed as argument)", () => {
+            it("async lambda expression with no parameters (passed as argument)", async () => {
                 const input = Input.InMethod(`M(async () => { });`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Identifiers.MethodName("M"),
@@ -647,9 +647,9 @@ describe("Grammar", () => {
                 ]);
             });
 
-            it("async lambda expression with single parameter (passed as argument)", () => {
+            it("async lambda expression with single parameter (passed as argument)", async () => {
                 const input = Input.InMethod(`M(async x => { });`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Identifiers.MethodName("M"),
@@ -664,9 +664,9 @@ describe("Grammar", () => {
                 ]);
             });
 
-            it("async lambda expression with single parenthesized parameter (passed as argument)", () => {
+            it("async lambda expression with single parenthesized parameter (passed as argument)", async () => {
                 const input = Input.InMethod(`M(async (x) => { });`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Identifiers.MethodName("M"),
@@ -683,9 +683,9 @@ describe("Grammar", () => {
                 ]);
             });
 
-            it("async lambda expression with single typed parameter (passed as argument)", () => {
+            it("async lambda expression with single typed parameter (passed as argument)", async () => {
                 const input = Input.InMethod(`M(async (int x) => { });`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Identifiers.MethodName("M"),
@@ -703,9 +703,9 @@ describe("Grammar", () => {
                 ]);
             });
 
-            it("async lambda expression with multiple parameters (passed as argument)", () => {
+            it("async lambda expression with multiple parameters (passed as argument)", async () => {
                 const input = Input.InMethod(`M(async (x, y) => { });`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Identifiers.MethodName("M"),
@@ -724,9 +724,9 @@ describe("Grammar", () => {
                 ]);
             });
 
-            it("async lambda expression with multiple typed parameters (passed as argument)", () => {
+            it("async lambda expression with multiple typed parameters (passed as argument)", async () => {
                 const input = Input.InMethod(`M(async (int x, int y) => { });`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Identifiers.MethodName("M"),
@@ -747,9 +747,9 @@ describe("Grammar", () => {
                 ]);
             });
 
-            it("lambda expression with ref return", () => {
+            it("lambda expression with ref return", async () => {
                 const input = Input.InMethod(`M((ref int x) => ref x);`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Identifiers.MethodName("M"),
@@ -767,9 +767,9 @@ describe("Grammar", () => {
                 ]);
             });
 
-            it("lambda expression with in parameter - in int", () => {
+            it("lambda expression with in parameter - in int", async () => {
                 const input = Input.InMethod(`M((in int x) => x);`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Identifiers.MethodName("M"),
@@ -786,9 +786,9 @@ describe("Grammar", () => {
                 ]);
             })
 
-            it("anonymous method with no parameter list (passed as argument)", () => {
+            it("anonymous method with no parameter list (passed as argument)", async () => {
                 const input = Input.InMethod(`M(delegate { });`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Identifiers.MethodName("M"),
@@ -801,9 +801,9 @@ describe("Grammar", () => {
                 ]);
             });
 
-            it("anonymous method with empty parameter list (passed as argument)", () => {
+            it("anonymous method with empty parameter list (passed as argument)", async () => {
                 const input = Input.InMethod(`M(delegate() { });`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Identifiers.MethodName("M"),
@@ -818,9 +818,9 @@ describe("Grammar", () => {
                 ]);
             });
 
-            it("anonymous method with parameters (passed as argument)", () => {
+            it("anonymous method with parameters (passed as argument)", async () => {
                 const input = Input.InMethod(`M(delegate(int x, int y) { });`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Identifiers.MethodName("M"),
@@ -840,9 +840,9 @@ describe("Grammar", () => {
                 ]);
             });
 
-            it("async anonymous method with no parameter list (passed as argument)", () => {
+            it("async anonymous method with no parameter list (passed as argument)", async () => {
                 const input = Input.InMethod(`M(async delegate { });`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Identifiers.MethodName("M"),
@@ -856,9 +856,9 @@ describe("Grammar", () => {
                 ]);
             });
 
-            it("async anonymous method with empty parameter list (passed as argument)", () => {
+            it("async anonymous method with empty parameter list (passed as argument)", async () => {
                 const input = Input.InMethod(`M(async delegate() { });`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Identifiers.MethodName("M"),
@@ -874,9 +874,9 @@ describe("Grammar", () => {
                 ]);
             });
 
-            it("async anonymous method with parameters (passed as argument)", () => {
+            it("async anonymous method with parameters (passed as argument)", async () => {
                 const input = Input.InMethod(`M(async delegate(int x, int y) { });`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Identifiers.MethodName("M"),
@@ -897,7 +897,7 @@ describe("Grammar", () => {
                 ]);
             });
 
-            it("lambda expression with throw statement passed as argument (issue #90)", () => {
+            it("lambda expression with throw statement passed as argument (issue #90)", async () => {
                 const input = Input.InClass(`
 [Fact]
 public void Method1()
@@ -910,7 +910,7 @@ public void Method2()
 {
     app.Command()
 }`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Punctuation.OpenBracket,
@@ -959,12 +959,12 @@ public void Method2()
                 ]);
             });
 
-            it("lambda expression with parameter whose name starts with ref (issue #95)", () => {
+            it("lambda expression with parameter whose name starts with ref (issue #95)", async () => {
                 const input = Input.InMethod(`
 var refObjectsToKeep = allRefObjects.Where(refObject => refObject.ShouldKeep);
 var intObjectsToKeep = allIntObjects.Where(intObject => intObject.ShouldKeep);
 var outObjectsToKeep = allOutObjects.Where(outObject => outObject.ShouldKeep);`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     // var refObjectsToKeep = allRefObjects.Where(refObject => refObject.ShouldKeep);
@@ -1019,9 +1019,9 @@ var outObjectsToKeep = allOutObjects.Where(outObject => outObject.ShouldKeep);`)
         });
 
         describe("Anonymous Objects", () => {
-            it("simple - on single line", () => {
+            it("simple - on single line", async () => {
                 const input = Input.InMethod(`var x = new { ID = 42 };`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -1037,13 +1037,13 @@ var outObjectsToKeep = allOutObjects.Where(outObject => outObject.ShouldKeep);`)
                 ]);
             });
 
-            it("simple - on multiple lines", () => {
+            it("simple - on multiple lines", async () => {
                 const input = Input.InMethod(`
 var x = new
 {
     ID = 42
 };`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -1059,9 +1059,9 @@ var x = new
                 ]);
             });
 
-            it("nested - on single line", () => {
+            it("nested - on single line", async () => {
                 const input = Input.InMethod(`var x = new { y = new { ID = 42 } };`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -1082,7 +1082,7 @@ var x = new
                 ]);
             });
 
-            it("nested - on multiple lines", () => {
+            it("nested - on multiple lines", async () => {
                 const input = Input.InMethod(`
 var x = new
 {
@@ -1091,7 +1091,7 @@ var x = new
         ID = 42
     }
 };`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -1114,9 +1114,9 @@ var x = new
         });
 
         describe("Arithmetic", () => {
-            it("mixed relational and arithmetic operators", () => {
+            it("mixed relational and arithmetic operators", async () => {
                 const input = Input.InMethod(`b = this.i != 1 + (2 - 3);`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Variables.ReadWrite("b"),
@@ -1138,9 +1138,9 @@ var x = new
         });
 
         describe("Array Creation", () => {
-            it("array creation expression passed as argument", () => {
+            it("array creation expression passed as argument", async () => {
                 const input = Input.InMethod(`c.abst(ref s, new int[] {1, i, i});`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Variables.Object("c"),
@@ -1168,9 +1168,9 @@ var x = new
         });
 
         describe("Await", () => {
-            it("at statement level", () => {
+            it("at statement level", async () => {
                 const input = Input.InMethod(`await M();`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Await,
@@ -1181,9 +1181,9 @@ var x = new
                 ]);
             });
 
-            it("in assignment", () => {
+            it("in assignment", async () => {
                 const input = Input.InMethod(`var x = await M();`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -1197,9 +1197,9 @@ var x = new
                 ]);
             });
 
-            it("passed as argument", () => {
+            it("passed as argument", async () => {
                 const input = Input.InMethod(`M1(await M2());`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Identifiers.MethodName("M1"),
@@ -1213,9 +1213,9 @@ var x = new
                 ]);
             });
 
-            it("statement level (issue #83)", () => {
+            it("statement level (issue #83)", async () => {
                 const input = Input.InMethod(`await x;`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Await,
@@ -1226,9 +1226,9 @@ var x = new
         });
 
         describe("Casts", () => {
-            it("cast to built-in type in assignment", () => {
+            it("cast to built-in type in assignment", async () => {
                 const input = Input.InMethod(`var o = (object)42;`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -1242,9 +1242,9 @@ var x = new
                 ]);
             });
 
-            it("cast to generic type in assignment", () => {
+            it("cast to generic type in assignment", async () => {
                 const input = Input.InMethod(`var o = (C<int>)42;`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -1261,9 +1261,9 @@ var x = new
                 ]);
             });
 
-            it("cast to tuple type in assignment", () => {
+            it("cast to tuple type in assignment", async () => {
                 const input = Input.InMethod(`var t = ((int x, int y))o;`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -1283,9 +1283,9 @@ var x = new
                 ]);
             });
 
-            it("passed to invocation", () => {
+            it("passed to invocation", async () => {
                 const input = Input.InMethod(`M((int)42);`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Identifiers.MethodName("M"),
@@ -1299,9 +1299,9 @@ var x = new
                 ]);
             });
 
-            it("chained cast passed to invocation", () => {
+            it("chained cast passed to invocation", async () => {
                 const input = Input.InMethod(`M((int)(object)42);`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Identifiers.MethodName("M"),
@@ -1318,9 +1318,9 @@ var x = new
                 ]);
             });
 
-            it("as cast of identifier", () => {
+            it("as cast of identifier", async () => {
                 const input = Input.InMethod(`var x = o as List<Lazy<string>>;`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -1339,9 +1339,9 @@ var x = new
                 ]);
             });
 
-            it("as cast of invocation", () => {
+            it("as cast of invocation", async () => {
                 const input = Input.InMethod(`var x = M() as List<Lazy<string>>;`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -1362,9 +1362,9 @@ var x = new
                 ]);
             });
 
-            it("is cast of identifier", () => {
+            it("is cast of identifier", async () => {
                 const input = Input.InMethod(`var x = o is List<Lazy<string>>;`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -1383,9 +1383,9 @@ var x = new
                 ]);
             });
 
-            it("is cast of invocation", () => {
+            it("is cast of invocation", async () => {
                 const input = Input.InMethod(`var x = M() is List<Lazy<string>>;`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -1408,9 +1408,9 @@ var x = new
         });
 
         describe("Checked/Unchecked", () => {
-            it("checked expression", () => {
+            it("checked expression", async () => {
                 const input = Input.InMethod(`int x = checked(42);`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.PrimitiveType.Int,
@@ -1424,9 +1424,9 @@ var x = new
                 ]);
             });
 
-            it("unchecked expression", () => {
+            it("unchecked expression", async () => {
                 const input = Input.InMethod(`int x = unchecked(42);`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.PrimitiveType.Int,
@@ -1440,7 +1440,7 @@ var x = new
                 ]);
             });
 
-            it("checked expression inside checked statement", () => {
+            it("checked expression inside checked statement", async () => {
                 const input = `
 class C
 {
@@ -1453,7 +1453,7 @@ class C
     }
     void M2() { }
 }`;
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Class,
@@ -1488,9 +1488,9 @@ class C
         });
 
         describe("Conditional Operator", () => {
-            it("in assignment", () => {
+            it("in assignment", async () => {
                 const input = Input.InMethod(`var y = x ? 19 : 23;`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -1505,9 +1505,9 @@ class C
                 ]);
             });
 
-            it("passed as argument", () => {
+            it("passed as argument", async () => {
                 const input = Input.InMethod(`M(x ? 19 : 23);`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Identifiers.MethodName("M"),
@@ -1522,14 +1522,14 @@ class C
                 ]);
             });
 
-            it("in nested anonymous objects (issue #85)", () => {
+            it("in nested anonymous objects (issue #85)", async () => {
                 const input = Input.InMethod(`
 var result = list.Select(l => new {
     w = l != null ? new {
         h = l.ToUpper()
     } : null
 });`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     // var result = list.Select(l => new {
@@ -1578,9 +1578,9 @@ var result = list.Select(l => new {
         });
 
         describe("Element Access", () => {
-            it("no arguments", () => {
+            it("no arguments", async () => {
                 const input = Input.InMethod(`var o = P[];`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -1593,9 +1593,9 @@ var result = list.Select(l => new {
                 ]);
             });
 
-            it("one argument", () => {
+            it("one argument", async () => {
                 const input = Input.InMethod(`var o = P[42];`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -1609,9 +1609,9 @@ var result = list.Select(l => new {
                 ]);
             });
 
-            it("two arguments", () => {
+            it("two arguments", async () => {
                 const input = Input.InMethod(`var o = P[19, 23];`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -1627,9 +1627,9 @@ var result = list.Select(l => new {
                 ]);
             });
 
-            it("two named arguments", () => {
+            it("two named arguments", async () => {
                 const input = Input.InMethod(`var o = P[x: 19, y: 23];`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -1649,9 +1649,9 @@ var result = list.Select(l => new {
                 ]);
             });
 
-            it("ref argument", () => {
+            it("ref argument", async () => {
                 const input = Input.InMethod(`var o = P[ref x];`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -1666,9 +1666,9 @@ var result = list.Select(l => new {
                 ]);
             });
 
-            it("out argument", () => {
+            it("out argument", async () => {
                 const input = Input.InMethod(`var o = P[out x];`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -1683,9 +1683,9 @@ var result = list.Select(l => new {
                 ]);
             });
 
-            it("in argument", () => {
+            it("in argument", async () => {
                 const input = Input.InMethod(`var o = P[in x];`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -1700,9 +1700,9 @@ var result = list.Select(l => new {
                 ]);
             });
 
-            it("named ref argument", () => {
+            it("named ref argument", async () => {
                 const input = Input.InMethod(`var o = P[x: ref y];`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -1719,9 +1719,9 @@ var result = list.Select(l => new {
                 ]);
             });
 
-            it("named out argument", () => {
+            it("named out argument", async () => {
                 const input = Input.InMethod(`var o = P[x: out y];`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -1738,9 +1738,9 @@ var result = list.Select(l => new {
                 ]);
             });
 
-            it("named in argument", () => {
+            it("named in argument", async () => {
                 const input = Input.InMethod(`var o = P[x: in y];`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -1757,9 +1757,9 @@ var result = list.Select(l => new {
                 ]);
             });
 
-            it("out argument declaration", () => {
+            it("out argument declaration", async () => {
                 const input = Input.InMethod(`var o = P[out int x, out var y];`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -1779,9 +1779,9 @@ var result = list.Select(l => new {
                 ]);
             });
 
-            it("in argument declaration", () => {
+            it("in argument declaration", async () => {
                 const input = Input.InMethod(`var o = P[in int x, in var y];`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -1801,9 +1801,9 @@ var result = list.Select(l => new {
                 ]);
             });
 
-            it("member of generic with no arguments", () => {
+            it("member of generic with no arguments", async () => {
                 const input = Input.InMethod(`var o = C<int>.P[];`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -1821,9 +1821,9 @@ var result = list.Select(l => new {
                 ]);
             });
 
-            it("member of qualified generic with no arguments", () => {
+            it("member of qualified generic with no arguments", async () => {
                 const input = Input.InMethod(`var o = N.C<int>.P[];`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -1843,9 +1843,9 @@ var result = list.Select(l => new {
                 ]);
             });
 
-            it("member with element access", () => {
+            it("member with element access", async () => {
                 const input = Input.InMethod(`var a = b.c[0];`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -1861,9 +1861,9 @@ var result = list.Select(l => new {
                 ]);
             });
 
-            it("member with two element accesses", () => {
+            it("member with two element accesses", async () => {
                 const input = Input.InMethod(`var a = b.c[19][23];`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -1882,9 +1882,9 @@ var result = list.Select(l => new {
                 ]);
             });
 
-            it("member with two element accesses and another member", () => {
+            it("member with two element accesses and another member", async () => {
                 const input = Input.InMethod(`var a = b.c[19][23].d;`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -1905,9 +1905,9 @@ var result = list.Select(l => new {
                 ]);
             });
 
-            it("member with two element accesses and an invocation", () => {
+            it("member with two element accesses and an invocation", async () => {
                 const input = Input.InMethod(`var a = b.c[19][23].d();`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -1930,12 +1930,12 @@ var result = list.Select(l => new {
                 ]);
             });
 
-            it("read/write array element", () => {
+            it("read/write array element", async () => {
                 const input = Input.InMethod(`
 object[] a1 = {(null), (this.a), c};
 a1[1] = ((this.a)); a1[2] = (c); a1[1] = (i);
 `);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.PrimitiveType.Object,
@@ -1992,11 +1992,11 @@ a1[1] = ((this.a)); a1[2] = (c); a1[1] = (i);
                 ]);
             });
 
-            it("arithmetic expression with multiple element accesses 1 (issue #37)", () => {
+            it("arithmetic expression with multiple element accesses 1 (issue #37)", async () => {
                 const input = Input.InMethod(`
 long total = data["bonusGame"]["win"].AsLong * data["bonusGame"]["betMult"].AsLong;
 `);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.PrimitiveType.Long,
@@ -2033,11 +2033,11 @@ long total = data["bonusGame"]["win"].AsLong * data["bonusGame"]["betMult"].AsLo
                 ]);
             });
 
-            it("arithmetic expression with multiple element accesses 2 (issue #37)", () => {
+            it("arithmetic expression with multiple element accesses 2 (issue #37)", async () => {
                 const input = Input.InMethod(`
 total = data["bonusGame"]["win"].AsLong * data["bonusGame"]["betMult"].AsLong;
 `);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Variables.ReadWrite("total"),
@@ -2073,11 +2073,11 @@ total = data["bonusGame"]["win"].AsLong * data["bonusGame"]["betMult"].AsLong;
                 ]);
             });
 
-            it("arithmetic expression with multiple element accesses 3 (issue #37)", () => {
+            it("arithmetic expression with multiple element accesses 3 (issue #37)", async () => {
                 const input = Input.InMethod(`
 long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].AsLong;
 `);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.PrimitiveType.Long,
@@ -2118,9 +2118,9 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
         });
 
         describe("Invocations", () => {
-            it("no arguments", () => {
+            it("no arguments", async () => {
                 const input = Input.InMethod(`M();`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Identifiers.MethodName("M"),
@@ -2130,9 +2130,9 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
                 ]);
             });
 
-            it("no arguments with space (issue #54)", () => {
+            it("no arguments with space (issue #54)", async () => {
                 const input = Input.InMethod(`M ();`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Identifiers.MethodName("M"),
@@ -2142,9 +2142,9 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
                 ]);
             });
 
-            it("one argument", () => {
+            it("one argument", async () => {
                 const input = Input.InMethod(`M(42);`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Identifiers.MethodName("M"),
@@ -2155,9 +2155,9 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
                 ]);
             });
 
-            it("one argument with space (issue #54)", () => {
+            it("one argument with space (issue #54)", async () => {
                 const input = Input.InMethod(`M (42);`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Identifiers.MethodName("M"),
@@ -2168,9 +2168,9 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
                 ]);
             });
 
-            it("two arguments", () => {
+            it("two arguments", async () => {
                 const input = Input.InMethod(`M(19, 23);`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Identifiers.MethodName("M"),
@@ -2183,9 +2183,9 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
                 ]);
             });
 
-            it("two named arguments", () => {
+            it("two named arguments", async () => {
                 const input = Input.InMethod(`M(x: 19, y: 23);`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Identifiers.MethodName("M"),
@@ -2202,9 +2202,9 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
                 ]);
             });
 
-            it("ref argument", () => {
+            it("ref argument", async () => {
                 const input = Input.InMethod(`M(ref x);`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Identifiers.MethodName("M"),
@@ -2216,9 +2216,9 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
                 ]);
             });
 
-            it("out argument", () => {
+            it("out argument", async () => {
                 const input = Input.InMethod(`M(out x);`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Identifiers.MethodName("M"),
@@ -2230,9 +2230,9 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
                 ]);
             });
 
-            it("in argument", () => {
+            it("in argument", async () => {
                 const input = Input.InMethod(`M(in x);`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Identifiers.MethodName("M"),
@@ -2244,9 +2244,9 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
                 ]);
             });
 
-            it("named ref argument", () => {
+            it("named ref argument", async () => {
                 const input = Input.InMethod(`M(x: ref y);`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Identifiers.MethodName("M"),
@@ -2260,9 +2260,9 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
                 ]);
             });
 
-            it("named out argument", () => {
+            it("named out argument", async () => {
                 const input = Input.InMethod(`M(x: out y);`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Identifiers.MethodName("M"),
@@ -2276,9 +2276,9 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
                 ]);
             });
 
-            it("named in argument", () => {
+            it("named in argument", async () => {
                 const input = Input.InMethod(`M(x: in y);`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Identifiers.MethodName("M"),
@@ -2292,9 +2292,9 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
                 ]);
             });
 
-            it("out argument declaration", () => {
+            it("out argument declaration", async () => {
                 const input = Input.InMethod(`M(out int x, out var y);`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Identifiers.MethodName("M"),
@@ -2311,9 +2311,9 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
                 ]);
             });
 
-            it("in argument declaration", () => {
+            it("in argument declaration", async () => {
                 const input = Input.InMethod(`M(in int x, in var y);`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Identifiers.MethodName("M"),
@@ -2330,9 +2330,9 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
                 ]);
             });
 
-            it("generic with no arguments", () => {
+            it("generic with no arguments", async () => {
                 const input = Input.InMethod(`M<int>();`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Identifiers.MethodName("M"),
@@ -2345,9 +2345,9 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
                 ]);
             });
 
-            it("nested generic with no arguments", () => {
+            it("nested generic with no arguments", async () => {
                 const input = Input.InMethod(`M<T<int>>();`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Identifiers.MethodName("M"),
@@ -2363,9 +2363,9 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
                 ]);
             });
 
-            it("double-nested generic with no arguments", () => {
+            it("double-nested generic with no arguments", async () => {
                 const input = Input.InMethod(`M<T<U<int>>>();`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Identifiers.MethodName("M"),
@@ -2384,9 +2384,9 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
                 ]);
             });
 
-            it("member of generic with no arguments", () => {
+            it("member of generic with no arguments", async () => {
                 const input = Input.InMethod(`C<int>.M();`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Variables.Object("C"),
@@ -2401,9 +2401,9 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
                 ]);
             });
 
-            it("member of qualified generic with no arguments", () => {
+            it("member of qualified generic with no arguments", async () => {
                 const input = Input.InMethod(`N.C<int>.M();`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Variables.Object("N"),
@@ -2420,9 +2420,9 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
                 ]);
             });
 
-            it("store result of member of qualified generic with no arguments", () => {
+            it("store result of member of qualified generic with no arguments", async () => {
                 const input = Input.InMethod(`var o = N.C<int>.M();`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -2442,9 +2442,9 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
                 ]);
             });
 
-            it("store result of qualified method with no arguments", () => {
+            it("store result of qualified method with no arguments", async () => {
                 const input = Input.InMethod(`var o = N.C.M();`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -2461,9 +2461,9 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
                 ]);
             });
 
-            it("qualified method with no arguments and space 1 (issue #54)", () => {
+            it("qualified method with no arguments and space 1 (issue #54)", async () => {
                 const input = Input.InMethod(`N.C.M ();`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Variables.Object("N"),
@@ -2477,9 +2477,9 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
                 ]);
             });
 
-            it("qualified method with no arguments and space 2 (issue #54)", () => {
+            it("qualified method with no arguments and space 2 (issue #54)", async () => {
                 const input = Input.InMethod(`C.M ();`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Variables.Object("C"),
@@ -2491,9 +2491,9 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
                 ]);
             });
 
-            it("store result of this.qualified method with no arguments", () => {
+            it("store result of this.qualified method with no arguments", async () => {
                 const input = Input.InMethod(`var o = this.C.M();`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -2510,9 +2510,9 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
                 ]);
             });
 
-            it("store result of invocation with two named arguments", () => {
+            it("store result of invocation with two named arguments", async () => {
                 const input = Input.InMethod(`var o = M(x: 19, y: 23);`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -2532,9 +2532,9 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
                 ]);
             });
 
-            it("multiplicated parameters (issue #99)", () => {
+            it("multiplicated parameters (issue #99)", async () => {
                 const input = Input.InMethod(`Multiply(n1 * n2);`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Identifiers.MethodName("Multiply"),
@@ -2547,9 +2547,9 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
                 ]);
             });
 
-            it("chained method calls", () => {
+            it("chained method calls", async () => {
                 const input = Input.InMethod(`M1().M2();`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Identifiers.MethodName("M1"),
@@ -2563,9 +2563,9 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
                 ]);
             });
 
-            it("chained invocations with lambda expression arguments", () => {
+            it("chained invocations with lambda expression arguments", async () => {
                 const input = Input.InMethod(`M1(x => x).M2(x => x);`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Identifiers.MethodName("M1"),
@@ -2585,9 +2585,9 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
                 ]);
             });
 
-            it("chained invocations with lambda expression arguments, each with single parenthesized parameter", () => {
+            it("chained invocations with lambda expression arguments, each with single parenthesized parameter", async () => {
                 const input = Input.InMethod(`M1((x) => x).M2((x) => x);`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Identifiers.MethodName("M1"),
@@ -2611,9 +2611,9 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
                 ]);
             });
 
-            it("chained invocations with multiple lambda expression arguments", () => {
+            it("chained invocations with multiple lambda expression arguments", async () => {
                 const input = Input.InMethod(`M1(x => x, y => y).M2(x => x, y => y);`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Identifiers.MethodName("M1"),
@@ -2641,9 +2641,9 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
                 ]);
             });
 
-            it("chained invocations with multiple lambda expression arguments (with parenthesized parameters)", () => {
+            it("chained invocations with multiple lambda expression arguments (with parenthesized parameters)", async () => {
                 const input = Input.InMethod(`M1((x) => x, (y) => y).M2((x) => x, (y) => y);`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Identifiers.MethodName("M1"),
@@ -2679,14 +2679,14 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
                 ]);
             });
 
-            it("multiple invocations with lambda expressions (issue #47)", () => {
+            it("multiple invocations with lambda expressions (issue #47)", async () => {
                 const input = Input.InClass(`
 void CandleLightOffSecond(int index)
 {
     DOTween.ToAlpha(() => FSItems[index].CandleSecond.startColor, (x) => FSItems[index].CandleSecond.startColor = x, 0f, 1f).OnComplete(() => DisableCandleFX(index));
     DOTween.ToAlpha(() => FSItems[index].CandleSecond.startColor, (x) => FSItems[index].CandleSecond.startColor = x, 0f, 1f);
 }`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.PrimitiveType.Void,
@@ -2788,9 +2788,9 @@ void CandleLightOffSecond(int index)
         });
 
         describe("nameof", () => {
-            it("in assignment", () => {
+            it("in assignment", async () => {
                 const input = Input.InMethod(`const int x = nameof(x);`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Modifiers.Const,
@@ -2807,9 +2807,9 @@ void CandleLightOffSecond(int index)
         });
 
         describe("Null-coalescing Operator", () => {
-            it("in assignment", () => {
+            it("in assignment", async () => {
                 const input = Input.InMethod(`var y = x ?? new object();`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -2825,9 +2825,9 @@ void CandleLightOffSecond(int index)
                 ]);
             });
 
-            it("passed as argument", () => {
+            it("passed as argument", async () => {
                 const input = Input.InMethod(`M(x ?? new object());`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Identifiers.MethodName("M"),
@@ -2845,9 +2845,9 @@ void CandleLightOffSecond(int index)
         });
 
         describe("Null-conditional Operator", () => {
-            it("before dot 1", () => {
+            it("before dot 1", async () => {
                 const input = Input.InMethod(`var a = b?.c;`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -2861,9 +2861,9 @@ void CandleLightOffSecond(int index)
                 ]);
             });
 
-            it("before dot 2", () => {
+            it("before dot 2", async () => {
                 const input = Input.InMethod(`var a = b.c?.d;`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -2879,9 +2879,9 @@ void CandleLightOffSecond(int index)
                 ]);
             });
 
-            it("in element access 1", () => {
+            it("in element access 1", async () => {
                 const input = Input.InMethod(`var a = b.c?[0];`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -2898,9 +2898,9 @@ void CandleLightOffSecond(int index)
                 ]);
             });
 
-            it("in element access 2", () => {
+            it("in element access 2", async () => {
                 const input = Input.InMethod(`var a = b.c?.d?[0];`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -2920,9 +2920,9 @@ void CandleLightOffSecond(int index)
                 ]);
             });
 
-            it("before element access", () => {
+            it("before element access", async () => {
                 const input = Input.InMethod(`var a = b.c[0];`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -2938,9 +2938,9 @@ void CandleLightOffSecond(int index)
                 ]);
             });
 
-            it("before invocation", () => {
+            it("before invocation", async () => {
                 const input = Input.InMethod(`var a = b?.c());`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -2958,9 +2958,9 @@ void CandleLightOffSecond(int index)
         });
 
         describe("Primary", () => {
-            it("default", () => {
+            it("default", async () => {
                 const input = Input.InMethod(`var t = default(List<>);`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -2976,9 +2976,9 @@ void CandleLightOffSecond(int index)
                 ]);
             });
 
-            it("typeof", () => {
+            it("typeof", async () => {
                 const input = Input.InMethod(`var t = typeof(List<>);`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -2996,9 +2996,9 @@ void CandleLightOffSecond(int index)
         });
 
         describe("Queries", () => {
-            it("from clause", () => {
+            it("from clause", async () => {
                 const input = Input.InMethod(`var q = from n in numbers`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -3011,9 +3011,9 @@ void CandleLightOffSecond(int index)
                 ]);
             });
 
-            it("from clause with type", () => {
+            it("from clause with type", async () => {
                 const input = Input.InMethod(`var q = from int n in numbers`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -3027,12 +3027,12 @@ void CandleLightOffSecond(int index)
                 ]);
             });
 
-            it("from clause followed by from clause", () => {
+            it("from clause followed by from clause", async () => {
                 const input = Input.InMethod(`
 var q = from x in list1
         from y in list2
 `);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -3049,12 +3049,12 @@ var q = from x in list1
                 ]);
             });
 
-            it("from clause, join clause", () => {
+            it("from clause, join clause", async () => {
                 const input = Input.InMethod(`
 var q = from c in customers
         join o in orders on c.CustomerID equals o.CustomerID
 `);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -3079,12 +3079,12 @@ var q = from c in customers
                 ]);
             });
 
-            it("from clause, join-into clause", () => {
+            it("from clause, join-into clause", async () => {
                 const input = Input.InMethod(`
 var q = from c in customers
         join o in orders on c.CustomerID equals o.CustomerID into co
 `);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -3111,12 +3111,12 @@ var q = from c in customers
                 ]);
             });
 
-            it("from clause, orderby", () => {
+            it("from clause, orderby", async () => {
                 const input = Input.InMethod(`
 var q = from o in orders
         orderby o.Customer.Name, o.Total
 `);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -3139,12 +3139,12 @@ var q = from o in orders
                 ]);
             });
 
-            it("from clause, orderby ascending", () => {
+            it("from clause, orderby ascending", async () => {
                 const input = Input.InMethod(`
 var q = from o in orders
         orderby o.Customer.Name ascending, o.Total
 `);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -3168,12 +3168,12 @@ var q = from o in orders
                 ]);
             });
 
-            it("from clause, orderby descending", () => {
+            it("from clause, orderby descending", async () => {
                 const input = Input.InMethod(`
 var q = from o in orders
         orderby o.Customer.Name, o.Total descending
 `);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -3197,11 +3197,11 @@ var q = from o in orders
                 ]);
             });
 
-            it("from and select", () => {
+            it("from and select", async () => {
                 const input = Input.InMethod(`
 var q = from n in numbers
         select n;`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -3217,11 +3217,11 @@ var q = from n in numbers
                 ]);
             });
 
-            it("from and select with complex expressions", () => {
+            it("from and select with complex expressions", async () => {
                 const input = Input.InMethod(`
 var q = from n in new[] { 1, 3, 5, 7, 9 }
         select n % 4 * 6;`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -3254,11 +3254,11 @@ var q = from n in new[] { 1, 3, 5, 7, 9 }
                 ]);
             });
 
-            it("from and group by", () => {
+            it("from and group by", async () => {
                 const input = Input.InMethod(`
 var q = from c in customers
         group c by c.Country into g`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -3279,11 +3279,11 @@ var q = from c in customers
                 ]);
             });
 
-            it("parenthesized", () => {
+            it("parenthesized", async () => {
                 const input = Input.InMethod(`
 var q = (from x in "abc" select x);
 string s;`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -3306,7 +3306,7 @@ string s;`);
                 ]);
             });
 
-            it("highlight complex query properly (issue omnisharp-vscode#1106)", () => {
+            it("highlight complex query properly (issue omnisharp-vscode#1106)", async () => {
                 const input = Input.InClass(`
 private static readonly Parser<Node> NodeParser =
     from name in NodeName.Token()
@@ -3324,7 +3324,7 @@ private static readonly Parser<Node> NodeParser =
             Children = children
         };
 `);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Modifiers.Private,
@@ -3459,7 +3459,7 @@ private static readonly Parser<Node> NodeParser =
                 ]);
             });
 
-            it("query join with anonymous type (issue #89)", () => {
+            it("query join with anonymous type (issue #89)", async () => {
                 const input = Input.InMethod(`
 var q = from x in list1
 join y in list2
@@ -3474,7 +3474,7 @@ join y in list2
         y.Key2
     }
 select x.Key1;`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
@@ -3520,9 +3520,9 @@ select x.Key1;`);
         });
 
         describe("Throw expressions", () => {
-            it("throw expression in expression-bodied member (issue #69)", () => {
+            it("throw expression in expression-bodied member (issue #69)", async () => {
                 const input = Input.InClass(`public static void A(string str) => throw new Exception(str);`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Modifiers.Public,
@@ -3544,9 +3544,9 @@ select x.Key1;`);
                 ]);
             });
 
-            it("throw expression in assignment", () => {
+            it("throw expression in assignment", async () => {
                 const input = Input.InMethod(`_field = field ?? throw new ArgumentNullException(nameof(field));`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Variables.ReadWrite("_field"),

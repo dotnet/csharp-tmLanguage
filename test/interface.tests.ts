@@ -10,10 +10,10 @@ describe("Grammar", () => {
     before(() => { should(); });
 
     describe("Interfaces", () => {
-        it("simple interface", () => {
+        it("simple interface", async () => {
 
             const input = `interface IFoo { }`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Interface,
@@ -22,14 +22,14 @@ describe("Grammar", () => {
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("interface inheritance", () => {
+        it("interface inheritance", async () => {
 
             const input = `
 interface IFoo { }
 interface IBar : IFoo { }
 `;
 
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Interface,
@@ -44,10 +44,10 @@ interface IBar : IFoo { }
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("generic interface", () => {
+        it("generic interface", async () => {
 
             const input = `interface IFoo<T1, T2> { }`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Interface,
@@ -61,10 +61,10 @@ interface IBar : IFoo { }
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("generic interface with variance", () => {
+        it("generic interface with variance", async () => {
 
             const input = `interface IFoo<in T1, out T2> { }`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Interface,
@@ -80,10 +80,10 @@ interface IBar : IFoo { }
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("generic interface with constraints", () => {
+        it("generic interface with constraints", async () => {
 
             const input = `interface IFoo<T1, T2> where T1 : T2 { }`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Interface,

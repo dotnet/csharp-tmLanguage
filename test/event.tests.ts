@@ -10,9 +10,9 @@ describe("Grammar", () => {
     before(() => { should(); });
 
     describe("Events", () => {
-        it("declaration", () => {
+        it("declaration", async () => {
             const input = Input.InClass(`public event Type Event;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -22,9 +22,9 @@ describe("Grammar", () => {
                 Token.Punctuation.Semicolon]);
         });
 
-        it("declaration with multiple modifiers", () => {
+        it("declaration with multiple modifiers", async () => {
             const input = Input.InClass(`protected internal event Type Event;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Protected,
@@ -35,9 +35,9 @@ describe("Grammar", () => {
                 Token.Punctuation.Semicolon]);
         });
 
-        it("declaration with multiple declarators", () => {
+        it("declaration with multiple declarators", async () => {
             const input = Input.InClass(`public event Type Event1, Event2;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -49,9 +49,9 @@ describe("Grammar", () => {
                 Token.Punctuation.Semicolon]);
         });
 
-        it("generic", () => {
+        it("generic", async () => {
             const input = Input.InClass(`public event EventHandler<List<T>, Dictionary<T, D>> Event;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -74,7 +74,7 @@ describe("Grammar", () => {
                 Token.Punctuation.Semicolon]);
         });
 
-        it("declaration with accessors", () => {
+        it("declaration with accessors", async () => {
             const input = Input.InClass(`
 public event Type Event
 {
@@ -82,7 +82,7 @@ public event Type Event
     remove { }
 }`);
 
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -99,9 +99,9 @@ public event Type Event
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("explicitly-implemented interface member", () => {
+        it("explicitly-implemented interface member", async () => {
             const input = Input.InClass(`event EventHandler IFoo<string>.Event { add; remove; }`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Event,
@@ -120,9 +120,9 @@ public event Type Event
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("declaration in interface", () => {
+        it("declaration in interface", async () => {
             const input = Input.InInterface(`event EventHandler Event;`);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Event,
@@ -131,7 +131,7 @@ public event Type Event
                 Token.Punctuation.Semicolon]);
         });
 
-        it("declaration in interface with properties", () => {
+        it("declaration in interface with properties", async () => {
             const input = `
 interface IObj
 {
@@ -142,7 +142,7 @@ interface IObj
     event EventHandler Event;
     int Prop2 { get; }
 }`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Interface,
@@ -167,7 +167,7 @@ interface IObj
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("declaration with attributes", () => {
+        it("declaration with attributes", async () => {
             const input = Input.InClass(`
 [event: Test]
 public event Action E1
@@ -179,7 +179,7 @@ public event Action E1
     remove { }
 }`);
 
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Punctuation.OpenBracket,
@@ -213,7 +213,7 @@ public event Action E1
             ]);
         });
 
-        it("Expression-bodied event accessors (issue #44)", () => {
+        it("Expression-bodied event accessors (issue #44)", async () => {
             const input = Input.InClass(`
 event EventHandler E
 {
@@ -221,7 +221,7 @@ event EventHandler E
     remove => Remove(value);
 }
 `);
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Event,

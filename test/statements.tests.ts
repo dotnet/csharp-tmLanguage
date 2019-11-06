@@ -11,12 +11,12 @@ describe("Grammar", () => {
 
     describe("Statements", () => {
         describe("Checked/Unchecked", () => {
-            it("checked statement", () => {
+            it("checked statement", async () => {
                 const input = Input.InMethod(`
 checked
 {
 }`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Checked,
@@ -25,12 +25,12 @@ checked
                 ]);
             });
 
-            it("unchecked statement", () => {
+            it("unchecked statement", async () => {
                 const input = Input.InMethod(`
 unchecked
 {
 }`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Unchecked,
@@ -41,9 +41,9 @@ unchecked
         });
 
         describe("Do", () => {
-            it("single-line do..while loop", () => {
+            it("single-line do..while loop", async () => {
                 const input = Input.InMethod(`do { } while (true);`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Control.Do,
@@ -59,9 +59,9 @@ unchecked
         });
 
         describe("For", () => {
-            it("single-line for loop", () => {
+            it("single-line for loop", async () => {
                 const input = Input.InMethod(`for (int i = 0; i < 42; i++) { }`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Control.For,
@@ -83,13 +83,13 @@ unchecked
                 ]);
             });
 
-            it("for loop with break", () => {
+            it("for loop with break", async () => {
                 const input = Input.InMethod(`
 for (int i = 0; i < 42; i++)
 {
     break;
 }`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Control.For,
@@ -113,13 +113,13 @@ for (int i = 0; i < 42; i++)
                 ]);
             });
 
-            it("for loop with continue", () => {
+            it("for loop with continue", async () => {
                 const input = Input.InMethod(`
 for (int i = 0; i < 42; i++)
 {
     continue;
 }`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Control.For,
@@ -143,12 +143,12 @@ for (int i = 0; i < 42; i++)
                 ]);
             });
 
-            it("for loop with argument multiplication (issue #99)", () => {
+            it("for loop with argument multiplication (issue #99)", async () => {
                 const input = Input.InMethod(`
     for (int i = 0; i < n1 * n2; i++)
     {
     }`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Control.For,
@@ -174,9 +174,9 @@ for (int i = 0; i < 42; i++)
         });
 
         describe("ForEach", () => {
-            it("single-line foreach loop", () => {
+            it("single-line foreach loop", async () => {
                 const input = Input.InMethod(`foreach (int i in numbers) { }`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Control.ForEach,
@@ -191,13 +191,13 @@ for (int i = 0; i < 42; i++)
                 ]);
             });
 
-            it("foreach loop with var (issue omnisharp-vscode#816)", () => {
+            it("foreach loop with var (issue omnisharp-vscode#816)", async () => {
                 const input = Input.InMethod(`
 foreach (var s in myList)
 {
 
 }`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Control.ForEach,
@@ -214,9 +214,9 @@ foreach (var s in myList)
         });
 
         describe("While", () => {
-            it("single-line while loop", () => {
+            it("single-line while loop", async () => {
                 const input = Input.InMethod(`while (true) { }`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Control.While,
@@ -230,9 +230,9 @@ foreach (var s in myList)
         });
 
         describe("If", () => {
-            it("single-line if with embedded statement", () => {
+            it("single-line if with embedded statement", async () => {
                 const input = Input.InMethod(`if (true) return;`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Control.If,
@@ -244,9 +244,9 @@ foreach (var s in myList)
                 ]);
             });
 
-            it("single-line if with embedded method call", () => {
+            it("single-line if with embedded method call", async () => {
                 const input = Input.InMethod(`if (true) Do();`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Control.If,
@@ -260,9 +260,9 @@ foreach (var s in myList)
                 ]);
             });
 
-            it("single-line if with block", () => {
+            it("single-line if with block", async () => {
                 const input = Input.InMethod(`if (true) { Do(); }`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Control.If,
@@ -278,12 +278,12 @@ foreach (var s in myList)
                 ]);
             });
 
-            it("if with embedded statement", () => {
+            it("if with embedded statement", async () => {
                 const input = Input.InMethod(`
 if (true)
     Do();
 `);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Control.If,
@@ -297,13 +297,13 @@ if (true)
                 ]);
             });
 
-            it("if with block", () => {
+            it("if with block", async () => {
                 const input = Input.InMethod(`
 if (true)
 {
     Do();
 }`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Control.If,
@@ -319,14 +319,14 @@ if (true)
                 ]);
             });
 
-            it("if-else with embedded statements", () => {
+            it("if-else with embedded statements", async () => {
                 const input = Input.InMethod(`
 if (true)
     Do();
 else
     Dont();
 `);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Control.If,
@@ -345,7 +345,7 @@ else
                 ]);
             });
 
-            it("if-else with blocks", () => {
+            it("if-else with blocks", async () => {
                 const input = Input.InMethod(`
 if (true)
 {
@@ -355,7 +355,7 @@ else
 {
     Dont();
 }`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Control.If,
@@ -378,14 +378,14 @@ else
                 ]);
             });
 
-            it("if-elseif with embedded statements", () => {
+            it("if-elseif with embedded statements", async () => {
                 const input = Input.InMethod(`
 if (true)
     Do();
 else if (false)
     Dont();
 `);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Control.If,
@@ -408,7 +408,7 @@ else if (false)
                 ]);
             });
 
-            it("if-elseif with blocks", () => {
+            it("if-elseif with blocks", async () => {
                 const input = Input.InMethod(`
 if (true)
 {
@@ -418,7 +418,7 @@ else if (false)
 {
     Dont();
 }`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Control.If,
@@ -445,7 +445,7 @@ else if (false)
                 ]);
             });
 
-            it("if statement inside while statment with continue and break", () => {
+            it("if statement inside while statment with continue and break", async () => {
                 const input = Input.InMethod(`
 while (i < 10)
 {
@@ -453,7 +453,7 @@ while (i < 10)
     if (true) continue;
     break;
 }`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Control.While,
@@ -480,9 +480,9 @@ while (i < 10)
         });
 
         describe("Lock", () => {
-            it("single-line lock with embedded statement", () => {
+            it("single-line lock with embedded statement", async () => {
                 const input = Input.InMethod(`lock (new object()) Do();`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Lock,
@@ -499,9 +499,9 @@ while (i < 10)
                 ]);
             });
 
-            it("single-line lock with block", () => {
+            it("single-line lock with block", async () => {
                 const input = Input.InMethod(`lock (new object()) { Do(); }`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Lock,
@@ -520,11 +520,11 @@ while (i < 10)
                 ]);
             });
 
-            it("lock with embedded statement", () => {
+            it("lock with embedded statement", async () => {
                 const input = Input.InMethod(`
 lock (new object())
     Do();`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Lock,
@@ -541,13 +541,13 @@ lock (new object())
                 ]);
             });
 
-            it("lock with block", () => {
+            it("lock with block", async () => {
                 const input = Input.InMethod(`
 lock (new object())
 {
     Do();
 }`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Lock,
@@ -568,7 +568,7 @@ lock (new object())
         });
 
         describe("Switch", () => {
-            it("switch statement", () => {
+            it("switch statement", async () => {
                 const input = Input.InMethod(`
 switch (i) {
 case 0:
@@ -578,7 +578,7 @@ case 1:
 default:
     break;
 }`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Control.Switch,
@@ -607,7 +607,7 @@ default:
                 ]);
             });
 
-            it("switch statement with blocks", () => {
+            it("switch statement with blocks", async () => {
                 const input = Input.InMethod(`
 switch (i) {
     case 0:
@@ -623,7 +623,7 @@ switch (i) {
         break;
     }
 }`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Control.Switch,
@@ -660,7 +660,7 @@ switch (i) {
         });
 
         describe("Try", () => {
-            it("try-finally", () => {
+            it("try-finally", async () => {
                 const input = Input.InMethod(`
 try
 {
@@ -668,7 +668,7 @@ try
 finally
 {
 }`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Control.Try,
@@ -680,7 +680,7 @@ finally
                 ]);
             });
 
-            it("try-catch", () => {
+            it("try-catch", async () => {
                 const input = Input.InMethod(`
 try
 {
@@ -688,7 +688,7 @@ try
 catch
 {
 }`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Control.Try,
@@ -700,7 +700,7 @@ catch
                 ]);
             });
 
-            it("try-catch-finally", () => {
+            it("try-catch-finally", async () => {
                 const input = Input.InMethod(`
 try
 {
@@ -711,7 +711,7 @@ catch
 finally
 {
 }`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Control.Try,
@@ -726,7 +726,7 @@ finally
                 ]);
             });
 
-            it("try-catch with exception type", () => {
+            it("try-catch with exception type", async () => {
                 const input = Input.InMethod(`
 try
 {
@@ -734,7 +734,7 @@ try
 catch (Exception)
 {
 }`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Control.Try,
@@ -749,7 +749,7 @@ catch (Exception)
                 ]);
             });
 
-            it("try-catch with exception type and identifier", () => {
+            it("try-catch with exception type and identifier", async () => {
                 const input = Input.InMethod(`
 try
 {
@@ -757,7 +757,7 @@ try
 catch (Exception ex)
 {
 }`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Control.Try,
@@ -773,7 +773,7 @@ catch (Exception ex)
                 ]);
             });
 
-            it("try-catch with exception filter", () => {
+            it("try-catch with exception filter", async () => {
                 const input = Input.InMethod(`
 try
 {
@@ -782,7 +782,7 @@ try
 catch when (true)
 {
 }`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Control.Try,
@@ -804,7 +804,7 @@ catch when (true)
                 ]);
             });
 
-            it("try-catch with exception type and filter", () => {
+            it("try-catch with exception type and filter", async () => {
                 const input = Input.InMethod(`
 try
 {
@@ -812,7 +812,7 @@ try
 catch (Exception) when (true)
 {
 }`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Control.Try,
@@ -831,7 +831,7 @@ catch (Exception) when (true)
                 ]);
             });
 
-            it("try-finally followed by statement", () => {
+            it("try-finally followed by statement", async () => {
                 const input = Input.InMethod(`
 try
 {
@@ -840,7 +840,7 @@ finally
 {
 }
 int x;`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Control.Try,
@@ -857,9 +857,9 @@ int x;`);
         });
 
         describe("Using", () => {
-            it("single-line using with expression and embedded statement", () => {
+            it("single-line using with expression and embedded statement", async () => {
                 const input = Input.InMethod(`using (new object()) Do();`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Using,
@@ -876,9 +876,9 @@ int x;`);
                 ]);
             });
 
-            it("single-line using with expression and block", () => {
+            it("single-line using with expression and block", async () => {
                 const input = Input.InMethod(`using (new object()) { Do(); }`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Using,
@@ -897,11 +897,11 @@ int x;`);
                 ]);
             });
 
-            it("using with expression and embedded statement", () => {
+            it("using with expression and embedded statement", async () => {
                 const input = Input.InMethod(`
 using (new object())
     Do();`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Using,
@@ -918,13 +918,13 @@ using (new object())
                 ]);
             });
 
-            it("using with expression and block", () => {
+            it("using with expression and block", async () => {
                 const input = Input.InMethod(`
 using (new object())
 {
     Do();
 }`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Using,
@@ -943,11 +943,11 @@ using (new object())
                 ]);
             });
 
-            it("using with local variable and embedded statement", () => {
+            it("using with local variable and embedded statement", async () => {
                 const input = Input.InMethod(`
 using (var o = new object())
     Do();`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Using,
@@ -967,13 +967,13 @@ using (var o = new object())
                 ]);
             });
 
-            it("using with local variable and block", () => {
+            it("using with local variable and block", async () => {
                 const input = Input.InMethod(`
 using (var o = new object())
 {
     Do();
 }`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Using,
@@ -997,9 +997,9 @@ using (var o = new object())
         });
 
         describe("Yield", () => {
-            it("yield return", () => {
+            it("yield return", async () => {
                 const input = Input.InMethod(`yield return 42;`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Control.Yield,
@@ -1009,9 +1009,9 @@ using (var o = new object())
                 ]);
             });
 
-            it("yield break", () => {
+            it("yield break", async () => {
                 const input = Input.InMethod(`yield break;`);
-                const tokens = tokenize(input);
+                const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keywords.Control.Yield,

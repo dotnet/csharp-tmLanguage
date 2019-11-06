@@ -3,19 +3,37 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import { ITokenizeLineResult, Registry, StackElement } from 'vscode-textmate';
+import { ITokenizeLineResult, Registry, StackElement, parseRawGrammar } from 'vscode-textmate';
+import { readFile } from 'fs';
+import { resolve } from 'path';
 
-const registry = new Registry();
-const grammar = registry.loadGrammarFromPathSync('grammars/csharp.tmLanguage');
+const registry = new Registry({
+    loadGrammar: async (scopeName) => {
+        if (scopeName === 'source.cs') {
+            scopeName //?
+            // https://github.com/textmate/javascript.tmbundle/blob/master/Syntaxes/JavaScript.plist
+            const response = await new Promise<string>((resolve, reject) => {
+                readFile('./grammars/csharp.tmLanguage', (e, v) => e ? reject(e) : resolve(v.toString()));
+            });
+            const g = parseRawGrammar(response, resolve('./grammars/csharp.tmLanguage'));
+            g //?
+            return g;
+        }
+        console.log(`Unknown scope name: ${scopeName}`);
+        return null;
+    }
+});
+
 const excludedTypes = ['source.cs', 'meta.interpolation.cs', 'meta.preprocessor.cs', 'meta.tag.cs', 'meta.type.parameters.cs']
 
-export function tokenize(input: string | Input, excludeTypes: boolean = true): Token[] {
+export async function tokenize(input: string | Input, excludeTypes: boolean = true): Promise<Token[]> {
     if (typeof input === "string") {
         input = Input.FromText(input);
     }
 
     let tokens: Token[] = [];
     let previousStack: StackElement = null;
+    const grammar = await registry.loadGrammar('source.cs');
 
     for (let lineIndex = 0; lineIndex < input.lines.length; lineIndex++) {
         const line = input.lines[lineIndex];
@@ -363,13 +381,13 @@ export namespace Token {
                 export const Subtraction = createToken('-=', 'keyword.operator.assignment.compound.ts');
             }
 
-        export namespace Bitwise {
-            export const And = createToken('&=', 'keyword.operator.assignment.compound.bitwise.ts');
-            export const ExclusiveOr = createToken('^=', 'keyword.operator.assignment.compound.bitwise.ts');
-            export const Or = createToken('|=', 'keyword.operator.assignment.compound.bitwise.ts');
-            export const ShiftLeft = createToken('<<=', 'keyword.operator.assignment.compound.bitwise.ts');
-            export const ShiftRight = createToken('>>=', 'keyword.operator.assignment.compound.bitwise.ts');
-        }
+            export namespace Bitwise {
+                export const And = createToken('&=', 'keyword.operator.assignment.compound.bitwise.ts');
+                export const ExclusiveOr = createToken('^=', 'keyword.operator.assignment.compound.bitwise.ts');
+                export const Or = createToken('|=', 'keyword.operator.assignment.compound.bitwise.ts');
+                export const ShiftLeft = createToken('<<=', 'keyword.operator.assignment.compound.bitwise.ts');
+                export const ShiftRight = createToken('>>=', 'keyword.operator.assignment.compound.bitwise.ts');
+            }
         }
 
         export namespace Conditional {

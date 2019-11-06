@@ -10,10 +10,10 @@ describe("Grammar", () => {
     before(() => { should(); });
 
     describe("Using directives", () => {
-        it("using namespace", () => {
+        it("using namespace", async () => {
 
             const input = `using System;`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Using,
@@ -21,10 +21,10 @@ describe("Grammar", () => {
                 Token.Punctuation.Semicolon]);
         });
 
-        it("using static type", () => {
+        it("using static type", async () => {
 
             const input = `using static System.Console;`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Using,
@@ -35,10 +35,10 @@ describe("Grammar", () => {
                 Token.Punctuation.Semicolon]);
         });
 
-        it("namespace alias", () => {
+        it("namespace alias", async () => {
 
             const input = `using S = System;`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Using,
@@ -48,10 +48,10 @@ describe("Grammar", () => {
                 Token.Punctuation.Semicolon]);
         });
 
-        it("type alias", () => {
+        it("type alias", async () => {
 
             const input = `using C = System.Console;`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Using,
@@ -63,10 +63,10 @@ describe("Grammar", () => {
                 Token.Punctuation.Semicolon]);
         });
 
-        it("type alias with generic type", () => {
+        it("type alias with generic type", async () => {
 
             const input = `using IntList = System.Collections.Generic.List<System.Int32>;`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Using,
@@ -87,10 +87,10 @@ describe("Grammar", () => {
                 Token.Punctuation.Semicolon]);
         });
 
-        it("type alias with nested generic types", () => {
+        it("type alias with nested generic types", async () => {
 
             const input = `using X = System.Collections.Generic.Dictionary<System.Int32, System.Collections.Generic.List<System.String>>;`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Using,
@@ -123,11 +123,11 @@ describe("Grammar", () => {
                 Token.Punctuation.TypeParameters.End,
                 Token.Punctuation.Semicolon]);
         });
-        
-        it("type alias with nested generic types and comments interspersed", () => {
+
+        it("type alias with nested generic types and comments interspersed", async () => {
 
             const input = `using X =/**/Dictionary/**/</**/int/**/,/**/List/**/</**/string/**/>/**/>/**/;//end`;
-            const tokens = tokenize(input);
+            const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keywords.Using,
