@@ -4325,7 +4325,7 @@
         <key>name</key>
         <string>meta.interpolation.cs</string>
         <key>begin</key>
-        <string>(?&lt;=[^\{])((?:\{\{)*)(\{)(?=[^\{])</string>
+        <string>(?&lt;=[^\{]|^)((?:\{\{)*)(\{)(?=[^\{])</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
