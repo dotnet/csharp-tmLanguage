@@ -22,7 +22,14 @@
         )
         (?:\s*\*\s*)* # pointer suffix?
         (?:\s*\?\s*)? # nullable suffix?
-        (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
+        (?:\s* # array suffix?
+            \[
+              (?:\s*,\s*)* # commata for multi-dimensional arrays
+            \]
+            \s*
+            (?:\?)? # arrays can be nullable reference types, they need a nullable suffix
+            \s*
+        )* 
     )
 )
 ```

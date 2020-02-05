@@ -255,6 +255,19 @@ describe("Grammar", () => {
                 Token.Punctuation.Semicolon]);
         });
 
+        it("nullable array type - int[]?", async () => {
+            const input = Input.InClass(`int[]? x;`);
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.PrimitiveType.Int,
+                Token.Punctuation.OpenBracket,
+                Token.Punctuation.CloseBracket,
+                Token.Punctuation.QuestionMark,
+                Token.Identifiers.FieldName("x"),
+                Token.Punctuation.Semicolon]);
+        });
+
         it("ref local type - ref int", async () => {
             const input = Input.InMethod(`ref int x;`);
             const tokens = await tokenize(input);

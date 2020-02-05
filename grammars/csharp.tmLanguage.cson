@@ -579,7 +579,14 @@ repository:
             (?<tuple>\\s*\\((?:[^\\(\\)]|\\g<tuple>)+\\))
           )
           (?:\\s*\\?\\s*)? # nullable suffix?
-          (?:\\s*\\[(?:\\s*,\\s*)*\\]\\s*)* # array suffix?
+                    (?:\\s* # array suffix?
+            \\[
+              (?:\\s*,\\s*)* # commata for multi-dimensional arrays
+            \\]
+            \\s*
+            (?:\\?)? # arrays can be nullable reference types
+            \\s*
+          )* 
         )
       )\\s+
       (\\g<identifier>)\\s*
@@ -903,7 +910,14 @@ repository:
             (?<tuple>\\s*\\((?:[^\\(\\)]|\\g<tuple>)+\\))
           )
           (?:\\s*\\?\\s*)? # nullable suffix?
-          (?:\\s*\\[(?:\\s*,\\s*)*\\]\\s*)* # array suffix?
+          (?:\\s* # array suffix?
+            \\[
+              (?:\\s*,\\s*)* # commata for multi-dimensional arrays
+            \\]
+            \\s*
+            (?:\\?)? # arrays can be nullable reference types
+            \\s*
+          )* 
         )
       )\\s+
       (\\g<identifier>)\\s* # first field name
@@ -959,7 +973,14 @@ repository:
               (?<tuple>\\s*\\((?:[^\\(\\)]|\\g<tuple>)+\\))
             )
             (?:\\s*\\?\\s*)? # nullable suffix?
-            (?:\\s*\\[(?:\\s*,\\s*)*\\]\\s*)* # array suffix?
+            (?:\\s* # array suffix?
+              \\[
+                (?:\\s*,\\s*)* # commata for multi-dimensional arrays
+              \\]
+              \\s*
+              (?:\\?)? # arrays can be nullable reference types
+              \\s*
+            )* 
           )
         )\\s+
       )
@@ -1020,7 +1041,14 @@ repository:
               (?<tuple>\\s*\\((?:[^\\(\\)]|\\g<tuple>)+\\))
             )
             (?:\\s*\\?\\s*)? # nullable suffix?
-            (?:\\s*\\[(?:\\s*,\\s*)*\\]\\s*)* # array suffix?
+                      (?:\\s* # array suffix?
+            \\[
+              (?:\\s*,\\s*)* # commata for multi-dimensional arrays
+            \\]
+            \\s*
+            (?:\\?)? # arrays can be nullable reference types
+            \\s*
+          )* 
           )
         )\\s+
       )
@@ -1081,7 +1109,14 @@ repository:
               (?<tuple>\\s*\\((?:[^\\(\\)]|\\g<tuple>)+\\))
             )
             (?:\\s*\\?\\s*)? # nullable suffix?
-            (?:\\s*\\[(?:\\s*,\\s*)*\\]\\s*)* # array suffix?
+                      (?:\\s* # array suffix?
+            \\[
+              (?:\\s*,\\s*)* # commata for multi-dimensional arrays
+            \\]
+            \\s*
+            (?:\\?)? # arrays can be nullable reference types
+            \\s*
+          )* 
           )
         )\\s+
       )
@@ -1218,7 +1253,14 @@ repository:
               (?<tuple>\\s*\\((?:[^\\(\\)]|\\g<tuple>)+\\))
             )
             (?:\\s*\\?\\s*)? # nullable suffix?
-            (?:\\s*\\[(?:\\s*,\\s*)*\\]\\s*)* # array suffix?
+                      (?:\\s* # array suffix?
+            \\[
+              (?:\\s*,\\s*)* # commata for multi-dimensional arrays
+            \\]
+            \\s*
+            (?:\\?)? # arrays can be nullable reference types
+            \\s*
+          )* 
           )
         )\\s+
       )
@@ -1358,7 +1400,14 @@ repository:
             (?<tuple>\\s*\\((?:[^\\(\\)]|\\g<tuple>)+\\))
           )
           (?:\\s*\\?\\s*)? # nullable suffix?
-          (?:\\s*\\[(?:\\s*,\\s*)*\\]\\s*)* # array suffix?
+                    (?:\\s* # array suffix?
+            \\[
+              (?:\\s*,\\s*)* # commata for multi-dimensional arrays
+            \\]
+            \\s*
+            (?:\\?)? # arrays can be nullable reference types
+            \\s*
+          )* 
         )
       )\\s*
       (?<operator-keyword>(?:\\b(?:operator)))\\s*
@@ -1409,7 +1458,14 @@ repository:
             (?<tuple>\\s*\\((?:[^\\(\\)]|\\g<tuple>)+\\))
           )
           (?:\\s*\\?\\s*)? # nullable suffix?
-          (?:\\s*\\[(?:\\s*,\\s*)*\\]\\s*)* # array suffix?
+                    (?:\\s* # array suffix?
+            \\[
+              (?:\\s*,\\s*)* # commata for multi-dimensional arrays
+            \\]
+            \\s*
+            (?:\\?)? # arrays can be nullable reference types
+            \\s*
+          )* 
         )
       )\\s*
       (?=\\()
@@ -1807,7 +1863,14 @@ repository:
                       (?<tuple>\\s*\\((?:[^\\(\\)]|\\g<tuple>)+\\))
                     )
                     (?:\\s*\\?\\s*)? # nullable suffix?
-                    (?:\\s*\\[(?:\\s*,\\s*)*\\]\\s*)* # array suffix?
+                              (?:\\s* # array suffix?
+                \\[
+                  (?:\\s*,\\s*)* # commata for multi-dimensional arrays
+                \\]
+                \\s*
+                (?:\\?)? # arrays can be nullable reference types
+                \\s*
+              )* 
                   )
                 )
               )\\s+
@@ -1928,7 +1991,14 @@ repository:
                     (?<tuple>\\s*\\((?:[^\\(\\)]|\\g<tuple>)+\\))
                   )
                   (?:\\s*\\?\\s*)? # nullable suffix?
-                  (?:\\s*\\[(?:\\s*,\\s*)*\\]\\s*)* # array suffix?
+                            (?:\\s* # array suffix?
+                \\[
+                  (?:\\s*,\\s*)* # commata for multi-dimensional arrays
+                \\]
+                \\s*
+                (?:\\?)? # arrays can be nullable reference types
+                \\s*
+              )* 
                 )
               )\\s*
               (?:(\\g<identifier>)\\b)?
@@ -2082,7 +2152,14 @@ repository:
               (?<tuple>\\s*\\((?:[^\\(\\)]|\\g<tuple>)+\\))
             )
             (?:\\s*\\?\\s*)? # nullable suffix?
-            (?:\\s*\\[(?:\\s*,\\s*)*\\]\\s*)* # array suffix?
+                      (?:\\s* # array suffix?
+            \\[
+              (?:\\s*,\\s*)* # commata for multi-dimensional arrays
+            \\]
+            \\s*
+            (?:\\?)? # arrays can be nullable reference types
+            \\s*
+          )* 
           )
         )
       )\\s+
@@ -2137,7 +2214,14 @@ repository:
             (?<tuple>\\s*\\((?:[^\\(\\)]|\\g<tuple>)+\\))
           )
           (?:\\s*\\?\\s*)? # nullable suffix?
-          (?:\\s*\\[(?:\\s*,\\s*)*\\]\\s*)* # array suffix?
+                    (?:\\s* # array suffix?
+            \\[
+              (?:\\s*,\\s*)* # commata for multi-dimensional arrays
+            \\]
+            \\s*
+            (?:\\?)? # arrays can be nullable reference types
+            \\s*
+          )* 
         )
       )\\s+
       (\\g<identifier>)\\s*
@@ -2291,7 +2375,14 @@ repository:
               (?<tuple>\\s*\\((?:[^\\(\\)]|\\g<tuple>)+\\))
             )
             (?:\\s*\\?\\s*)? # nullable suffix?
-            (?:\\s*\\[(?:\\s*,\\s*)*\\]\\s*)* # array suffix?
+                      (?:\\s* # array suffix?
+            \\[
+              (?:\\s*,\\s*)* # commata for multi-dimensional arrays
+            \\]
+            \\s*
+            (?:\\?)? # arrays can be nullable reference types
+            \\s*
+          )* 
           )
         )
       )\\s+
@@ -2326,7 +2417,14 @@ repository:
               (?<tuple>\\s*\\((?:[^\\(\\)]|\\g<tuple>)+\\))
             )
             (?:\\s*\\?\\s*)? # nullable suffix?
-            (?:\\s*\\[(?:\\s*,\\s*)*\\]\\s*)* # array suffix?
+                      (?:\\s* # array suffix?
+            \\[
+              (?:\\s*,\\s*)* # commata for multi-dimensional arrays
+            \\]
+            \\s*
+            (?:\\?)? # arrays can be nullable reference types
+            \\s*
+          )* 
           )
         )
       )\\s+
@@ -2734,7 +2832,14 @@ repository:
             (?<tuple>\\s*\\((?:[^\\(\\)]|\\g<tuple>)+\\))
           )
           (?:\\s*\\?\\s*)? # nullable suffix?
-          (?:\\s*\\[(?:\\s*,\\s*)*\\]\\s*)* # array suffix?
+                    (?:\\s* # array suffix?
+            \\[
+              (?:\\s*,\\s*)* # commata for multi-dimensional arrays
+            \\]
+            \\s*
+            (?:\\?)? # arrays can be nullable reference types
+            \\s*
+          )* 
         )
       )\\s*
       (\\))(?=\\s*@?[_[:alnum:]\\(])
@@ -2766,7 +2871,14 @@ repository:
             (?<tuple>\\s*\\((?:[^\\(\\)]|\\g<tuple>)+\\))
           )
           (?:\\s*\\?\\s*)? # nullable suffix?
-          (?:\\s*\\[(?:\\s*,\\s*)*\\]\\s*)* # array suffix?
+                    (?:\\s* # array suffix?
+            \\[
+              (?:\\s*,\\s*)* # commata for multi-dimensional arrays
+            \\]
+            \\s*
+            (?:\\?)? # arrays can be nullable reference types
+            \\s*
+          )* 
         )
       )?
     '''
@@ -2795,7 +2907,14 @@ repository:
             (?<tuple>\\s*\\((?:[^\\(\\)]|\\g<tuple>)+\\))
           )
           (?:\\s*\\?\\s*)? # nullable suffix?
-          (?:\\s*\\[(?:\\s*,\\s*)*\\]\\s*)* # array suffix?
+                    (?:\\s* # array suffix?
+            \\[
+              (?:\\s*,\\s*)* # commata for multi-dimensional arrays
+            \\]
+            \\s*
+            (?:\\?)? # arrays can be nullable reference types
+            \\s*
+          )* 
         )
       )?
     '''
@@ -2947,7 +3066,14 @@ repository:
             (?<tuple>\\s*\\((?:[^\\(\\)]|\\g<tuple>)+\\))
           )
           (?:\\s*\\?\\s*)? # nullable suffix?
-          (?:\\s*\\[(?:\\s*,\\s*)*\\]\\s*)* # array suffix?
+                    (?:\\s* # array suffix?
+            \\[
+              (?:\\s*,\\s*)* # commata for multi-dimensional arrays
+            \\]
+            \\s*
+            (?:\\?)? # arrays can be nullable reference types
+            \\s*
+          )* 
         )
       )\\s*
       (?=\\()
@@ -2983,7 +3109,14 @@ repository:
             (?<tuple>\\s*\\((?:[^\\(\\)]|\\g<tuple>)+\\))
           )
           (?:\\s*\\?\\s*)? # nullable suffix?
-          (?:\\s*\\[(?:\\s*,\\s*)*\\]\\s*)* # array suffix?
+                    (?:\\s* # array suffix?
+            \\[
+              (?:\\s*,\\s*)* # commata for multi-dimensional arrays
+            \\]
+            \\s*
+            (?:\\?)? # arrays can be nullable reference types
+            \\s*
+          )* 
         )
       )\\s*
       (?=\\{|$)
@@ -3013,7 +3146,14 @@ repository:
             (?<tuple>\\s*\\((?:[^\\(\\)]|\\g<tuple>)+\\))
           )
           (?:\\s*\\?\\s*)? # nullable suffix?
-          (?:\\s*\\[(?:\\s*,\\s*)*\\]\\s*)* # array suffix?
+                    (?:\\s* # array suffix?
+            \\[
+              (?:\\s*,\\s*)* # commata for multi-dimensional arrays
+            \\]
+            \\s*
+            (?:\\?)? # arrays can be nullable reference types
+            \\s*
+          )* 
         )
       )?\\s*
       (?=\\[)
@@ -3119,7 +3259,14 @@ repository:
             (?<tuple>\\s*\\((?:[^\\(\\)]|\\g<tuple>)+\\))
           )
           (?:\\s*\\?\\s*)? # nullable suffix?
-          (?:\\s*\\[(?:\\s*,\\s*)*\\]\\s*)* # array suffix?
+                    (?:\\s* # array suffix?
+            \\[
+              (?:\\s*,\\s*)* # commata for multi-dimensional arrays
+            \\]
+            \\s*
+            (?:\\?)? # arrays can be nullable reference types
+            \\s*
+          )* 
         )
       )\\s+
       (\\g<identifier>)
@@ -3217,7 +3364,14 @@ repository:
             (?<tuple>\\s*\\((?:[^\\(\\)]|\\g<tuple>)+\\))
           )
           (?:\\s*\\?\\s*)? # nullable suffix?
-          (?:\\s*\\[(?:\\s*,\\s*)*\\]\\s*)* # array suffix?
+                    (?:\\s* # array suffix?
+            \\[
+              (?:\\s*,\\s*)* # commata for multi-dimensional arrays
+            \\]
+            \\s*
+            (?:\\?)? # arrays can be nullable reference types
+            \\s*
+          )* 
         )
       )?
       \\s+(\\g<identifier>)\\b\\s*
@@ -3322,7 +3476,14 @@ repository:
             (?<tuple>\\s*\\((?:[^\\(\\)]|\\g<tuple>)+\\))
           )
           (?:\\s*\\?\\s*)? # nullable suffix?
-          (?:\\s*\\[(?:\\s*,\\s*)*\\]\\s*)* # array suffix?
+                    (?:\\s* # array suffix?
+            \\[
+              (?:\\s*,\\s*)* # commata for multi-dimensional arrays
+            \\]
+            \\s*
+            (?:\\?)? # arrays can be nullable reference types
+            \\s*
+          )* 
         )
       )?
       \\s+(\\g<identifier>)\\b\\s*
@@ -3581,7 +3742,14 @@ repository:
             (?<tuple>\\s*\\((?:[^\\(\\)]|\\g<tuple>)+\\))
           )
           (?:\\s*\\?\\s*)? # nullable suffix?
-          (?:\\s*\\[(?:\\s*,\\s*)*\\]\\s*)* # array suffix?
+                    (?:\\s* # array suffix?
+            \\[
+              (?:\\s*,\\s*)* # commata for multi-dimensional arrays
+            \\]
+            \\s*
+            (?:\\?)? # arrays can be nullable reference types
+            \\s*
+          )* 
         )
       )\\s+)?
       (\\g<identifier>)\\b\\s*
@@ -3667,7 +3835,14 @@ repository:
             (?<tuple>\\s*\\((?:[^\\(\\)]|\\g<tuple>)+\\))
           )
           (?:\\s*\\?\\s*)? # nullable suffix?
-          (?:\\s*\\[(?:\\s*,\\s*)*\\]\\s*)* # array suffix?
+                    (?:\\s* # array suffix?
+            \\[
+              (?:\\s*,\\s*)* # commata for multi-dimensional arrays
+            \\]
+            \\s*
+            (?:\\?)? # arrays can be nullable reference types
+            \\s*
+          )* 
         )
       )
       (?:(?<tuple-name>\\g<identifier>)\\b)?
