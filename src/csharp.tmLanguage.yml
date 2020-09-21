@@ -266,16 +266,16 @@ repository:
     begin: |-
       (?x)
       (?:\b(delegate)\b)\s+
-      (?<type-name>
+      (?<type_name>
         (?:
           (?:ref\s+(?:readonly\s+)?)?   # ref return
           (?:
             (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
-            (?<name-and-type-args> # identifier + type arguments (if any)
+            (?<name_and_type_args> # identifier + type arguments (if any)
               \g<identifier>\s*
-              (?<type-args>\s*<(?:[^<>]|\g<type-args>)+>\s*)?
+              (?<type_args>\s*<(?:[^<>]|\g<type_args>)+>\s*)?
             )
-            (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
+            (?:\s*\.\s*\g<name_and_type_args>)* | # Are there any more names being dotted into?
             (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
           )
           (?:\s*\?\s*)? # nullable suffix?
@@ -291,8 +291,8 @@ repository:
         patterns:
         - include: '#type'
       # '3': ?<identifier> is a sub-expression. It's final value is not considered.
-      # '4': ?<name-and-type-args> is a sub-expression. It's final value is not considered.
-      # '5': ?<type-args> is a sub-expression. It's final value is not considered.
+      # '4': ?<name_and_type_args> is a sub-expression. It's final value is not considered.
+      # '5': ?<type_args> is a sub-expression. It's final value is not considered.
       # '6': ?<tuple> is a sub-expression. It's final value is not considered.
       '7': { name: entity.name.type.delegate.cs }
       '8':
@@ -451,15 +451,15 @@ repository:
   field-declaration:
     begin: |-
       (?x)
-      (?<type-name>
+      (?<type_name>
         (?:
           (?:
             (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
-            (?<name-and-type-args> # identifier + type arguments (if any)
+            (?<name_and_type_args> # identifier + type arguments (if any)
               \g<identifier>\s*
-              (?<type-args>\s*<(?:[^<>]|\g<type-args>)+>\s*)?
+              (?<type_args>\s*<(?:[^<>]|\g<type_args>)+>\s*)?
             )
-            (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
+            (?:\s*\.\s*\g<name_and_type_args>)* | # Are there any more names being dotted into?
             (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
           )
           (?:\s*\?\s*)? # nullable suffix?
@@ -473,8 +473,8 @@ repository:
         patterns:
         - include: '#type'
       # '2': ?<identifier> is a sub-expression. It's final value is not considered.
-      # '3': ?<name-and-type-args> is a sub-expression. It's final value is not considered.
-      # '4': ?<type-args> is a sub-expression. It's final value is not considered.
+      # '3': ?<name_and_type_args> is a sub-expression. It's final value is not considered.
+      # '4': ?<type_args> is a sub-expression. It's final value is not considered.
       # '5': ?<tuple> is a sub-expression. It's final value is not considered.
       '6': { name: entity.name.variable.field.cs }
     end: (?=;)
@@ -494,17 +494,17 @@ repository:
       # or other declarations as properties.
       (?![[:word:][:space:]]*\b(?:class|interface|struct|enum|event)\b)
 
-      (?<return-type>
-        (?<type-name>
+      (?<return_type>
+        (?<type_name>
           (?:
             (?:ref\s+(?:readonly\s+)?)?   # ref return
             (?:
               (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
-              (?<name-and-type-args> # identifier + type arguments (if any)
+              (?<name_and_type_args> # identifier + type arguments (if any)
                 \g<identifier>\s*
-                (?<type-args>\s*<(?:[^<>]|\g<type-args>)+>\s*)?
+                (?<type_args>\s*<(?:[^<>]|\g<type_args>)+>\s*)?
               )
-              (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
+              (?:\s*\.\s*\g<name_and_type_args>)* | # Are there any more names being dotted into?
               (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
             )
             (?:\s*\?\s*)? # nullable suffix?
@@ -512,17 +512,17 @@ repository:
           )
         )\s+
       )
-      (?<interface-name>\g<type-name>\s*\.\s*)?
-      (?<property-name>\g<identifier>)\s*
+      (?<interface_name>\g<type_name>\s*\.\s*)?
+      (?<property_name>\g<identifier>)\s*
       (?=\{|=>|$)
     beginCaptures:
       '1':
         patterns:
         - include: '#type'
-      # '2': ?<type-name> is a sub-expression. It's final value is not considered.
+      # '2': ?<type_name> is a sub-expression. It's final value is not considered.
       # '3': ?<identifier> is a sub-expression. It's final value is not considered.
-      # '4': ?<name-and-type-args> is a sub-expression. It's final value is not considered.
-      # '5': ?<type-args> is a sub-expression. It's final value is not considered.
+      # '4': ?<name_and_type_args> is a sub-expression. It's final value is not considered.
+      # '5': ?<type_args> is a sub-expression. It's final value is not considered.
       # '6': ?<tuple> is a sub-expression. It's final value is not considered.
       '7':
         patterns:
@@ -540,17 +540,17 @@ repository:
   indexer-declaration:
     begin: |-
       (?x)
-      (?<return-type>
-        (?<type-name>
+      (?<return_type>
+        (?<type_name>
           (?:
             (?:ref\s+(?:readonly\s+)?)?   # ref return
             (?:
               (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
-              (?<name-and-type-args> # identifier + type arguments (if any)
+              (?<name_and_type_args> # identifier + type arguments (if any)
                 \g<identifier>\s*
-                (?<type-args>\s*<(?:[^<>]|\g<type-args>)+>\s*)?
+                (?<type_args>\s*<(?:[^<>]|\g<type_args>)+>\s*)?
               )
-              (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
+              (?:\s*\.\s*\g<name_and_type_args>)* | # Are there any more names being dotted into?
               (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
             )
             (?:\s*\?\s*)? # nullable suffix?
@@ -558,17 +558,17 @@ repository:
           )
         )\s+
       )
-      (?<interface-name>\g<type-name>\s*\.\s*)?
-      (?<indexer-name>this)\s*
+      (?<interface_name>\g<type_name>\s*\.\s*)?
+      (?<indexer_name>this)\s*
       (?=\[)
     beginCaptures:
       '1':
         patterns:
         - include: '#type'
-      # '2': ?<type-name> is a sub-expression. It's final value is not considered.
+      # '2': ?<type_name> is a sub-expression. It's final value is not considered.
       # '3': ?<identifier> is a sub-expression. It's final value is not considered.
-      # '4': ?<name-and-type-args> is a sub-expression. It's final value is not considered.
-      # '5': ?<type-args> is a sub-expression. It's final value is not considered.
+      # '4': ?<name_and_type_args> is a sub-expression. It's final value is not considered.
+      # '5': ?<type_args> is a sub-expression. It's final value is not considered.
       # '6': ?<tuple> is a sub-expression. It's final value is not considered.
       '7':
         patterns:
@@ -588,16 +588,16 @@ repository:
     begin: |-
       (?x)
       \b(event)\b\s*
-      (?<return-type>
-        (?<type-name>
+      (?<return_type>
+        (?<type_name>
           (?:
             (?:
               (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
-              (?<name-and-type-args> # identifier + type arguments (if any)
+              (?<name_and_type_args> # identifier + type arguments (if any)
                 \g<identifier>\s*
-                (?<type-args>\s*<(?:[^<>]|\g<type-args>)+>\s*)?
+                (?<type_args>\s*<(?:[^<>]|\g<type_args>)+>\s*)?
               )
-              (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
+              (?:\s*\.\s*\g<name_and_type_args>)* | # Are there any more names being dotted into?
               (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
             )
             (?:\s*\?\s*)? # nullable suffix?
@@ -605,18 +605,18 @@ repository:
           )
         )\s+
       )
-      (?<interface-name>\g<type-name>\s*\.\s*)?
-      (?<event-names>\g<identifier>(?:\s*,\s*\g<identifier>)*)\s*
+      (?<interface_name>\g<type_name>\s*\.\s*)?
+      (?<event_names>\g<identifier>(?:\s*,\s*\g<identifier>)*)\s*
       (?=\{|;|$)
     beginCaptures:
       '1': { name: keyword.other.event.cs }
       '2':
         patterns:
         - include: '#type'
-      # '3': ?<type-name> is a sub-expression. It's final value is not considered.
+      # '3': ?<type_name> is a sub-expression. It's final value is not considered.
       # '4': ?<identifier> is a sub-expression. It's final value is not considered.
-      # '5': ?<name-and-type-args> is a sub-expression. It's final value is not considered.
-      # '6': ?<type-args> is a sub-expression. It's final value is not considered.
+      # '5': ?<name_and_type_args> is a sub-expression. It's final value is not considered.
+      # '6': ?<type_args> is a sub-expression. It's final value is not considered.
       # '7': ?<tuple> is a sub-expression. It's final value is not considered.
       '8':
         patterns:
@@ -674,17 +674,17 @@ repository:
   method-declaration:
     begin: |-
       (?x)
-      (?<return-type>
-        (?<type-name>
+      (?<return_type>
+        (?<type_name>
           (?:
             (?:ref\s+(?:readonly\s+)?)?   # ref return
             (?:
               (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
-              (?<name-and-type-args> # identifier + type arguments (if any)
+              (?<name_and_type_args> # identifier + type arguments (if any)
                 \g<identifier>\s*
-                (?<type-args>\s*<(?:[^<>]|\g<type-args>)+>\s*)?
+                (?<type_args>\s*<(?:[^<>]|\g<type_args>)+>\s*)?
               )
-              (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
+              (?:\s*\.\s*\g<name_and_type_args>)* | # Are there any more names being dotted into?
               (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
             )
             (?:\s*\?\s*)? # nullable suffix?
@@ -692,7 +692,7 @@ repository:
           )
         )\s+
       )
-      (?<interface-name>\g<type-name>\s*\.\s*)?
+      (?<interface_name>\g<type_name>\s*\.\s*)?
       (\g<identifier>)\s*
       (<([^<>]+)>)?\s*
       (?=\()
@@ -700,10 +700,10 @@ repository:
       '1':
         patterns:
         - include: '#type'
-      # '2': ?<type-name> is a sub-expression. It's final value is not considered.
+      # '2': ?<type_name> is a sub-expression. It's final value is not considered.
       # '3': ?<identifier> is a sub-expression. It's final value is not considered.
-      # '4': ?<name-and-type-args> is a sub-expression. It's final value is not considered.
-      # '5': ?<type-args> is a sub-expression. It's final value is not considered.
+      # '4': ?<name_and_type_args> is a sub-expression. It's final value is not considered.
+      # '5': ?<type_args> is a sub-expression. It's final value is not considered.
       # '6': ?<tuple> is a sub-expression. It's final value is not considered.
       '7':
         patterns:
@@ -764,23 +764,23 @@ repository:
   operator-declaration:
     begin: |-
       (?x)
-      (?<type-name>
+      (?<type_name>
         (?:
           (?:ref\s+(?:readonly\s+)?)?   # ref return
           (?:
             (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
-            (?<name-and-type-args> # identifier + type arguments (if any)
+            (?<name_and_type_args> # identifier + type arguments (if any)
               \g<identifier>\s*
-              (?<type-args>\s*<(?:[^<>]|\g<type-args>)+>\s*)?
+              (?<type_args>\s*<(?:[^<>]|\g<type_args>)+>\s*)?
             )
-            (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
+            (?:\s*\.\s*\g<name_and_type_args>)* | # Are there any more names being dotted into?
             (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
           )
           (?:\s*\?\s*)? # nullable suffix?
           (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
         )
       )\s*
-      (?<operator-keyword>(?:\b(?:operator)))\s*
+      (?<operator_keyword>(?:\b(?:operator)))\s*
       (?<operator>(?:\+|-|\*|/|%|&|\||\^|\<\<|\>\>|==|!=|\>|\<|\>=|\<=|!|~|\+\+|--|true|false))\s*
       (?=\()
     beginCaptures:
@@ -788,8 +788,8 @@ repository:
         patterns:
         - include: '#type'
       # '2': ?<identifier> is a sub-expression. It's final value is not considered.
-      # '3': ?<name-and-type-args> is a sub-expression. It's final value is not considered.
-      # '4': ?<type-args> is a sub-expression. It's final value is not considered.
+      # '3': ?<name_and_type_args> is a sub-expression. It's final value is not considered.
+      # '4': ?<type_args> is a sub-expression. It's final value is not considered.
       # '5': ?<tuple> is a sub-expression. It's final value is not considered.
       '6': { name: keyword.other.operator-decl.cs }
       '7': { name: entity.name.function.cs }
@@ -803,18 +803,18 @@ repository:
   conversion-operator-declaration:
     begin: |-
       (?x)
-      (?<explicit-or-implicit-keyword>(?:\b(?:explicit|implicit)))\s*
-      (?<operator-keyword>(?:\b(?:operator)))\s*
-      (?<type-name>
+      (?<explicit_or_implicit_keyword>(?:\b(?:explicit|implicit)))\s*
+      (?<operator_keyword>(?:\b(?:operator)))\s*
+      (?<type_name>
         (?:
           (?:ref\s+(?:readonly\s+)?)?   # ref return
           (?:
             (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
-            (?<name-and-type-args> # identifier + type arguments (if any)
+            (?<name_and_type_args> # identifier + type arguments (if any)
               \g<identifier>\s*
-              (?<type-args>\s*<(?:[^<>]|\g<type-args>)+>\s*)?
+              (?<type_args>\s*<(?:[^<>]|\g<type_args>)+>\s*)?
             )
-            (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
+            (?:\s*\.\s*\g<name_and_type_args>)* | # Are there any more names being dotted into?
             (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
           )
           (?:\s*\?\s*)? # nullable suffix?
@@ -1064,15 +1064,15 @@ repository:
           (?x)
           (?:
             (\bvar\b)|
-            (?<type-name>
+            (?<type_name>
               (?:
                 (?:
                   (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
-                  (?<name-and-type-args> # identifier + type arguments (if any)
+                  (?<name_and_type_args> # identifier + type arguments (if any)
                     \g<identifier>\s*
-                    (?<type-args>\s*<(?:[^<>]|\g<type-args>)+>\s*)?
+                    (?<type_args>\s*<(?:[^<>]|\g<type_args>)+>\s*)?
                   )
-                  (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
+                  (?:\s*\.\s*\g<name_and_type_args>)* | # Are there any more names being dotted into?
                   (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
                 )
                 (?:\s*\?\s*)? # nullable suffix?
@@ -1088,8 +1088,8 @@ repository:
             patterns:
             - include: '#type'
           # '3': ?<identifier> is a sub-expression. It's final value is not considered.
-          # '4': ?<name-and-type-args> is a sub-expression. It's final value is not considered.
-          # '5': ?<type-args> is a sub-expression. It's final value is not considered.
+          # '4': ?<name_and_type_args> is a sub-expression. It's final value is not considered.
+          # '5': ?<type_args> is a sub-expression. It's final value is not considered.
           # '6': ?<tuple> is a sub-expression. It's final value is not considered.
           '7': { name: entity.name.variable.local.cs }
           '8': { name: keyword.control.loop.in.cs }
@@ -1146,15 +1146,15 @@ repository:
       patterns:
       - match: |-
           (?x)
-          (?<type-name>
+          (?<type_name>
             (?:
               (?:
                 (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
-                (?<name-and-type-args> # identifier + type arguments (if any)
+                (?<name_and_type_args> # identifier + type arguments (if any)
                   \g<identifier>\s*
-                  (?<type-args>\s*<(?:[^<>]|\g<type-args>)+>\s*)?
+                  (?<type_args>\s*<(?:[^<>]|\g<type_args>)+>\s*)?
                 )
-                (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
+                (?:\s*\.\s*\g<name_and_type_args>)* | # Are there any more names being dotted into?
                 (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
               )
               (?:\s*\?\s*)? # nullable suffix?
@@ -1167,8 +1167,8 @@ repository:
             patterns:
             - include: '#type'
           # '2': ?<identifier> is a sub-expression. It's final value is not considered.
-          # '3': ?<name-and-type-args> is a sub-expression. It's final value is not considered.
-          # '4': ?<type-args> is a sub-expression. It's final value is not considered.
+          # '3': ?<name_and_type_args> is a sub-expression. It's final value is not considered.
+          # '4': ?<type_args> is a sub-expression. It's final value is not considered.
           # '5': ?<tuple> is a sub-expression. It's final value is not considered.
           '6': { name: entity.name.variable.local.cs }
     - include: '#when-clause'
@@ -1247,16 +1247,16 @@ repository:
       (?x)
       (?:
         (?:(\bref)\s+(?:(\breadonly)\s+)?)?(\bvar\b)| # ref local
-        (?<type-name>
+        (?<type_name>
           (?:
             (?:ref\s+(?:readonly\s+)?)?   # ref local
             (?:
               (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
-              (?<name-and-type-args> # identifier + type arguments (if any)
+              (?<name_and_type_args> # identifier + type arguments (if any)
                 \g<identifier>\s*
-                (?<type-args>\s*<(?:[^<>]|\g<type-args>)+>\s*)?
+                (?<type_args>\s*<(?:[^<>]|\g<type_args>)+>\s*)?
               )
-              (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
+              (?:\s*\.\s*\g<name_and_type_args>)* | # Are there any more names being dotted into?
               (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
             )
             (?:\s*\?\s*)? # nullable suffix?
@@ -1275,8 +1275,8 @@ repository:
         patterns:
         - include: '#type'
       # '5': ?<identifier> is a sub-expression. It's final value is not considered.
-      # '6': ?<name-and-type-args> is a sub-expression. It's final value is not considered.
-      # '7': ?<type-args> is a sub-expression. It's final value is not considered.
+      # '6': ?<name_and_type_args> is a sub-expression. It's final value is not considered.
+      # '7': ?<type_args> is a sub-expression. It's final value is not considered.
       # '8': ?<tuple> is a sub-expression. It's final value is not considered.
       '9': { name: entity.name.variable.local.cs }
     end: (?=;|\))
@@ -1290,16 +1290,16 @@ repository:
   local-constant-declaration:
     begin: |-
       (?x)
-      (?<const-keyword>\b(?:const)\b)\s*
-      (?<type-name>
+      (?<const_keyword>\b(?:const)\b)\s*
+      (?<type_name>
         (?:
           (?:
             (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
-            (?<name-and-type-args> # identifier + type arguments (if any)
+            (?<name_and_type_args> # identifier + type arguments (if any)
               \g<identifier>\s*
-              (?<type-args>\s*<(?:[^<>]|\g<type-args>)+>\s*)?
+              (?<type_args>\s*<(?:[^<>]|\g<type_args>)+>\s*)?
             )
-            (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
+            (?:\s*\.\s*\g<name_and_type_args>)* | # Are there any more names being dotted into?
             (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
           )
           (?:\s*\?\s*)? # nullable suffix?
@@ -1314,8 +1314,8 @@ repository:
         patterns:
         - include: '#type'
       # '3': ?<identifier> is a sub-expression. It's final value is not considered.
-      # '4': ?<name-and-type-args> is a sub-expression. It's final value is not considered.
-      # '5': ?<type-args> is a sub-expression. It's final value is not considered.
+      # '4': ?<name_and_type_args> is a sub-expression. It's final value is not considered.
+      # '5': ?<type_args> is a sub-expression. It's final value is not considered.
       # '6': ?<tuple> is a sub-expression. It's final value is not considered.
       '7': { name: entity.name.variable.local.cs }
     end: (?=;)
@@ -1395,15 +1395,15 @@ repository:
       (?x) # e.g. int x OR var x
       (?:
         \b(var)\b|
-        (?<type-name>
+        (?<type_name>
           (?:
             (?:
               (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
-              (?<name-and-type-args> # identifier + type arguments (if any)
+              (?<name_and_type_args> # identifier + type arguments (if any)
                 \g<identifier>\s*
-                (?<type-args>\s*<(?:[^<>]|\g<type-args>)+>\s*)?
+                (?<type_args>\s*<(?:[^<>]|\g<type_args>)+>\s*)?
               )
-              (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
+              (?:\s*\.\s*\g<name_and_type_args>)* | # Are there any more names being dotted into?
               (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
             )
             (?:\s*\?\s*)? # nullable suffix?
@@ -1419,8 +1419,8 @@ repository:
         patterns:
         - include: '#type'
       # '3': ?<identifier> is a sub-expression. It's final value is not considered.
-      # '4': ?<name-and-type-args> is a sub-expression. It's final value is not considered.
-      # '5': ?<type-args> is a sub-expression. It's final value is not considered.
+      # '4': ?<name_and_type_args> is a sub-expression. It's final value is not considered.
+      # '5': ?<type_args> is a sub-expression. It's final value is not considered.
       # '6': ?<tuple> is a sub-expression. It's final value is not considered.
       '7': { name: entity.name.variable.local.cs }
 
@@ -1429,15 +1429,15 @@ repository:
       (?x) # e.g. int x OR var x
       (?:
         \b(var)\b|
-        (?<type-name>
+        (?<type_name>
           (?:
             (?:
               (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
-              (?<name-and-type-args> # identifier + type arguments (if any)
+              (?<name_and_type_args> # identifier + type arguments (if any)
                 \g<identifier>\s*
-                (?<type-args>\s*<(?:[^<>]|\g<type-args>)+>\s*)?
+                (?<type_args>\s*<(?:[^<>]|\g<type_args>)+>\s*)?
               )
-              (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
+              (?:\s*\.\s*\g<name_and_type_args>)* | # Are there any more names being dotted into?
               (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
             )
             (?:\s*\?\s*)? # nullable suffix?
@@ -1453,8 +1453,8 @@ repository:
         patterns:
         - include: '#type'
       # '3': ?<identifier> is a sub-expression. It's final value is not considered.
-      # '4': ?<name-and-type-args> is a sub-expression. It's final value is not considered.
-      # '5': ?<type-args> is a sub-expression. It's final value is not considered.
+      # '4': ?<name_and_type_args> is a sub-expression. It's final value is not considered.
+      # '5': ?<type_args> is a sub-expression. It's final value is not considered.
       # '6': ?<tuple> is a sub-expression. It's final value is not considered.
       '7': { name: entity.name.variable.tuple-element.cs }
 
@@ -1720,15 +1720,15 @@ repository:
     match: |-
       (?x)
       (\()\s*
-      (?<type-name>
+      (?<type_name>
         (?:
           (?:
             (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
-            (?<name-and-type-args> # identifier + type arguments (if any)
+            (?<name_and_type_args> # identifier + type arguments (if any)
               \g<identifier>\s*
-              (?<type-args>\s*<(?:[^<>]|\g<type-args>)+>\s*)?
+              (?<type_args>\s*<(?:[^<>]|\g<type_args>)+>\s*)?
             )
-            (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
+            (?:\s*\.\s*\g<name_and_type_args>)* | # Are there any more names being dotted into?
             (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
           )
           (?:\s*\?\s*)? # nullable suffix?
@@ -1742,8 +1742,8 @@ repository:
         patterns:
         - include: '#type'
       # '3': ?<identifier> is a sub-expression. It's final value is not considered.
-      # '4': ?<name-and-type-args> is a sub-expression. It's final value is not considered.
-      # '5': ?<type-args> is a sub-expression. It's final value is not considered.
+      # '4': ?<name_and_type_args> is a sub-expression. It's final value is not considered.
+      # '5': ?<type_args> is a sub-expression. It's final value is not considered.
       # '6': ?<tuple> is a sub-expression. It's final value is not considered.
       '7': { name: punctuation.parenthesis.close.cs }
 
@@ -1751,15 +1751,15 @@ repository:
     match: |-
       (?x)
       (?<!\.)\b(as)\b\s*
-      (?<type-name>
+      (?<type_name>
         (?:
           (?:
             (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
-            (?<name-and-type-args> # identifier + type arguments (if any)
+            (?<name_and_type_args> # identifier + type arguments (if any)
               \g<identifier>\s*
-              (?<type-args>\s*<(?:[^<>]|\g<type-args>)+>\s*)?
+              (?<type_args>\s*<(?:[^<>]|\g<type_args>)+>\s*)?
             )
-            (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
+            (?:\s*\.\s*\g<name_and_type_args>)* | # Are there any more names being dotted into?
             (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
           )
           (?:\s*\?\s*)? # nullable suffix?
@@ -1776,15 +1776,15 @@ repository:
     match: |-
       (?x)
       (?<!\.)\b(is)\b\s*
-      (?<type-name>
+      (?<type_name>
         (?:
           (?:
             (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
-            (?<name-and-type-args> # identifier + type arguments (if any)
+            (?<name_and_type_args> # identifier + type arguments (if any)
               \g<identifier>\s*
-              (?<type-args>\s*<(?:[^<>]|\g<type-args>)+>\s*)?
+              (?<type_args>\s*<(?:[^<>]|\g<type_args>)+>\s*)?
             )
-            (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
+            (?:\s*\.\s*\g<name_and_type_args>)* | # Are there any more names being dotted into?
             (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
           )
           (?:\s*\?\s*)? # nullable suffix?
@@ -1809,7 +1809,7 @@ repository:
       (?:(\?)\s*)?                                     # preceding null-conditional operator?
       (?:(\.)\s*)?                                     # preceding dot?
       (@?[_[:alpha:]][_[:alnum:]]*)\s*                   # method name
-      (?<type-args>\s*<([^<>]|\g<type-args>)+>\s*)?\s* # type arguments
+      (?<type_args>\s*<([^<>]|\g<type_args>)+>\s*)?\s* # type arguments
       (?=\()                                           # open paren of argument list
     beginCaptures:
       '1': { name: keyword.operator.null-conditional.cs }
@@ -1859,7 +1859,7 @@ repository:
         (?x)
         (\.)?\s*
         (@?[_[:alpha:]][_[:alnum:]]*)
-        (?<type-params>\s*<([^<>]|\g<type-params>)+>\s*)
+        (?<type_params>\s*<([^<>]|\g<type_params>)+>\s*)
         (?=
           (\s*\?)?
           \s*\.\s*@?[_[:alpha:]][_[:alnum:]]*
@@ -1891,15 +1891,15 @@ repository:
     begin: |-
       (?x)
       (new)\s+
-      (?<type-name>
+      (?<type_name>
         (?:
           (?:
             (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
-            (?<name-and-type-args> # identifier + type arguments (if any)
+            (?<name_and_type_args> # identifier + type arguments (if any)
               \g<identifier>\s*
-              (?<type-args>\s*<(?:[^<>]|\g<type-args>)+>\s*)?
+              (?<type_args>\s*<(?:[^<>]|\g<type_args>)+>\s*)?
             )
-            (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
+            (?:\s*\.\s*\g<name_and_type_args>)* | # Are there any more names being dotted into?
             (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
           )
           (?:\s*\?\s*)? # nullable suffix?
@@ -1920,15 +1920,15 @@ repository:
     match: |-
       (?x)
       (new)\s+
-      (?<type-name>
+      (?<type_name>
         (?:
           (?:
             (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
-            (?<name-and-type-args> # identifier + type arguments (if any)
+            (?<name_and_type_args> # identifier + type arguments (if any)
               \g<identifier>\s*
-              (?<type-args>\s*<(?:[^<>]|\g<type-args>)+>\s*)?
+              (?<type_args>\s*<(?:[^<>]|\g<type_args>)+>\s*)?
             )
-            (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
+            (?:\s*\.\s*\g<name_and_type_args>)* | # Are there any more names being dotted into?
             (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
           )
           (?:\s*\?\s*)? # nullable suffix?
@@ -1946,15 +1946,15 @@ repository:
     begin: |-
       (?x)
       \b(new|stackalloc)\b\s*
-      (?<type-name>
+      (?<type_name>
         (?:
           (?:
             (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
-            (?<name-and-type-args> # identifier + type arguments (if any)
+            (?<name_and_type_args> # identifier + type arguments (if any)
               \g<identifier>\s*
-              (?<type-args>\s*<(?:[^<>]|\g<type-args>)+>\s*)?
+              (?<type_args>\s*<(?:[^<>]|\g<type_args>)+>\s*)?
             )
-            (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
+            (?:\s*\.\s*\g<name_and_type_args>)* | # Are there any more names being dotted into?
             (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
           )
           (?:\s*\?\s*)? # nullable suffix?
@@ -2015,16 +2015,16 @@ repository:
     match: |-
       (?x)
       (?:(?:\b(ref|params|out|in|this)\b)\s+)?
-      (?<type-name>
+      (?<type_name>
         (?:
           (?:ref\s+)?   # ref return
           (?:
             (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
-            (?<name-and-type-args> # identifier + type arguments (if any)
+            (?<name_and_type_args> # identifier + type arguments (if any)
               \g<identifier>\s*
-              (?<type-args>\s*<(?:[^<>]|\g<type-args>)+>\s*)?
+              (?<type_args>\s*<(?:[^<>]|\g<type_args>)+>\s*)?
             )
-            (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
+            (?:\s*\.\s*\g<name_and_type_args>)* | # Are there any more names being dotted into?
             (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
           )
           (?:\s*\?\s*)? # nullable suffix?
@@ -2038,8 +2038,8 @@ repository:
         patterns:
         - include: '#type'
       # '3': ?<identifier> is a sub-expression. It's final value is not considered.
-      # '4': ?<name-and-type-args> is a sub-expression. It's final value is not considered.
-      # '5': ?<type-args> is a sub-expression. It's final value is not considered.
+      # '4': ?<name_and_type_args> is a sub-expression. It's final value is not considered.
+      # '5': ?<type_args> is a sub-expression. It's final value is not considered.
       # '6': ?<tuple> is a sub-expression. It's final value is not considered.
       '7': { name: entity.name.variable.parameter.cs }
 
@@ -2087,15 +2087,15 @@ repository:
     begin: |-
       (?x)
       \b(from)\b\s*
-      (?<type-name>
+      (?<type_name>
         (?:
           (?:
             (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
-            (?<name-and-type-args> # identifier + type arguments (if any)
+            (?<name_and_type_args> # identifier + type arguments (if any)
               \g<identifier>\s*
-              (?<type-args>\s*<(?:[^<>]|\g<type-args>)+>\s*)?
+              (?<type_args>\s*<(?:[^<>]|\g<type_args>)+>\s*)?
             )
-            (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
+            (?:\s*\.\s*\g<name_and_type_args>)* | # Are there any more names being dotted into?
             (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
           )
           (?:\s*\?\s*)? # nullable suffix?
@@ -2110,8 +2110,8 @@ repository:
         patterns:
         - include: '#type'
       # '3': ?<identifier> is a sub-expression. It's final value is not considered.
-      # '4': ?<name-and-type-args> is a sub-expression. It's final value is not considered.
-      # '5': ?<type-args> is a sub-expression. It's final value is not considered.
+      # '4': ?<name_and_type_args> is a sub-expression. It's final value is not considered.
+      # '5': ?<type_args> is a sub-expression. It's final value is not considered.
       # '6': ?<tuple> is a sub-expression. It's final value is not considered.
       '7': { name: entity.name.variable.range-variable.cs }
       '8': { name: keyword.query.in.cs }
@@ -2159,15 +2159,15 @@ repository:
     begin: |-
       (?x)
       \b(join)\b\s*
-      (?<type-name>
+      (?<type_name>
         (?:
           (?:
             (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
-            (?<name-and-type-args> # identifier + type arguments (if any)
+            (?<name_and_type_args> # identifier + type arguments (if any)
               \g<identifier>\s*
-              (?<type-args>\s*<(?:[^<>]|\g<type-args>)+>\s*)?
+              (?<type_args>\s*<(?:[^<>]|\g<type_args>)+>\s*)?
             )
-            (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
+            (?:\s*\.\s*\g<name_and_type_args>)* | # Are there any more names being dotted into?
             (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
           )
           (?:\s*\?\s*)? # nullable suffix?
@@ -2182,8 +2182,8 @@ repository:
         patterns:
         - include: '#type'
       # '3': ?<identifier> is a sub-expression. It's final value is not considered.
-      # '4': ?<name-and-type-args> is a sub-expression. It's final value is not considered.
-      # '5': ?<type-args> is a sub-expression. It's final value is not considered.
+      # '4': ?<name_and_type_args> is a sub-expression. It's final value is not considered.
+      # '5': ?<type_args> is a sub-expression. It's final value is not considered.
       # '6': ?<tuple> is a sub-expression. It's final value is not considered.
       '7': { name: entity.name.variable.range-variable.cs }
       '8': { name: keyword.query.in.cs }
@@ -2327,15 +2327,15 @@ repository:
     match: |-
       (?x)
       (?:\b(ref|out|in)\b)?\s*
-      (?:(?<type-name>
+      (?:(?<type_name>
         (?:
           (?:
             (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
-            (?<name-and-type-args> # identifier + type arguments (if any)
+            (?<name_and_type_args> # identifier + type arguments (if any)
               \g<identifier>\s*
-              (?<type-args>\s*<(?:[^<>]|\g<type-args>)+>\s*)?
+              (?<type_args>\s*<(?:[^<>]|\g<type_args>)+>\s*)?
             )
-            (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
+            (?:\s*\.\s*\g<name_and_type_args>)* | # Are there any more names being dotted into?
             (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
           )
           (?:\s*\?\s*)? # nullable suffix?
@@ -2350,8 +2350,8 @@ repository:
         patterns:
         - include: '#type'
       # '3': ?<identifier> is a sub-expression. It's final value is not considered.
-      # '4': ?<name-and-type-args> is a sub-expression. It's final value is not considered.
-      # '5': ?<type-args> is a sub-expression. It's final value is not considered.
+      # '4': ?<name_and_type_args> is a sub-expression. It's final value is not considered.
+      # '5': ?<type_args> is a sub-expression. It's final value is not considered.
       # '6': ?<tuple> is a sub-expression. It's final value is not considered.
       '7': { name: entity.name.variable.parameter.cs }
 
@@ -2390,29 +2390,29 @@ repository:
   tuple-element:
     match: |-
       (?x)
-      (?<type-name>
+      (?<type_name>
         (?:
           (?:
             (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
-            (?<name-and-type-args> # identifier + type arguments (if any)
+            (?<name_and_type_args> # identifier + type arguments (if any)
               \g<identifier>\s*
-              (?<type-args>\s*<(?:[^<>]|\g<type-args>)+>\s*)?
+              (?<type_args>\s*<(?:[^<>]|\g<type_args>)+>\s*)?
             )
-            (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
+            (?:\s*\.\s*\g<name_and_type_args>)* | # Are there any more names being dotted into?
             (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
           )
           (?:\s*\?\s*)? # nullable suffix?
           (?:\s*\[(?:\s*,\s*)*\]\s*)* # array suffix?
         )
       )
-      (?:(?<tuple-name>\g<identifier>)\b)?
+      (?:(?<tuple_name>\g<identifier>)\b)?
     captures:
       '1':
         patterns:
         - include: '#type'
       # '2': ?<identifier> is a sub-expression. It's final value is not considered.
-      # '3': ?<name-and-type-args> is a sub-expression. It's final value is not considered.
-      # '4': ?<type-args> is a sub-expression. It's final value is not considered.
+      # '3': ?<name_and_type_args> is a sub-expression. It's final value is not considered.
+      # '4': ?<type_args> is a sub-expression. It's final value is not considered.
       # '5': ?<tuple> is a sub-expression. It's final value is not considered.
       '6': { name: entity.name.variable.tuple-element.cs }
 
