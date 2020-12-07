@@ -375,20 +375,22 @@ export namespace Token {
 
         export namespace CompoundAssignment {
             export namespace Arithmetic {
-                export const Addition = createToken('+=', 'keyword.operator.assignment.compound.ts');
-                export const Division = createToken('/=', 'keyword.operator.assignment.compound.ts');
-                export const Multiplication = createToken('*=', 'keyword.operator.assignment.compound.ts');
-                export const Remainder = createToken('%=', 'keyword.operator.assignment.compound.ts');
-                export const Subtraction = createToken('-=', 'keyword.operator.assignment.compound.ts');
+                export const Addition = createToken('+=', 'keyword.operator.assignment.compound.cs');
+                export const Division = createToken('/=', 'keyword.operator.assignment.compound.cs');
+                export const Multiplication = createToken('*=', 'keyword.operator.assignment.compound.cs');
+                export const Remainder = createToken('%=', 'keyword.operator.assignment.compound.cs');
+                export const Subtraction = createToken('-=', 'keyword.operator.assignment.compound.cs');
             }
 
             export namespace Bitwise {
-                export const And = createToken('&=', 'keyword.operator.assignment.compound.bitwise.ts');
-                export const ExclusiveOr = createToken('^=', 'keyword.operator.assignment.compound.bitwise.ts');
-                export const Or = createToken('|=', 'keyword.operator.assignment.compound.bitwise.ts');
-                export const ShiftLeft = createToken('<<=', 'keyword.operator.assignment.compound.bitwise.ts');
-                export const ShiftRight = createToken('>>=', 'keyword.operator.assignment.compound.bitwise.ts');
+                export const And = createToken('&=', 'keyword.operator.assignment.compound.bitwise.cs');
+                export const ExclusiveOr = createToken('^=', 'keyword.operator.assignment.compound.bitwise.cs');
+                export const Or = createToken('|=', 'keyword.operator.assignment.compound.bitwise.cs');
+                export const ShiftLeft = createToken('<<=', 'keyword.operator.assignment.compound.bitwise.cs');
+                export const ShiftRight = createToken('>>=', 'keyword.operator.assignment.compound.bitwise.cs');
             }
+
+            export const NullCoalescing = createToken('??=', 'keyword.operator.assignment.compound.cs');
         }
 
         export namespace Conditional {

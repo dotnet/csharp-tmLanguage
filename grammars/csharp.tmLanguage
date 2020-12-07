@@ -4680,7 +4680,7 @@
             <key>name</key>
             <string>keyword.operator.assignment.compound.cs</string>
             <key>match</key>
-            <string>\*=|/=|%=|\+=|-=</string>
+            <string>\*=|/=|%=|\+=|-=|\?\?=</string>
           </dict>
           <dict>
             <key>name</key>

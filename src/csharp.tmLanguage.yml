@@ -1776,7 +1776,7 @@ repository:
   expression-operators:
     patterns:
     - name: keyword.operator.assignment.compound.cs
-      match: \*=|/=|%=|\+=|-=
+      match: \*=|/=|%=|\+=|-=|\?\?=
     - name: keyword.operator.assignment.compound.bitwise.cs
       match: \&=|\^=|<<=|>>=|\|=
     - name: keyword.operator.bitwise.shift.cs

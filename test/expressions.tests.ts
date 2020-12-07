@@ -1185,6 +1185,153 @@ var x = new
       });
     });
 
+    describe("Assignment", () => {
+
+      it("assignment =", async () => {
+        const input = Input.InMethod(`x = 1;`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Variables.ReadWrite("x"),
+          Token.Operators.Assignment,
+          Token.Literals.Numeric.Decimal("1"),
+          Token.Punctuation.Semicolon
+        ]);
+      });
+
+      it("compound assignment +=", async () => {
+        const input = Input.InMethod(`x += 1;`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Variables.ReadWrite("x"),
+          Token.Operators.CompoundAssignment.Arithmetic.Addition,
+          Token.Literals.Numeric.Decimal("1"),
+          Token.Punctuation.Semicolon
+        ]);
+      });
+
+      it("compound assignment /=", async () => {
+        const input = Input.InMethod(`x /= 1;`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Variables.ReadWrite("x"),
+          Token.Operators.CompoundAssignment.Arithmetic.Division,
+          Token.Literals.Numeric.Decimal("1"),
+          Token.Punctuation.Semicolon
+        ]);
+      });
+
+      it("compound assignment *=", async () => {
+        const input = Input.InMethod(`x *= 1;`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Variables.ReadWrite("x"),
+          Token.Operators.CompoundAssignment.Arithmetic.Multiplication,
+          Token.Literals.Numeric.Decimal("1"),
+          Token.Punctuation.Semicolon
+        ]);
+      });
+
+      it("compound assignment %=", async () => {
+        const input = Input.InMethod(`x %= 1;`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Variables.ReadWrite("x"),
+          Token.Operators.CompoundAssignment.Arithmetic.Remainder,
+          Token.Literals.Numeric.Decimal("1"),
+          Token.Punctuation.Semicolon
+        ]);
+      });
+
+      it("compound assignment -=", async () => {
+        const input = Input.InMethod(`x -= 1;`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Variables.ReadWrite("x"),
+          Token.Operators.CompoundAssignment.Arithmetic.Subtraction,
+          Token.Literals.Numeric.Decimal("1"),
+          Token.Punctuation.Semicolon
+        ]);
+      });
+
+      it("compound assignment &=", async () => {
+        const input = Input.InMethod(`x &= 1;`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Variables.ReadWrite("x"),
+          Token.Operators.CompoundAssignment.Bitwise.And,
+          Token.Literals.Numeric.Decimal("1"),
+          Token.Punctuation.Semicolon
+        ]);
+      });
+
+      it("compound assignment ^=", async () => {
+        const input = Input.InMethod(`x ^= 1;`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Variables.ReadWrite("x"),
+          Token.Operators.CompoundAssignment.Bitwise.ExclusiveOr,
+          Token.Literals.Numeric.Decimal("1"),
+          Token.Punctuation.Semicolon
+        ]);
+      });
+
+      it("compound assignment |=", async () => {
+        const input = Input.InMethod(`x |= 1;`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Variables.ReadWrite("x"),
+          Token.Operators.CompoundAssignment.Bitwise.Or,
+          Token.Literals.Numeric.Decimal("1"),
+          Token.Punctuation.Semicolon
+        ]);
+      });
+
+      it("compound assignment <<=", async () => {
+        const input = Input.InMethod(`x <<= 1;`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Variables.ReadWrite("x"),
+          Token.Operators.CompoundAssignment.Bitwise.ShiftLeft,
+          Token.Literals.Numeric.Decimal("1"),
+          Token.Punctuation.Semicolon
+        ]);
+      });
+
+      it("compound assignment >>=", async () => {
+        const input = Input.InMethod(`x >>= 1;`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Variables.ReadWrite("x"),
+          Token.Operators.CompoundAssignment.Bitwise.ShiftRight,
+          Token.Literals.Numeric.Decimal("1"),
+          Token.Punctuation.Semicolon
+        ]);
+      });
+
+      it("compound assignment ??=", async () => {
+        const input = Input.InMethod(`x ??= 1;`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Variables.ReadWrite("x"),
+          Token.Operators.CompoundAssignment.NullCoalescing,
+          Token.Literals.Numeric.Decimal("1"),
+          Token.Punctuation.Semicolon
+        ]);
+      });
+    });
+
     describe("Await", () => {
       it("at statement level", async () => {
         const input = Input.InMethod(`await M();`);
