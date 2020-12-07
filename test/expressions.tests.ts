@@ -3890,7 +3890,7 @@ select x.Key1;`);
         };`);
         const tokens = await tokenize(input);
         tokens.should.deep.equal([
-          { text: "public", type: "storage.modifier" },
+          { text: "public", type: "storage.modifier.cs" },
           Token.Keywords.Modifiers.Static,
           Token.PrimitiveType.Decimal,
           Token.Identifiers.MethodName("ComputeSalesTax"),
@@ -3940,12 +3940,12 @@ select x.Key1;`);
           Token.Punctuation.Comma,
           {
             text: "            ",
-            type: "Punctuation.whitespace.comment.leading"
+            type: "punctuation.whitespace.comment.leading.cs"
           },
-          { text: "//", type: "Punctuation.definition.comment" },
+          { text: "//", type: "punctuation.definition.comment.cs" },
           {
             text: " other cases removed for brevity...",
-            type: "comment.line.double-slash"
+            type: "comment.line.double-slash.cs"
           },
           Token.Literals.Numeric.Decimal("_"),
           Token.Operators.Arrow,

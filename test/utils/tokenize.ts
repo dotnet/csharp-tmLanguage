@@ -454,6 +454,7 @@ export namespace Token {
             export const Begin = createToken('$"', 'punctuation.definition.string.begin.cs');
             export const End = createToken('"', 'punctuation.definition.string.end.cs');
             export const VerbatimBegin = createToken('$@"', 'punctuation.definition.string.begin.cs');
+            export const VerbatimBeginReverse = createToken('@$"', 'punctuation.definition.string.begin.cs');
         }
 
         export namespace String {
