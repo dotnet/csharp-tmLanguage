@@ -71,6 +71,26 @@ describe("Grammar", () => {
           Token.Punctuation.Semicolon
         ]);
       });
+
+      it("with stackalloc keyword in a nested expression (C# 8)", async () => {
+        const input = Input.InMethod(`Foo(stackalloc[] { 1, 3 });`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Identifiers.MethodName("Foo"),
+          Token.Punctuation.OpenParen,
+          Token.Keywords.Stackalloc,
+          Token.Punctuation.OpenBracket,
+          Token.Punctuation.CloseBracket,
+          Token.Punctuation.OpenBrace,
+          Token.Literals.Numeric.Decimal("1"),
+          Token.Punctuation.Comma,
+          Token.Literals.Numeric.Decimal("3"),
+          Token.Punctuation.CloseBrace,
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.Semicolon
+        ]);
+      });
     });
 
     describe("Anonymous Methods", () => {
