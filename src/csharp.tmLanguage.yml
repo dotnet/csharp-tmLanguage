@@ -1359,6 +1359,7 @@ repository:
     patterns:
     - include: '#local-constant-declaration'
     - include: '#local-variable-declaration'
+    - include: '#local-function-declaration'
     - include: '#local-tuple-var-deconstruction'
 
   local-variable-declaration:
@@ -1446,6 +1447,10 @@ repository:
     - include: '#punctuation-comma'
     - include: '#comment'
     - include: '#variable-initializer'
+  
+  local-function-declaration:
+    patterns:
+      - include: '#method-declaration'
 
   local-tuple-var-deconstruction:
     begin: |-

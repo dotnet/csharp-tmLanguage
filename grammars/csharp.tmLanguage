@@ -3692,6 +3692,10 @@
           </dict>
           <dict>
             <key>include</key>
+            <string>#local-function-declaration</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#local-tuple-var-deconstruction</string>
           </dict>
         </array>
@@ -3851,6 +3855,16 @@
           <dict>
             <key>include</key>
             <string>#variable-initializer</string>
+          </dict>
+        </array>
+      </dict>
+      <key>local-function-declaration</key>
+      <dict>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#method-declaration</string>
           </dict>
         </array>
       </dict>

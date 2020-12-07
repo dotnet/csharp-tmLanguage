@@ -2245,6 +2245,9 @@ repository:
         include: "#local-variable-declaration"
       }
       {
+        include: "#local-function-declaration"
+      }
+      {
         include: "#local-tuple-var-deconstruction"
       }
     ]
@@ -2355,6 +2358,12 @@ repository:
       }
       {
         include: "#variable-initializer"
+      }
+    ]
+  "local-function-declaration":
+    patterns: [
+      {
+        include: "#method-declaration"
       }
     ]
   "local-tuple-var-deconstruction":
