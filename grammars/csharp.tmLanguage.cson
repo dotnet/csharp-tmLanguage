@@ -2252,6 +2252,7 @@ repository:
     begin: '''
       (?x)
       (?:
+        (?:(\\busing)\\s+)?
         (?:(\\bref)\\s+(?:(\\breadonly)\\s+)?)?(\\bvar\\b)| # ref local
         (?<type-name>
           (?:
@@ -2276,18 +2277,20 @@ repository:
     '''
     beginCaptures:
       "1":
-        name: "storage.modifier.cs"
+        name: "keyword.other.using.cs"
       "2":
         name: "storage.modifier.cs"
       "3":
-        name: "keyword.other.var.cs"
+        name: "storage.modifier.cs"
       "4":
+        name: "keyword.other.var.cs"
+      "5":
         patterns: [
           {
             include: "#type"
           }
         ]
-      "9":
+      "10":
         name: "entity.name.variable.local.cs"
     end: "(?=;|\\))"
     patterns: [

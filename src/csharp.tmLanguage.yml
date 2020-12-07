@@ -1365,6 +1365,7 @@ repository:
     begin: |-
       (?x)
       (?:
+        (?:(\busing)\s+)?
         (?:(\bref)\s+(?:(\breadonly)\s+)?)?(\bvar\b)| # ref local
         (?<type-name>
           (?:
@@ -1387,17 +1388,18 @@ repository:
       (?!=>)
       (?=,|;|=|\))
     beginCaptures:
-      '1': { name: storage.modifier.cs }
+      '1': { name: keyword.other.using.cs }
       '2': { name: storage.modifier.cs }
-      '3': { name: keyword.other.var.cs }
-      '4':
+      '3': { name: storage.modifier.cs }
+      '4': { name: keyword.other.var.cs }
+      '5':
         patterns:
         - include: '#type'
-      # '5': ?<identifier> is a sub-expression. It's final value is not considered.
-      # '6': ?<name-and-type-args> is a sub-expression. It's final value is not considered.
-      # '7': ?<type-args> is a sub-expression. It's final value is not considered.
-      # '8': ?<tuple> is a sub-expression. It's final value is not considered.
-      '9': { name: entity.name.variable.local.cs }
+      # '6': ?<identifier> is a sub-expression. It's final value is not considered.
+      # '7': ?<name-and-type-args> is a sub-expression. It's final value is not considered.
+      # '8': ?<type-args> is a sub-expression. It's final value is not considered.
+      # '9': ?<tuple> is a sub-expression. It's final value is not considered.
+      '10': { name: entity.name.variable.local.cs }
     end: (?=;|\))
     patterns:
     - name: entity.name.variable.local.cs

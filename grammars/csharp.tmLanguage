@@ -3701,6 +3701,7 @@
         <key>begin</key>
         <string>(?x)
 (?:
+  (?:(\busing)\s+)?
   (?:(\bref)\s+(?:(\breadonly)\s+)?)?(\bvar\b)| # ref local
   (?&lt;type-name&gt;
     (?:
@@ -3727,7 +3728,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>storage.modifier.cs</string>
+            <string>keyword.other.using.cs</string>
           </dict>
           <key>2</key>
           <dict>
@@ -3737,9 +3738,14 @@
           <key>3</key>
           <dict>
             <key>name</key>
-            <string>keyword.other.var.cs</string>
+            <string>storage.modifier.cs</string>
           </dict>
           <key>4</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.other.var.cs</string>
+          </dict>
+          <key>5</key>
           <dict>
             <key>patterns</key>
             <array>
@@ -3749,7 +3755,7 @@
               </dict>
             </array>
           </dict>
-          <key>9</key>
+          <key>10</key>
           <dict>
             <key>name</key>
             <string>entity.name.variable.local.cs</string>
