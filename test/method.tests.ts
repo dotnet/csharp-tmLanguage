@@ -167,6 +167,33 @@ int Add(int x, int y)
                 Token.Punctuation.Semicolon]);
         });
 
+        it("declaration in interface with default implementation", async () => {
+            const input = Input.InInterface(`
+int Add(int x, int y)
+{
+    return x + y;
+}`);
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.PrimitiveType.Int,
+                Token.Identifiers.MethodName("Add"),
+                Token.Punctuation.OpenParen,
+                Token.PrimitiveType.Int,
+                Token.Identifiers.ParameterName("x"),
+                Token.Punctuation.Comma,
+                Token.PrimitiveType.Int,
+                Token.Identifiers.ParameterName("y"),
+                Token.Punctuation.CloseParen,
+                Token.Punctuation.OpenBrace,
+                Token.Keywords.Control.Return,
+                Token.Variables.ReadWrite("x"),
+                Token.Operators.Arithmetic.Addition,
+                Token.Variables.ReadWrite("y"),
+                Token.Punctuation.Semicolon,
+                Token.Punctuation.CloseBrace]);
+        });
+
         it("public override", async () => {
             const input = Input.InClass(`public override M() { }`);
             const tokens = await tokenize(input);
@@ -805,6 +832,24 @@ T id2<T>(T a) where T : class => a;`);
                 Token.Operators.Arrow,
                 Token.Variables.ReadWrite("a"),
                 Token.Punctuation.Semicolon
+            ]);
+        });
+
+        it("readonly members in struct (C# 8)", async () => {
+            const input = Input.InClass(`readonly int M() { return x; }`);
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Modifiers.ReadOnly,
+                Token.PrimitiveType.Int,
+                Token.Identifiers.MethodName("M"),
+                Token.Punctuation.OpenParen,
+                Token.Punctuation.CloseParen,
+                Token.Punctuation.OpenBrace,
+                Token.Keywords.Control.Return,
+                Token.Variables.ReadWrite("x"),
+                Token.Punctuation.Semicolon,
+                Token.Punctuation.CloseBrace
             ]);
         });
     });

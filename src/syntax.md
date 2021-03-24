@@ -8,16 +8,16 @@
 #### Type name
 
 ```
-(?<type-name>
+(?<type_name>
     (?:
         (?:ref\s+)?   # only in certain place with ref local/return
         (?:
             (?:(?<identifier>[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
-            (?<name-and-type-args> # identifier + type arguments (if any)
+            (?<name_and_type_args> # identifier + type arguments (if any)
                 \g<identifier>\s*
-                (?<type-args>\s*<(?:[^<>]|\g<type-args>)+>\s*)?
+                (?<type_args>\s*<(?:[^<>]|\g<type_args>)+>\s*)?
             )
-            (?:\s*\.\s*\g<name-and-type-args>)* | # Are there any more names being dotted into?
+            (?:\s*\.\s*\g<name_and_type_args>)* | # Are there any more names being dotted into?
             (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
         )
         (?:\s*\*\s*)* # pointer suffix?
