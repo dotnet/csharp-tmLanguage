@@ -148,6 +148,29 @@ world!";`);
                 Token.Punctuation.Semicolon]);
         });
 
+        it("verbatim with two interpolations (reverse)", async () => {
+
+            const input = Input.InClass(`string test = @$"hello {one} world {two}!";`);
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.PrimitiveType.String,
+                Token.Identifiers.FieldName("test"),
+                Token.Operators.Assignment,
+                Token.Punctuation.InterpolatedString.VerbatimBeginReverse,
+                Token.Literals.String("hello "),
+                Token.Punctuation.Interpolation.Begin,
+                Token.Variables.ReadWrite("one"),
+                Token.Punctuation.Interpolation.End,
+                Token.Literals.String(" world "),
+                Token.Punctuation.Interpolation.Begin,
+                Token.Variables.ReadWrite("two"),
+                Token.Punctuation.Interpolation.End,
+                Token.Literals.String("!"),
+                Token.Punctuation.InterpolatedString.End,
+                Token.Punctuation.Semicolon]);
+        });
+
         it("verbatim with two interpolations and escaped double-quotes", async () => {
 
             const input = Input.InClass(`string test = $@"hello {one} ""world"" {two}!";`);
@@ -158,6 +181,33 @@ world!";`);
                 Token.Identifiers.FieldName("test"),
                 Token.Operators.Assignment,
                 Token.Punctuation.InterpolatedString.VerbatimBegin,
+                Token.Literals.String("hello "),
+                Token.Punctuation.Interpolation.Begin,
+                Token.Variables.ReadWrite("one"),
+                Token.Punctuation.Interpolation.End,
+                Token.Literals.String(" "),
+                Token.Literals.CharacterEscape("\"\""),
+                Token.Literals.String("world"),
+                Token.Literals.CharacterEscape("\"\""),
+                Token.Literals.String(" "),
+                Token.Punctuation.Interpolation.Begin,
+                Token.Variables.ReadWrite("two"),
+                Token.Punctuation.Interpolation.End,
+                Token.Literals.String("!"),
+                Token.Punctuation.InterpolatedString.End,
+                Token.Punctuation.Semicolon]);
+        });
+
+        it("verbatim with two interpolations and escaped double-quotes (reverse)", async () => {
+
+            const input = Input.InClass(`string test = @$"hello {one} ""world"" {two}!";`);
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.PrimitiveType.String,
+                Token.Identifiers.FieldName("test"),
+                Token.Operators.Assignment,
+                Token.Punctuation.InterpolatedString.VerbatimBeginReverse,
                 Token.Literals.String("hello "),
                 Token.Punctuation.Interpolation.Begin,
                 Token.Variables.ReadWrite("one"),
@@ -200,7 +250,33 @@ world {two}!";`);
                 Token.Punctuation.Semicolon]);
         });
 
+        it("break across two lines with two interpolations (verbatim / reverse)", async () => {
+
+            const input = Input.InClass(`
+string test = @$"hello {one}
+world {two}!";`);
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.PrimitiveType.String,
+                Token.Identifiers.FieldName("test"),
+                Token.Operators.Assignment,
+                Token.Punctuation.InterpolatedString.VerbatimBeginReverse,
+                Token.Literals.String("hello "),
+                Token.Punctuation.Interpolation.Begin,
+                Token.Variables.ReadWrite("one"),
+                Token.Punctuation.Interpolation.End,
+                Token.Literals.String("world "),
+                Token.Punctuation.Interpolation.Begin,
+                Token.Variables.ReadWrite("two"),
+                Token.Punctuation.Interpolation.End,
+                Token.Literals.String("!"),
+                Token.Punctuation.InterpolatedString.End,
+                Token.Punctuation.Semicolon]);
+        });
+
         it("break across two lines and start with a new line with an interpolation (verbatim)", async () => {
+
             const input = Input.InClass(`
 string test = $@"
 I am a multiline string with a
@@ -219,8 +295,7 @@ I am a multiline string with a
                 Token.Punctuation.Interpolation.End,
                 Token.Literals.String(" that starts after a newline!"),
                 Token.Punctuation.InterpolatedString.End,
-                Token.Punctuation.Semicolon
-            ]);
+                Token.Punctuation.Semicolon]);
         });
 
         it("break across two lines with no interpolations (verbatim)", async () => {
@@ -235,6 +310,24 @@ world!";`);
                 Token.Identifiers.FieldName("test"),
                 Token.Operators.Assignment,
                 Token.Punctuation.InterpolatedString.VerbatimBegin,
+                Token.Literals.String("hello"),
+                Token.Literals.String("world!"),
+                Token.Punctuation.InterpolatedString.End,
+                Token.Punctuation.Semicolon]);
+        });
+
+        it("break across two lines with no interpolations (verbatim / reverse)", async () => {
+
+            const input = Input.InClass(`
+string test = @$"hello
+world!";`);
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.PrimitiveType.String,
+                Token.Identifiers.FieldName("test"),
+                Token.Operators.Assignment,
+                Token.Punctuation.InterpolatedString.VerbatimBeginReverse,
                 Token.Literals.String("hello"),
                 Token.Literals.String("world!"),
                 Token.Punctuation.InterpolatedString.End,

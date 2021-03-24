@@ -277,6 +277,9 @@ repository:
         include: "#this-or-base-expression"
       }
       {
+        include: "#switch-expression"
+      }
+      {
         include: "#conditional-operator"
       }
       {
@@ -1594,7 +1597,7 @@ repository:
     end: "(?=;)"
     patterns: [
       {
-        include: "#expression"
+        include: "#statement"
       }
     ]
   "if-statement":
@@ -1673,6 +1676,187 @@ repository:
             include: "#statement"
           }
         ]
+      }
+    ]
+  "switch-expression":
+    begin: "(?x) (?<!\\.)\\b(switch)"
+    beginCaptures:
+      "1":
+        name: "keyword.control.switch.cs"
+    end: "(?<=\\})"
+    endCaptures:
+      "0":
+        name: "punctuation.curlybrace.close.cs"
+    patterns: [
+      {
+        begin: "\\{"
+        beginCaptures:
+          "0":
+            name: "punctuation.curlybrace.open.cs"
+        end: "\\}"
+        endCaptures:
+          "0":
+            name: "punctuation.curlybrace.close.cs"
+        patterns: [
+          {
+            include: "#comment"
+          }
+          {
+            include: "#literal"
+          }
+          {
+            include: "#switch-var-pattern"
+          }
+          {
+            include: "#switch-property-expression"
+          }
+          {
+            include: "#member-access-expression"
+          }
+          {
+            include: "#switch-pattern"
+          }
+          {
+            include: "#expression-body"
+          }
+          {
+            include: "#punctuation-comma"
+          }
+        ]
+      }
+    ]
+  "switch-pattern":
+    begin: '''
+      (?x) # e.g. int x OR var x
+      (?<type_name>
+        (?:
+          (?:
+            (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
+            (?<name_and_type_args> # identifier + type arguments (if any)
+              \\g<identifier>\\s*
+              (?<type_args>\\s*<(?:[^<>]|\\g<type_args>)+>\\s*)?
+            )
+            (?:\\s*\\.\\s*\\g<name_and_type_args>)* | # Are there any more names being dotted into?
+            (?<tuple>\\s*\\((?:[^\\(\\)]|\\g<tuple>)+\\))
+          )
+          (?:\\s*\\?\\s*)? # nullable suffix?
+          (?:\\s*\\[(?:\\s*,\\s*)*\\]\\s*)* # array suffix?
+        )
+      )\\s+
+      (\\g<identifier>)\\b\\s*
+    '''
+    beginCaptures:
+      "1":
+        patterns: [
+          {
+            include: "#type"
+          }
+        ]
+      "2":
+        name: "entity.name.variable.local.cs"
+    end: "(?==>)"
+    patterns: [
+      {
+        include: "#comment"
+      }
+      {
+        include: "#switch-when-clause"
+      }
+    ]
+  "switch-property-expression":
+    begin: '''
+      (?x) # e.g. int x OR var x
+      (?<type_name>
+        (?:
+          (?:
+            (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
+            (?<name_and_type_args> # identifier + type arguments (if any)
+              \\g<identifier>\\s*
+              (?<type_args>\\s*<(?:[^<>]|\\g<type_args>)+>\\s*)?
+            )
+            (?:\\s*\\.\\s*\\g<name_and_type_args>)* | # Are there any more names being dotted into?
+            (?<tuple>\\s*\\((?:[^\\(\\)]|\\g<tuple>)+\\))
+          )
+          (?:\\s*\\?\\s*)? # nullable suffix?
+          (?:\\s*\\[(?:\\s*,\\s*)*\\]\\s*)* # array suffix?
+        )
+      )?\\s*
+      (\\{)
+    '''
+    beginCaptures:
+      "1":
+        patterns: [
+          {
+            include: "#type"
+          }
+        ]
+      "6":
+        name: "punctuation.curlybrace.open.cs"
+    end: "\\}"
+    endCaptures:
+      "0":
+        name: "punctuation.curlybrace.close.cs"
+    patterns: [
+      {
+        include: "#expression"
+      }
+      {
+        include: "#punctuation-comma"
+      }
+    ]
+  "switch-var-pattern":
+    begin: '''
+      (?x) # match foreach (var (x, y) in ...)
+      (?:\\b(var)\\b\\s*)
+      (?<tuple>\\((?:[^\\(\\)]|\\g<tuple>)+\\))\\s*
+    '''
+    beginCaptures:
+      "1":
+        name: "keyword.other.var.cs"
+      "2":
+        patterns: [
+          {
+            include: "#tuple-declaration-deconstruction-element-list"
+          }
+        ]
+    end: "(?==>)"
+    patterns: [
+      {
+        include: "#comment"
+      }
+      {
+        include: "#switch-when-clause"
+      }
+    ]
+  "switch-when-clause":
+    begin: "(?<!\\.)\\b(when)\\b\\s*(\\()?"
+    beginCaptures:
+      "1":
+        name: "keyword.control.try.when.cs"
+      "2":
+        name: "punctuation.parenthesis.open.cs"
+    end: "(?==>)"
+    patterns: [
+      {
+        include: "#comment"
+      }
+      {
+        include: "#expression"
+      }
+      {
+        include: "#punctuation-comma"
+      }
+      {
+        match: "\\("
+        captures:
+          "0":
+            name: "punctuation.parenthesis.open.cs"
+      }
+      {
+        match: "\\)"
+        captures:
+          "0":
+            name: "punctuation.parenthesis.close.cs"
       }
     ]
   "switch-label":
@@ -2061,6 +2245,9 @@ repository:
         include: "#local-variable-declaration"
       }
       {
+        include: "#local-function-declaration"
+      }
+      {
         include: "#local-tuple-var-deconstruction"
       }
     ]
@@ -2068,6 +2255,7 @@ repository:
     begin: '''
       (?x)
       (?:
+        (?:(\\busing)\\s+)?
         (?:(\\bref)\\s+(?:(\\breadonly)\\s+)?)?(\\bvar\\b)| # ref local
         (?<type_name>
           (?:
@@ -2092,18 +2280,20 @@ repository:
     '''
     beginCaptures:
       "1":
-        name: "storage.modifier.cs"
+        name: "keyword.other.using.cs"
       "2":
         name: "storage.modifier.cs"
       "3":
-        name: "keyword.other.var.cs"
+        name: "storage.modifier.cs"
       "4":
+        name: "keyword.other.var.cs"
+      "5":
         patterns: [
           {
             include: "#type"
           }
         ]
-      "9":
+      "10":
         name: "entity.name.variable.local.cs"
     end: "(?=;|\\))"
     patterns: [
@@ -2168,6 +2358,12 @@ repository:
       }
       {
         include: "#variable-initializer"
+      }
+    ]
+  "local-function-declaration":
+    patterns: [
+      {
+        include: "#method-declaration"
       }
     ]
   "local-tuple-var-deconstruction":
@@ -2423,7 +2619,7 @@ repository:
     ]
   "verbatim-interpolated-string":
     name: "string.quoted.double.cs"
-    begin: "\\$@\""
+    begin: "(?:\\$@|@\\$)\""
     beginCaptures:
       "0":
         name: "punctuation.definition.string.begin.cs"
@@ -2620,7 +2816,7 @@ repository:
     patterns: [
       {
         name: "keyword.operator.assignment.compound.cs"
-        match: "\\*=|/=|%=|\\+=|-="
+        match: "\\*=|/=|%=|\\+=|-=|\\?\\?="
       }
       {
         name: "keyword.operator.assignment.compound.bitwise.cs"
@@ -2665,6 +2861,23 @@ repository:
       {
         name: "keyword.operator.null-coalescing.cs"
         match: "\\?\\?"
+      }
+    ]
+  "switch-literal":
+    name: "constant.language.null.cs"
+    match: "(?<!\\.)\\bnull\\b"
+    beginCaptures:
+      "1":
+        name: "constant.language.null.cs"
+    patterns: [
+      {
+        include: "#comment"
+      }
+      {
+        include: "#punctuation-comma"
+      }
+      {
+        include: "#expression-body"
       }
     ]
   "conditional-operator":

@@ -167,5 +167,116 @@ describe("Grammar", () => {
                 Token.Punctuation.Semicolon
             ]);
         });
+
+        it("local function declaration with arrow body", async () => {
+            const input = Input.InClass(`int Add(int x, int y) => x + y;`);
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.PrimitiveType.Int,
+                Token.Identifiers.MethodName("Add"),
+                Token.Punctuation.OpenParen,
+                Token.PrimitiveType.Int,
+                Token.Identifiers.ParameterName("x"),
+                Token.Punctuation.Comma,
+                Token.PrimitiveType.Int,
+                Token.Identifiers.ParameterName("y"),
+                Token.Punctuation.CloseParen,
+                Token.Operators.Arrow,
+                Token.Variables.ReadWrite("x"),
+                Token.Operators.Arithmetic.Addition,
+                Token.Variables.ReadWrite("y"),
+                Token.Punctuation.Semicolon
+            ]);
+        });
+
+        it("local function declaration with block definition", async () => {
+            const input = Input.InMethod(`
+int Add(int x, int y)
+{
+    return x + y;
+}`);
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.PrimitiveType.Int,
+                Token.Identifiers.MethodName("Add"),
+                Token.Punctuation.OpenParen,
+                Token.PrimitiveType.Int,
+                Token.Identifiers.ParameterName("x"),
+                Token.Punctuation.Comma,
+                Token.PrimitiveType.Int,
+                Token.Identifiers.ParameterName("y"),
+                Token.Punctuation.CloseParen,
+                Token.Punctuation.OpenBrace,
+                Token.Keywords.Control.Return,
+                Token.Variables.ReadWrite("x"),
+                Token.Operators.Arithmetic.Addition,
+                Token.Variables.ReadWrite("y"),
+                Token.Punctuation.Semicolon,
+                Token.Punctuation.CloseBrace
+            ]);
+        });
+
+        it("local function declaration with async modifier", async () => {
+            const input = Input.InClass(`async void Foo() { }`);
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Modifiers.Async,
+                Token.PrimitiveType.Void,
+                Token.Identifiers.MethodName("Foo"),
+                Token.Punctuation.OpenParen,
+                Token.Punctuation.CloseParen,
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace
+            ]);
+        });
+        
+        it("local function declaration with unsafe modifier", async () => {
+            const input = Input.InClass(`unsafe void Foo() { }`);
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Modifiers.Unsafe,
+                Token.PrimitiveType.Void,
+                Token.Identifiers.MethodName("Foo"),
+                Token.Punctuation.OpenParen,
+                Token.Punctuation.CloseParen,
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace
+            ]);
+        });
+
+        it("local function declaration with static modifier", async () => {
+            const input = Input.InClass(`static void Foo() { }`);
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Modifiers.Static,
+                Token.PrimitiveType.Void,
+                Token.Identifiers.MethodName("Foo"),
+                Token.Punctuation.OpenParen,
+                Token.Punctuation.CloseParen,
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace
+            ]);
+        });
+
+        it("local function declaration with extern modifier", async () => {
+            const input = Input.InClass(`extern static void Foo() { }`);
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Modifiers.Extern,
+                Token.Keywords.Modifiers.Static,
+                Token.PrimitiveType.Void,
+                Token.Identifiers.MethodName("Foo"),
+                Token.Punctuation.OpenParen,
+                Token.Punctuation.CloseParen,
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace
+            ]);
+        });
     });
 });
