@@ -4,20 +4,33 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { ITokenizeLineResult, Registry, StackElement, parseRawGrammar } from 'vscode-textmate';
-import { readFile } from 'fs';
-import { resolve } from 'path';
+import * as oniguruma from 'vscode-oniguruma';
+import * as fs from 'fs';
+import * as path from 'path';
+
+/**
+ * Utility to read a file as a promise
+ */
+function readFile(path) {
+    return new Promise<Buffer>((resolve, reject) => {
+        fs.readFile(path, (error, data) => error ? reject(error) : resolve(data));
+    })
+}
+
+const wasmBin = fs.readFileSync(path.join(__dirname, '../../../node_modules/vscode-oniguruma/release/onig.wasm')).buffer;
+const vscodeOnigurumaLib = oniguruma.loadWASM(wasmBin).then(() => {
+    return {
+        createOnigScanner(patterns) { return new oniguruma.OnigScanner(patterns); },
+        createOnigString(s) { return new oniguruma.OnigString(s); }
+    };
+});
 
 const registry = new Registry({
+    onigLib: vscodeOnigurumaLib,
     loadGrammar: async (scopeName) => {
         if (scopeName === 'source.cs') {
-            scopeName //?
-            // https://github.com/textmate/javascript.tmbundle/blob/master/Syntaxes/JavaScript.plist
-            const response = await new Promise<string>((resolve, reject) => {
-                readFile('./grammars/csharp.tmLanguage', (e, v) => e ? reject(e) : resolve(v.toString()));
-            });
-            const g = parseRawGrammar(response, resolve('./grammars/csharp.tmLanguage'));
-            g //?
-            return g;
+            return readFile('./grammars/csharp.tmLanguage')
+                .then(data => parseRawGrammar(data.toString()));
         }
         console.log(`Unknown scope name: ${scopeName}`);
         return null;

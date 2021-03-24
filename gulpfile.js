@@ -21,7 +21,7 @@ function handleError(err) {
 
 gulp.task('buildTmLanguage', done => {
     const text = fs.readFileSync(inputGrammar);
-    const jsonData = js_yaml.safeLoad(text);
+    const jsonData = js_yaml.load(text);
     const plistData = plist.build(jsonData);
 
     if (!fs.existsSync(grammarsDirectory)) {
@@ -35,7 +35,7 @@ gulp.task('buildTmLanguage', done => {
 
 gulp.task('buildVSCode', done => {
     const text = fs.readFileSync(inputGrammar);
-    const jsonData = js_yaml.safeLoad(text);
+    const jsonData = js_yaml.load(text);
 
     if (!fs.existsSync(grammarsDirectory)) {
         fs.mkdirSync(grammarsDirectory);
