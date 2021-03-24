@@ -994,6 +994,23 @@ using (var o = new object())
                     Token.Punctuation.CloseBrace
                 ]);
             });
+
+            it("using declaration", async () => {
+                const input = Input.InMethod(`using var o = new object();`);
+                const tokens = await tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Keywords.Using,
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("o"),
+                    Token.Operators.Assignment,
+                    Token.Keywords.New,
+                    Token.PrimitiveType.Object,
+                    Token.Punctuation.OpenParen,
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Semicolon
+                ])
+            });
         });
 
         describe("Yield", () => {

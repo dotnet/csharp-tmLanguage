@@ -241,6 +241,7 @@ export namespace Token {
             export const Abstract = createToken('abstract', 'storage.modifier.cs');
             export const Async = createToken('async', 'storage.modifier.cs');
             export const Const = createToken('const', 'storage.modifier.cs');
+            export const Extern = createToken('extern', 'storage.modifier.cs');
             export const In = createToken('in', 'storage.modifier.cs');
             export const Internal = createToken('internal', 'storage.modifier.cs');
             export const New = createToken('new', 'storage.modifier.cs');
@@ -374,20 +375,22 @@ export namespace Token {
 
         export namespace CompoundAssignment {
             export namespace Arithmetic {
-                export const Addition = createToken('+=', 'keyword.operator.assignment.compound.ts');
-                export const Division = createToken('/=', 'keyword.operator.assignment.compound.ts');
-                export const Multiplication = createToken('*=', 'keyword.operator.assignment.compound.ts');
-                export const Remainder = createToken('%=', 'keyword.operator.assignment.compound.ts');
-                export const Subtraction = createToken('-=', 'keyword.operator.assignment.compound.ts');
+                export const Addition = createToken('+=', 'keyword.operator.assignment.compound.cs');
+                export const Division = createToken('/=', 'keyword.operator.assignment.compound.cs');
+                export const Multiplication = createToken('*=', 'keyword.operator.assignment.compound.cs');
+                export const Remainder = createToken('%=', 'keyword.operator.assignment.compound.cs');
+                export const Subtraction = createToken('-=', 'keyword.operator.assignment.compound.cs');
             }
 
             export namespace Bitwise {
-                export const And = createToken('&=', 'keyword.operator.assignment.compound.bitwise.ts');
-                export const ExclusiveOr = createToken('^=', 'keyword.operator.assignment.compound.bitwise.ts');
-                export const Or = createToken('|=', 'keyword.operator.assignment.compound.bitwise.ts');
-                export const ShiftLeft = createToken('<<=', 'keyword.operator.assignment.compound.bitwise.ts');
-                export const ShiftRight = createToken('>>=', 'keyword.operator.assignment.compound.bitwise.ts');
+                export const And = createToken('&=', 'keyword.operator.assignment.compound.bitwise.cs');
+                export const ExclusiveOr = createToken('^=', 'keyword.operator.assignment.compound.bitwise.cs');
+                export const Or = createToken('|=', 'keyword.operator.assignment.compound.bitwise.cs');
+                export const ShiftLeft = createToken('<<=', 'keyword.operator.assignment.compound.bitwise.cs');
+                export const ShiftRight = createToken('>>=', 'keyword.operator.assignment.compound.bitwise.cs');
             }
+
+            export const NullCoalescing = createToken('??=', 'keyword.operator.assignment.compound.cs');
         }
 
         export namespace Conditional {
@@ -454,6 +457,7 @@ export namespace Token {
             export const Begin = createToken('$"', 'punctuation.definition.string.begin.cs');
             export const End = createToken('"', 'punctuation.definition.string.end.cs');
             export const VerbatimBegin = createToken('$@"', 'punctuation.definition.string.begin.cs');
+            export const VerbatimBeginReverse = createToken('@$"', 'punctuation.definition.string.begin.cs');
         }
 
         export namespace String {
