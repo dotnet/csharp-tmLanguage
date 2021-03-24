@@ -5,7 +5,8 @@
     "outDir": "out",
     "sourceMap": true,
     "rootDir": ".",
-    "noImplicitReturns": true
+    "noImplicitReturns": true,
+    "skipLibCheck": true
   },
   "compileOnSave": true,
   "exclude": [
