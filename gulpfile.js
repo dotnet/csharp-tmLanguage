@@ -7,6 +7,7 @@ const js_yaml = require("js-yaml");
 const plist = require("plist");
 const fs = require("fs");
 const path = require("path");
+const exec = require("child_process").exec;
 
 const inputGrammar = "src/csharp.tmLanguage.yml";
 const grammarsDirectory = "grammars/";
@@ -27,10 +28,46 @@ gulp.task('buildTmLanguage', done => {
         fs.mkdirSync(grammarsDirectory);
     }
 
-    fs.writeFileSync(path.join(grammarsDirectory, 'csharp.tmLanguage.json'), JSON.stringify(jsonData));
     fs.writeFileSync(path.join(grammarsDirectory, 'csharp.tmLanguage'), plistData);
 
     done();
+});
+
+gulp.task('buildVSCode', done => {
+    const text = fs.readFileSync(inputGrammar);
+    const jsonData = js_yaml.safeLoad(text);
+
+    if (!fs.existsSync(grammarsDirectory)) {
+        fs.mkdirSync(grammarsDirectory);
+    }
+
+    // These fields aren't used.
+    jsonData.uuid = undefined;
+    jsonData.fileTypes = undefined;
+
+    // Get the SHA of the last commit.
+    exec("git rev-parse HEAD", (err, stdout, stderr) => {
+        if (err) {
+            handleErr(err);
+        }
+
+        const commitSha = stdout.trim();
+
+        // Add the additional properties used in the VSCode repo.
+        const enhancedJson = {
+            "information_for_contributors": [
+                "This file has been converted from https://github.com/dotnet/csharp-tmLanguage/blob/master/grammars/csharp.tmLanguage",
+                "If you want to provide a fix or improvement, please create a pull request against the original repository.",
+                "Once accepted there, we are happy to receive an update request."
+            ],
+            "version": `https://github.com/dotnet/csharp-tmLanguage/commit/${commitSha}`,
+            ...jsonData
+        }
+
+        fs.writeFileSync(path.join(grammarsDirectory, 'csharp.tmLanguage.json'), JSON.stringify(enhancedJson, null, '\t'));
+
+        done();
+    });
 });
 
 gulp.task('buildAtom', () => {
@@ -60,5 +97,5 @@ gulp.task('test', gulp.series('compile', done => {
 
 gulp.task('default',
     gulp.series(
-        gulp.parallel('buildAtom', 'buildTmLanguage'),
+        gulp.parallel('buildAtom', 'buildVSCode', 'buildTmLanguage'),
         'test'));
