@@ -26,7 +26,6 @@
     "prepublish": "gulp",
     "watch": "nodemon --exec 'npx gulp buildTmLanguage'"
   },
-  "dependencies": {},
   "devDependencies": {
     "@types/chai": "^4.2.3",
     "@types/gulp": "^4.0.6",
