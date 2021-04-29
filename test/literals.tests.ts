@@ -170,7 +170,8 @@ describe("Grammar", () => {
                     Token.PrimitiveType.Int,
                     Token.Identifiers.FieldName("x"),
                     Token.Operators.Assignment,
-                    Token.Literals.Numeric.Hexadecimal("0x0"),
+                    Token.Literals.Numeric.Other.Preffix.Hexadecimal("0x"),
+                    Token.Literals.Numeric.Hexadecimal("0"),
                     Token.Punctuation.Semicolon]);
             });
 
@@ -182,7 +183,8 @@ describe("Grammar", () => {
                     Token.PrimitiveType.Int,
                     Token.Identifiers.FieldName("x"),
                     Token.Operators.Assignment,
-                    Token.Literals.Numeric.Binary("0b0"),
+                    Token.Literals.Numeric.Other.Preffix.Binary("0b"),
+                    Token.Literals.Numeric.Binary("0"),
                     Token.Punctuation.Semicolon]);
             });
 
@@ -194,7 +196,9 @@ describe("Grammar", () => {
                     Token.PrimitiveType.Float,
                     Token.Identifiers.FieldName("x"),
                     Token.Operators.Assignment,
-                    Token.Literals.Numeric.Decimal("0.0"),
+                    Token.Literals.Numeric.Decimal("0"),
+                    Token.Literals.Numeric.Other.Separator.Decimals,
+                    Token.Literals.Numeric.Decimal("0"),
                     Token.Punctuation.Semicolon]);
             });
         });

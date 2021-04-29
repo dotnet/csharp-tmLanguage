@@ -361,6 +361,25 @@ export namespace Token {
             export const Binary = (text: string) => createToken(text, 'constant.numeric.binary.cs');
             export const Decimal = (text: string) => createToken(text, 'constant.numeric.decimal.cs');
             export const Hexadecimal = (text: string) => createToken(text, 'constant.numeric.hex.cs');
+            export const Invalid = (text: string) => createToken(text, 'invalid.illegal.constant.numeric.cs')
+            
+            export namespace Other
+            {
+                export const Exponent = (text: string) => createToken(text, 'constant.numeric.other.exponent.cs');
+                export const Suffix = (text: string) => createToken(text, 'constant.numeric.other.suffix.cs');
+                
+                export namespace Preffix
+                {
+                    export const Binary = (text: string) => createToken(text, 'constant.numeric.other.preffix.binary.cs');
+                    export const Hexadecimal = (text: string) => createToken(text, 'constant.numeric.other.preffix.hex.cs');
+                }
+
+                export namespace Separator
+                {
+                    export const Decimals = createToken('.', 'constant.numeric.other.separator.decimals.cs');
+                    export const Thousands = createToken('_', 'constant.numeric.other.separator.thousands.cs');
+                }
+            }
         }
 
         export const Char = (text: string) => createToken(text, 'string.quoted.single.cs');
