@@ -386,7 +386,7 @@ repository:
     patterns:
     - begin: |-
         (?x)
-        (struct)\b\s+
+        (record)\b\s+
         (@?[_[:alpha:]][_[:alnum:]]*)
       beginCaptures:
         '1': { name: keyword.other.record.cs }
