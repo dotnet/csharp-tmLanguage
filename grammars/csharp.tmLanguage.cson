@@ -235,6 +235,15 @@ repository:
         include: "#labeled-statement"
       }
       {
+        include: "#object-creation-expression"
+      }
+      {
+        include: "#array-creation-expression"
+      }
+      {
+        include: "#anonymous-object-creation-expression"
+      }
+      {
         include: "#local-declaration"
       }
       {

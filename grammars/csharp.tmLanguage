@@ -335,6 +335,18 @@
           </dict>
           <dict>
             <key>include</key>
+            <string>#object-creation-expression</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#array-creation-expression</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#anonymous-object-creation-expression</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#local-declaration</string>
           </dict>
           <dict>
