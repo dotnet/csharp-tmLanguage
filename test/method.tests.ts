@@ -6,7 +6,7 @@
 import { should } from 'chai';
 import { tokenize, Input, Token } from './utils/tokenize';
 
-describe("Grammar", () => {
+describe("Methods", () => {
     before(() => { should(); });
 
     describe("Methods", () => {
@@ -526,7 +526,7 @@ public abstract void Notify(PlayerId playerId, ISessionResponse response); //the
 
         it("comment at end of line does not change highlights - 2 (issue omnisharp-vscode#1091)", async () => {
             const input = Input.InClass(`
-public abstract void Notify(PlayerId playerId, ISessionResponse response); //the 
+public abstract void Notify(PlayerId playerId, ISessionResponse response); //the
 `);
             const tokens = await tokenize(input);
 
@@ -544,7 +544,7 @@ public abstract void Notify(PlayerId playerId, ISessionResponse response); //the
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.Semicolon,
                 Token.Comment.SingleLine.Start,
-                Token.Comment.SingleLine.Text("the ")
+                Token.Comment.SingleLine.Text("the")
             ]);
         });
 
