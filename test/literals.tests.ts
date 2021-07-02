@@ -170,7 +170,8 @@ describe("Literals", () => {
                     Token.PrimitiveType.Int,
                     Token.Identifiers.FieldName("x"),
                     Token.Operators.Assignment,
-                    Token.Literals.Numeric.Hexadecimal("0x0"),
+                    Token.Literals.Numeric.Other.Preffix.Hexadecimal("0x"),
+                    Token.Literals.Numeric.Hexadecimal("0"),
                     Token.Punctuation.Semicolon]);
             });
 
@@ -182,7 +183,8 @@ describe("Literals", () => {
                     Token.PrimitiveType.Int,
                     Token.Identifiers.FieldName("x"),
                     Token.Operators.Assignment,
-                    Token.Literals.Numeric.Binary("0b0"),
+                    Token.Literals.Numeric.Other.Preffix.Binary("0b"),
+                    Token.Literals.Numeric.Binary("0"),
                     Token.Punctuation.Semicolon]);
             });
 
@@ -194,8 +196,448 @@ describe("Literals", () => {
                     Token.PrimitiveType.Float,
                     Token.Identifiers.FieldName("x"),
                     Token.Operators.Assignment,
-                    Token.Literals.Numeric.Decimal("0.0"),
+                    Token.Literals.Numeric.Decimal("0"),
+                    Token.Literals.Numeric.Other.Separator.Decimals,
+                    Token.Literals.Numeric.Decimal("0"),
                     Token.Punctuation.Semicolon]);
+            });
+
+            it("ommiting integral part in a decimal number", async () => {
+                const input = Input.InMethod(`var x = .0f;`);
+                const tokens = await tokenize(input);
+                tokens.should.deep.equal([
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("x"),
+                    Token.Operators.Assignment,
+                    Token.Literals.Numeric.Other.Separator.Decimals,
+                    Token.Literals.Numeric.Decimal("0"),
+                    Token.Literals.Numeric.Other.Suffix("f"),
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
+            it("float suffixes", async () => {
+                const input = Input.InMethod(`
+                    var x = 0f;
+                    var y = 0F;
+                `);
+                
+                const tokens = await tokenize(input);
+                
+                tokens.should.deep.equal([
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("x"),
+                    Token.Operators.Assignment,
+                    Token.Literals.Numeric.Decimal("0"),
+                    Token.Literals.Numeric.Other.Suffix("f"),
+                    Token.Punctuation.Semicolon,
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("y"),
+                    Token.Operators.Assignment,
+                    Token.Literals.Numeric.Decimal("0"),
+                    Token.Literals.Numeric.Other.Suffix("F"),
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
+            it("double suffixes", async () => {
+                const input = Input.InMethod(`
+                    var x = 0d;
+                    var y = 0D;
+                `);
+                
+                const tokens = await tokenize(input);
+                tokens.should.deep.equal([
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("x"),
+                    Token.Operators.Assignment,
+                    Token.Literals.Numeric.Decimal("0"),
+                    Token.Literals.Numeric.Other.Suffix("d"),
+                    Token.Punctuation.Semicolon,
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("y"),
+                    Token.Operators.Assignment,
+                    Token.Literals.Numeric.Decimal("0"),
+                    Token.Literals.Numeric.Other.Suffix("D"),
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
+            it("decimal suffixes", async () => {
+                const input = Input.InMethod(`
+                    var x = 0m;
+                    var y = 0M;
+                `);
+                
+                const tokens = await tokenize(input);
+                
+                tokens.should.deep.equal([
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("x"),
+                    Token.Operators.Assignment,
+                    Token.Literals.Numeric.Decimal("0"),
+                    Token.Literals.Numeric.Other.Suffix("m"),
+                    Token.Punctuation.Semicolon,
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("y"),
+                    Token.Operators.Assignment,
+                    Token.Literals.Numeric.Decimal("0"),
+                    Token.Literals.Numeric.Other.Suffix("M"),
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
+            it("unsigned int suffixes", async () => {
+                const input = Input.InMethod(`
+                    var x = 0u;
+                    var y = 0U;
+                `);
+                
+                const tokens = await tokenize(input);
+                
+                tokens.should.deep.equal([
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("x"),
+                    Token.Operators.Assignment,
+                    Token.Literals.Numeric.Decimal("0"),
+                    Token.Literals.Numeric.Other.Suffix("u"),
+                    Token.Punctuation.Semicolon,
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("y"),
+                    Token.Operators.Assignment,
+                    Token.Literals.Numeric.Decimal("0"),
+                    Token.Literals.Numeric.Other.Suffix("U"),
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
+            it("unsigned long suffixes", async () => {
+                const input = Input.InMethod(`
+                    var x = 0ul;
+                    var y = 0UL;
+                    var z = 0uL;
+                    var w = 0Ul;
+                `);
+                
+                const tokens = await tokenize(input);
+                
+                tokens.should.deep.equal([
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("x"),
+                    Token.Operators.Assignment,
+                    Token.Literals.Numeric.Decimal("0"),
+                    Token.Literals.Numeric.Other.Suffix("ul"),
+                    Token.Punctuation.Semicolon,
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("y"),
+                    Token.Operators.Assignment,
+                    Token.Literals.Numeric.Decimal("0"),
+                    Token.Literals.Numeric.Other.Suffix("UL"),
+                    Token.Punctuation.Semicolon,
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("z"),
+                    Token.Operators.Assignment,
+                    Token.Literals.Numeric.Decimal("0"),
+                    Token.Literals.Numeric.Other.Suffix("uL"),
+                    Token.Punctuation.Semicolon,
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("w"),
+                    Token.Operators.Assignment,
+                    Token.Literals.Numeric.Decimal("0"),
+                    Token.Literals.Numeric.Other.Suffix("Ul"),
+                    Token.Punctuation.Semicolon
+                
+                ]);
+            });
+
+            it("hexadecimal preffixes", async () => {
+                const input = Input.InMethod(`
+                    var x = 0xFFFF;
+                    var y = 0XFFFF;
+                `);
+                
+                const tokens = await tokenize(input);
+                
+                tokens.should.deep.equal([
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("x"),
+                    Token.Operators.Assignment,
+                    Token.Literals.Numeric.Other.Preffix.Hexadecimal("0x"),
+                    Token.Literals.Numeric.Hexadecimal("FFFF"),
+                    Token.Punctuation.Semicolon,
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("y"),
+                    Token.Operators.Assignment,
+                    Token.Literals.Numeric.Other.Preffix.Hexadecimal("0X"),
+                    Token.Literals.Numeric.Hexadecimal("FFFF"),
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
+            it("binary preffixes", async () => {
+                const input = Input.InMethod(`
+                    var x = 0b0101;
+                    var y = 0B0101;
+                `);
+                
+                const tokens = await tokenize(input);
+                
+                tokens.should.deep.equal([
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("x"),
+                    Token.Operators.Assignment,
+                    Token.Literals.Numeric.Other.Preffix.Binary("0b"),
+                    Token.Literals.Numeric.Binary("0101"),
+                    Token.Punctuation.Semicolon,
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("y"),
+                    Token.Operators.Assignment,
+                    Token.Literals.Numeric.Other.Preffix.Binary("0B"),
+                    Token.Literals.Numeric.Binary("0101"),
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
+            it("exponent", async () => {
+                const input = Input.InMethod(`
+                    var x = 1.5e-3f;
+                    var y = .5E+3f;
+                    var z = .5e3;
+                    var w = 5E3;
+                `);
+                
+                const tokens = await tokenize(input);
+                
+                tokens.should.deep.equal([
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("x"),
+                    Token.Operators.Assignment,
+                    Token.Literals.Numeric.Decimal("1"),
+                    Token.Literals.Numeric.Other.Separator.Decimals,
+                    Token.Literals.Numeric.Decimal("5"),
+                    Token.Literals.Numeric.Other.Exponent("e"),
+                    Token.Operators.Arithmetic.Subtraction,
+                    Token.Literals.Numeric.Decimal("3"),
+                    Token.Literals.Numeric.Other.Suffix("f"),
+                    Token.Punctuation.Semicolon,
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("y"),
+                    Token.Operators.Assignment,
+                    Token.Literals.Numeric.Other.Separator.Decimals,
+                    Token.Literals.Numeric.Decimal("5"),
+                    Token.Literals.Numeric.Other.Exponent("E"),
+                    Token.Operators.Arithmetic.Addition,
+                    Token.Literals.Numeric.Decimal("3"),
+                    Token.Literals.Numeric.Other.Suffix("f"),
+                    Token.Punctuation.Semicolon,
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("z"),
+                    Token.Operators.Assignment,
+                    Token.Literals.Numeric.Other.Separator.Decimals,
+                    Token.Literals.Numeric.Decimal("5"),
+                    Token.Literals.Numeric.Other.Exponent("e"),
+                    Token.Literals.Numeric.Decimal("3"),
+                    Token.Punctuation.Semicolon,
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("w"),
+                    Token.Operators.Assignment,
+                    Token.Literals.Numeric.Decimal("5"),
+                    Token.Literals.Numeric.Other.Exponent("E"),
+                    Token.Literals.Numeric.Decimal("3"),
+                    Token.Punctuation.Semicolon
+                
+                ]);
+            });
+
+            it("decimal thousands separator", async () => {
+                const input = Input.InMethod(`var x = 1_000_000;`);
+                const tokens = await tokenize(input);
+                
+                tokens.should.deep.equal([
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("x"),
+                    Token.Operators.Assignment,
+                    Token.Literals.Numeric.Decimal("1"),
+                    Token.Literals.Numeric.Other.Separator.Thousands,
+                    Token.Literals.Numeric.Decimal("000"),
+                    Token.Literals.Numeric.Other.Separator.Thousands,
+                    Token.Literals.Numeric.Decimal("000"),
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
+            it("hexadecimal thousands separator", async () => {
+                const input = Input.InMethod(`var x = 0xFFFF_FFFF;`);
+                const tokens = await tokenize(input);
+                
+                tokens.should.deep.equal([
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("x"),
+                    Token.Operators.Assignment,
+                    Token.Literals.Numeric.Other.Preffix.Hexadecimal("0x"),
+                    Token.Literals.Numeric.Hexadecimal("FFFF"),
+                    Token.Literals.Numeric.Other.Separator.Thousands,
+                    Token.Literals.Numeric.Hexadecimal("FFFF"),
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
+            it("binary thousands separator", async () => {
+                const input = Input.InMethod(`var x = 0b0000_0000;`);
+                const tokens = await tokenize(input);
+                
+                tokens.should.deep.equal([
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("x"),
+                    Token.Operators.Assignment,
+                    Token.Literals.Numeric.Other.Preffix.Binary("0b"),
+                    Token.Literals.Numeric.Binary("0000"),
+                    Token.Literals.Numeric.Other.Separator.Thousands,
+                    Token.Literals.Numeric.Binary("0000"),
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
+            it("invalid illegal constant numeric - random typo in between", async () => {
+                const input = Input.InMethod(`var pi = 3.14q57;`);
+                const tokens = await tokenize(input);
+                
+                tokens.should.deep.equal([
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("pi"),
+                    Token.Operators.Assignment,
+                    Token.Literals.Numeric.Invalid("3.14q57"),
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
+            it("invalid illegal constant numeric - decimal point separator with no decimal part", async () => {
+                const input = Input.InMethod(`var x = 5.f;`);
+                const tokens = await tokenize(input);
+                
+                tokens.should.deep.equal([
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("x"),
+                    Token.Operators.Assignment,
+                    Token.Literals.Numeric.Invalid("5.f"),
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
+            it("invalid illegal constant numeric - wrong suffix", async () => {
+                const input = Input.InMethod(`var x = 100h;`);
+                const tokens = await tokenize(input);
+                
+                tokens.should.deep.equal([
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("x"),
+                    Token.Operators.Assignment,
+                    Token.Literals.Numeric.Invalid("100h"),
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
+            it("invalid illegal constant numeric - wrong preffix", async () => {
+                const input = Input.InMethod(`var x = 0kFFFF;`);
+                const tokens = await tokenize(input);
+                
+                tokens.should.deep.equal([
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("x"),
+                    Token.Operators.Assignment,
+                    Token.Literals.Numeric.Invalid("0kFFFF"),
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
+            it("invalid illegal constant numeric - decimals in exponent", async () => {
+                const input = Input.InMethod(`
+                    var x = 5e3.5f;
+                `);
+                
+                const tokens = await tokenize(input);
+                
+                tokens.should.deep.equal([
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("x"),
+                    Token.Operators.Assignment,
+                    Token.Literals.Numeric.Invalid("5e3.5f"),
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
+            it("invalid illegal constant numeric - integer suffixes in number with decimals", async () => {
+                const input = Input.InMethod(`
+                    var x = 5.0u;
+                    var y = .5L;
+                `);
+                
+                const tokens = await tokenize(input);
+                
+                tokens.should.deep.equal([
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("x"),
+                    Token.Operators.Assignment,
+                    Token.Literals.Numeric.Invalid("5.0u"),
+                    Token.Punctuation.Semicolon,
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("y"),
+                    Token.Operators.Assignment,
+                    Token.Literals.Numeric.Invalid(".5L"),
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
+            it("invalid illegal constant numeric - repeated suffixes (like LL for long long)", async () => {
+                const input = Input.InMethod(`
+                    var a = 1uu;
+                    var b = 1ll;
+                    var c = 1Ll;
+                    var d = 1ull;
+                    var e = 1ff;
+                    var f = 1mm;
+                    var g = 1Ff;
+                `);
+                
+                const tokens = await tokenize(input);
+                
+                tokens.should.deep.equal([
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("a"),
+                    Token.Operators.Assignment,
+                    Token.Literals.Numeric.Invalid("1uu"),
+                    Token.Punctuation.Semicolon,
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("b"),
+                    Token.Operators.Assignment,
+                    Token.Literals.Numeric.Invalid("1ll"),
+                    Token.Punctuation.Semicolon,
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("c"),
+                    Token.Operators.Assignment,
+                    Token.Literals.Numeric.Invalid("1Ll"),
+                    Token.Punctuation.Semicolon,
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("d"),
+                    Token.Operators.Assignment,
+                    Token.Literals.Numeric.Invalid("1ull"),
+                    Token.Punctuation.Semicolon,
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("e"),
+                    Token.Operators.Assignment,
+                    Token.Literals.Numeric.Invalid("1ff"),
+                    Token.Punctuation.Semicolon,
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("f"),
+                    Token.Operators.Assignment,
+                    Token.Literals.Numeric.Invalid("1mm"),
+                    Token.Punctuation.Semicolon,
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("g"),
+                    Token.Operators.Assignment,
+                    Token.Literals.Numeric.Invalid("1Ff"),
+                    Token.Punctuation.Semicolon
+                ]);
             });
         });
 
