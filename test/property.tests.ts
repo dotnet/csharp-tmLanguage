@@ -135,6 +135,22 @@ public IBooom Property
                 Token.Punctuation.CloseBrace]);
         });
 
+        it("init auto-property", async () => {
+            const input = Input.InClass(`public int X { get; init; }`);
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Modifiers.Public,
+                Token.PrimitiveType.Int,
+                Token.Identifiers.PropertyName("X"),
+                Token.Punctuation.OpenBrace,
+                Token.Keywords.Get,
+                Token.Punctuation.Semicolon,
+                Token.Keywords.Init,
+                Token.Punctuation.Semicolon,
+                Token.Punctuation.CloseBrace]);
+        });
+
         it("generic auto-property", async () => {
             const input = Input.InClass(`public Dictionary<string, List<T>[]> Property { get; set; }`);
             const tokens = await tokenize(input);

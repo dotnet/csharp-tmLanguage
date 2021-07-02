@@ -41,6 +41,7 @@ repository:
     - include: '#delegate-declaration'
     - include: '#enum-declaration'
     - include: '#interface-declaration'
+    - include: '#record-declaration'
     - include: '#struct-declaration'
     - include: '#attribute-section'
     - include: '#punctuation-semicolon'
@@ -382,6 +383,34 @@ repository:
     - include: '#preprocessor'
     - include: '#comment'
 
+  record-declaration:
+    begin: (?=\brecord\b)
+    end: (?<=\})
+    patterns:
+    - begin: |-
+        (?x)
+        (record)\b\s+
+        (@?[_[:alpha:]][_[:alnum:]]*)
+      beginCaptures:
+        '1': { name: keyword.other.record.cs }
+        '2': { name: entity.name.type.record.cs }
+      end: (?=\{)
+      patterns:
+      - include: '#comment'
+      - include: '#type-parameter-list'
+      - include: '#base-types'
+      - include: '#generic-constraints'
+    - begin: \{
+      beginCaptures:
+        '0': { name: punctuation.curlybrace.open.cs }
+      end: \}
+      endCaptures:
+        '0': { name: punctuation.curlybrace.close.cs }
+      patterns:
+      - include: '#class-or-struct-members'
+    - include: '#preprocessor'
+    - include: '#comment'
+
   struct-declaration:
     begin: (?=\bstruct\b)
     end: (?<=\})
@@ -686,6 +715,8 @@ repository:
       match: \b(get)\b
     - name: keyword.other.set.cs
       match: \b(set)\b
+    - name: keyword.other.init.cs
+      match: \b(init)\b
     - include: '#comment'
     - include: '#attribute-section'
     - include: '#expression-body'
