@@ -129,6 +129,10 @@
           </dict>
           <dict>
             <key>include</key>
+            <string>#record-declaration</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#struct-declaration</string>
           </dict>
           <dict>
@@ -332,6 +336,18 @@
           <dict>
             <key>include</key>
             <string>#labeled-statement</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#object-creation-expression</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#array-creation-expression</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#anonymous-object-creation-expression</string>
           </dict>
           <dict>
             <key>include</key>
@@ -1188,6 +1204,93 @@
           </dict>
         </array>
       </dict>
+      <key>record-declaration</key>
+      <dict>
+        <key>begin</key>
+        <string>(?=\brecord\b)</string>
+        <key>end</key>
+        <string>(?&lt;=\})</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>begin</key>
+            <string>(?x)
+(record)\b\s+
+(@?[_[:alpha:]][_[:alnum:]]*)</string>
+            <key>beginCaptures</key>
+            <dict>
+              <key>1</key>
+              <dict>
+                <key>name</key>
+                <string>keyword.other.record.cs</string>
+              </dict>
+              <key>2</key>
+              <dict>
+                <key>name</key>
+                <string>entity.name.type.record.cs</string>
+              </dict>
+            </dict>
+            <key>end</key>
+            <string>(?=\{)</string>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#comment</string>
+              </dict>
+              <dict>
+                <key>include</key>
+                <string>#type-parameter-list</string>
+              </dict>
+              <dict>
+                <key>include</key>
+                <string>#base-types</string>
+              </dict>
+              <dict>
+                <key>include</key>
+                <string>#generic-constraints</string>
+              </dict>
+            </array>
+          </dict>
+          <dict>
+            <key>begin</key>
+            <string>\{</string>
+            <key>beginCaptures</key>
+            <dict>
+              <key>0</key>
+              <dict>
+                <key>name</key>
+                <string>punctuation.curlybrace.open.cs</string>
+              </dict>
+            </dict>
+            <key>end</key>
+            <string>\}</string>
+            <key>endCaptures</key>
+            <dict>
+              <key>0</key>
+              <dict>
+                <key>name</key>
+                <string>punctuation.curlybrace.close.cs</string>
+              </dict>
+            </dict>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#class-or-struct-members</string>
+              </dict>
+            </array>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#preprocessor</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#comment</string>
+          </dict>
+        </array>
+      </dict>
       <key>struct-declaration</key>
       <dict>
         <key>begin</key>
@@ -1839,6 +1942,12 @@
             <string>keyword.other.set.cs</string>
             <key>match</key>
             <string>\b(set)\b</string>
+          </dict>
+          <dict>
+            <key>name</key>
+            <string>keyword.other.init.cs</string>
+            <key>match</key>
+            <string>\b(init)\b</string>
           </dict>
           <dict>
             <key>include</key>

@@ -3,7 +3,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import { ITokenizeLineResult, Registry, StackElement, parseRawGrammar } from 'vscode-textmate';
+import { Registry, StackElement, parseRawGrammar, } from 'vscode-textmate';
 import * as oniguruma from 'vscode-oniguruma';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -17,7 +17,11 @@ function readFile(path) {
     })
 }
 
-const wasmBin = fs.readFileSync(path.join(__dirname, '../../../node_modules/vscode-oniguruma/release/onig.wasm')).buffer;
+// The path is different whether we are running tests from `out/test/**/*.js` or `test/**/*.ts`
+var onigPath = fs.existsSync(path.join(__dirname, '../../node_modules/vscode-oniguruma/release/onig.wasm'))
+    ? path.join(__dirname, '../../node_modules/vscode-oniguruma/release/onig.wasm')
+    : path.join(__dirname, '../../../node_modules/vscode-oniguruma/release/onig.wasm');
+const wasmBin = fs.readFileSync(onigPath).buffer;
 const vscodeOnigurumaLib = oniguruma.loadWASM(wasmBin).then(() => {
     return {
         createOnigScanner(patterns) { return new oniguruma.OnigScanner(patterns); },
@@ -221,6 +225,7 @@ export namespace Token {
         export const PreprocessorSymbol = (text: string) => createToken(text, 'entity.name.variable.preprocessor.symbol.cs');
         export const PropertyName = (text: string) => createToken(text, 'entity.name.variable.property.cs');
         export const RangeVariableName = (text: string) => createToken(text, 'entity.name.variable.range-variable.cs');
+        export const RecordName = (text: string) => createToken(text, 'entity.name.type.record.cs');
         export const StructName = (text: string) => createToken(text, 'entity.name.type.struct.cs');
         export const TupleElementName = (text: string) => createToken(text, 'entity.name.variable.tuple-element.cs');
         export const TypeParameterName = (text: string) => createToken(text, 'entity.name.type.type-parameter.cs');
@@ -329,6 +334,7 @@ export namespace Token {
         export const Extern = createToken('extern', 'keyword.other.extern.cs');
         export const Get = createToken('get', 'keyword.other.get.cs');
         export const Implicit = createToken('implicit', 'keyword.other.implicit.cs');
+        export const Init = createToken('init', 'keyword.other.init.cs');
         export const Interface = createToken('interface', 'keyword.other.interface.cs');
         export const Is = createToken('is', 'keyword.other.is.cs');
         export const Lock = createToken('lock', 'keyword.other.lock.cs');
@@ -337,6 +343,7 @@ export namespace Token {
         export const New = createToken('new', 'keyword.other.new.cs');
         export const Stackalloc = createToken('stackalloc', 'keyword.other.new.cs');
         export const Operator = createToken('operator', 'keyword.other.operator-decl.cs');
+        export const Record = createToken('record', 'keyword.other.record.cs');
         export const Remove = createToken('remove', 'keyword.other.remove.cs');
         export const Set = createToken('set', 'keyword.other.set.cs');
         export const Static = createToken('static', 'keyword.other.static.cs');

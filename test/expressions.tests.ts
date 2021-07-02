@@ -6,7 +6,7 @@
 import { should } from "chai";
 import { tokenize, Input, Token } from "./utils/tokenize";
 
-describe("Grammar", () => {
+describe("Expressions", () => {
   before(() => {
     should();
   });
@@ -1412,9 +1412,9 @@ var x = new
       it("await foreach should tokenize correctly as a statement", async () => {
         const input = Input.InMethod(`await foreach (var item in list)
                 {
-                    
+
                 }
-                
+
                 var i = 1;`);
         const tokens = await tokenize(input);
 
@@ -3792,7 +3792,7 @@ select x.Key1;`);
 
     describe("Switch Expresisons", () => {
       it("simple switch expression", async () => {
-        const input = Input.InClass(`                
+        const input = Input.InClass(`
                 public decimal Calculate(object thing) =>
                     thing switch
                     {

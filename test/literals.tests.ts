@@ -6,7 +6,7 @@
 import { should } from 'chai';
 import { tokenize, Input, Token } from './utils/tokenize';
 
-describe("Grammar", () => {
+describe("Literals", () => {
     before(() => { should(); });
 
     describe("Literals", () => {
@@ -771,7 +771,7 @@ describe("Grammar", () => {
 
             it("line break before close quote", async () => {
                 const input = Input.InClass(`
-string test = "hello 
+string test = "hello
 world!";`);
                 const tokens = await tokenize(input);
 
@@ -780,10 +780,10 @@ world!";`);
                     Token.Identifiers.FieldName("test"),
                     Token.Operators.Assignment,
                     Token.Punctuation.String.Begin,
-                    Token.Literals.String("hello"),
+                    Token.Literals.String("hell"),
 
                     // Note: Because the string ended prematurely, the rest of this line and the contents of the next are junk.
-                    Token.IllegalNewLine(" "),
+                    Token.IllegalNewLine("o"),
                     Token.Variables.ReadWrite("world"),
                     Token.Operators.Logical.Not,
                     Token.Punctuation.String.Begin,
@@ -823,7 +823,7 @@ world!";`);
 
             it("line break before close quote (verbatim)", async () => {
                 const input = Input.InClass(`
-string test = @"hello 
+string test = @"hello
 world!";`);
                 const tokens = await tokenize(input);
 
@@ -832,7 +832,7 @@ world!";`);
                     Token.Identifiers.FieldName("test"),
                     Token.Operators.Assignment,
                     Token.Punctuation.String.VerbatimBegin,
-                    Token.Literals.String("hello "),
+                    Token.Literals.String("hello"),
                     Token.Literals.String("world!"),
                     Token.Punctuation.String.End,
                     Token.Punctuation.Semicolon]);

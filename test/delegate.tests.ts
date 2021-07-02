@@ -6,7 +6,7 @@
 import { should } from 'chai';
 import { tokenize, Token } from './utils/tokenize';
 
-describe("Grammar", () => {
+describe("Delegates", () => {
     before(() => { should(); });
 
     describe("Delegates", () => {
