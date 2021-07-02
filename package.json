@@ -21,8 +21,7 @@
   ],
   "scripts": {
     "compile": "gulp",
-    "compileandtest": "gulp && gulp test",
-    "test": "gulp test",
+    "test": "gulp",
     "prepublish": "gulp",
     "watch": "nodemon --exec 'npx gulp buildTmLanguage'"
   },
