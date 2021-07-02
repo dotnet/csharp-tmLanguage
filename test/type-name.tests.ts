@@ -289,5 +289,53 @@ describe("Type names", () => {
                 Token.Identifiers.LocalName("x"),
                 Token.Punctuation.Semicolon]);
         });
+
+        it("assignments new object creation expression", async () => {
+            const input = Input.InMethod(`x = new List<int>();`);
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Variables.ReadWrite("x"),
+                Token.Operators.Assignment,
+                Token.Keywords.New,
+                Token.Type("List"),
+                Token.Punctuation.TypeParameters.Begin,
+                Token.PrimitiveType.Int,
+                Token.Punctuation.TypeParameters.End,
+                Token.Punctuation.OpenParen,
+                Token.Punctuation.CloseParen,
+                Token.Punctuation.Semicolon]);
+        });
+
+        it("assignments new array creation expression", async () => {
+            const input = Input.InMethod(`x = new string[4];`);
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Variables.ReadWrite("x"),
+                Token.Operators.Assignment,
+                Token.Keywords.New,
+                Token.PrimitiveType.String,
+                Token.Punctuation.OpenBracket,
+                Token.Literals.Numeric.Decimal("4"),
+                Token.Punctuation.CloseBracket,
+                Token.Punctuation.Semicolon]);
+        });
+
+        it("assignments new anonymous object creation expression", async () => {
+            const input = Input.InMethod(`x = new { Length = 5 };`);
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Variables.ReadWrite("x"),
+                Token.Operators.Assignment,
+                Token.Keywords.New,
+                Token.Punctuation.OpenBrace,
+                Token.Variables.ReadWrite("Length"),
+                Token.Operators.Assignment,
+                Token.Literals.Numeric.Decimal("5"),
+                Token.Punctuation.CloseBrace,
+                Token.Punctuation.Semicolon]);
+        });
     });
 });
