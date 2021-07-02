@@ -3,7 +3,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import { ITokenizeLineResult, Registry, StackElement, parseRawGrammar } from 'vscode-textmate';
+import { Registry, StackElement, parseRawGrammar, } from 'vscode-textmate';
 import * as oniguruma from 'vscode-oniguruma';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -17,7 +17,11 @@ function readFile(path) {
     })
 }
 
-const wasmBin = fs.readFileSync(path.join(__dirname, '../../../node_modules/vscode-oniguruma/release/onig.wasm')).buffer;
+// The path is different whether we are running tests from `out/test/**/*.js` or `test/**/*.ts`
+var onigPath = fs.existsSync(path.join(__dirname, '../../node_modules/vscode-oniguruma/release/onig.wasm'))
+    ? path.join(__dirname, '../../node_modules/vscode-oniguruma/release/onig.wasm')
+    : path.join(__dirname, '../../../node_modules/vscode-oniguruma/release/onig.wasm');
+const wasmBin = fs.readFileSync(onigPath).buffer;
 const vscodeOnigurumaLib = oniguruma.loadWASM(wasmBin).then(() => {
     return {
         createOnigScanner(patterns) { return new oniguruma.OnigScanner(patterns); },
