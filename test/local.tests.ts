@@ -6,7 +6,7 @@
 import { should } from 'chai';
 import { tokenize, Input, Token } from './utils/tokenize';
 
-describe("Grammar", () => {
+describe("Locals", () => {
     before(() => { should(); });
 
     describe("Locals", () => {
@@ -232,7 +232,7 @@ int Add(int x, int y)
                 Token.Punctuation.CloseBrace
             ]);
         });
-        
+
         it("local function declaration with unsafe modifier", async () => {
             const input = Input.InClass(`unsafe void Foo() { }`);
             const tokens = await tokenize(input);
