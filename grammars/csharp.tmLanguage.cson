@@ -1804,7 +1804,7 @@ repository:
       }
     ]
   "switch-expression":
-    begin: "(?x) (?<!\\.)\\b(switch)"
+    begin: "(?x) (?<!\\.)\\b(switch)\\b"
     beginCaptures:
       "1":
         name: "keyword.control.switch.cs"
