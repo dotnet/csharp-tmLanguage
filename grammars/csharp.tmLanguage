@@ -5339,7 +5339,7 @@
     )*
   )
 )\s*
-(\))(?=\s*@?[_[:alnum:]\(])</string>
+(\))(?=\s*-*!*@?[_[:alnum:]\(])</string>
         <key>captures</key>
         <dict>
           <key>1</key>
