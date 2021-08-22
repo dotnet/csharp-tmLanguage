@@ -2876,7 +2876,7 @@
       <key>switch-expression</key>
       <dict>
         <key>begin</key>
-        <string>(?x) (?&lt;!\.)\b(switch)</string>
+        <string>(?x) (?&lt;!\.)\b(switch)\b</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
