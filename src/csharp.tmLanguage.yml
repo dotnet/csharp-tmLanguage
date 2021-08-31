@@ -2099,7 +2099,7 @@ repository:
           )*
         )
       )\s*
-      (\))(?=\s*@?[_[:alnum:]\(])
+      (\))(?=\s*-*!*@?[_[:alnum:]\(])
     captures:
       '1': { name: punctuation.parenthesis.open.cs }
       '2':
