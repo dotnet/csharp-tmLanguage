@@ -3790,7 +3790,7 @@ select x.Key1;`);
       });
     });
 
-    describe("Switch Expresisons", () => {
+    describe("Switch Expressions", () => {
       it("simple switch expression", async () => {
         const input = Input.InClass(`
                 public decimal Calculate(object thing) =>
@@ -4744,6 +4744,68 @@ select x.Key1;`);
           Token.Punctuation.Comma,
           Token.Punctuation.CloseBrace,
           Token.Punctuation.Semicolon
+        ]);
+      });
+
+      it("does not highlight variable names starting with 'switch' (issue #208)", async () => {
+        const input = Input.InClass(`private bool switchedOn = false;
+
+        private bool DecodeSwitchString(string switchString) {
+            var switchOn = false;
+
+            if (!this.switchedOn)
+            {
+                switchOn = switchString.ToUpper() == "ON";
+            }
+
+            return switchOn;
+        }`);
+        const tokens = await tokenize(input);
+        tokens.should.deep.equal([
+          Token.Keywords.Modifiers.Private,
+          Token.PrimitiveType.Bool,
+          Token.Identifiers.FieldName("switchedOn"),
+          Token.Operators.Assignment,
+          Token.Literals.Boolean.False,
+          Token.Punctuation.Semicolon,
+          Token.Keywords.Modifiers.Private,
+          Token.PrimitiveType.Bool,
+          Token.Identifiers.MethodName("DecodeSwitchString"),
+          Token.Punctuation.OpenParen,
+          Token.PrimitiveType.String,
+          Token.Identifiers.ParameterName("switchString"),
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.OpenBrace,
+          Token.Keywords.Var,
+          Token.Identifiers.LocalName("switchOn"),
+          Token.Operators.Assignment,
+          Token.Literals.Boolean.False,
+          Token.Punctuation.Semicolon,
+          Token.Keywords.Control.If,
+          Token.Punctuation.OpenParen,
+          Token.Operators.Logical.Not,
+          Token.Keywords.This,
+          Token.Punctuation.Accessor,
+          Token.Variables.Property("switchedOn"),
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.OpenBrace,
+          Token.Variables.ReadWrite("switchOn"),
+          Token.Operators.Assignment,
+          Token.Variables.Object("switchString"),
+          Token.Punctuation.Accessor,
+          Token.Identifiers.MethodName("ToUpper"),
+          Token.Punctuation.OpenParen,
+          Token.Punctuation.CloseParen,
+          Token.Operators.Relational.Equals,
+          Token.Punctuation.String.Begin,
+          Token.Literals.String("ON"),
+          Token.Punctuation.String.End,
+          Token.Punctuation.Semicolon,
+          Token.Punctuation.CloseBrace,
+          Token.Keywords.Control.Return,
+          Token.Variables.ReadWrite("switchOn"),
+          Token.Punctuation.Semicolon,
+          Token.Punctuation.CloseBrace
         ]);
       });
     });
