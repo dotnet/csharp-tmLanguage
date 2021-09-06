@@ -5207,7 +5207,7 @@
       <key>conditional-operator</key>
       <dict>
         <key>begin</key>
-        <string>(?&lt;!\?\s*)\?(?!\?|\.|\[)</string>
+        <string>\?(?!\s*[?.\[]|\s*$)</string>
         <key>beginCaptures</key>
         <dict>
           <key>0</key>

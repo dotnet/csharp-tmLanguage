@@ -2035,7 +2035,7 @@ repository:
     # Only match ? if:
     # 1. There isn't a preceding or trailing ? (null-coalescing operator)
     # 2. There isn't a trailing . or [ (null-conditional operator)
-    begin: (?<!\?\s*)\?(?!\?|\.|\[)
+    begin: \?(?!\s*[?.\[]|\s*$)
     beginCaptures:
       '0': { name: keyword.operator.conditional.question-mark.cs }
     end: ':'

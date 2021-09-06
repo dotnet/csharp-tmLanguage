@@ -3159,7 +3159,7 @@ repository:
       }
     ]
   "conditional-operator":
-    begin: "(?<!\\?\\s*)\\?(?!\\?|\\.|\\[)"
+    begin: "\\?(?!\\s*[?.\\[]|\\s*$)"
     beginCaptures:
       "0":
         name: "keyword.operator.conditional.question-mark.cs"
