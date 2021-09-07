@@ -3,7 +3,7 @@
 To **build and test** install Node.js do the following:
 
 * Run `npm install` to install any dependencies.
-* Run `gulp` to build and run tests.
+* Run `npm run compile` to build and run tests.
 
 Output grammars are output in the `grammars\` directory.
 
