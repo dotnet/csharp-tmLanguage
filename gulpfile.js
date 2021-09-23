@@ -56,7 +56,7 @@ gulp.task('buildVSCode', done => {
         // Add the additional properties used in the VSCode repo.
         const enhancedJson = {
             "information_for_contributors": [
-                "This file has been converted from https://github.com/dotnet/csharp-tmLanguage/blob/master/grammars/csharp.tmLanguage",
+                "This file has been converted from https://github.com/dotnet/csharp-tmLanguage/blob/main/grammars/csharp.tmLanguage",
                 "If you want to provide a fix or improvement, please create a pull request against the original repository.",
                 "Once accepted there, we are happy to receive an update request."
             ],
