@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { should } from 'chai';
-import { tokenize, Input, Token } from './utils/tokenize';
+import { tokenize, Input, Token, NamespaceStyle } from './utils/tokenize';
 
 describe("Comments", () => {
     before(() => { should(); });
@@ -60,8 +60,17 @@ world */`;
                 Token.Comment.MultiLine.End]);
         });
 
-        it("in namespace", async () => {
-            const input = Input.InNamespace(`// foo`);
+        it("in block-scoped namespace", async () => {
+            const input = Input.InNamespace(`// foo`, NamespaceStyle.BlockScoped);
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Comment.SingleLine.Start,
+                Token.Comment.SingleLine.Text(" foo")]);
+        });
+
+        it("in file-scoped namespace", async () => {
+            const input = Input.InNamespace(`// foo`, NamespaceStyle.FileScoped);
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
