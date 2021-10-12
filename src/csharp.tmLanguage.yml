@@ -218,7 +218,7 @@ repository:
     begin: \b(namespace)\s+
     beginCaptures:
       '1': { name: keyword.other.namespace.cs }
-    end: (?<=\})
+    end: (?<=\})|(?=;)
     patterns:
     - include: '#comment'
     - name: entity.name.type.namespace.cs

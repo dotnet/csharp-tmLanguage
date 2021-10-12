@@ -9,7 +9,7 @@ import { tokenize, Token } from './utils/tokenize';
 describe("Namespace", () => {
     before(() => { should(); });
 
-    describe("Namespace", () => {
+    describe("Block-Scoped Namespace", () => {
         it("has a namespace keyword and a name", async () => {
 
             const input = `
@@ -132,6 +132,34 @@ namespace TestNamespace
 
                 Token.Punctuation.CloseBrace,
                 Token.Punctuation.CloseBrace]);
+        });
+    });
+
+    describe("File-Scoped Namespace", () => {
+        it("has a namespace keyword and a name", async () => {
+
+            const input = `
+namespace TestNamespace;`;
+            let tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Namespace,
+                Token.Identifiers.NamespaceName("TestNamespace"),
+                Token.Punctuation.Semicolon]);
+        });
+
+        it("has a namespace keyword and a dotted name", async () => {
+
+            const input = `
+namespace Test.Namespace;`;
+            let tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Namespace,
+                Token.Identifiers.NamespaceName("Test"),
+                Token.Punctuation.Accessor,
+                Token.Identifiers.NamespaceName("Namespace"),
+                Token.Punctuation.Semicolon]);
         });
     });
 });

@@ -87,6 +87,11 @@ interface Span {
     endIndex: number;
 }
 
+export enum NamespaceStyle {
+    BlockScoped,
+    FileScoped
+}
+
 export class Input {
     private constructor(
         public lines: string[],
@@ -154,8 +159,13 @@ class TestClass {
         return new Input(lines, { startLine: 3, startIndex: 8, endLine: lines.length - 2, endIndex: 0 });
     }
 
-    public static InNamespace(input: string) {
-        let text = `
+    public static InNamespace(input: string, style: NamespaceStyle) {
+        let text = style == NamespaceStyle.FileScoped
+            ? `
+namespace TestNamespace;
+
+${input}`
+            : `
 namespace TestNamespace {
     ${input}
 }`;
@@ -164,7 +174,9 @@ namespace TestNamespace {
         text = text.replace('\r\n', '\n');
         let lines = text.split('\n');
 
-        return new Input(lines, { startLine: 2, startIndex: 4, endLine: lines.length - 1, endIndex: 0 });
+        return style == NamespaceStyle.FileScoped
+            ? new Input(lines, { startLine: 3, startIndex: 0, endLine: lines.length, endIndex: 0 })
+            : new Input(lines, { startLine: 2, startIndex: 4, endLine: lines.length - 1, endIndex: 0 });
     }
 
     public static InStruct(input: string) {
@@ -369,20 +381,17 @@ export namespace Token {
             export const Decimal = (text: string) => createToken(text, 'constant.numeric.decimal.cs');
             export const Hexadecimal = (text: string) => createToken(text, 'constant.numeric.hex.cs');
             export const Invalid = (text: string) => createToken(text, 'invalid.illegal.constant.numeric.cs')
-            
-            export namespace Other
-            {
+
+            export namespace Other {
                 export const Exponent = (text: string) => createToken(text, 'constant.numeric.other.exponent.cs');
                 export const Suffix = (text: string) => createToken(text, 'constant.numeric.other.suffix.cs');
-                
-                export namespace Preffix
-                {
+
+                export namespace Preffix {
                     export const Binary = (text: string) => createToken(text, 'constant.numeric.other.preffix.binary.cs');
                     export const Hexadecimal = (text: string) => createToken(text, 'constant.numeric.other.preffix.hex.cs');
                 }
 
-                export namespace Separator
-                {
+                export namespace Separator {
                     export const Decimals = createToken('.', 'constant.numeric.other.separator.decimals.cs');
                     export const Thousands = createToken('_', 'constant.numeric.other.separator.thousands.cs');
                 }
