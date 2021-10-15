@@ -1979,19 +1979,19 @@ repository:
     patterns:
     - include: '#comment'
     - include: '#tuple-literal-element'
+    - include: '#expression'
     - include: '#punctuation-comma'
 
   tuple-literal-element:
     begin: |-
       (?x)
-      (?:(@?[_[:alpha:]][_[:alnum:]]*)\s*(:)\s*)?
-      (?![,)])
+      (@?[_[:alpha:]][_[:alnum:]]*)\s*
+      (?=:)
     beginCaptures:
-      '0': { name: entity.name.variable.tuple-element.cs }
-      '1': { name: punctuation.separator.colon.cs }
-    end: (?=[,)])
-    patterns:
-    - include: '#expression'
+      '1': { name: entity.name.variable.tuple-element.cs }
+    end: (:)
+    endCaptures:
+      '0': { name: punctuation.separator.colon.cs }
 
   expression-operators:
     patterns:

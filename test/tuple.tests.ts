@@ -28,6 +28,29 @@ describe("Tuples", () => {
             ]);
         });
 
+        it("Named Tuple literal", async () => {
+            const input = Input.InMethod(`var p = (Number: 42, Greeting: "hello");`);
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Var,
+                Token.Identifiers.LocalName("p"),
+                Token.Operators.Assignment,
+                Token.Punctuation.OpenParen,
+                Token.Identifiers.TupleElementName("Number"),
+                Token.Punctuation.Colon,
+                Token.Literals.Numeric.Decimal("42"),
+                Token.Punctuation.Comma,
+                Token.Identifiers.TupleElementName("Greeting"),
+                Token.Punctuation.Colon,
+                Token.Punctuation.String.Begin,
+                Token.Literals.String("hello"),
+                Token.Punctuation.String.End,
+                Token.Punctuation.CloseParen,
+                Token.Punctuation.Semicolon
+            ]);
+        });
+
         it("Assign to tuple variable", async () => {
             const input = Input.InMethod(`(int x, int y) p = point;`);
             const tokens = await tokenize(input);

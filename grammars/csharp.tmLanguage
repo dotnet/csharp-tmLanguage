@@ -5063,6 +5063,10 @@
           </dict>
           <dict>
             <key>include</key>
+            <string>#expression</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#punctuation-comma</string>
           </dict>
         </array>
@@ -5071,30 +5075,26 @@
       <dict>
         <key>begin</key>
         <string>(?x)
-(?:(@?[_[:alpha:]][_[:alnum:]]*)\s*(:)\s*)?
-(?![,)])</string>
+(@?[_[:alpha:]][_[:alnum:]]*)\s*
+(?=:)</string>
         <key>beginCaptures</key>
         <dict>
-          <key>0</key>
+          <key>1</key>
           <dict>
             <key>name</key>
             <string>entity.name.variable.tuple-element.cs</string>
           </dict>
-          <key>1</key>
+        </dict>
+        <key>end</key>
+        <string>(:)</string>
+        <key>endCaptures</key>
+        <dict>
+          <key>0</key>
           <dict>
             <key>name</key>
             <string>punctuation.separator.colon.cs</string>
           </dict>
         </dict>
-        <key>end</key>
-        <string>(?=[,)])</string>
-        <key>patterns</key>
-        <array>
-          <dict>
-            <key>include</key>
-            <string>#expression</string>
-          </dict>
-        </array>
       </dict>
       <key>expression-operators</key>
       <dict>
