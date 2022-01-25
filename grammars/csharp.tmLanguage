@@ -1484,7 +1484,7 @@
           <key>2</key>
           <dict>
             <key>name</key>
-            <string>storage.type.cs</string>
+            <string>entity.name.type.type-parameter.cs</string>
           </dict>
           <key>3</key>
           <dict>
@@ -6965,7 +6965,7 @@
               <key>1</key>
               <dict>
                 <key>name</key>
-                <string>storage.type.cs</string>
+                <string>entity.name.type.cs</string>
               </dict>
               <key>2</key>
               <dict>
@@ -6987,13 +6987,13 @@
               <key>2</key>
               <dict>
                 <key>name</key>
-                <string>storage.type.cs</string>
+                <string>entity.name.type.cs</string>
               </dict>
             </dict>
           </dict>
           <dict>
             <key>name</key>
-            <string>storage.type.cs</string>
+            <string>entity.name.type.cs</string>
             <key>match</key>
             <string>@?[_[:alpha:]][_[:alnum:]]*</string>
           </dict>

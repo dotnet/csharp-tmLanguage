@@ -599,5 +599,5 @@ export namespace Token {
 
     export const IllegalNewLine = (text: string) => createToken(text, 'invalid.illegal.newline.cs');
     export const PreprocessorMessage = (text: string) => createToken(text, 'string.unquoted.preprocessor.message.cs');
-    export const Type = (text: string) => createToken(text, 'storage.type.cs');
+    export const Type = (text: string) => createToken(text, 'entity.name.type.cs');
 }

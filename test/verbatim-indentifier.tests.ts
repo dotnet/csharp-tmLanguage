@@ -243,7 +243,7 @@ public class Baz<@Bar, T> { }
                 Token.Identifiers.TypeParameterName("T2"),
                 Token.Punctuation.TypeParameters.End,
                 Token.Keywords.Where,
-                Token.Type("T1"),
+                Token.Identifiers.TypeParameterName("T1"),
                 Token.Punctuation.Colon,
                 Token.Type("@class"),
                 Token.Punctuation.OpenBrace,

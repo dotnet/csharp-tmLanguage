@@ -930,7 +930,7 @@ repository:
       "1":
         name: "keyword.other.where.cs"
       "2":
-        name: "storage.type.cs"
+        name: "entity.name.type.type-parameter.cs"
       "3":
         name: "punctuation.separator.colon.cs"
     end: "(?=\\{|where|;|=>)"
@@ -4267,7 +4267,7 @@ repository:
         match: "(@?[_[:alpha:]][_[:alnum:]]*)\\s*(\\.)"
         captures:
           "1":
-            name: "storage.type.cs"
+            name: "entity.name.type.cs"
           "2":
             name: "punctuation.accessor.cs"
       }
@@ -4277,10 +4277,10 @@ repository:
           "1":
             name: "punctuation.accessor.cs"
           "2":
-            name: "storage.type.cs"
+            name: "entity.name.type.cs"
       }
       {
-        name: "storage.type.cs"
+        name: "entity.name.type.cs"
         match: "@?[_[:alpha:]][_[:alnum:]]*"
       }
     ]

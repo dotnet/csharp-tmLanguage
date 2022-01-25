@@ -129,7 +129,7 @@ struct S<T1, T2> where T1 : T2 { }
                 Token.Identifiers.TypeParameterName("T2"),
                 Token.Punctuation.TypeParameters.End,
                 Token.Keywords.Where,
-                Token.Type("T1"),
+                Token.Identifiers.TypeParameterName("T1"),
                 Token.Punctuation.Colon,
                 Token.Type("T2"),
                 Token.Punctuation.OpenBrace,
