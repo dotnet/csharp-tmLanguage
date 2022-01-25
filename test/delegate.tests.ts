@@ -68,7 +68,7 @@ delegate void D<T1, T2>()
                 Token.Punctuation.OpenParen,
                 Token.Punctuation.CloseParen,
                 Token.Keywords.Where,
-                Token.Type("T1"),
+                Token.Identifiers.TypeParameterName("T1"),
                 Token.Punctuation.Colon,
                 Token.Type("T2"),
                 Token.Punctuation.Semicolon]);
