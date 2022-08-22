@@ -811,7 +811,7 @@
         <key>name</key>
         <string>storage.modifier.cs</string>
         <key>match</key>
-        <string>(?&lt;!\.)\b(new|public|protected|internal|private|abstract|virtual|override|sealed|static|partial|readonly|volatile|const|extern|async|unsafe|ref)\b</string>
+        <string>(?&lt;!\.)\b(new|public|protected|internal|private|abstract|virtual|override|sealed|static|partial|readonly|volatile|const|extern|async|unsafe|ref|required)\b</string>
       </dict>
       <key>class-declaration</key>
       <dict>

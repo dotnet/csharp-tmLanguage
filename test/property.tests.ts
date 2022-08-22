@@ -425,5 +425,21 @@ public int Timeout
                 Token.Variables.ReadWrite("x"),
                 Token.Punctuation.Semicolon]);
         });
+
+        it("required property", async () => {
+            const input = Input.InClass(`required int P { get; set; }`);
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Modifiers.Required,
+                Token.PrimitiveType.Int,
+                Token.Identifiers.PropertyName("P"),
+                Token.Punctuation.OpenBrace,
+                Token.Keywords.Get,
+                Token.Punctuation.Semicolon,
+                Token.Keywords.Set,
+                Token.Punctuation.Semicolon,
+                Token.Punctuation.CloseBrace]);
+        });
     });
 });

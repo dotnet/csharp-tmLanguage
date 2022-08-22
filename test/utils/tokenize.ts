@@ -283,6 +283,7 @@ export namespace Token {
             export const Protected = createToken('protected', 'storage.modifier.cs');
             export const Public = createToken('public', 'storage.modifier.cs');
             export const ReadOnly = createToken('readonly', 'storage.modifier.cs');
+            export const Required = createToken('required', 'storage.modifier.cs');
             export const Ref = createToken('ref', 'storage.modifier.cs');
             export const Sealed = createToken('sealed', 'storage.modifier.cs');
             export const Static = createToken('static', 'storage.modifier.cs');
