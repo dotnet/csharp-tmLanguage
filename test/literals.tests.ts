@@ -966,6 +966,272 @@ namespace X
                     Token.Punctuation.CloseBrace
                 ]);
             });
+
+            it("single line empty raw string literal", async () => {
+                const input = Input.InMethod(`""" """`);
+
+                const tokens = await tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Punctuation.String.RawStringBegin(3),
+                    Token.Literals.String(" "),
+                    Token.Punctuation.String.RawStringEnd(3)
+                ]);
+            });
+
+            it("single line inner quotes raw string literal", async () => {
+                const input = Input.InMethod(`""" "" """`);
+
+                const tokens = await tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Punctuation.String.RawStringBegin(3),
+                    Token.Literals.String(' "" '),
+                    Token.Punctuation.String.RawStringEnd(3)
+                ]);
+            });
+
+            it("single line raw string literal trailing quotes", async () => {
+                const input = Input.InMethod(`""" """""`);
+
+                const tokens = await tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Punctuation.String.RawStringBegin(3),
+                    Token.Literals.String(' '),
+                    Token.Punctuation.String.RawStringEnd(3),
+                    Token.Punctuation.String.Begin,
+                    Token.Punctuation.String.End
+                ]);
+            });
+
+            it("quadruple single line inner quotes raw string literal", async () => {
+                const input = Input.InMethod(`"""" """ """"`);
+
+                const tokens = await tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Punctuation.String.RawStringBegin(4),
+                    Token.Literals.String(' """ '),
+                    Token.Punctuation.String.RawStringEnd(4)
+                ]);
+            });
+
+            it("quintuple single line inner quotes raw string literal", async () => {
+                const input = Input.InMethod(`""""" """" """""`);
+
+                const tokens = await tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Punctuation.String.RawStringBegin(5),
+                    Token.Literals.String(' """" '),
+                    Token.Punctuation.String.RawStringEnd(5)
+                ]);
+            });
+
+            it("multi line empty raw string literal", async () => {
+                const input = Input.InMethod(`"""
+
+"""`);
+
+                const tokens = await tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Punctuation.String.RawStringBegin(3),
+                    Token.Literals.String(""),
+                    Token.Punctuation.String.RawStringEnd(3)
+                ]);
+            });
+
+            it("multi line inner quotes raw string literal", async () => {
+                const input = Input.InMethod(`"""
+""
+"""`);
+
+                const tokens = await tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Punctuation.String.RawStringBegin(3),
+                    Token.Literals.String('""'),
+                    Token.Punctuation.String.RawStringEnd(3)
+                ]);
+            });
+
+            it("multi line raw string literal trailing quotes", async () => {
+                const input = Input.InMethod(`"""
+
+"""""`);
+
+                const tokens = await tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Punctuation.String.RawStringBegin(3),
+                    Token.Literals.String(""),
+                    Token.Punctuation.String.RawStringEnd(3),
+                    Token.Punctuation.String.Begin,
+                    Token.Punctuation.String.End
+                ]);
+            });
+
+            it("quadruple multi line inner quotes raw string literal", async () => {
+                const input = Input.InMethod(`""""
+"""
+""""`);
+
+                const tokens = await tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Punctuation.String.RawStringBegin(4),
+                    Token.Literals.String('"""'),
+                    Token.Punctuation.String.RawStringEnd(4)
+                ]);
+            });
+
+            it("quintuple multi line inner quotes raw string literal", async () => {
+                const input = Input.InMethod(`"""""
+""""
+"""""`);
+
+                const tokens = await tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Punctuation.String.RawStringBegin(5),
+                    Token.Literals.String('""""'),
+                    Token.Punctuation.String.RawStringEnd(5)
+                ]);
+            });
+
+            [1, 2].forEach(n => {
+                it(`triple interpolations with ${n} dollars single line`, async () => {
+                    const input = Input.InMethod('$'.repeat(n) + `""" ${'{'.repeat(n)}1 + 1${'}'.repeat(n)} """`);
+
+                    const tokens = await tokenize(input);
+
+                    tokens.should.deep.equal([
+                        Token.Punctuation.InterpolatedString.RawStringBegin(3, n),
+                        Token.Literals.String(" "),
+                        Token.Punctuation.Interpolation.RawBegin(n),
+                        Token.Literals.Numeric.Decimal("1"),
+                        Token.Operators.Arithmetic.Addition,
+                        Token.Literals.Numeric.Decimal("1"),
+                        Token.Punctuation.Interpolation.RawEnd(n),
+                        Token.Literals.String(" "),
+                        Token.Punctuation.InterpolatedString.RawStringEnd(3)
+                    ]);
+                });
+
+                it(`quadruple interpolations with ${n} dollars single line`, async () => {
+                    const input = Input.InMethod('$'.repeat(n) + `"""" ${'{'.repeat(n)}1 + 1${'}'.repeat(n)} """"`);
+
+                    const tokens = await tokenize(input);
+
+                    tokens.should.deep.equal([
+                        Token.Punctuation.InterpolatedString.RawStringBegin(4, n),
+                        Token.Literals.String(" "),
+                        Token.Punctuation.Interpolation.RawBegin(n),
+                        Token.Literals.Numeric.Decimal("1"),
+                        Token.Operators.Arithmetic.Addition,
+                        Token.Literals.Numeric.Decimal("1"),
+                        Token.Punctuation.Interpolation.RawEnd(n),
+                        Token.Literals.String(" "),
+                        Token.Punctuation.InterpolatedString.RawStringEnd(4)
+                    ]);
+                });
+
+                it(`triple interpolations with ${n} dollars multi line`, async () => {
+                    const input = Input.InMethod('$'.repeat(n) + `"""
+${'{'.repeat(n)}1 + 1${'}'.repeat(n)}
+"""`);
+
+                    const tokens = await tokenize(input);
+
+                    tokens.should.deep.equal([
+                        Token.Punctuation.InterpolatedString.RawStringBegin(3, n),
+                        Token.Punctuation.Interpolation.RawBegin(n),
+                        Token.Literals.Numeric.Decimal("1"),
+                        Token.Operators.Arithmetic.Addition,
+                        Token.Literals.Numeric.Decimal("1"),
+                        Token.Punctuation.Interpolation.RawEnd(n),
+                        Token.Punctuation.InterpolatedString.RawStringEnd(3)
+                    ]);
+                });
+
+                it(`quadruple interpolations with ${n} dollars multi line`, async () => {
+                    const input = Input.InMethod('$'.repeat(n) + `""""
+${'{'.repeat(n)}1 + 1${'}'.repeat(n)}
+""""`);
+
+                    const tokens = await tokenize(input);
+
+                    tokens.should.deep.equal([
+                        Token.Punctuation.InterpolatedString.RawStringBegin(4, n),
+                        Token.Punctuation.Interpolation.RawBegin(n),
+                        Token.Literals.Numeric.Decimal("1"),
+                        Token.Operators.Arithmetic.Addition,
+                        Token.Literals.Numeric.Decimal("1"),
+                        Token.Punctuation.Interpolation.RawEnd(n),
+                        Token.Punctuation.InterpolatedString.RawStringEnd(4)
+                    ]);
+                });
+            });
+
+            it("double dollar raw string ignores { characters", async () => {
+                const input = Input.InMethod(`$$""""
+{1 + 1}
+{{1 + 1}}
+{1 + 1}
+""""`);
+
+                const tokens = await tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Punctuation.InterpolatedString.RawStringBegin(4, 2),
+                    Token.Literals.String("{1 + 1}"),
+                    Token.Punctuation.Interpolation.RawBegin(2),
+                    Token.Literals.Numeric.Decimal("1"),
+                    Token.Operators.Arithmetic.Addition,
+                    Token.Literals.Numeric.Decimal("1"),
+                    Token.Punctuation.Interpolation.RawEnd(2),
+                    Token.Literals.String("{1 + 1}"),
+                    Token.Punctuation.InterpolatedString.RawStringEnd(4)
+                ]);
+            });
+
+            it("five quotes has no interpolation holes", async () => {
+                const input = Input.InMethod(`$"""""
+{1 + 1}
+{{1 + 1}}
+{1 + 1}
+"""""`);
+
+                const tokens = await tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Punctuation.InterpolatedString.RawStringBegin(5, 1),
+                    Token.Literals.String("{1 + 1}"),
+                    Token.Literals.String("{{1 + 1}}"),
+                    Token.Literals.String("{1 + 1}"),
+                    Token.Punctuation.InterpolatedString.RawStringEnd(5)
+                ]);
+            });
+
+            it("three dollars has no interpolation holes", async () => {
+                const input = Input.InMethod(`$$$"""
+{1 + 1}
+{{1 + 1}}
+{1 + 1}
+"""`);
+
+                const tokens = await tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Punctuation.InterpolatedString.RawStringBegin(3, 3),
+                    Token.Literals.String("{1 + 1}"),
+                    Token.Literals.String("{{1 + 1}}"),
+                    Token.Literals.String("{1 + 1}"),
+                    Token.Punctuation.InterpolatedString.RawStringEnd(3)
+                ]);
+            });
         });
     });
 });

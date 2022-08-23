@@ -114,6 +114,7 @@ repository:
     - include: '#typeof-or-default-expression'
     - include: '#nameof-expression'
     - include: '#throw-expression'
+    - include: '#raw-interpolated-string'
     - include: '#interpolated-string'
     - include: '#verbatim-interpolated-string'
     - include: '#this-or-base-expression'
@@ -237,7 +238,7 @@ repository:
 
   storage-modifier:
     name: 'storage.modifier.cs'
-    match: (?<!\.)\b(new|public|protected|internal|private|abstract|virtual|override|sealed|static|partial|readonly|volatile|const|extern|async|unsafe|ref)\b
+    match: (?<!\.)\b(new|public|protected|internal|private|abstract|virtual|override|sealed|static|partial|readonly|volatile|const|extern|async|unsafe|ref|required)\b
 
   class-declaration:
     begin: (?=\bclass\b)
@@ -1807,12 +1808,110 @@ repository:
     patterns:
     - include: '#expression'
 
+  raw-interpolated-string:
+    patterns:
+    - include: '#raw-interpolated-string-five-or-more-quote-one-or-more-interpolation'
+    - include: '#raw-interpolated-string-three-or-more-quote-three-or-more-interpolation'
+    - include: '#raw-interpolated-string-quadruple-quote-double-interpolation'
+    - include: '#raw-interpolated-string-quadruple-quote-single-interpolation'
+    - include: '#raw-interpolated-string-triple-quote-double-interpolation'
+    - include: '#raw-interpolated-string-triple-quote-single-interpolation'
+
+  raw-interpolated-string-triple-quote-single-interpolation:
+    name: string.quoted.double.cs
+    begin: '\$"""'
+    beginCaptures:
+      '0': { name: punctuation.definition.string.begin.cs }
+    end: '"""'
+    endCaptures:
+      '0': { name: punctuation.definition.string.end.cs }
+    patterns:
+    - include: '#raw-interpolation'
+
+  raw-interpolated-string-triple-quote-double-interpolation:
+    name: string.quoted.double.cs
+    begin: '\$\$"""'
+    beginCaptures:
+      '0': { name: punctuation.definition.string.begin.cs }
+    end: '"""'
+    endCaptures:
+      '0': { name: punctuation.definition.string.end.cs }
+    patterns:
+    - include: '#double-raw-interpolation'
+
+  raw-interpolated-string-quadruple-quote-single-interpolation:
+    name: string.quoted.double.cs
+    begin: '\$""""'
+    beginCaptures:
+      '0': { name: punctuation.definition.string.begin.cs }
+    end: '""""'
+    endCaptures:
+      '0': { name: punctuation.definition.string.end.cs }
+    patterns:
+    - include: '#raw-interpolation'
+
+  raw-interpolated-string-quadruple-quote-double-interpolation:
+    name: string.quoted.double.cs
+    begin: '\$\$""""'
+    beginCaptures:
+      '0': { name: punctuation.definition.string.begin.cs }
+    end: '""""'
+    endCaptures:
+      '0': { name: punctuation.definition.string.end.cs }
+    patterns:
+    - include: '#double-raw-interpolation'
+
+  raw-interpolated-string-three-or-more-quote-three-or-more-interpolation:
+    # Due to language limitations, we don't support more than double interpolation nested highlighting or highlighting for very long " sequences
+    name: string.quoted.double.cs
+    begin: '\$\$\$+"""+'
+    beginCaptures:
+      '0': { name: punctuation.definition.string.begin.cs }
+    end: '"""+'
+    endCaptures:
+      '0': { name: punctuation.definition.string.end.cs }
+
+  raw-interpolated-string-five-or-more-quote-one-or-more-interpolation:
+    # Due to language limitations, we don't support more than double interpolation nested highlighting or highlighting for very long " sequences
+    name: string.quoted.double.cs
+    begin: '\$+"""""+'
+    beginCaptures:
+      '0': { name: punctuation.definition.string.begin.cs }
+    end: '"""""+'
+    endCaptures:
+      '0': { name: punctuation.definition.string.end.cs }
+
+  raw-interpolation:
+    name: meta.interpolation.cs
+    begin: (?<=[^\{]|^)((?:\{)*)(\{)(?=[^\{])
+    beginCaptures:
+      '1': { name: string.quoted.double.cs }
+      '2': { name: punctuation.definition.interpolation.begin.cs }
+    end: \}
+    endCaptures:
+      '0': { name: punctuation.definition.interpolation.end.cs }
+    patterns:
+    - include: '#expression'
+
+  double-raw-interpolation:
+    name: meta.interpolation.cs
+    begin: (?<=[^\{][^\{]|^)((?:\{)*)(\{\{)(?=[^\{])
+    beginCaptures:
+      '1': { name: string.quoted.double.cs }
+      '2': { name: punctuation.definition.interpolation.begin.cs }
+    end: \}\}
+    endCaptures:
+      '0': { name: punctuation.definition.interpolation.end.cs }
+    patterns:
+    - include: '#expression'
+
   literal:
     patterns:
     - include: '#boolean-literal'
     - include: '#null-literal'
     - include: '#numeric-literal'
     - include: '#char-literal'
+    - include: '#raw-string-literal'
     - include: '#string-literal'
     - include: '#verbatim-string-literal'
     - include: '#tuple-literal'
@@ -1968,6 +2067,39 @@ repository:
   verbatim-string-character-escape:
     name: constant.character.escape.cs
     match: '""'
+
+  raw-string-literal:
+    patterns:
+    - include: '#raw-string-literal-more'
+    - include: '#raw-string-literal-quadruple'
+    - include: '#raw-string-literal-triple'
+
+  raw-string-literal-triple:
+    name: string.quoted.double.cs
+    begin: '"""'
+    beginCaptures:
+      '0': { name: punctuation.definition.string.begin.cs }
+    end: '"""'
+    endCaptures:
+      '0': { name: punctuation.definition.string.end.cs }
+
+  raw-string-literal-quadruple:
+    name: string.quoted.double.cs
+    begin: '""""'
+    beginCaptures:
+      '0': { name: punctuation.definition.string.begin.cs }
+    end: '""""'
+    endCaptures:
+      '0': { name: punctuation.definition.string.end.cs }
+
+  raw-string-literal-more:
+    name: string.quoted.double.cs
+    begin: '"""""+'
+    beginCaptures:
+      '0': { name: punctuation.definition.string.begin.cs }
+    end: '"""""+'
+    endCaptures:
+      '0': { name: punctuation.definition.string.end.cs }
 
   tuple-literal:
     begin: (\()(?=.*[:,])

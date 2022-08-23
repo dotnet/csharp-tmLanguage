@@ -283,6 +283,7 @@ export namespace Token {
             export const Protected = createToken('protected', 'storage.modifier.cs');
             export const Public = createToken('public', 'storage.modifier.cs');
             export const ReadOnly = createToken('readonly', 'storage.modifier.cs');
+            export const Required = createToken('required', 'storage.modifier.cs');
             export const Ref = createToken('ref', 'storage.modifier.cs');
             export const Sealed = createToken('sealed', 'storage.modifier.cs');
             export const Static = createToken('static', 'storage.modifier.cs');
@@ -499,6 +500,8 @@ export namespace Token {
         export namespace Interpolation {
             export const Begin = createToken('{', 'punctuation.definition.interpolation.begin.cs');
             export const End = createToken('}', 'punctuation.definition.interpolation.end.cs');
+            export function RawBegin(numQuotes: number) { return createToken('{'.repeat(numQuotes), 'punctuation.definition.interpolation.begin.cs'); }
+            export function RawEnd(numQuotes: number) { return createToken('}'.repeat(numQuotes), 'punctuation.definition.interpolation.end.cs'); }
         }
 
         export namespace InterpolatedString {
@@ -506,12 +509,16 @@ export namespace Token {
             export const End = createToken('"', 'punctuation.definition.string.end.cs');
             export const VerbatimBegin = createToken('$@"', 'punctuation.definition.string.begin.cs');
             export const VerbatimBeginReverse = createToken('@$"', 'punctuation.definition.string.begin.cs');
+            export function RawStringBegin(numQuotes: number, numDollars: number) { return createToken('$'.repeat(numDollars) + '"'.repeat(numQuotes), 'punctuation.definition.string.begin.cs'); }
+            export function RawStringEnd(numQuotes: number) { return createToken('"'.repeat(numQuotes), 'punctuation.definition.string.end.cs'); }
         }
 
         export namespace String {
             export const Begin = createToken('"', 'punctuation.definition.string.begin.cs');
             export const End = createToken('"', 'punctuation.definition.string.end.cs');
             export const VerbatimBegin = createToken('@"', 'punctuation.definition.string.begin.cs');
+            export function RawStringBegin(numQuotes: number) { return createToken('"'.repeat(numQuotes), 'punctuation.definition.string.begin.cs'); }
+            export function RawStringEnd(numQuotes: number) { return createToken('"'.repeat(numQuotes), 'punctuation.definition.string.end.cs'); }
         }
 
         export namespace TypeParameters {

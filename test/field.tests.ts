@@ -64,7 +64,8 @@ private List field123;`);
             const input = Input.InClass(`
 private static readonly List _field;
 readonly string _field2;
-string _field3;`);
+string _field3;
+required int _field4;`);
 
             const tokens = await tokenize(input);
 
@@ -83,6 +84,11 @@ string _field3;`);
 
                 Token.PrimitiveType.String,
                 Token.Identifiers.FieldName("_field3"),
+                Token.Punctuation.Semicolon,
+
+                Token.Keywords.Modifiers.Required,
+                Token.PrimitiveType.Int,
+                Token.Identifiers.FieldName("_field4"),
                 Token.Punctuation.Semicolon]);
         });
 
