@@ -3013,7 +3013,7 @@ repository:
     name: "constant.language.null.cs"
     match: "(?<!\\.)\\bnull\\b"
   "numeric-literal":
-    match: "(?<!\\w)\\.?\\d(?:(?:[0-9a-zA-Z_\\.]|_)|(?<=[eE])[+-])*"
+    match: "(?<!\\w)\\.?\\d(?:(?:[0-9a-zA-Z_]|_)|(?<=[eE])[+-]|\\.\\d)*"
     captures:
       "0":
         patterns: [
@@ -3130,7 +3130,7 @@ repository:
                     name: "constant.numeric.other.suffix.cs"
               }
               {
-                match: "(?:(?:[0-9a-zA-Z_\\.]|_)|(?<=[eE])[+-])+"
+                match: "(?:(?:[0-9a-zA-Z_]|_)|(?<=[eE])[+-]|\\.\\d)+"
                 name: "invalid.illegal.constant.numeric.cs"
               }
             ]

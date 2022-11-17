@@ -511,15 +511,38 @@ describe("Literals", () => {
                 ]);
             });
 
-            it("invalid illegal constant numeric - decimal point separator with no decimal part", async () => {
-                const input = Input.InMethod(`var x = 5.f;`);
+            it("legal constant numeric followed by a method call", async () => {
+                const input = Input.InMethod(`var x = 5.f();`);
                 const tokens = await tokenize(input);
                 
                 tokens.should.deep.equal([
                     Token.Keywords.Var,
                     Token.Identifiers.LocalName("x"),
                     Token.Operators.Assignment,
-                    Token.Literals.Numeric.Invalid("5.f"),
+                    Token.Literals.Numeric.Decimal("5"),
+                    Token.Punctuation.Accessor,
+                    Token.Identifiers.MethodName("f"),
+                    Token.Punctuation.OpenParen,
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
+            it("legal constant numeric containing decimal point followed by a method call", async () => {
+                const input = Input.InMethod(`var pi = 3.14.ToString();`);
+                const tokens = await tokenize(input);
+                
+                tokens.should.deep.equal([
+                    Token.Keywords.Var,
+                    Token.Identifiers.LocalName("pi"),
+                    Token.Operators.Assignment,
+                    Token.Literals.Numeric.Decimal("3"),                   
+                    Token.Literals.Numeric.Other.Separator.Decimals,
+                    Token.Literals.Numeric.Decimal("14"),                   
+                     Token.Punctuation.Accessor,
+                    Token.Identifiers.MethodName("ToString"),
+                    Token.Punctuation.OpenParen,
+                    Token.Punctuation.CloseParen,
                     Token.Punctuation.Semicolon
                 ]);
             });
