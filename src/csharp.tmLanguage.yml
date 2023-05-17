@@ -28,8 +28,8 @@ repository:
 
   script-top-level:
     patterns:
-    - include: '#method-declaration'
     - include: '#statement'
+    - include: '#method-declaration'
     - include: '#punctuation-semicolon'
 
   type-declarations:
@@ -165,7 +165,7 @@ repository:
       - include: '#comment'
       - include: '#type'
       - include: '#operator-assignment'
-    - begin: \b(using)\s*
+    - begin: \b(using)\s*(?!\(|\s|var) # Use negative lookahead to exclude using statement forms.
       beginCaptures:
         '1': { name: keyword.other.using.cs }
       end: (?=;)
