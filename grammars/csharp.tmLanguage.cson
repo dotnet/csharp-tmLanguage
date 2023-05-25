@@ -85,10 +85,10 @@ repository:
         include: "#interface-declaration"
       }
       {
-        include: "#record-declaration"
+        include: "#struct-declaration"
       }
       {
-        include: "#struct-declaration"
+        include: "#record-declaration"
       }
       {
         include: "#attribute-section"
@@ -528,27 +528,33 @@ repository:
     name: "storage.modifier.cs"
     match: "(?<!\\.)\\b(new|public|protected|internal|private|abstract|virtual|override|sealed|static|partial|readonly|volatile|const|extern|async|unsafe|ref|required)\\b"
   "class-declaration":
-    begin: "(?=\\bclass\\b)"
-    end: "(?<=\\})"
+    begin: "(?=(\\brecord\\b\\s+)?\\bclass\\b)"
+    end: "(?<=\\})|(?=;)"
     patterns: [
       {
         begin: '''
           (?x)
+          (\\b(record)\\b\\s+)?
           \\b(class)\\b\\s+
           (@?[_[:alpha:]][_[:alnum:]]*)\\s*
         '''
         beginCaptures:
-          "1":
-            name: "keyword.other.class.cs"
           "2":
+            name: "keyword.other.record.cs"
+          "3":
+            name: "keyword.other.class.cs"
+          "4":
             name: "entity.name.type.class.cs"
-        end: "(?=\\{)"
+        end: "(?=\\{)|(?=;)"
         patterns: [
           {
             include: "#comment"
           }
           {
             include: "#type-parameter-list"
+          }
+          {
+            include: "#parenthesized-parameter-list"
           }
           {
             include: "#base-types"
@@ -774,7 +780,7 @@ repository:
     ]
   "record-declaration":
     begin: "(?=\\brecord\\b)"
-    end: "(?<=\\})"
+    end: "(?<=\\})|(?=;)"
     patterns: [
       {
         begin: '''
@@ -786,14 +792,17 @@ repository:
           "1":
             name: "keyword.other.record.cs"
           "2":
-            name: "entity.name.type.record.cs"
-        end: "(?=\\{)"
+            name: "entity.name.type.class.cs"
+        end: "(?=\\{)|(?=;)"
         patterns: [
           {
             include: "#comment"
           }
           {
             include: "#type-parameter-list"
+          }
+          {
+            include: "#parenthesized-parameter-list"
           }
           {
             include: "#base-types"
@@ -826,27 +835,33 @@ repository:
       }
     ]
   "struct-declaration":
-    begin: "(?=\\bstruct\\b)"
-    end: "(?<=\\})"
+    begin: "(?=(\\brecord\\b\\s+)?\\bstruct\\b)"
+    end: "(?<=\\})|(?=;)"
     patterns: [
       {
         begin: '''
           (?x)
+          (\\b(record)\\b\\s+)?
           (struct)\\b\\s+
           (@?[_[:alpha:]][_[:alnum:]]*)
         '''
         beginCaptures:
-          "1":
-            name: "keyword.other.struct.cs"
           "2":
+            name: "keyword.other.record.cs"
+          "3":
+            name: "keyword.other.struct.cs"
+          "4":
             name: "entity.name.type.struct.cs"
-        end: "(?=\\{)"
+        end: "(?=\\{)|(?=;)"
         patterns: [
           {
             include: "#comment"
           }
           {
             include: "#type-parameter-list"
+          }
+          {
+            include: "#parenthesized-parameter-list"
           }
           {
             include: "#base-types"
@@ -915,7 +930,7 @@ repository:
     beginCaptures:
       "0":
         name: "punctuation.separator.colon.cs"
-    end: "(?=\\{|where)"
+    end: "(?=\\{|where|;)"
     patterns: [
       {
         include: "#type"
