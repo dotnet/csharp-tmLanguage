@@ -237,7 +237,6 @@ export namespace Token {
         export const PreprocessorSymbol = (text: string) => createToken(text, 'entity.name.variable.preprocessor.symbol.cs');
         export const PropertyName = (text: string) => createToken(text, 'entity.name.variable.property.cs');
         export const RangeVariableName = (text: string) => createToken(text, 'entity.name.variable.range-variable.cs');
-        export const RecordName = (text: string) => createToken(text, 'entity.name.type.record.cs');
         export const StructName = (text: string) => createToken(text, 'entity.name.type.struct.cs');
         export const TupleElementName = (text: string) => createToken(text, 'entity.name.variable.tuple-element.cs');
         export const TypeParameterName = (text: string) => createToken(text, 'entity.name.type.type-parameter.cs');

@@ -312,6 +312,136 @@ unsafe class C
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace]);
             });
+
+            it(`primary constructor (${styleName} Namespace)`, async () => {
+
+                const input = Input.InNamespace(`
+class Person(string name, int age);
+class Person2(string name, int age) { }`
+                    , namespaceStyle);
+                const tokens = await tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Keywords.Class,
+                    Token.Identifiers.ClassName("Person"),
+                    Token.Punctuation.OpenParen,
+                    Token.PrimitiveType.String,
+                    Token.Identifiers.ParameterName("name"),
+                    Token.Punctuation.Comma,
+                    Token.PrimitiveType.Int,
+                    Token.Identifiers.ParameterName("age"),
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Semicolon,
+                    Token.Keywords.Class,
+                    Token.Identifiers.ClassName("Person2"),
+                    Token.Punctuation.OpenParen,
+                    Token.PrimitiveType.String,
+                    Token.Identifiers.ParameterName("name"),
+                    Token.Punctuation.Comma,
+                    Token.PrimitiveType.Int,
+                    Token.Identifiers.ParameterName("age"),
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.OpenBrace,
+                    Token.Punctuation.CloseBrace]);
+            });
+
+            it(`primary constructor inheritance (${styleName} Namespace)`, async () => {
+
+                const input = Input.InNamespace(`
+class Person(string name, int age) : IPerson;
+class Person2(string name, int age) : IPerson { }`
+                    , namespaceStyle);
+                const tokens = await tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Keywords.Class,
+                    Token.Identifiers.ClassName("Person"),
+                    Token.Punctuation.OpenParen,
+                    Token.PrimitiveType.String,
+                    Token.Identifiers.ParameterName("name"),
+                    Token.Punctuation.Comma,
+                    Token.PrimitiveType.Int,
+                    Token.Identifiers.ParameterName("age"),
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Colon,
+                    Token.Type("IPerson"),
+                    Token.Punctuation.Semicolon,
+                    Token.Keywords.Class,
+                    Token.Identifiers.ClassName("Person2"),
+                    Token.Punctuation.OpenParen,
+                    Token.PrimitiveType.String,
+                    Token.Identifiers.ParameterName("name"),
+                    Token.Punctuation.Comma,
+                    Token.PrimitiveType.Int,
+                    Token.Identifiers.ParameterName("age"),
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Colon,
+                    Token.Type("IPerson"),
+                    Token.Punctuation.OpenBrace,
+                    Token.Punctuation.CloseBrace]);
+            });
+
+            it(`primary constructor generic (${styleName} Namespace)`, async () => {
+
+                const input = Input.InNamespace(`
+class Person<T>(string name, int age, T tag) : IPerson
+    where T : new();
+class Person2<T>(string name, int age, T tag) : IPerson
+    where T : new() { }`
+                    , namespaceStyle);
+                const tokens = await tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Keywords.Class,
+                    Token.Identifiers.ClassName("Person"),
+                    Token.Punctuation.TypeParameters.Begin,
+                    Token.Identifiers.TypeParameterName("T"),
+                    Token.Punctuation.TypeParameters.End,
+                    Token.Punctuation.OpenParen,
+                    Token.PrimitiveType.String,
+                    Token.Identifiers.ParameterName("name"),
+                    Token.Punctuation.Comma,
+                    Token.PrimitiveType.Int,
+                    Token.Identifiers.ParameterName("age"),
+                    Token.Punctuation.Comma,
+                    Token.Type("T"),
+                    Token.Identifiers.ParameterName("tag"),
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Colon,
+                    Token.Type("IPerson"),
+                    Token.Keywords.Where,
+                    Token.Identifiers.TypeParameterName("T"),
+                    Token.Punctuation.Colon,
+                    Token.Keywords.New,
+                    Token.Punctuation.OpenParen,
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Semicolon,
+                    Token.Keywords.Class,
+                    Token.Identifiers.ClassName("Person2"),
+                    Token.Punctuation.TypeParameters.Begin,
+                    Token.Identifiers.TypeParameterName("T"),
+                    Token.Punctuation.TypeParameters.End,
+                    Token.Punctuation.OpenParen,
+                    Token.PrimitiveType.String,
+                    Token.Identifiers.ParameterName("name"),
+                    Token.Punctuation.Comma,
+                    Token.PrimitiveType.Int,
+                    Token.Identifiers.ParameterName("age"),
+                    Token.Punctuation.Comma,
+                    Token.Type("T"),
+                    Token.Identifiers.ParameterName("tag"),
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Colon,
+                    Token.Type("IPerson"),
+                    Token.Keywords.Where,
+                    Token.Identifiers.TypeParameterName("T"),
+                    Token.Punctuation.Colon,
+                    Token.Keywords.New,
+                    Token.Punctuation.OpenParen,
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.OpenBrace,
+                    Token.Punctuation.CloseBrace]);
+            });
         }
     });
 });

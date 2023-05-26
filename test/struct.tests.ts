@@ -4,48 +4,53 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { should } from 'chai';
-import { tokenize, Token } from './utils/tokenize';
+import { tokenize, Token, NamespaceStyle } from './utils/tokenize';
 
 describe("Structs", () => {
     before(() => { should(); });
 
     describe("Structs", () => {
-        it("simple struct", async () => {
+        for (const namespaceStyle of [NamespaceStyle.BlockScoped, NamespaceStyle.FileScoped]) {
+            const styleName = namespaceStyle == NamespaceStyle.BlockScoped
+                ? "Block-Scoped"
+                : "File-Scoped";
 
-            const input = `struct S { }`;
-            const tokens = await tokenize(input);
+            it(`simple struct (${styleName} Namespace)`, async () => {
 
-            tokens.should.deep.equal([
-                Token.Keywords.Struct,
-                Token.Identifiers.StructName("S"),
-                Token.Punctuation.OpenBrace,
-                Token.Punctuation.CloseBrace]);
-        });
+                const input = `struct S { }`;
+                const tokens = await tokenize(input);
 
-        it("struct interface implementation", async () => {
+                tokens.should.deep.equal([
+                    Token.Keywords.Struct,
+                    Token.Identifiers.StructName("S"),
+                    Token.Punctuation.OpenBrace,
+                    Token.Punctuation.CloseBrace]);
+            });
 
-            const input = `
+            it(`struct interface implementation (${styleName} Namespace)`, async () => {
+
+                const input = `
 interface IFoo { }
 struct S : IFoo { }
 `;
-            const tokens = await tokenize(input);
+                const tokens = await tokenize(input);
 
-            tokens.should.deep.equal([
-                Token.Keywords.Interface,
-                Token.Identifiers.InterfaceName("IFoo"),
-                Token.Punctuation.OpenBrace,
-                Token.Punctuation.CloseBrace,
-                Token.Keywords.Struct,
-                Token.Identifiers.StructName("S"),
-                Token.Punctuation.Colon,
-                Token.Type("IFoo"),
-                Token.Punctuation.OpenBrace,
-                Token.Punctuation.CloseBrace]);
-        });
+                tokens.should.deep.equal([
+                    Token.Keywords.Interface,
+                    Token.Identifiers.InterfaceName("IFoo"),
+                    Token.Punctuation.OpenBrace,
+                    Token.Punctuation.CloseBrace,
+                    Token.Keywords.Struct,
+                    Token.Identifiers.StructName("S"),
+                    Token.Punctuation.Colon,
+                    Token.Type("IFoo"),
+                    Token.Punctuation.OpenBrace,
+                    Token.Punctuation.CloseBrace]);
+            });
 
-        it("nested struct", async () => {
+            it(`nested struct (${styleName} Namespace)`, async () => {
 
-            const input = `
+                const input = `
 class Klass
 {
     struct Nested
@@ -53,24 +58,24 @@ class Klass
 
     }
 }`;
-            const tokens = await tokenize(input);
+                const tokens = await tokenize(input);
 
-            tokens.should.deep.equal([
-                Token.Keywords.Class,
-                Token.Identifiers.ClassName("Klass"),
-                Token.Punctuation.OpenBrace,
+                tokens.should.deep.equal([
+                    Token.Keywords.Class,
+                    Token.Identifiers.ClassName("Klass"),
+                    Token.Punctuation.OpenBrace,
 
-                Token.Keywords.Struct,
-                Token.Identifiers.StructName("Nested"),
-                Token.Punctuation.OpenBrace,
-                Token.Punctuation.CloseBrace,
+                    Token.Keywords.Struct,
+                    Token.Identifiers.StructName("Nested"),
+                    Token.Punctuation.OpenBrace,
+                    Token.Punctuation.CloseBrace,
 
-                Token.Punctuation.CloseBrace]);
-        });
+                    Token.Punctuation.CloseBrace]);
+            });
 
-        it("nested struct with modifier", async () => {
+            it(`nested struct with modifier (${styleName} Namespace)`, async () => {
 
-            const input = `
+                const input = `
 class Klass
 {
     public struct Nested
@@ -78,87 +83,119 @@ class Klass
 
     }
 }`;
-            const tokens = await tokenize(input);
+                const tokens = await tokenize(input);
 
-            tokens.should.deep.equal([
-                Token.Keywords.Class,
-                Token.Identifiers.ClassName("Klass"),
-                Token.Punctuation.OpenBrace,
+                tokens.should.deep.equal([
+                    Token.Keywords.Class,
+                    Token.Identifiers.ClassName("Klass"),
+                    Token.Punctuation.OpenBrace,
 
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Struct,
-                Token.Identifiers.StructName("Nested"),
-                Token.Punctuation.OpenBrace,
-                Token.Punctuation.CloseBrace,
+                    Token.Keywords.Modifiers.Public,
+                    Token.Keywords.Struct,
+                    Token.Identifiers.StructName("Nested"),
+                    Token.Punctuation.OpenBrace,
+                    Token.Punctuation.CloseBrace,
 
-                Token.Punctuation.CloseBrace]);
-        });
+                    Token.Punctuation.CloseBrace]);
+            });
 
-        it("generic struct", async () => {
+            it(`generic struct (${styleName} Namespace)`, async () => {
 
-            const input = `
+                const input = `
 struct S<T1, T2> { }
 `;
-            const tokens = await tokenize(input);
+                const tokens = await tokenize(input);
 
-            tokens.should.deep.equal([
-                Token.Keywords.Struct,
-                Token.Identifiers.StructName("S"),
-                Token.Punctuation.TypeParameters.Begin,
-                Token.Identifiers.TypeParameterName("T1"),
-                Token.Punctuation.Comma,
-                Token.Identifiers.TypeParameterName("T2"),
-                Token.Punctuation.TypeParameters.End,
-                Token.Punctuation.OpenBrace,
-                Token.Punctuation.CloseBrace]);
-        });
+                tokens.should.deep.equal([
+                    Token.Keywords.Struct,
+                    Token.Identifiers.StructName("S"),
+                    Token.Punctuation.TypeParameters.Begin,
+                    Token.Identifiers.TypeParameterName("T1"),
+                    Token.Punctuation.Comma,
+                    Token.Identifiers.TypeParameterName("T2"),
+                    Token.Punctuation.TypeParameters.End,
+                    Token.Punctuation.OpenBrace,
+                    Token.Punctuation.CloseBrace]);
+            });
 
-        it("generic struct with constraints", async () => {
+            it(`generic struct with constraints (${styleName} Namespace)`, async () => {
 
-            const input = `
+                const input = `
 struct S<T1, T2> where T1 : T2 { }
 `;
-            const tokens = await tokenize(input);
+                const tokens = await tokenize(input);
 
-            tokens.should.deep.equal([
-                Token.Keywords.Struct,
-                Token.Identifiers.StructName("S"),
-                Token.Punctuation.TypeParameters.Begin,
-                Token.Identifiers.TypeParameterName("T1"),
-                Token.Punctuation.Comma,
-                Token.Identifiers.TypeParameterName("T2"),
-                Token.Punctuation.TypeParameters.End,
-                Token.Keywords.Where,
-                Token.Identifiers.TypeParameterName("T1"),
-                Token.Punctuation.Colon,
-                Token.Type("T2"),
-                Token.Punctuation.OpenBrace,
-                Token.Punctuation.CloseBrace]);
-        });
+                tokens.should.deep.equal([
+                    Token.Keywords.Struct,
+                    Token.Identifiers.StructName("S"),
+                    Token.Punctuation.TypeParameters.Begin,
+                    Token.Identifiers.TypeParameterName("T1"),
+                    Token.Punctuation.Comma,
+                    Token.Identifiers.TypeParameterName("T2"),
+                    Token.Punctuation.TypeParameters.End,
+                    Token.Keywords.Where,
+                    Token.Identifiers.TypeParameterName("T1"),
+                    Token.Punctuation.Colon,
+                    Token.Type("T2"),
+                    Token.Punctuation.OpenBrace,
+                    Token.Punctuation.CloseBrace]);
+            });
 
-        it("ref struct", async () => {
-            const input = `ref struct S { }`;
-            const tokens = await tokenize(input);
+            it(`ref struct (${styleName} Namespace)`, async () => {
+                const input = `ref struct S {}`;
+                const tokens = await tokenize(input);
 
-            tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Ref,
-                Token.Keywords.Struct,
-                Token.Identifiers.StructName("S"),
-                Token.Punctuation.OpenBrace,
-                Token.Punctuation.CloseBrace]);
-        });
+                tokens.should.deep.equal([
+                    Token.Keywords.Modifiers.Ref,
+                    Token.Keywords.Struct,
+                    Token.Identifiers.StructName("S"),
+                    Token.Punctuation.OpenBrace,
+                    Token.Punctuation.CloseBrace]);
+            });
 
-        it("readonly ref struct", async () => {
-            const input = `readonly ref struct S { }`;
-            const tokens = await tokenize(input);
+            it(`readonly ref struct(${styleName} Namespace)`, async () => {
+                const input = `readonly ref struct S {}`;
+                const tokens = await tokenize(input);
 
-            tokens.should.deep.equal([
-                Token.Keywords.Modifiers.ReadOnly,
-                Token.Keywords.Modifiers.Ref,
-                Token.Keywords.Struct,
-                Token.Identifiers.StructName("S"),
-                Token.Punctuation.OpenBrace,
-                Token.Punctuation.CloseBrace]);
-        });
+                tokens.should.deep.equal([
+                    Token.Keywords.Modifiers.ReadOnly,
+                    Token.Keywords.Modifiers.Ref,
+                    Token.Keywords.Struct,
+                    Token.Identifiers.StructName("S"),
+                    Token.Punctuation.OpenBrace,
+                    Token.Punctuation.CloseBrace]);
+            });
+
+            it(`primary constructor struct (${styleName} Namespace)`, async () => {
+
+                const input = `
+struct Person(string name, int age);
+struct Person2(string name, int age) { } `;
+                const tokens = await tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Keywords.Struct,
+                    Token.Identifiers.StructName("Person"),
+                    Token.Punctuation.OpenParen,
+                    Token.PrimitiveType.String,
+                    Token.Identifiers.ParameterName("name"),
+                    Token.Punctuation.Comma,
+                    Token.PrimitiveType.Int,
+                    Token.Identifiers.ParameterName("age"),
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Semicolon,
+                    Token.Keywords.Struct,
+                    Token.Identifiers.StructName("Person2"),
+                    Token.Punctuation.OpenParen,
+                    Token.PrimitiveType.String,
+                    Token.Identifiers.ParameterName("name"),
+                    Token.Punctuation.Comma,
+                    Token.PrimitiveType.Int,
+                    Token.Identifiers.ParameterName("age"),
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.OpenBrace,
+                    Token.Punctuation.CloseBrace]);
+            });
+        }
     });
 });

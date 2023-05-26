@@ -42,57 +42,57 @@ public    abstract record PublicAbstractRecord { }
                 tokens.should.deep.equal([
                     Token.Keywords.Modifiers.Public,
                     Token.Keywords.Record,
-                    Token.Identifiers.RecordName("PublicRecord"),
+                    Token.Identifiers.ClassName("PublicRecord"),
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
 
                     Token.Keywords.Record,
-                    Token.Identifiers.RecordName("DefaultRecord"),
+                    Token.Identifiers.ClassName("DefaultRecord"),
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
 
                     Token.Keywords.Modifiers.Internal,
                     Token.Keywords.Record,
-                    Token.Identifiers.RecordName("InternalRecord"),
+                    Token.Identifiers.ClassName("InternalRecord"),
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
 
                     Token.Keywords.Modifiers.Static,
                     Token.Keywords.Record,
-                    Token.Identifiers.RecordName("DefaultStaticRecord"),
+                    Token.Identifiers.ClassName("DefaultStaticRecord"),
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
 
                     Token.Keywords.Modifiers.Public,
                     Token.Keywords.Modifiers.Static,
                     Token.Keywords.Record,
-                    Token.Identifiers.RecordName("PublicStaticRecord"),
+                    Token.Identifiers.ClassName("PublicStaticRecord"),
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
 
                     Token.Keywords.Modifiers.Sealed,
                     Token.Keywords.Record,
-                    Token.Identifiers.RecordName("DefaultSealedRecord"),
+                    Token.Identifiers.ClassName("DefaultSealedRecord"),
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
 
                     Token.Keywords.Modifiers.Public,
                     Token.Keywords.Modifiers.Sealed,
                     Token.Keywords.Record,
-                    Token.Identifiers.RecordName("PublicSealedRecord"),
+                    Token.Identifiers.ClassName("PublicSealedRecord"),
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
 
                     Token.Keywords.Modifiers.Public,
                     Token.Keywords.Modifiers.Abstract,
                     Token.Keywords.Record,
-                    Token.Identifiers.RecordName("PublicAbstractRecord"),
+                    Token.Identifiers.ClassName("PublicAbstractRecord"),
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
 
                     Token.Keywords.Modifiers.Abstract,
                     Token.Keywords.Record,
-                    Token.Identifiers.RecordName("DefaultAbstractRecord"),
+                    Token.Identifiers.ClassName("DefaultAbstractRecord"),
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace]);
             });
@@ -104,7 +104,7 @@ public    abstract record PublicAbstractRecord { }
 
                 tokens.should.deep.equal([
                     Token.Keywords.Record,
-                    Token.Identifiers.RecordName("Dictionary"),
+                    Token.Identifiers.ClassName("Dictionary"),
                     Token.Punctuation.TypeParameters.Begin,
                     Token.Identifiers.TypeParameterName("TKey"),
                     Token.Punctuation.Comma,
@@ -125,7 +125,7 @@ record PublicRecord<T> : Dictionary<T, Dictionary<string, string>>, IMap<T, Dict
 
                 tokens.should.deep.equal([
                     Token.Keywords.Record,
-                    Token.Identifiers.RecordName("PublicRecord"),
+                    Token.Identifiers.ClassName("PublicRecord"),
                     Token.Punctuation.Colon,
                     Token.Type("IInterface"),
                     Token.Punctuation.Comma,
@@ -134,7 +134,7 @@ record PublicRecord<T> : Dictionary<T, Dictionary<string, string>>, IMap<T, Dict
                     Token.Punctuation.CloseBrace,
 
                     Token.Keywords.Record,
-                    Token.Identifiers.RecordName("PublicRecord"),
+                    Token.Identifiers.ClassName("PublicRecord"),
                     Token.Punctuation.TypeParameters.Begin,
                     Token.Identifiers.TypeParameterName("T"),
                     Token.Punctuation.TypeParameters.End,
@@ -155,7 +155,7 @@ record PublicRecord<T> : Dictionary<T, Dictionary<string, string>>, IMap<T, Dict
                     Token.Punctuation.CloseBrace,
 
                     Token.Keywords.Record,
-                    Token.Identifiers.RecordName("PublicRecord"),
+                    Token.Identifiers.ClassName("PublicRecord"),
                     Token.Punctuation.TypeParameters.Begin,
                     Token.Identifiers.TypeParameterName("T"),
                     Token.Punctuation.TypeParameters.End,
@@ -200,7 +200,7 @@ record PublicRecord<T, X> : Dictionary<T, List<string>[]>, ISomething
 
                 tokens.should.deep.equal([
                     Token.Keywords.Record,
-                    Token.Identifiers.RecordName("PublicRecord"),
+                    Token.Identifiers.ClassName("PublicRecord"),
                     Token.Punctuation.TypeParameters.Begin,
                     Token.Identifiers.TypeParameterName("T"),
                     Token.Punctuation.TypeParameters.End,
@@ -212,7 +212,7 @@ record PublicRecord<T, X> : Dictionary<T, List<string>[]>, ISomething
                     Token.Punctuation.CloseBrace,
 
                     Token.Keywords.Record,
-                    Token.Identifiers.RecordName("PublicRecord"),
+                    Token.Identifiers.ClassName("PublicRecord"),
                     Token.Punctuation.TypeParameters.Begin,
                     Token.Identifiers.TypeParameterName("T"),
                     Token.Punctuation.Comma,
@@ -262,11 +262,11 @@ record Klass
 
                 tokens.should.deep.equal([
                     Token.Keywords.Record,
-                    Token.Identifiers.RecordName("Klass"),
+                    Token.Identifiers.ClassName("Klass"),
                     Token.Punctuation.OpenBrace,
 
                     Token.Keywords.Record,
-                    Token.Identifiers.RecordName("Nested"),
+                    Token.Identifiers.ClassName("Nested"),
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
 
@@ -287,12 +287,12 @@ record Klass
 
                 tokens.should.deep.equal([
                     Token.Keywords.Record,
-                    Token.Identifiers.RecordName("Klass"),
+                    Token.Identifiers.ClassName("Klass"),
                     Token.Punctuation.OpenBrace,
 
                     Token.Keywords.Modifiers.Public,
                     Token.Keywords.Record,
-                    Token.Identifiers.RecordName("Nested"),
+                    Token.Identifiers.ClassName("Nested"),
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
 
@@ -309,7 +309,107 @@ unsafe record C
                 tokens.should.deep.equal([
                     Token.Keywords.Modifiers.Unsafe,
                     Token.Keywords.Record,
-                    Token.Identifiers.RecordName("C"),
+                    Token.Identifiers.ClassName("C"),
+                    Token.Punctuation.OpenBrace,
+                    Token.Punctuation.CloseBrace]);
+            });
+
+            it(`primary constructor record (${styleName} Namespace)`, async () => {
+
+                const input = Input.InNamespace(`
+record Person(string name, int age);
+record Person2(string name, int age) { }`
+                    , namespaceStyle);
+                const tokens = await tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Keywords.Record,
+                    Token.Identifiers.ClassName("Person"),
+                    Token.Punctuation.OpenParen,
+                    Token.PrimitiveType.String,
+                    Token.Identifiers.ParameterName("name"),
+                    Token.Punctuation.Comma,
+                    Token.PrimitiveType.Int,
+                    Token.Identifiers.ParameterName("age"),
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Semicolon,
+                    Token.Keywords.Record,
+                    Token.Identifiers.ClassName("Person2"),
+                    Token.Punctuation.OpenParen,
+                    Token.PrimitiveType.String,
+                    Token.Identifiers.ParameterName("name"),
+                    Token.Punctuation.Comma,
+                    Token.PrimitiveType.Int,
+                    Token.Identifiers.ParameterName("age"),
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.OpenBrace,
+                    Token.Punctuation.CloseBrace]);
+            });
+
+            it(`primary constructor record class (${styleName} Namespace)`, async () => {
+
+                const input = Input.InNamespace(`
+record class Person(string name, int age);
+record class Person2(string name, int age) { }`
+                    , namespaceStyle);
+                const tokens = await tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Keywords.Record,
+                    Token.Keywords.Class,
+                    Token.Identifiers.ClassName("Person"),
+                    Token.Punctuation.OpenParen,
+                    Token.PrimitiveType.String,
+                    Token.Identifiers.ParameterName("name"),
+                    Token.Punctuation.Comma,
+                    Token.PrimitiveType.Int,
+                    Token.Identifiers.ParameterName("age"),
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Semicolon,
+                    Token.Keywords.Record,
+                    Token.Keywords.Class,
+                    Token.Identifiers.ClassName("Person2"),
+                    Token.Punctuation.OpenParen,
+                    Token.PrimitiveType.String,
+                    Token.Identifiers.ParameterName("name"),
+                    Token.Punctuation.Comma,
+                    Token.PrimitiveType.Int,
+                    Token.Identifiers.ParameterName("age"),
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.OpenBrace,
+                    Token.Punctuation.CloseBrace]);
+            });
+
+            it(`primary constructor record struct (${styleName} Namespace)`, async () => {
+
+                const input = Input.InNamespace(`
+record struct Person(string name, int age);
+record struct Person2(string name, int age) { }`
+                    , namespaceStyle);
+                const tokens = await tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Keywords.Record,
+                    Token.Keywords.Struct,
+                    Token.Identifiers.StructName("Person"),
+                    Token.Punctuation.OpenParen,
+                    Token.PrimitiveType.String,
+                    Token.Identifiers.ParameterName("name"),
+                    Token.Punctuation.Comma,
+                    Token.PrimitiveType.Int,
+                    Token.Identifiers.ParameterName("age"),
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Semicolon,
+                    Token.Keywords.Record,
+                    Token.Keywords.Struct,
+                    Token.Identifiers.StructName("Person2"),
+                    Token.Punctuation.OpenParen,
+                    Token.PrimitiveType.String,
+                    Token.Identifiers.ParameterName("name"),
+                    Token.Punctuation.Comma,
+                    Token.PrimitiveType.Int,
+                    Token.Identifiers.ParameterName("age"),
+                    Token.Punctuation.CloseParen,
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace]);
             });
