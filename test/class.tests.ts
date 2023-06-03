@@ -24,6 +24,10 @@ public             class PublicClass { }
 
 internal           class InternalClass { }
 
+     file          class DefaultFileLocalClass { }
+
+public   file      class PublicFileLocalClass { }
+
             static   class DefaultStaticClass { }
 
 public    static   class PublicStaticClass { }
@@ -53,6 +57,19 @@ public    abstract class PublicAbstractClass { }
                     Token.Keywords.Modifiers.Internal,
                     Token.Keywords.Class,
                     Token.Identifiers.ClassName("InternalClass"),
+                    Token.Punctuation.OpenBrace,
+                    Token.Punctuation.CloseBrace,
+
+                    Token.Keywords.Modifiers.File,
+                    Token.Keywords.Class,
+                    Token.Identifiers.ClassName("DefaultFileLocalClass"),
+                    Token.Punctuation.OpenBrace,
+                    Token.Punctuation.CloseBrace,
+
+                    Token.Keywords.Modifiers.Public,
+                    Token.Keywords.Modifiers.File,
+                    Token.Keywords.Class,
+                    Token.Identifiers.ClassName("PublicFileLocalClass"),
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
 
