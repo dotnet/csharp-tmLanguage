@@ -12,6 +12,7 @@ describe("Field", () => {
     describe("Field", () => {
         it("declaration", async () => {
             const input = Input.InClass(`
+int file;
 private List _field;
 private List field;
 private List field123;`);
@@ -19,6 +20,10 @@ private List field123;`);
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
+                Token.PrimitiveType.Int,
+                Token.Identifiers.FieldName("file"),
+                Token.Punctuation.Semicolon,
+
                 Token.Keywords.Modifiers.Private,
                 Token.Type("List"),
                 Token.Identifiers.FieldName("_field"),

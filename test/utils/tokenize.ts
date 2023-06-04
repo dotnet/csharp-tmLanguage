@@ -271,6 +271,7 @@ export namespace Token {
             export const Async = createToken('async', 'storage.modifier.cs');
             export const Const = createToken('const', 'storage.modifier.cs');
             export const Extern = createToken('extern', 'storage.modifier.cs');
+            export const File = createToken('file', 'storage.modifier.cs');
             export const In = createToken('in', 'storage.modifier.cs');
             export const Internal = createToken('internal', 'storage.modifier.cs');
             export const New = createToken('new', 'storage.modifier.cs');
