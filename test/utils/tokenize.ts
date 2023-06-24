@@ -346,6 +346,7 @@ export namespace Token {
         export const Explicit = createToken('explicit', 'keyword.other.explicit.cs');
         export const Extern = createToken('extern', 'keyword.other.extern.cs');
         export const Get = createToken('get', 'keyword.other.get.cs');
+        export const Global = createToken('global', 'keyword.other.global.cs');
         export const Implicit = createToken('implicit', 'keyword.other.implicit.cs');
         export const Init = createToken('init', 'keyword.other.init.cs');
         export const Interface = createToken('interface', 'keyword.other.interface.cs');

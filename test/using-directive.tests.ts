@@ -166,5 +166,150 @@ describe("Using directives", () => {
                 Token.Comment.SingleLine.Start,
                 Token.Comment.SingleLine.Text("end")]);
         });
+
+        describe("global using directives", () => {
+            it("regular using", async () => {
+                const input = `global using System;`;
+                const tokens = await tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Keywords.Global,
+                    Token.Keywords.Using,
+                    Token.Identifiers.NamespaceName("System"),
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
+            it("regular using static", async () => {
+                const input = `global using static System.Console;`;
+                const tokens = await tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Keywords.Global,
+                    Token.Keywords.Using,
+                    Token.Keywords.Static,
+                    Token.Type("System"),
+                    Token.Punctuation.Accessor,
+                    Token.Type("Console"),
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
+            it("regular using alias", async () => {
+                const input = `global using blah = System.Console;`;
+                const tokens = await tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Keywords.Global,
+                    Token.Keywords.Using,
+                    Token.Identifiers.AliasName("blah"),
+                    Token.Operators.Assignment,
+                    Token.Type("System"),
+                    Token.Punctuation.Accessor,
+                    Token.Type("Console"),
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
+            it("unsafe using static", async () => {
+                const input = `global using static unsafe System.Collections.Generic.List<int*[]>;`;
+                const tokens = await tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Keywords.Global,
+                    Token.Keywords.Using,
+                    Token.Keywords.Static,
+                    Token.Keywords.Modifiers.Unsafe,
+                    Token.Type("System"),
+                    Token.Punctuation.Accessor,
+                    Token.Type("Collections"),
+                    Token.Punctuation.Accessor,
+                    Token.Type("Generic"),
+                    Token.Punctuation.Accessor,
+                    Token.Type("List"),
+                    Token.Punctuation.TypeParameters.Begin,
+                    Token.PrimitiveType.Int,
+                    Token.Punctuation.OpenBracket,
+                    Token.Punctuation.CloseBracket,
+                    Token.Punctuation.TypeParameters.End,
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+
+            it("unsafe using alias", async () => {
+                const input = `global using unsafe blah = System.Collections.Generic.List<int*[]>;`;
+                const tokens = await tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Keywords.Global,
+                    Token.Keywords.Using,
+                    Token.Keywords.Modifiers.Unsafe,
+                    Token.Identifiers.AliasName("blah"),
+                    Token.Operators.Assignment,
+                    Token.Type("System"),
+                    Token.Punctuation.Accessor,
+                    Token.Type("Collections"),
+                    Token.Punctuation.Accessor,
+                    Token.Type("Generic"),
+                    Token.Punctuation.Accessor,
+                    Token.Type("List"),
+                    Token.Punctuation.TypeParameters.Begin,
+                    Token.PrimitiveType.Int,
+                    Token.Punctuation.OpenBracket,
+                    Token.Punctuation.CloseBracket,
+                    Token.Punctuation.TypeParameters.End,
+                    Token.Punctuation.Semicolon
+                ]);
+            });
+        });
+
+        it("unsafe using static", async () => {
+            const input = `using static unsafe System.Collections.Generic.List<int*[]>;`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Using,
+                Token.Keywords.Static,
+                Token.Keywords.Modifiers.Unsafe,
+                Token.Type("System"),
+                Token.Punctuation.Accessor,
+                Token.Type("Collections"),
+                Token.Punctuation.Accessor,
+                Token.Type("Generic"),
+                Token.Punctuation.Accessor,
+                Token.Type("List"),
+                Token.Punctuation.TypeParameters.Begin,
+                Token.PrimitiveType.Int,
+                Token.Punctuation.OpenBracket,
+                Token.Punctuation.CloseBracket,
+                Token.Punctuation.TypeParameters.End,
+                Token.Punctuation.Semicolon
+            ]);
+        });
+
+        it("unsafe using alias", async () => {
+            const input = `using unsafe blah = System.Collections.Generic.List<int*[]>;`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Using,
+                Token.Keywords.Modifiers.Unsafe,
+                Token.Identifiers.AliasName("blah"),
+                Token.Operators.Assignment,
+                Token.Type("System"),
+                Token.Punctuation.Accessor,
+                Token.Type("Collections"),
+                Token.Punctuation.Accessor,
+                Token.Type("Generic"),
+                Token.Punctuation.Accessor,
+                Token.Type("List"),
+                Token.Punctuation.TypeParameters.Begin,
+                Token.PrimitiveType.Int,
+                Token.Punctuation.OpenBracket,
+                Token.Punctuation.CloseBracket,
+                Token.Punctuation.TypeParameters.End,
+                Token.Punctuation.Semicolon
+            ]);
+        });
     });
 });
