@@ -365,12 +365,16 @@ repository:
   "using-directive":
     patterns: [
       {
-        begin: "\\b(using)\\b\\s+(static)\\s+"
+        begin: "(\\b(global)\\b\\s+)?\\b(using)\\b\\s+(static)\\b\\s+(\\b(unsafe)\\b\\s+)?"
         beginCaptures:
-          "1":
-            name: "keyword.other.using.cs"
           "2":
+            name: "keyword.other.global.cs"
+          "3":
+            name: "keyword.other.using.cs"
+          "4":
             name: "keyword.other.static.cs"
+          "6":
+            name: "storage.modifier.cs"
         end: "(?=;)"
         patterns: [
           {
@@ -379,11 +383,15 @@ repository:
         ]
       }
       {
-        begin: "\\b(using)\\s+(?=(@?[_[:alpha:]][_[:alnum:]]*)\\s*=)"
+        begin: "(\\b(global)\\b\\s+)?\\b(using)\\b\\s+(\\b(unsafe)\\b\\s+)?(?=(@?[_[:alpha:]][_[:alnum:]]*)\\s*=)"
         beginCaptures:
-          "1":
-            name: "keyword.other.using.cs"
           "2":
+            name: "keyword.other.global.cs"
+          "3":
+            name: "keyword.other.using.cs"
+          "5":
+            name: "storage.modifier.cs"
+          "6":
             name: "entity.name.type.alias.cs"
         end: "(?=;)"
         patterns: [
@@ -399,9 +407,11 @@ repository:
         ]
       }
       {
-        begin: "\\b(using)\\s*(?!\\(|\\s|var)"
+        begin: "(\\b(global)\\b\\s+)?\\b(using)\\s*(?!\\(|\\s|var)"
         beginCaptures:
-          "1":
+          "2":
+            name: "keyword.other.global.cs"
+          "3":
             name: "keyword.other.using.cs"
         end: "(?=;)"
         patterns: [

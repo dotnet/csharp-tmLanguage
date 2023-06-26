@@ -149,25 +149,30 @@ repository:
 
   using-directive:
     patterns:
-    - begin: \b(using)\b\s+(static)\s+
+    - begin: (\b(global)\b\s+)?\b(using)\b\s+(static)\b\s+(\b(unsafe)\b\s+)?
       beginCaptures:
-        '1': { name: keyword.other.using.cs }
-        '2': { name: keyword.other.static.cs }
+        '2': { name: keyword.other.global.cs }
+        '3': { name: keyword.other.using.cs }
+        '4': { name: keyword.other.static.cs }
+        '6': { name: storage.modifier.cs }
       end: (?=;)
       patterns:
       - include: '#type'
-    - begin: \b(using)\s+(?=(@?[_[:alpha:]][_[:alnum:]]*)\s*=)
+    - begin: (\b(global)\b\s+)?\b(using)\b\s+(\b(unsafe)\b\s+)?(?=(@?[_[:alpha:]][_[:alnum:]]*)\s*=)
       beginCaptures:
-        '1': { name: keyword.other.using.cs }
-        '2': { name: entity.name.type.alias.cs }
+        '2': { name: keyword.other.global.cs }
+        '3': { name: keyword.other.using.cs }
+        '5': { name: storage.modifier.cs }
+        '6': { name: entity.name.type.alias.cs }
       end: (?=;)
       patterns:
       - include: '#comment'
       - include: '#type'
       - include: '#operator-assignment'
-    - begin: \b(using)\s*(?!\(|\s|var) # Use negative lookahead to exclude using statement forms.
+    - begin: (\b(global)\b\s+)?\b(using)\s*(?!\(|\s|var) # Use negative lookahead to exclude using statement forms.
       beginCaptures:
-        '1': { name: keyword.other.using.cs }
+        '2': { name: keyword.other.global.cs }
+        '3': { name: keyword.other.using.cs }
       end: (?=;)
       patterns:
       - include: '#comment'
