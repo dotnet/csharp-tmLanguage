@@ -4591,7 +4591,7 @@ select x.Key1;`);
           Token.Identifiers.LocalName("b"),
           Token.Keywords.Control.When,
           Token.Punctuation.OpenParen,
-          Token.Variables.ReadWrite("double"),
+          Token.PrimitiveType.Double,
           Token.Punctuation.CloseParen,
           Token.Variables.Object("b"),
           Token.Punctuation.Accessor,
