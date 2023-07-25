@@ -113,6 +113,7 @@ repository:
     - include: '#checked-unchecked-expression'
     - include: '#typeof-or-default-expression'
     - include: '#nameof-expression'
+    - include: '#default-literal-expression'
     - include: '#throw-expression'
     - include: '#raw-interpolated-string'
     - include: '#interpolated-string'
@@ -1777,6 +1778,11 @@ repository:
       '0': { name: punctuation.parenthesis.close.cs }
     patterns:
     - include: '#expression'
+
+  default-literal-expression:
+    match: (?<!\.)\b(default)\b
+    captures:
+      '1': { name: keyword.other.default.cs }
 
   throw-expression:
     match: (?<!\.)\b(throw)\b
