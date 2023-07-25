@@ -307,6 +307,23 @@ describe("Type names", () => {
                 Token.Punctuation.Semicolon]);
         });
 
+        it("assignments target-typed new object creation expression", async () => {
+            const input = Input.InMethod(`List<int> x = new();`);
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Type("List"),
+                Token.Punctuation.TypeParameters.Begin,
+                Token.PrimitiveType.Int,
+                Token.Punctuation.TypeParameters.End,
+                Token.Identifiers.LocalName("x"),
+                Token.Operators.Assignment,
+                Token.Keywords.New,
+                Token.Punctuation.OpenParen,
+                Token.Punctuation.CloseParen,
+                Token.Punctuation.Semicolon]);
+        });
+
         it("assignments new array creation expression", async () => {
             const input = Input.InMethod(`x = new string[4];`);
             const tokens = await tokenize(input);
