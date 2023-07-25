@@ -409,6 +409,10 @@
           </dict>
           <dict>
             <key>include</key>
+            <string>#type-builtin</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#this-or-base-expression</string>
           </dict>
           <dict>

@@ -117,6 +117,7 @@ repository:
     - include: '#raw-interpolated-string'
     - include: '#interpolated-string'
     - include: '#verbatim-interpolated-string'
+    - include: '#type-builtin'
     - include: '#this-or-base-expression'
     - include: '#switch-expression'
     - include: '#conditional-operator'

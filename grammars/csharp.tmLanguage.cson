@@ -289,6 +289,9 @@ repository:
         include: "#verbatim-interpolated-string"
       }
       {
+        include: "#type-builtin"
+      }
+      {
         include: "#this-or-base-expression"
       }
       {
