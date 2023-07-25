@@ -3195,6 +3195,19 @@ void CandleLightOffSecond(int index)
         ]);
       });
 
+      it("default literal", async () => {
+        const input = Input.InMethod(`int t = default;`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.PrimitiveType.Int,
+          Token.Identifiers.LocalName("t"),
+          Token.Operators.Assignment,
+          Token.Keywords.Default,
+          Token.Punctuation.Semicolon
+        ]);
+      });
+
       it("typeof", async () => {
         const input = Input.InMethod(`var t = typeof(List<>);`);
         const tokens = await tokenize(input);
