@@ -393,6 +393,10 @@
           </dict>
           <dict>
             <key>include</key>
+            <string>#default-literal-expression</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#throw-expression</string>
           </dict>
           <dict>
@@ -4523,6 +4527,19 @@
             <string>#expression</string>
           </dict>
         </array>
+      </dict>
+      <key>default-literal-expression</key>
+      <dict>
+        <key>match</key>
+        <string>(?&lt;!\.)\b(default)\b</string>
+        <key>captures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.other.default.cs</string>
+          </dict>
+        </dict>
       </dict>
       <key>throw-expression</key>
       <dict>

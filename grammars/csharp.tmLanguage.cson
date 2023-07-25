@@ -277,6 +277,9 @@ repository:
         include: "#nameof-expression"
       }
       {
+        include: "#default-literal-expression"
+      }
+      {
         include: "#throw-expression"
       }
       {
@@ -2801,6 +2804,11 @@ repository:
         include: "#expression"
       }
     ]
+  "default-literal-expression":
+    match: "(?<!\\.)\\b(default)\\b"
+    captures:
+      "1":
+        name: "keyword.other.default.cs"
   "throw-expression":
     match: "(?<!\\.)\\b(throw)\\b"
     captures:
