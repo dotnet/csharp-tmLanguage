@@ -3656,7 +3656,7 @@ repository:
   "object-creation-expression-with-parameters":
     begin: '''
       (?x)
-      (new)\\s+
+      (new)(?:\\s+
       (?<type_name>
         (?:
           (?:
@@ -3678,7 +3678,7 @@ repository:
             \\s*
           )*
         )
-      )\\s*
+      ))?\\s*
       (?=\\()
     '''
     beginCaptures:

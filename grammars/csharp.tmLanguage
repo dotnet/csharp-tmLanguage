@@ -6100,7 +6100,7 @@
       <dict>
         <key>begin</key>
         <string>(?x)
-(new)\s+
+(new)(?:\s+
 (?&lt;type_name&gt;
   (?:
     (?:
@@ -6122,7 +6122,7 @@
       \s*
     )*
   )
-)\s*
+))?\s*
 (?=\()</string>
         <key>beginCaptures</key>
         <dict>
