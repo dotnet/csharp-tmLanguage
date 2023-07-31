@@ -35,11 +35,11 @@ describe("Locals", () => {
         });
 
         it("multiple declarators", async () => {
-            const input = Input.InMethod(`int x, y;`);
+            const input = Input.InMethod(`nint x, y;`);
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.PrimitiveType.Int,
+                Token.PrimitiveType.Nint,
                 Token.Identifiers.LocalName("x"),
                 Token.Punctuation.Comma,
                 Token.Identifiers.LocalName("y"),
@@ -169,17 +169,17 @@ describe("Locals", () => {
         });
 
         it("local function declaration with arrow body", async () => {
-            const input = Input.InClass(`int Add(int x, int y) => x + y;`);
+            const input = Input.InClass(`nuint Add(nuint x, uint y) => x + y;`);
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.PrimitiveType.Int,
+                Token.PrimitiveType.Nuint,
                 Token.Identifiers.MethodName("Add"),
                 Token.Punctuation.OpenParen,
-                Token.PrimitiveType.Int,
+                Token.PrimitiveType.Nuint,
                 Token.Identifiers.ParameterName("x"),
                 Token.Punctuation.Comma,
-                Token.PrimitiveType.Int,
+                Token.PrimitiveType.UInt,
                 Token.Identifiers.ParameterName("y"),
                 Token.Punctuation.CloseParen,
                 Token.Operators.Arrow,

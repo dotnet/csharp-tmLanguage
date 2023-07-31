@@ -481,6 +481,8 @@ export namespace Token {
         export const Float = createToken('float', 'keyword.type.cs');
         export const Int = createToken('int', 'keyword.type.cs');
         export const Long = createToken('long', 'keyword.type.cs');
+        export const Nint = createToken('nint', 'keyword.type.cs');
+        export const Nuint = createToken('nuint', 'keyword.type.cs');
         export const Object = createToken('object', 'keyword.type.cs');
         export const SByte = createToken('sbyte', 'keyword.type.cs');
         export const Short = createToken('short', 'keyword.type.cs');
