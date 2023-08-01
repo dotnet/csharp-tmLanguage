@@ -879,7 +879,7 @@ repository:
           )*
         )
       )\s*
-      (?<operator_keyword>\boperator)\s*
+      \b(?<operator_keyword>operator)\b\s*
       (?<operator>[+\-*/%&|\^!=~<>]+|true|false)\s*
       (?=\()
     beginCaptures:

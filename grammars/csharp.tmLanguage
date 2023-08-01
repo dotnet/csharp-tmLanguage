@@ -2347,7 +2347,7 @@
     )*
   )
 )\s*
-(?&lt;operator_keyword&gt;\boperator)\s*
+\b(?&lt;operator_keyword&gt;operator)\b\s*
 (?&lt;operator&gt;[+\-*/%&amp;|\^!=~&lt;&gt;]+|true|false)\s*
 (?=\()</string>
         <key>beginCaptures</key>
