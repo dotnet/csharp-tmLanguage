@@ -368,6 +368,7 @@ export namespace Token {
         export const Using = createToken('using', 'keyword.other.using.cs');
         export const Var = createToken('var', 'keyword.other.var.cs');
         export const Where = createToken('where', 'keyword.other.where.cs');
+        export const With = createToken('with', 'keyword.other.with.cs');
     }
 
     export namespace Literals {
