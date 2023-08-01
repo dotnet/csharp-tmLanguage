@@ -3358,6 +3358,10 @@ repository:
         name: "keyword.operator.null-coalescing.cs"
         match: "\\?\\?"
       }
+      {
+        name: "keyword.operator.range.cs"
+        match: "\\.\\."
+      }
     ]
   "switch-literal":
     name: "constant.language.null.cs"

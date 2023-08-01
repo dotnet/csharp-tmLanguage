@@ -470,6 +470,7 @@ export namespace Token {
         export const Increment = createToken('++', 'keyword.operator.increment.cs');
         export const NullCoalescing = createToken('??', 'keyword.operator.null-coalescing.cs');
         export const NullConditional = createToken('?', 'keyword.operator.null-conditional.cs');
+        export const Range = createToken("..", "keyword.operator.range.cs");
     }
 
     export namespace PrimitiveType {

@@ -3176,6 +3176,24 @@ void CandleLightOffSecond(int index)
       });
     });
 
+    describe("Other Operators", () => {
+      it("Range operator", async () => {
+        const input = Input.InMethod(`Range slice = 0..^1;`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Type("Range"),
+          Token.Identifiers.LocalName("slice"),
+          Token.Operators.Assignment,
+          Token.Literals.Numeric.Decimal("0"),
+          Token.Operators.Range,
+          Token.Operators.Bitwise.ExclusiveOr,
+          Token.Literals.Numeric.Decimal("1"),
+          Token.Punctuation.Semicolon,
+        ]);
+      });
+    });
+
     describe("Primary", () => {
       it("default", async () => {
         const input = Input.InMethod(`var t = default(List<>);`);
