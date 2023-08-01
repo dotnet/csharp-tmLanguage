@@ -1516,8 +1516,8 @@ repository:
           )*
         )
       )\\s*
-      (?<operator_keyword>(?:\\b(?:operator)))\\s*
-      (?<operator>(?:\\+|-|\\*|/|%|&|\\||\\^|\\<\\<|\\>\\>|==|!=|\\>|\\<|\\>=|\\<=|!|~|\\+\\+|--|true|false))\\s*
+      (?<operator_keyword>\\boperator)\\s*
+      (?<operator>[+\\-*/%&|\\^!=~<>]+|true|false)\\s*
       (?=\\()
     '''
     beginCaptures:
@@ -3316,11 +3316,11 @@ repository:
       }
       {
         name: "keyword.operator.assignment.compound.bitwise.cs"
-        match: "\\&=|\\^=|<<=|>>=|\\|="
+        match: "\\&=|\\^=|<<=|>>>?=|\\|="
       }
       {
         name: "keyword.operator.bitwise.shift.cs"
-        match: "<<|>>"
+        match: "<<|>>>?"
       }
       {
         name: "keyword.operator.comparison.cs"

@@ -467,6 +467,32 @@ describe("Operators", () => {
                 Token.Punctuation.CloseBrace]);
         });
 
+        it("binary >>>", async () => {
+            const input = Input.InClass(`public static nuint operator >>>(nuint x, int y) { return x >>> y; }`);
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Modifiers.Public,
+                Token.Keywords.Modifiers.Static,
+                Token.PrimitiveType.Nuint,
+                Token.Keywords.Operator,
+                Token.Identifiers.MethodName(">>>"),
+                Token.Punctuation.OpenParen,
+                Token.PrimitiveType.Nuint,
+                Token.Identifiers.ParameterName("x"),
+                Token.Punctuation.Comma,
+                Token.PrimitiveType.Int,
+                Token.Identifiers.ParameterName("y"),
+                Token.Punctuation.CloseParen,
+                Token.Punctuation.OpenBrace,
+                Token.Keywords.Control.Return,
+                Token.Variables.ReadWrite("x"),
+                Token.Operators.Bitwise.ShiftRightUnsigned,
+                Token.Variables.ReadWrite("y"),
+                Token.Punctuation.Semicolon,
+                Token.Punctuation.CloseBrace]);
+        });
+
         it("binary ==", async () => {
 
             const input = Input.InClass(`public static bool operator ==(int x, int y) { return x == y; }`);

@@ -421,6 +421,7 @@ export namespace Token {
             export const Or = createToken('|', 'keyword.operator.bitwise.cs');
             export const ShiftLeft = createToken('<<', 'keyword.operator.bitwise.shift.cs');
             export const ShiftRight = createToken('>>', 'keyword.operator.bitwise.shift.cs');
+            export const ShiftRightUnsigned = createToken('>>>', 'keyword.operator.bitwise.shift.cs');
         }
 
         export namespace CompoundAssignment {

@@ -2347,8 +2347,8 @@
     )*
   )
 )\s*
-(?&lt;operator_keyword&gt;(?:\b(?:operator)))\s*
-(?&lt;operator&gt;(?:\+|-|\*|/|%|&amp;|\||\^|\&lt;\&lt;|\&gt;\&gt;|==|!=|\&gt;|\&lt;|\&gt;=|\&lt;=|!|~|\+\+|--|true|false))\s*
+(?&lt;operator_keyword&gt;\boperator)\s*
+(?&lt;operator&gt;[+\-*/%&amp;|\^!=~&lt;&gt;]+|true|false)\s*
 (?=\()</string>
         <key>beginCaptures</key>
         <dict>
@@ -5563,13 +5563,13 @@
             <key>name</key>
             <string>keyword.operator.assignment.compound.bitwise.cs</string>
             <key>match</key>
-            <string>\&amp;=|\^=|&lt;&lt;=|&gt;&gt;=|\|=</string>
+            <string>\&amp;=|\^=|&lt;&lt;=|&gt;&gt;&gt;?=|\|=</string>
           </dict>
           <dict>
             <key>name</key>
             <string>keyword.operator.bitwise.shift.cs</string>
             <key>match</key>
-            <string>&lt;&lt;|&gt;&gt;</string>
+            <string>&lt;&lt;|&gt;&gt;&gt;?</string>
           </dict>
           <dict>
             <key>name</key>
