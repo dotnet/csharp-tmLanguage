@@ -1339,6 +1339,18 @@ var x = new
         ]);
       });
 
+      it("compound assignment >>>=", async () => {
+        const input = Input.InMethod(`x >>>= 1;`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Variables.ReadWrite("x"),
+          Token.Operators.CompoundAssignment.Bitwise.ShiftRightUnsigned,
+          Token.Literals.Numeric.Decimal("1"),
+          Token.Punctuation.Semicolon
+        ]);
+      });
+
       it("compound assignment ??=", async () => {
         const input = Input.InMethod(`x ??= 1;`);
         const tokens = await tokenize(input);
@@ -3172,6 +3184,77 @@ void CandleLightOffSecond(int index)
           Token.Punctuation.OpenParen,
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
+        ]);
+      });
+    });
+
+    describe("Other Operators", () => {
+      it("Range operator", async () => {
+        const input = Input.InMethod(`Range slice = 0..1;`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Type("Range"),
+          Token.Identifiers.LocalName("slice"),
+          Token.Operators.Assignment,
+          Token.Literals.Numeric.Decimal("0"),
+          Token.Operators.Range,
+          Token.Literals.Numeric.Decimal("1"),
+          Token.Punctuation.Semicolon,
+        ]);
+      });
+    });
+
+    describe("Pointer Member Access Operator", () => {
+      it("member access", async () => {
+        const input = Input.InMethod(`var a = b->c->d;`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Keywords.Var,
+          Token.Identifiers.LocalName("a"),
+          Token.Operators.Assignment,
+          Token.Variables.Object("b"),
+          Token.Punctuation.AccessorPointer,
+          Token.Variables.Property("c"),
+          Token.Punctuation.AccessorPointer,
+          Token.Variables.Property("d"),
+          Token.Punctuation.Semicolon,
+        ]);
+      });
+
+      it("before element access", async () => {
+        const input = Input.InMethod(`var a = b->c[0];`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Keywords.Var,
+          Token.Identifiers.LocalName("a"),
+          Token.Operators.Assignment,
+          Token.Variables.Object("b"),
+          Token.Punctuation.AccessorPointer,
+          Token.Variables.Property("c"),
+          Token.Punctuation.OpenBracket,
+          Token.Literals.Numeric.Decimal("0"),
+          Token.Punctuation.CloseBracket,
+          Token.Punctuation.Semicolon,
+        ]);
+      });
+
+      it("before invocation", async () => {
+        const input = Input.InMethod(`var a = b->c();`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Keywords.Var,
+          Token.Identifiers.LocalName("a"),
+          Token.Operators.Assignment,
+          Token.Variables.Object("b"),
+          Token.Punctuation.AccessorPointer,
+          Token.Identifiers.MethodName("c"),
+          Token.Punctuation.OpenParen,
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.Semicolon,
         ]);
       });
     });

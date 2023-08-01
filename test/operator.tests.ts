@@ -150,7 +150,6 @@ describe("Operators", () => {
         });
 
         it("unary true", async () => {
-
             const input = Input.InClass(`public static int operator true(int value) { return value != 0; }`);
             const tokens = await tokenize(input);
 
@@ -192,6 +191,28 @@ describe("Operators", () => {
                 Token.Keywords.Control.Return,
                 Token.Variables.ReadWrite("value"),
                 Token.Operators.Relational.Equals,
+                Token.Literals.Numeric.Decimal("0"),
+                Token.Punctuation.Semicolon,
+                Token.Punctuation.CloseBrace]);
+        });
+
+        it("static method operatortrue", async () => {
+            const input = Input.InClass(`public static bool operatortrue(int value) { return value != 0; }`);
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Modifiers.Public,
+                Token.Keywords.Modifiers.Static,
+                Token.PrimitiveType.Bool,
+                Token.Identifiers.MethodName("operatortrue"),
+                Token.Punctuation.OpenParen,
+                Token.PrimitiveType.Int,
+                Token.Identifiers.ParameterName("value"),
+                Token.Punctuation.CloseParen,
+                Token.Punctuation.OpenBrace,
+                Token.Keywords.Control.Return,
+                Token.Variables.ReadWrite("value"),
+                Token.Operators.Relational.NotEqual,
                 Token.Literals.Numeric.Decimal("0"),
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace]);
@@ -462,6 +483,32 @@ describe("Operators", () => {
                 Token.Keywords.Control.Return,
                 Token.Variables.ReadWrite("x"),
                 Token.Operators.Bitwise.ShiftRight,
+                Token.Variables.ReadWrite("y"),
+                Token.Punctuation.Semicolon,
+                Token.Punctuation.CloseBrace]);
+        });
+
+        it("binary >>>", async () => {
+            const input = Input.InClass(`public static nuint operator >>>(nuint x, int y) { return x >>> y; }`);
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Modifiers.Public,
+                Token.Keywords.Modifiers.Static,
+                Token.PrimitiveType.Nuint,
+                Token.Keywords.Operator,
+                Token.Identifiers.MethodName(">>>"),
+                Token.Punctuation.OpenParen,
+                Token.PrimitiveType.Nuint,
+                Token.Identifiers.ParameterName("x"),
+                Token.Punctuation.Comma,
+                Token.PrimitiveType.Int,
+                Token.Identifiers.ParameterName("y"),
+                Token.Punctuation.CloseParen,
+                Token.Punctuation.OpenBrace,
+                Token.Keywords.Control.Return,
+                Token.Variables.ReadWrite("x"),
+                Token.Operators.Bitwise.ShiftRightUnsigned,
                 Token.Variables.ReadWrite("y"),
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace]);

@@ -421,6 +421,7 @@ export namespace Token {
             export const Or = createToken('|', 'keyword.operator.bitwise.cs');
             export const ShiftLeft = createToken('<<', 'keyword.operator.bitwise.shift.cs');
             export const ShiftRight = createToken('>>', 'keyword.operator.bitwise.shift.cs');
+            export const ShiftRightUnsigned = createToken('>>>', 'keyword.operator.bitwise.shift.cs');
         }
 
         export namespace CompoundAssignment {
@@ -438,6 +439,7 @@ export namespace Token {
                 export const Or = createToken('|=', 'keyword.operator.assignment.compound.bitwise.cs');
                 export const ShiftLeft = createToken('<<=', 'keyword.operator.assignment.compound.bitwise.cs');
                 export const ShiftRight = createToken('>>=', 'keyword.operator.assignment.compound.bitwise.cs');
+                export const ShiftRightUnsigned = createToken('>>>=', 'keyword.operator.assignment.compound.bitwise.cs');
             }
 
             export const NullCoalescing = createToken('??=', 'keyword.operator.assignment.compound.cs');
@@ -470,6 +472,7 @@ export namespace Token {
         export const Increment = createToken('++', 'keyword.operator.increment.cs');
         export const NullCoalescing = createToken('??', 'keyword.operator.null-coalescing.cs');
         export const NullConditional = createToken('?', 'keyword.operator.null-conditional.cs');
+        export const Range = createToken("..", "keyword.operator.range.cs");
     }
 
     export namespace PrimitiveType {
@@ -530,6 +533,7 @@ export namespace Token {
         }
 
         export const Accessor = createToken('.', 'punctuation.accessor.cs');
+        export const AccessorPointer = createToken('->', 'punctuation.accessor.pointer.cs');
         export const CloseBrace = createToken('}', 'punctuation.curlybrace.close.cs');
         export const CloseBracket = createToken(']', 'punctuation.squarebracket.close.cs');
         export const CloseParen = createToken(')', 'punctuation.parenthesis.close.cs');

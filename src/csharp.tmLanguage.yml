@@ -879,8 +879,8 @@ repository:
           )*
         )
       )\s*
-      (?<operator_keyword>(?:\b(?:operator)))\s*
-      (?<operator>(?:\+|-|\*|/|%|&|\||\^|\<\<|\>\>|==|!=|\>|\<|\>=|\<=|!|~|\+\+|--|true|false))\s*
+      \b(?<operator_keyword>operator)\b\s*
+      (?<operator>[+\-*/%&|\^!=~<>]+|true|false)\s*
       (?=\()
     beginCaptures:
       '1':
@@ -2149,9 +2149,9 @@ repository:
     - name: keyword.operator.assignment.compound.cs
       match: \*=|/=|%=|\+=|-=|\?\?=
     - name: keyword.operator.assignment.compound.bitwise.cs
-      match: \&=|\^=|<<=|>>=|\|=
+      match: \&=|\^=|<<=|>>>?=|\|=
     - name: keyword.operator.bitwise.shift.cs
-      match: <<|>>
+      match: <<|>>>?
     - name: keyword.operator.comparison.cs
       match: ==|!=
     - name: keyword.operator.relational.cs
@@ -2167,9 +2167,11 @@ repository:
     - name: keyword.operator.increment.cs
       match: \+\+
     - name: keyword.operator.arithmetic.cs
-      match: '%|\*|/|-|\+'
+      match: \+|-(?!>)|\*|/|%
     - name: keyword.operator.null-coalescing.cs
       match: \?\?
+    - name: keyword.operator.range.cs
+      match: \.\.
 
   switch-literal:
     # <<: *null-literal
@@ -2335,16 +2337,20 @@ repository:
   invocation-expression:
     begin: |-
       (?x)
-      (?:(\?)\s*)?                                     # preceding null-conditional operator?
-      (?:(\.)\s*)?                                     # preceding dot?
-      (@?[_[:alpha:]][_[:alnum:]]*)\s*                   # method name
-      (?<type_args>\s*<([^<>]|\g<type_args>)+>\s*)?\s* # type arguments
-      (?=\()                                           # open paren of argument list
+      (?:
+        (?:(\?)\s*)?                                    # preceding null-conditional operator?
+        (\.)\s*|                                        # preceding dot?
+        (->)\s*                                         # preceding pointer arrow?
+      )?
+      (@?[_[:alpha:]][_[:alnum:]]*)\s*                  # method name
+      (?<type_args>\s*<([^<>]|\g<type_args>)+>\s*)?\s*  # type arguments
+      (?=\()                                            # open paren of argument list
     beginCaptures:
       '1': { name: keyword.operator.null-conditional.cs }
       '2': { name: punctuation.accessor.cs }
-      '3': { name: entity.name.function.cs }
-      '4':
+      '3': { name: punctuation.accessor.pointer.cs }
+      '4': { name: entity.name.function.cs }
+      '5':
         patterns:
         - include: '#type-arguments'
     end: (?<=\))
@@ -2354,16 +2360,20 @@ repository:
   element-access-expression:
     begin: |-
       (?x)
-      (?:(\?)\s*)?                        # preceding null-conditional operator?
-      (?:(\.)\s*)?                        # preceding dot?
+      (?:
+        (?:(\?)\s*)?  # preceding null-conditional operator?
+        (\.)\s*|      # preceding dot?
+        (->)\s*       # preceding pointer arrow?
+      )?
       (?:(@?[_[:alpha:]][_[:alnum:]]*)\s*)? # property name
       (?:(\?)\s*)?                        # null-conditional operator?
       (?=\[)                              # open bracket of argument list
     beginCaptures:
       '1': { name: keyword.operator.null-conditional.cs }
       '2': { name: punctuation.accessor.cs }
-      '3': { name: variable.other.object.property.cs }
-      '4': { name: keyword.operator.null-conditional.cs }
+      '3': { name: punctuation.accessor.pointer.cs }
+      '4': { name: variable.other.object.property.cs }
+      '5': { name: keyword.operator.null-conditional.cs }
     end: (?<=\])(?!\s*\[)
     patterns:
     - include: '#bracketed-argument-list'
@@ -2374,14 +2384,18 @@ repository:
       # be treated as a property, so long as it isn't followed by a ( or [.
     - match: |-
         (?x)
-        (?:(\?)\s*)?                   # preceding null-conditional operator?
-        (\.)\s*                        # preceding dot
-        (@?[_[:alpha:]][_[:alnum:]]*)\s* # property name
-        (?![_[:alnum:]]|\(|(\?)?\[|<)  # next character is not alpha-numeric, nor a (, [, or <. Also, test for ?[
+        (?:
+          (?:(\?)\s*)?                    # preceding null-conditional operator?
+          (\.)\s*|                        # preceding dot?
+          (->)\s*                         # preceding pointer arrow?
+        )
+        (@?[_[:alpha:]][_[:alnum:]]*)\s*  # property name
+        (?![_[:alnum:]]|\(|(\?)?\[|<)     # next character is not alpha-numeric, nor a (, [, or <. Also, test for ?[
       captures:
         '1': { name: keyword.operator.null-conditional.cs }
         '2': { name: punctuation.accessor.cs }
-        '3': { name: variable.other.object.property.cs }
+        '3': { name: punctuation.accessor.pointer.cs }
+        '4': { name: variable.other.object.property.cs }
       # An identifier with type parameters should be treated as an object,
       # regardless of whether there is a dot to the left.
     - match: |-
@@ -2405,8 +2419,8 @@ repository:
         (?x)
         (@?[_[:alpha:]][_[:alnum:]]*)
         (?=
-          (\s*\?)?
-          \s*\.\s*@?[_[:alpha:]][_[:alnum:]]*
+          \s*(?:(?:\?\s*)?\.|->)
+          \s*@?[_[:alpha:]][_[:alnum:]]*
         )
       captures:
         '1': { name: variable.other.object.cs }
