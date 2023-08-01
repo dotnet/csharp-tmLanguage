@@ -4905,5 +4905,65 @@ select x.Key1;`);
         ]);
       });
     });
+
+    describe("With expression", () => {
+      it("single line", async () => {
+        const input = Input.InMethod(`var p2 = p1 with { X = 5 };`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Keywords.Var,
+          Token.Identifiers.LocalName("p2"),
+          Token.Operators.Assignment,
+          Token.Variables.ReadWrite("p1"),
+          Token.Keywords.With,
+          Token.Punctuation.OpenBrace,
+          Token.Variables.ReadWrite("X"),
+          Token.Operators.Assignment,
+          Token.Literals.Numeric.Decimal("5"),
+          Token.Punctuation.CloseBrace,
+          Token.Punctuation.Semicolon,
+        ]);
+      });
+
+      it("multiple lines", async () => {
+        const input = Input.InMethod(`
+var p2 = p1 with
+{
+  X = 5, // comment
+  Y = new List<int> { 0, 1 }
+};`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Keywords.Var,
+          Token.Identifiers.LocalName("p2"),
+          Token.Operators.Assignment,
+          Token.Variables.ReadWrite("p1"),
+          Token.Keywords.With,
+          Token.Punctuation.OpenBrace,
+          Token.Variables.ReadWrite("X"),
+          Token.Operators.Assignment,
+          Token.Literals.Numeric.Decimal("5"),
+          Token.Punctuation.Comma,
+          Token.Comment.SingleLine.Start,
+          Token.Comment.SingleLine.Text(" comment"),
+          Token.Variables.ReadWrite("Y"),
+          Token.Operators.Assignment,
+          Token.Keywords.New,
+          Token.Type("List"),
+          Token.Punctuation.TypeParameters.Begin,
+          Token.PrimitiveType.Int,
+          Token.Punctuation.TypeParameters.End,
+          Token.Punctuation.OpenBrace,
+          Token.Literals.Numeric.Decimal("0"),
+          Token.Punctuation.Comma,
+          Token.Literals.Numeric.Decimal("1"),
+          Token.Punctuation.CloseBrace,
+          Token.Punctuation.CloseBrace,
+          Token.Punctuation.Semicolon,
+        ]);
+      });
+    });
   });
 });

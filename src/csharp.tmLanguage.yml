@@ -121,6 +121,7 @@ repository:
     - include: '#type-builtin'
     - include: '#this-or-base-expression'
     - include: '#switch-expression'
+    - include: '#with-expression'
     - include: '#conditional-operator'
     - include: '#expression-operators'
     - include: '#await-expression'
@@ -1119,6 +1120,14 @@ repository:
       - include: '#switch-pattern'
       - include: '#expression-body'
       - include: '#punctuation-comma'
+
+  with-expression:
+    begin: (?<!\.)\b(with)\b\s*(?=\{|$)
+    beginCaptures:
+      '1': { name: keyword.other.with.cs }
+    end: (?<=\})
+    patterns:
+    - include: '#initializer-expression'
 
   switch-pattern:
     begin: |-
