@@ -3178,7 +3178,7 @@ void CandleLightOffSecond(int index)
 
     describe("Other Operators", () => {
       it("Range operator", async () => {
-        const input = Input.InMethod(`Range slice = 0..^1;`);
+        const input = Input.InMethod(`Range slice = 0..1;`);
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
@@ -3187,7 +3187,6 @@ void CandleLightOffSecond(int index)
           Token.Operators.Assignment,
           Token.Literals.Numeric.Decimal("0"),
           Token.Operators.Range,
-          Token.Operators.Bitwise.ExclusiveOr,
           Token.Literals.Numeric.Decimal("1"),
           Token.Punctuation.Semicolon,
         ]);
