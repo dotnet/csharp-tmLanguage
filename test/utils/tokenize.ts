@@ -532,6 +532,7 @@ export namespace Token {
         }
 
         export const Accessor = createToken('.', 'punctuation.accessor.cs');
+        export const AccessorPointer = createToken('->', 'punctuation.accessor.pointer.cs');
         export const CloseBrace = createToken('}', 'punctuation.curlybrace.close.cs');
         export const CloseBracket = createToken(']', 'punctuation.squarebracket.close.cs');
         export const CloseParen = createToken(')', 'punctuation.parenthesis.close.cs');

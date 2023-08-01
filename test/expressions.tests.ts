@@ -3193,6 +3193,60 @@ void CandleLightOffSecond(int index)
       });
     });
 
+    describe("Pointer Member Access Operator", () => {
+      it("member access", async () => {
+        const input = Input.InMethod(`var a = b->c->d;`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Keywords.Var,
+          Token.Identifiers.LocalName("a"),
+          Token.Operators.Assignment,
+          Token.Variables.Object("b"),
+          Token.Punctuation.AccessorPointer,
+          Token.Variables.Property("c"),
+          Token.Punctuation.AccessorPointer,
+          Token.Variables.Property("d"),
+          Token.Punctuation.Semicolon,
+        ]);
+      });
+
+      it("before element access", async () => {
+        const input = Input.InMethod(`var a = b->c[0];`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Keywords.Var,
+          Token.Identifiers.LocalName("a"),
+          Token.Operators.Assignment,
+          Token.Variables.Object("b"),
+          Token.Punctuation.AccessorPointer,
+          Token.Variables.Property("c"),
+          Token.Punctuation.OpenBracket,
+          Token.Literals.Numeric.Decimal("0"),
+          Token.Punctuation.CloseBracket,
+          Token.Punctuation.Semicolon,
+        ]);
+      });
+
+      it("before invocation", async () => {
+        const input = Input.InMethod(`var a = b->c();`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Keywords.Var,
+          Token.Identifiers.LocalName("a"),
+          Token.Operators.Assignment,
+          Token.Variables.Object("b"),
+          Token.Punctuation.AccessorPointer,
+          Token.Identifiers.MethodName("c"),
+          Token.Punctuation.OpenParen,
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.Semicolon,
+        ]);
+      });
+    });
+
     describe("Primary", () => {
       it("default", async () => {
         const input = Input.InMethod(`var t = default(List<>);`);

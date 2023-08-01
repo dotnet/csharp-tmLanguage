@@ -5617,7 +5617,7 @@
             <key>name</key>
             <string>keyword.operator.arithmetic.cs</string>
             <key>match</key>
-            <string>%|\*|/|-|\+</string>
+            <string>\+|-(?!&gt;)|\*|/|%</string>
           </dict>
           <dict>
             <key>name</key>
@@ -5937,11 +5937,14 @@
       <dict>
         <key>begin</key>
         <string>(?x)
-(?:(\?)\s*)?                                     # preceding null-conditional operator?
-(?:(\.)\s*)?                                     # preceding dot?
-(@?[_[:alpha:]][_[:alnum:]]*)\s*                   # method name
-(?&lt;type_args&gt;\s*&lt;([^&lt;&gt;]|\g&lt;type_args&gt;)+&gt;\s*)?\s* # type arguments
-(?=\()                                           # open paren of argument list</string>
+(?:
+  (?:(\?)\s*)?                                    # preceding null-conditional operator?
+  (\.)\s*|                                        # preceding dot?
+  (-&gt;)\s*                                         # preceding pointer arrow?
+)?
+(@?[_[:alpha:]][_[:alnum:]]*)\s*                  # method name
+(?&lt;type_args&gt;\s*&lt;([^&lt;&gt;]|\g&lt;type_args&gt;)+&gt;\s*)?\s*  # type arguments
+(?=\()                                            # open paren of argument list</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
@@ -5957,9 +5960,14 @@
           <key>3</key>
           <dict>
             <key>name</key>
-            <string>entity.name.function.cs</string>
+            <string>punctuation.accessor.pointer.cs</string>
           </dict>
           <key>4</key>
+          <dict>
+            <key>name</key>
+            <string>entity.name.function.cs</string>
+          </dict>
+          <key>5</key>
           <dict>
             <key>patterns</key>
             <array>
@@ -5984,8 +5992,11 @@
       <dict>
         <key>begin</key>
         <string>(?x)
-(?:(\?)\s*)?                        # preceding null-conditional operator?
-(?:(\.)\s*)?                        # preceding dot?
+(?:
+  (?:(\?)\s*)?  # preceding null-conditional operator?
+  (\.)\s*|      # preceding dot?
+  (-&gt;)\s*       # preceding pointer arrow?
+)?
 (?:(@?[_[:alpha:]][_[:alnum:]]*)\s*)? # property name
 (?:(\?)\s*)?                        # null-conditional operator?
 (?=\[)                              # open bracket of argument list</string>
@@ -6004,9 +6015,14 @@
           <key>3</key>
           <dict>
             <key>name</key>
-            <string>variable.other.object.property.cs</string>
+            <string>punctuation.accessor.pointer.cs</string>
           </dict>
           <key>4</key>
+          <dict>
+            <key>name</key>
+            <string>variable.other.object.property.cs</string>
+          </dict>
+          <key>5</key>
           <dict>
             <key>name</key>
             <string>keyword.operator.null-conditional.cs</string>
@@ -6029,10 +6045,13 @@
           <dict>
             <key>match</key>
             <string>(?x)
-(?:(\?)\s*)?                   # preceding null-conditional operator?
-(\.)\s*                        # preceding dot
-(@?[_[:alpha:]][_[:alnum:]]*)\s* # property name
-(?![_[:alnum:]]|\(|(\?)?\[|&lt;)  # next character is not alpha-numeric, nor a (, [, or &lt;. Also, test for ?[</string>
+(?:
+  (?:(\?)\s*)?                    # preceding null-conditional operator?
+  (\.)\s*|                        # preceding dot?
+  (-&gt;)\s*                         # preceding pointer arrow?
+)
+(@?[_[:alpha:]][_[:alnum:]]*)\s*  # property name
+(?![_[:alnum:]]|\(|(\?)?\[|&lt;)     # next character is not alpha-numeric, nor a (, [, or &lt;. Also, test for ?[</string>
             <key>captures</key>
             <dict>
               <key>1</key>
@@ -6046,6 +6065,11 @@
                 <string>punctuation.accessor.cs</string>
               </dict>
               <key>3</key>
+              <dict>
+                <key>name</key>
+                <string>punctuation.accessor.pointer.cs</string>
+              </dict>
+              <key>4</key>
               <dict>
                 <key>name</key>
                 <string>variable.other.object.property.cs</string>
@@ -6091,8 +6115,8 @@
             <string>(?x)
 (@?[_[:alpha:]][_[:alnum:]]*)
 (?=
-  (\s*\?)?
-  \s*\.\s*@?[_[:alpha:]][_[:alnum:]]*
+  \s*(?:(?:\?\s*)?\.|-&gt;)
+  \s*@?[_[:alpha:]][_[:alnum:]]*
 )</string>
             <key>captures</key>
             <dict>
