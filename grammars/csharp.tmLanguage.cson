@@ -301,6 +301,9 @@ repository:
         include: "#switch-expression"
       }
       {
+        include: "#with-expression"
+      }
+      {
         include: "#conditional-operator"
       }
       {
@@ -1882,6 +1885,17 @@ repository:
             include: "#punctuation-comma"
           }
         ]
+      }
+    ]
+  "with-expression":
+    begin: "(?<!\\.)\\b(with)\\b\\s*(?=\\{|$)"
+    beginCaptures:
+      "1":
+        name: "keyword.other.with.cs"
+    end: "(?<=\\})"
+    patterns: [
+      {
+        include: "#initializer-expression"
       }
     ]
   "switch-pattern":
