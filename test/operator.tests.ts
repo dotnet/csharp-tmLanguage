@@ -172,28 +172,6 @@ describe("Operators", () => {
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("unary true invalid", async () => {
-            const input = Input.InClass(`public static bool operatortrue(int value) { return value != 0; }`);
-            const tokens = await tokenize(input);
-
-            tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Modifiers.Static,
-                Token.PrimitiveType.Bool,
-                Token.Identifiers.MethodName("operatortrue"),
-                Token.Punctuation.OpenParen,
-                Token.PrimitiveType.Int,
-                Token.Identifiers.ParameterName("value"),
-                Token.Punctuation.CloseParen,
-                Token.Punctuation.OpenBrace,
-                Token.Keywords.Control.Return,
-                Token.Variables.ReadWrite("value"),
-                Token.Operators.Relational.NotEqual,
-                Token.Literals.Numeric.Decimal("0"),
-                Token.Punctuation.Semicolon,
-                Token.Punctuation.CloseBrace]);
-        });
-
         it("unary false", async () => {
 
             const input = Input.InClass(`public static int operator false(int value) { return value == 0; }`);
@@ -213,6 +191,28 @@ describe("Operators", () => {
                 Token.Keywords.Control.Return,
                 Token.Variables.ReadWrite("value"),
                 Token.Operators.Relational.Equals,
+                Token.Literals.Numeric.Decimal("0"),
+                Token.Punctuation.Semicolon,
+                Token.Punctuation.CloseBrace]);
+        });
+
+        it("static method operatortrue", async () => {
+            const input = Input.InClass(`public static bool operatortrue(int value) { return value != 0; }`);
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Modifiers.Public,
+                Token.Keywords.Modifiers.Static,
+                Token.PrimitiveType.Bool,
+                Token.Identifiers.MethodName("operatortrue"),
+                Token.Punctuation.OpenParen,
+                Token.PrimitiveType.Int,
+                Token.Identifiers.ParameterName("value"),
+                Token.Punctuation.CloseParen,
+                Token.Punctuation.OpenBrace,
+                Token.Keywords.Control.Return,
+                Token.Variables.ReadWrite("value"),
+                Token.Operators.Relational.NotEqual,
                 Token.Literals.Numeric.Decimal("0"),
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace]);

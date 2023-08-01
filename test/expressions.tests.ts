@@ -1339,6 +1339,18 @@ var x = new
         ]);
       });
 
+      it("compound assignment >>>=", async () => {
+        const input = Input.InMethod(`x >>>= 1;`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Variables.ReadWrite("x"),
+          Token.Operators.CompoundAssignment.Bitwise.ShiftRightUnsigned,
+          Token.Literals.Numeric.Decimal("1"),
+          Token.Punctuation.Semicolon
+        ]);
+      });
+
       it("compound assignment ??=", async () => {
         const input = Input.InMethod(`x ??= 1;`);
         const tokens = await tokenize(input);

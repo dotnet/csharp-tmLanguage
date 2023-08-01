@@ -439,6 +439,7 @@ export namespace Token {
                 export const Or = createToken('|=', 'keyword.operator.assignment.compound.bitwise.cs');
                 export const ShiftLeft = createToken('<<=', 'keyword.operator.assignment.compound.bitwise.cs');
                 export const ShiftRight = createToken('>>=', 'keyword.operator.assignment.compound.bitwise.cs');
+                export const ShiftRightUnsigned = createToken('>>>=', 'keyword.operator.assignment.compound.bitwise.cs');
             }
 
             export const NullCoalescing = createToken('??=', 'keyword.operator.assignment.compound.cs');
