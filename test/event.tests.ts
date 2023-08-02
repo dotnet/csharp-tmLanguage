@@ -288,5 +288,50 @@ event EventHandler Event // comment
                 Token.Punctuation.CloseBrace,
             ]);
         });
+
+        it("declaration with default value (issue #118)", async () => {
+            const input = Input.InClass(`event EventHandler Event = null;`);
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Event,
+                Token.Type("EventHandler"),
+                Token.Identifiers.EventName("Event"),
+                Token.Operators.Assignment,
+                Token.Literals.Null,
+                Token.Punctuation.Semicolon,
+            ]);
+        });
+
+        it("multiple declarations with default value (issue #118)", async () => {
+            const input = Input.InClass(`
+event EventHandler Event1 = delegate { },
+                   Event2 = () => { }
+                   , Event3 = null;`);
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Event,
+                Token.Type("EventHandler"),
+                Token.Identifiers.EventName("Event1"),
+                Token.Operators.Assignment,
+                Token.Keywords.Delegate,
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace,
+                Token.Punctuation.Comma,
+                Token.Identifiers.EventName("Event2"),
+                Token.Operators.Assignment,
+                Token.Punctuation.OpenParen,
+                Token.Punctuation.CloseParen,
+                Token.Operators.Arrow,
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace,
+                Token.Punctuation.Comma,
+                Token.Identifiers.EventName("Event3"),
+                Token.Operators.Assignment,
+                Token.Literals.Null,
+                Token.Punctuation.Semicolon,
+            ]);
+        });
     });
 });
