@@ -584,7 +584,7 @@ repository:
       )
       (?<interface_name>\g<type_name>\s*\.\s*)?
       (?<property_name>\g<identifier>)\s*
-      (?=\{|=>|$)
+      (?=\{|=>|//|/\*|$)
     beginCaptures:
       '1':
         patterns:
@@ -691,7 +691,7 @@ repository:
       )
       (?<interface_name>\g<type_name>\s*\.\s*)?
       (?<event_names>\g<identifier>(?:\s*,\s*\g<identifier>)*)\s*
-      (?=\{|;|$)
+      (?=\{|;|//|/\*|$)
     beginCaptures:
       '1': { name: keyword.other.event.cs }
       '2':
@@ -1122,11 +1122,12 @@ repository:
       - include: '#punctuation-comma'
 
   with-expression:
-    begin: (?<!\.)\b(with)\b\s*(?=\{|$)
+    begin: (?<!\.)\b(with)\b\s*(?=\{|//|/\*|$)
     beginCaptures:
       '1': { name: keyword.other.with.cs }
     end: (?<=\})
     patterns:
+    - include: '#comment'
     - include: '#initializer-expression'
 
   switch-pattern:
@@ -2501,7 +2502,7 @@ repository:
           )*
         )
       )\s*
-      (?=\{|$)
+      (?=\{|//|/\*|$)
     captures:
       '1': { name: keyword.other.new.cs }
       '2':
@@ -2545,11 +2546,12 @@ repository:
     - include: '#bracketed-argument-list'
 
   anonymous-object-creation-expression:
-    begin: \b(new)\b\s*(?=\{|$)
+    begin: \b(new)\b\s*(?=\{|//|/\*|$)
     beginCaptures:
       '1': { name: keyword.other.new.cs }
     end: (?<=\})
     patterns:
+    - include: '#comment'
     - include: '#initializer-expression'
 
   bracketed-parameter-list:
