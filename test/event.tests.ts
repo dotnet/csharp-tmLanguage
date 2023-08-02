@@ -244,5 +244,49 @@ event EventHandler E
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace]);
         });
+
+        it("comment before initializer - single line (issue #264)", async () => {
+            const input = Input.InClass(`event EventHandler Event /* comment */ { add; remove; }`);
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Event,
+                Token.Type("EventHandler"),
+                Token.Identifiers.EventName("Event"),
+                Token.Comment.MultiLine.Start,
+                Token.Comment.MultiLine.Text(" comment "),
+                Token.Comment.MultiLine.End,
+                Token.Punctuation.OpenBrace,
+                Token.Keywords.Add,
+                Token.Punctuation.Semicolon,
+                Token.Keywords.Remove,
+                Token.Punctuation.Semicolon,
+                Token.Punctuation.CloseBrace,
+            ]);
+        });
+
+        it("comment before initializer - multiple lines (issue #264)", async () => {
+            const input = Input.InClass(`
+event EventHandler Event // comment
+{
+    add;
+    remove;
+}`);
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keywords.Event,
+                Token.Type("EventHandler"),
+                Token.Identifiers.EventName("Event"),
+                Token.Comment.SingleLine.Start,
+                Token.Comment.SingleLine.Text(" comment"),
+                Token.Punctuation.OpenBrace,
+                Token.Keywords.Add,
+                Token.Punctuation.Semicolon,
+                Token.Keywords.Remove,
+                Token.Punctuation.Semicolon,
+                Token.Punctuation.CloseBrace,
+            ]);
+        });
     });
 });

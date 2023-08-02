@@ -1719,7 +1719,7 @@
 )
 (?&lt;interface_name&gt;\g&lt;type_name&gt;\s*\.\s*)?
 (?&lt;property_name&gt;\g&lt;identifier&gt;)\s*
-(?=\{|=&gt;|$)</string>
+(?=\{|=&gt;|//|/\*|$)</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
@@ -1899,7 +1899,7 @@
 )
 (?&lt;interface_name&gt;\g&lt;type_name&gt;\s*\.\s*)?
 (?&lt;event_names&gt;\g&lt;identifier&gt;(?:\s*,\s*\g&lt;identifier&gt;)*)\s*
-(?=\{|;|$)</string>
+(?=\{|;|//|/\*|$)</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
@@ -3024,7 +3024,7 @@
       <key>with-expression</key>
       <dict>
         <key>begin</key>
-        <string>(?&lt;!\.)\b(with)\b\s*(?=\{|$)</string>
+        <string>(?&lt;!\.)\b(with)\b\s*(?=\{|//|/\*|$)</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
@@ -3037,6 +3037,10 @@
         <string>(?&lt;=\})</string>
         <key>patterns</key>
         <array>
+          <dict>
+            <key>include</key>
+            <string>#comment</string>
+          </dict>
           <dict>
             <key>include</key>
             <string>#initializer-expression</string>
@@ -6252,7 +6256,7 @@
     )*
   )
 )\s*
-(?=\{|$)</string>
+(?=\{|//|/\*|$)</string>
         <key>captures</key>
         <dict>
           <key>1</key>
@@ -6331,7 +6335,7 @@
       <key>anonymous-object-creation-expression</key>
       <dict>
         <key>begin</key>
-        <string>\b(new)\b\s*(?=\{|$)</string>
+        <string>\b(new)\b\s*(?=\{|//|/\*|$)</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
@@ -6344,6 +6348,10 @@
         <string>(?&lt;=\})</string>
         <key>patterns</key>
         <array>
+          <dict>
+            <key>include</key>
+            <string>#comment</string>
+          </dict>
           <dict>
             <key>include</key>
             <string>#initializer-expression</string>

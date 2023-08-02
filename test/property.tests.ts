@@ -441,5 +441,47 @@ public int Timeout
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace]);
         });
+
+        it("comment before initializer - multiple lines (issue #264)", async () => {
+            const input = Input.InClass(`
+int Property // comment
+{
+    get;
+    set;
+}`);
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.PrimitiveType.Int,
+                Token.Identifiers.PropertyName("Property"),
+                Token.Comment.SingleLine.Start,
+                Token.Comment.SingleLine.Text(" comment"),
+                Token.Punctuation.OpenBrace,
+                Token.Keywords.Get,
+                Token.Punctuation.Semicolon,
+                Token.Keywords.Set,
+                Token.Punctuation.Semicolon,
+                Token.Punctuation.CloseBrace,
+            ]);
+        });
+
+        it("comment before initializer - single line (issue #264)", async () => {
+            const input = Input.InClass(`int Property /* comment */ { get; set; }`);
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.PrimitiveType.Int,
+                Token.Identifiers.PropertyName("Property"),
+                Token.Comment.MultiLine.Start,
+                Token.Comment.MultiLine.Text(" comment "),
+                Token.Comment.MultiLine.End,
+                Token.Punctuation.OpenBrace,
+                Token.Keywords.Get,
+                Token.Punctuation.Semicolon,
+                Token.Keywords.Set,
+                Token.Punctuation.Semicolon,
+                Token.Punctuation.CloseBrace,
+            ]);
+        });
     });
 });

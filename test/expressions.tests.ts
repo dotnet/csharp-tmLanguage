@@ -91,6 +91,31 @@ describe("Expressions", () => {
           Token.Punctuation.Semicolon
         ]);
       });
+
+      it("comment before initializer (issue #264)", async () => {
+        const input = Input.InMethod(`
+var a = new A // comment
+{
+  X = 1
+};`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Keywords.Var,
+          Token.Identifiers.LocalName("a"),
+          Token.Operators.Assignment,
+          Token.Keywords.New,
+          Token.Type("A"),
+          Token.Comment.SingleLine.Start,
+          Token.Comment.SingleLine.Text(" comment"),
+          Token.Punctuation.OpenBrace,
+          Token.Variables.ReadWrite("X"),
+          Token.Operators.Assignment,
+          Token.Literals.Numeric.Decimal("1"),
+          Token.Punctuation.CloseBrace,
+          Token.Punctuation.Semicolon,
+        ]);
+      });
     });
 
     describe("Anonymous Methods", () => {
@@ -1147,6 +1172,30 @@ var x = new
           Token.Punctuation.CloseBrace,
           Token.Punctuation.CloseBrace,
           Token.Punctuation.Semicolon
+        ]);
+      });
+
+      it("comment before initializer (issue #264)", async () => {
+        const input = Input.InMethod(`
+var x = new // comment
+{
+    ID = 42
+};`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Keywords.Var,
+          Token.Identifiers.LocalName("x"),
+          Token.Operators.Assignment,
+          Token.Keywords.New,
+          Token.Comment.SingleLine.Start,
+          Token.Comment.SingleLine.Text(" comment"),
+          Token.Punctuation.OpenBrace,
+          Token.Variables.ReadWrite("ID"),
+          Token.Operators.Assignment,
+          Token.Literals.Numeric.Decimal("42"),
+          Token.Punctuation.CloseBrace,
+          Token.Punctuation.Semicolon,
         ]);
       });
     });
@@ -4960,6 +5009,31 @@ var p2 = p1 with
           Token.Punctuation.Comma,
           Token.Literals.Numeric.Decimal("1"),
           Token.Punctuation.CloseBrace,
+          Token.Punctuation.CloseBrace,
+          Token.Punctuation.Semicolon,
+        ]);
+      });
+
+      it("comment before initializer (issue #264)", async () => {
+        const input = Input.InMethod(`
+var p2 = p1 with // comment
+{
+  X = 5
+};`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Keywords.Var,
+          Token.Identifiers.LocalName("p2"),
+          Token.Operators.Assignment,
+          Token.Variables.ReadWrite("p1"),
+          Token.Keywords.With,
+          Token.Comment.SingleLine.Start,
+          Token.Comment.SingleLine.Text(" comment"),
+          Token.Punctuation.OpenBrace,
+          Token.Variables.ReadWrite("X"),
+          Token.Operators.Assignment,
+          Token.Literals.Numeric.Decimal("5"),
           Token.Punctuation.CloseBrace,
           Token.Punctuation.Semicolon,
         ]);
