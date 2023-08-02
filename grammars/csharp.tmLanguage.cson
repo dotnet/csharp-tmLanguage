@@ -1226,8 +1226,8 @@ repository:
         )\\s+
       )
       (?<interface_name>\\g<type_name>\\s*\\.\\s*)?
-      (?<event_names>\\g<identifier>(?:\\s*,\\s*\\g<identifier>)*)\\s*
-      (?=\\{|;|//|/\\*|$)
+      (\\g<identifier>)\\s* # first event name
+      (?=\\{|;|,|=|//|/\\*|$)
     '''
     beginCaptures:
       "1":
@@ -1248,15 +1248,7 @@ repository:
           }
         ]
       "9":
-        patterns: [
-          {
-            name: "entity.name.variable.event.cs"
-            match: "@?[_[:alpha:]][_[:alnum:]]*"
-          }
-          {
-            include: "#punctuation-comma"
-          }
-        ]
+        name: "entity.name.variable.event.cs"
     end: "(?<=\\})|(?=;)"
     patterns: [
       {
@@ -1266,7 +1258,26 @@ repository:
         include: "#event-accessors"
       }
       {
+        name: "entity.name.variable.event.cs"
+        match: "@?[_[:alpha:]][_[:alnum:]]*"
+      }
+      {
         include: "#punctuation-comma"
+      }
+      {
+        begin: "="
+        beginCaptures:
+          "0":
+            name: "keyword.operator.assignment.cs"
+        end: "(?<=,)|(?=;)"
+        patterns: [
+          {
+            include: "#expression"
+          }
+          {
+            include: "#punctuation-comma"
+          }
+        ]
       }
     ]
   "property-accessors":

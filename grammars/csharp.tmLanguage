@@ -1898,8 +1898,8 @@
   )\s+
 )
 (?&lt;interface_name&gt;\g&lt;type_name&gt;\s*\.\s*)?
-(?&lt;event_names&gt;\g&lt;identifier&gt;(?:\s*,\s*\g&lt;identifier&gt;)*)\s*
-(?=\{|;|//|/\*|$)</string>
+(\g&lt;identifier&gt;)\s* # first event name
+(?=\{|;|,|=|//|/\*|$)</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
@@ -1933,19 +1933,8 @@
           </dict>
           <key>9</key>
           <dict>
-            <key>patterns</key>
-            <array>
-              <dict>
-                <key>name</key>
-                <string>entity.name.variable.event.cs</string>
-                <key>match</key>
-                <string>@?[_[:alpha:]][_[:alnum:]]*</string>
-              </dict>
-              <dict>
-                <key>include</key>
-                <string>#punctuation-comma</string>
-              </dict>
-            </array>
+            <key>name</key>
+            <string>entity.name.variable.event.cs</string>
           </dict>
         </dict>
         <key>end</key>
@@ -1961,8 +1950,39 @@
             <string>#event-accessors</string>
           </dict>
           <dict>
+            <key>name</key>
+            <string>entity.name.variable.event.cs</string>
+            <key>match</key>
+            <string>@?[_[:alpha:]][_[:alnum:]]*</string>
+          </dict>
+          <dict>
             <key>include</key>
             <string>#punctuation-comma</string>
+          </dict>
+          <dict>
+            <key>begin</key>
+            <string>=</string>
+            <key>beginCaptures</key>
+            <dict>
+              <key>0</key>
+              <dict>
+                <key>name</key>
+                <string>keyword.operator.assignment.cs</string>
+              </dict>
+            </dict>
+            <key>end</key>
+            <string>(?&lt;=,)|(?=;)</string>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#expression</string>
+              </dict>
+              <dict>
+                <key>include</key>
+                <string>#punctuation-comma</string>
+              </dict>
+            </array>
           </dict>
         </array>
       </dict>

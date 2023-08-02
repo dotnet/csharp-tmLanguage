@@ -690,8 +690,8 @@ repository:
         )\s+
       )
       (?<interface_name>\g<type_name>\s*\.\s*)?
-      (?<event_names>\g<identifier>(?:\s*,\s*\g<identifier>)*)\s*
-      (?=\{|;|//|/\*|$)
+      (\g<identifier>)\s* # first event name
+      (?=\{|;|,|=|//|/\*|$)
     beginCaptures:
       '1': { name: keyword.other.event.cs }
       '2':
@@ -706,16 +706,21 @@ repository:
         patterns:
         - include: '#type'
         - include: '#punctuation-accessor'
-      '9':
-        patterns:
-        - name: entity.name.variable.event.cs
-          match: '@?[_[:alpha:]][_[:alnum:]]*'
-        - include: '#punctuation-comma'
+      '9': { name: entity.name.variable.event.cs }
     end: (?<=\})|(?=;)
     patterns:
     - include: '#comment'
     - include: '#event-accessors'
+    - name: entity.name.variable.event.cs
+      match: '@?[_[:alpha:]][_[:alnum:]]*'
     - include: '#punctuation-comma'
+    - begin: '='
+      beginCaptures:
+        '0': { name: keyword.operator.assignment.cs }
+      end: (?<=,)|(?=;)
+      patterns:
+      - include: '#expression'
+      - include: '#punctuation-comma'
 
   property-accessors:
     begin: \{
