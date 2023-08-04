@@ -2392,9 +2392,7 @@ repository:
 
   language-variable:
     patterns:
-    # - name: variable.language.$1.cs
-    #   match: \b(base|this)\b
-    - name: keyword.other.$1.cs
+    - name: variable.language.$1.cs
       match: \b(base|this)\b
     - name: variable.other.$1.cs
       match: \b(value)\b
