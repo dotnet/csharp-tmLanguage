@@ -353,7 +353,6 @@ export namespace Token {
         export const AttributeSpecifier = (text: string) => createToken(text, 'keyword.other.attribute-specifier.cs');
         export const Await = createToken('await', 'keyword.other.await.cs');
         export const As = createToken('as', 'keyword.other.as.cs');
-        export const Base = createToken('base', 'keyword.other.base.cs');
         export const Checked = createToken('checked', 'keyword.other.checked.cs');
         export const Class = createToken('class', 'keyword.other.class.cs');
         export const Default = createToken('default', 'keyword.other.default.cs');
@@ -379,7 +378,6 @@ export namespace Token {
         export const Set = createToken('set', 'keyword.other.set.cs');
         export const Static = createToken('static', 'keyword.other.static.cs');
         export const Struct = createToken('struct', 'keyword.other.struct.cs');
-        export const This = createToken('this', 'keyword.other.this.cs');
         export const TypeOf = createToken('typeof', 'keyword.other.typeof.cs');
         export const Unchecked = createToken('unchecked', 'keyword.other.unchecked.cs');
         export const Using = createToken('using', 'keyword.other.using.cs');
@@ -572,6 +570,8 @@ export namespace Token {
         export const Object = (text: string) => createToken(text, 'variable.other.object.cs');
         export const Property = (text: string) => createToken(text, 'variable.other.object.property.cs');
         export const ReadWrite = (text: string) => createToken(text, 'variable.other.readwrite.cs');
+        export const Base = createToken('base', 'variable.language.base.cs');
+        export const This = createToken('this', 'variable.language.this.cs');
         export const Value = createToken('value', 'variable.other.value.cs');
     }
 

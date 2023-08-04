@@ -23,7 +23,7 @@ public string this[int index]
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
                 Token.PrimitiveType.String,
-                Token.Keywords.This,
+                Token.Variables.This,
                 Token.Punctuation.OpenBracket,
                 Token.PrimitiveType.Int,
                 Token.Identifiers.ParameterName("index"),
@@ -54,7 +54,7 @@ public string this[int index]
                 Token.PrimitiveType.String,
                 Token.Punctuation.TypeParameters.End,
                 Token.Punctuation.Accessor,
-                Token.Keywords.This,
+                Token.Variables.This,
                 Token.Punctuation.OpenBracket,
                 Token.PrimitiveType.Int,
                 Token.Identifiers.ParameterName("index"),
@@ -69,7 +69,7 @@ public string this[int index]
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
-                Token.Keywords.This,
+                Token.Variables.This,
                 Token.Punctuation.OpenBracket,
                 Token.PrimitiveType.Int,
                 Token.Identifiers.ParameterName("index"),
@@ -89,7 +89,7 @@ public string this[int index]
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
-                Token.Keywords.This,
+                Token.Variables.This,
                 Token.Punctuation.OpenBracket,
                 Token.PrimitiveType.Int,
                 Token.Identifiers.ParameterName("index"),
@@ -107,7 +107,7 @@ public string this[int index]
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
-                Token.Keywords.This,
+                Token.Variables.This,
                 Token.Punctuation.OpenBracket,
                 Token.PrimitiveType.Int,
                 Token.Identifiers.ParameterName("index"),
@@ -126,7 +126,7 @@ int this[string p = null] { }
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.Int,
-                Token.Keywords.This,
+                Token.Variables.This,
                 Token.Punctuation.OpenBracket,
                 Token.PrimitiveType.String,
                 Token.Identifiers.ParameterName("p"),
@@ -145,7 +145,7 @@ int this[string p = null] { }
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Ref,
                 Token.PrimitiveType.Int,
-                Token.Keywords.This,
+                Token.Variables.This,
                 Token.Punctuation.OpenBracket,
                 Token.PrimitiveType.Int,
                 Token.Identifiers.ParameterName("index"),
@@ -164,7 +164,7 @@ int this[string p = null] { }
                 Token.Keywords.Modifiers.Ref,
                 Token.Keywords.Modifiers.ReadOnly,
                 Token.PrimitiveType.Int,
-                Token.Keywords.This,
+                Token.Variables.This,
                 Token.Punctuation.OpenBracket,
                 Token.PrimitiveType.Int,
                 Token.Identifiers.ParameterName("index"),
@@ -186,7 +186,7 @@ string this[
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
-                Token.Keywords.This,
+                Token.Variables.This,
                 Token.Punctuation.OpenBracket,
 
                 Token.PrimitiveType.Int,
@@ -209,7 +209,7 @@ string this[
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
-                Token.Keywords.This,
+                Token.Variables.This,
                 Token.Punctuation.OpenBracket,
 
                 Token.Punctuation.OpenBracket,

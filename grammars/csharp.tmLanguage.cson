@@ -1178,7 +1178,7 @@ repository:
           }
         ]
       "8":
-        name: "keyword.other.this.cs"
+        name: "variable.language.this.cs"
     end: "(?<=\\})|(?=;)"
     patterns: [
       {
@@ -1546,12 +1546,10 @@ repository:
       }
     ]
   "constructor-initializer":
-    begin: "\\b(?:(base)|(this))\\b\\s*(?=\\()"
+    begin: "\\b(base|this)\\b\\s*(?=\\()"
     beginCaptures:
       "1":
-        name: "keyword.other.base.cs"
-      "2":
-        name: "keyword.other.this.cs"
+        name: "variable.language.$1.cs"
     end: "(?<=\\))"
     patterns: [
       {
@@ -3649,7 +3647,7 @@ repository:
   "language-variable":
     patterns: [
       {
-        name: "keyword.other.$1.cs"
+        name: "variable.language.$1.cs"
         match: "\\b(base|this)\\b"
       }
       {

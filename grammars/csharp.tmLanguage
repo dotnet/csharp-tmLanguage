@@ -1839,7 +1839,7 @@
           <key>8</key>
           <dict>
             <key>name</key>
-            <string>keyword.other.this.cs</string>
+            <string>variable.language.this.cs</string>
           </dict>
         </dict>
         <key>end</key>
@@ -2431,18 +2431,13 @@
       <key>constructor-initializer</key>
       <dict>
         <key>begin</key>
-        <string>\b(?:(base)|(this))\b\s*(?=\()</string>
+        <string>\b(base|this)\b\s*(?=\()</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.other.base.cs</string>
-          </dict>
-          <key>2</key>
-          <dict>
-            <key>name</key>
-            <string>keyword.other.this.cs</string>
+            <string>variable.language.$1.cs</string>
           </dict>
         </dict>
         <key>end</key>
@@ -6121,7 +6116,7 @@
         <array>
           <dict>
             <key>name</key>
-            <string>keyword.other.$1.cs</string>
+            <string>variable.language.$1.cs</string>
             <key>match</key>
             <string>\b(base|this)\b</string>
           </dict>

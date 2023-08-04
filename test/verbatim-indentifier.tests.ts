@@ -283,7 +283,7 @@ public class Baz<@Bar, T> { }
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
-                Token.Keywords.This,
+                Token.Variables.This,
                 Token.Punctuation.OpenBracket,
                 Token.PrimitiveType.String,
                 Token.Identifiers.ParameterName("@class"),

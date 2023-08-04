@@ -652,7 +652,7 @@ repository:
         - include: '#type'
         - include: '#punctuation-accessor'
       '8':
-        name: keyword.other.this.cs
+        name: variable.language.this.cs
     end: (?<=\})|(?=;)
     patterns:
     - include: '#comment'
@@ -886,10 +886,9 @@ repository:
     - include: '#block'
 
   constructor-initializer:
-    begin: \b(?:(base)|(this))\b\s*(?=\()
+    begin: \b(base|this)\b\s*(?=\()
     beginCaptures:
-      '1': { name: keyword.other.base.cs }
-      '2': { name: keyword.other.this.cs }
+      '1': { name: variable.language.$1.cs }
     end: (?<=\))
     patterns:
     - include: "#argument-list"
