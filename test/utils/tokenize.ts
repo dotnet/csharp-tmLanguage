@@ -41,9 +41,11 @@ const registry = new Registry({
     }
 });
 
-const excludedTypes = ['source.cs', 'meta.interpolation.cs', 'meta.preprocessor.cs', 'meta.tag.cs', 'meta.type.parameters.cs']
+function excludeType(type: string): boolean {
+    return type === "source.cs" || type.startsWith("meta.");
+}
 
-export async function tokenize(input: string | Input, excludeTypes: boolean = true): Promise<Token[]> {
+export async function tokenize(input: string | Input, ...includeScopes: string[]): Promise<Token[]> {
     if (typeof input === "string") {
         input = Input.FromText(input);
     }
@@ -71,8 +73,19 @@ export async function tokenize(input: string | Input, excludeTypes: boolean = tr
             const text = line.substring(token.startIndex, token.endIndex);
             const type = token.scopes[token.scopes.length - 1];
 
-            if (excludeTypes === false || excludedTypes.indexOf(type) < 0) {
-                tokens.push(createToken(text, type));
+            if (!excludeType(type)) {
+                if (includeScopes.length === 0) {
+                    tokens.push(createToken(text, type));
+                } else {
+                    const scopes: string[] = [];
+                    for (const scope of token.scopes.slice(0, -1)) {
+                        if (includeScopes.some(prefix => scope.startsWith(prefix))) {
+                            scopes.push(scope);
+                        }
+                    }
+                    scopes.push(type);
+                    tokens.push(createToken(text, scopes.join(" ")));
+                }
             }
         }
     }
@@ -198,8 +211,12 @@ export interface Token {
     type: string;
 }
 
-function createToken(text: string, type: string) {
+function createToken(text: string, type: string): Token {
     return { text, type };
+}
+
+function createContext(scope: string) {
+    return (...tokens: Token[]) => tokens.map(token => createToken(token.text, `${scope} ${token.type}`));
 }
 
 export namespace Token {
@@ -555,6 +572,7 @@ export namespace Token {
         export const Object = (text: string) => createToken(text, 'variable.other.object.cs');
         export const Property = (text: string) => createToken(text, 'variable.other.object.property.cs');
         export const ReadWrite = (text: string) => createToken(text, 'variable.other.readwrite.cs');
+        export const Value = createToken('value', 'variable.other.value.cs');
     }
 
     export namespace XmlDocComments {
@@ -615,4 +633,11 @@ export namespace Token {
     export const IllegalNewLine = (text: string) => createToken(text, 'invalid.illegal.newline.cs');
     export const PreprocessorMessage = (text: string) => createToken(text, 'string.unquoted.preprocessor.message.cs');
     export const Type = (text: string) => createToken(text, 'entity.name.type.cs');
+}
+
+export namespace Scope {
+    export namespace Accessor {
+        export const Getter = createContext("meta.accessor.getter.cs");
+        export const Setter = createContext("meta.accessor.setter.cs");
+    }
 }

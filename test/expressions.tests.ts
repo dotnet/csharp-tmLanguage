@@ -3813,7 +3813,7 @@ private static readonly Parser<Node> NodeParser =
           Token.Punctuation.Comma,
           Token.Variables.ReadWrite("Value"),
           Token.Operators.Assignment,
-          Token.Variables.ReadWrite("value"),
+          Token.Variables.Value,
           Token.Punctuation.Comma,
           Token.Variables.ReadWrite("Children"),
           Token.Operators.Assignment,

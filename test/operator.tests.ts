@@ -28,7 +28,7 @@ describe("Operators", () => {
                 Token.Punctuation.OpenBrace,
                 Token.Keywords.Control.Return,
                 Token.Operators.Arithmetic.Addition,
-                Token.Variables.ReadWrite("value"),
+                Token.Variables.Value,
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace]);
         });
@@ -51,7 +51,7 @@ describe("Operators", () => {
                 Token.Punctuation.OpenBrace,
                 Token.Keywords.Control.Return,
                 Token.Operators.Arithmetic.Subtraction,
-                Token.Variables.ReadWrite("value"),
+                Token.Variables.Value,
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace]);
         });
@@ -73,7 +73,7 @@ describe("Operators", () => {
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
                 Token.Keywords.Control.Return,
-                Token.Variables.ReadWrite("value"),
+                Token.Variables.Value,
                 Token.Operators.Relational.Equals,
                 Token.Literals.Numeric.Decimal("0"),
                 Token.Punctuation.Semicolon,
@@ -98,7 +98,7 @@ describe("Operators", () => {
                 Token.Punctuation.OpenBrace,
                 Token.Keywords.Control.Return,
                 Token.Operators.Bitwise.BitwiseComplement,
-                Token.Variables.ReadWrite("value"),
+                Token.Variables.Value,
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace]);
         });
@@ -121,7 +121,7 @@ describe("Operators", () => {
                 Token.Punctuation.OpenBrace,
                 Token.Keywords.Control.Return,
                 Token.Operators.Increment,
-                Token.Variables.ReadWrite("value"),
+                Token.Variables.Value,
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace]);
         });
@@ -144,7 +144,7 @@ describe("Operators", () => {
                 Token.Punctuation.OpenBrace,
                 Token.Keywords.Control.Return,
                 Token.Operators.Decrement,
-                Token.Variables.ReadWrite("value"),
+                Token.Variables.Value,
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace]);
         });
@@ -165,7 +165,7 @@ describe("Operators", () => {
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
                 Token.Keywords.Control.Return,
-                Token.Variables.ReadWrite("value"),
+                Token.Variables.Value,
                 Token.Operators.Relational.NotEqual,
                 Token.Literals.Numeric.Decimal("0"),
                 Token.Punctuation.Semicolon,
@@ -189,7 +189,7 @@ describe("Operators", () => {
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
                 Token.Keywords.Control.Return,
-                Token.Variables.ReadWrite("value"),
+                Token.Variables.Value,
                 Token.Operators.Relational.Equals,
                 Token.Literals.Numeric.Decimal("0"),
                 Token.Punctuation.Semicolon,
@@ -211,7 +211,7 @@ describe("Operators", () => {
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
                 Token.Keywords.Control.Return,
-                Token.Variables.ReadWrite("value"),
+                Token.Variables.Value,
                 Token.Operators.Relational.NotEqual,
                 Token.Literals.Numeric.Decimal("0"),
                 Token.Punctuation.Semicolon,
@@ -741,7 +741,7 @@ describe("Operators", () => {
                 Token.Punctuation.CloseParen,
                 Token.Operators.Arrow,
                 Token.Operators.Arithmetic.Addition,
-                Token.Variables.ReadWrite("value"),
+                Token.Variables.Value,
                 Token.Punctuation.Semicolon]);
         });
 

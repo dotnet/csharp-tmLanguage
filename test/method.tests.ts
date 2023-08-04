@@ -625,7 +625,7 @@ public class ClassA<T>
                 Token.Punctuation.OpenParen,
                 Token.Variables.ReadWrite("key"),
                 Token.Punctuation.Comma,
-                Token.Variables.ReadWrite("value"),
+                Token.Variables.Value,
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.Semicolon,
                 Token.Comment.SingleLine.Start,

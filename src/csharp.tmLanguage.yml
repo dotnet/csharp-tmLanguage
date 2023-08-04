@@ -119,7 +119,7 @@ repository:
     - include: '#interpolated-string'
     - include: '#verbatim-interpolated-string'
     - include: '#type-builtin'
-    - include: '#this-or-base-expression'
+    - include: '#language-variable'
     - include: '#switch-expression'
     - include: '#with-expression'
     - include: '#conditional-operator'
@@ -603,7 +603,7 @@ repository:
     patterns:
     - include: '#comment'
     - include: '#property-accessors'
-    - include: '#expression-body'
+    - include: '#accessor-getter-expression'
     - include: '#variable-initializer'
     - include: '#class-or-struct-members'
 
@@ -658,7 +658,7 @@ repository:
     - include: '#comment'
     - include: '#bracketed-parameter-list'
     - include: '#property-accessors'
-    - include: '#expression-body'
+    - include: '#accessor-getter-expression'
     - include: '#variable-initializer'
 
   event-declaration:
@@ -730,19 +730,22 @@ repository:
     endCaptures:
       '0': { name: punctuation.curlybrace.close.cs }
     patterns:
-    - name: storage.modifier.cs
-      match: \b(private|protected|internal)\b
-    - name: keyword.other.get.cs
-      match: \b(get)\b
-    - name: keyword.other.set.cs
-      match: \b(set)\b
-    - name: keyword.other.init.cs
-      match: \b(init)\b
     - include: '#comment'
     - include: '#attribute-section'
-    - include: '#expression-body'
-    - include: '#block'
-    - include: '#punctuation-semicolon'
+    - name: storage.modifier.cs
+      match: \b(private|protected|internal)\b
+    - begin: \b(get)\b\s*(?=\{|;|=>|//|/\*|$)
+      beginCaptures:
+        '1': { name: keyword.other.$1.cs }
+      end: (?<=\}|;)|(?=\})
+      patterns:
+      - include: '#accessor-getter'
+    - begin: \b(set|init)\b\s*(?=\{|;|=>|//|/\*|$)
+      beginCaptures:
+        '1': { name: keyword.other.$1.cs }
+      end: (?<=\}|;)|(?=\})
+      patterns:
+      - include: '#accessor-setter'
 
   event-accessors:
     begin: \{
@@ -752,14 +755,58 @@ repository:
     endCaptures:
       '0': { name: punctuation.curlybrace.close.cs }
     patterns:
-    - name: keyword.other.add.cs
-      match: \b(add)\b
-    - name: keyword.other.remove.cs
-      match: \b(remove)\b
     - include: '#comment'
     - include: '#attribute-section'
-    - include: '#expression-body'
-    - include: '#block'
+    - begin: \b(add|remove)\b\s*(?=\{|;|=>|//|/\*|$)
+      beginCaptures:
+        '1': { name: keyword.other.$1.cs }
+      end: (?<=\}|;)|(?=\})
+      patterns:
+      - include: '#accessor-setter'
+
+  accessor-getter:
+    patterns:
+    - begin: \{
+      beginCaptures:
+        '0': { name: punctuation.curlybrace.open.cs }
+      end: \}
+      endCaptures:
+        '0': { name: punctuation.curlybrace.close.cs }
+      contentName: meta.accessor.getter.cs
+      patterns:
+      - include: '#statement'
+    - include: '#accessor-getter-expression'
+    - include: '#punctuation-semicolon'
+
+  accessor-getter-expression:
+    begin: =>
+    beginCaptures:
+      '0': { name: keyword.operator.arrow.cs }
+    end: (?=;|\})
+    contentName: meta.accessor.getter.cs
+    patterns:
+    - include: '#ref-modifier'
+    - include: '#expression'
+
+  accessor-setter:
+    patterns:
+    - begin: \{
+      beginCaptures:
+        '0': { name: punctuation.curlybrace.open.cs }
+      end: \}
+      endCaptures:
+        '0': { name: punctuation.curlybrace.close.cs }
+      contentName: meta.accessor.setter.cs
+      patterns:
+      - include: '#statement'
+    - begin: =>
+      beginCaptures:
+        '0': { name: keyword.operator.arrow.cs }
+      end: (?=;|\})
+      contentName: meta.accessor.setter.cs
+      patterns:
+      - include: '#ref-modifier'
+      - include: '#expression'
     - include: '#punctuation-semicolon'
 
   method-declaration:
@@ -2343,11 +2390,14 @@ repository:
         patterns:
         - include: '#type'
 
-  this-or-base-expression:
-    match: \b(?:(base)|(this))\b
-    captures:
-      '1': { name: keyword.other.base.cs }
-      '2': { name: keyword.other.this.cs }
+  language-variable:
+    patterns:
+    # - name: variable.language.$1.cs
+    #   match: \b(base|this)\b
+    - name: keyword.other.$1.cs
+      match: \b(base|this)\b
+    - name: variable.other.$1.cs
+      match: \b(value)\b
 
   invocation-expression:
     begin: |-

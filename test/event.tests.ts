@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { should } from 'chai';
-import { tokenize, Input, Token } from './utils/tokenize';
+import { tokenize, Input, Token, Scope } from './utils/tokenize';
 
 describe("Events", () => {
     before(() => { should(); });
@@ -12,7 +12,7 @@ describe("Events", () => {
     describe("Events", () => {
         it("declaration", async () => {
             const input = Input.InClass(`public event Type Event;`);
-            const tokens = await tokenize(input);
+            const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -24,7 +24,7 @@ describe("Events", () => {
 
         it("declaration with multiple modifiers", async () => {
             const input = Input.InClass(`protected internal event Type Event;`);
-            const tokens = await tokenize(input);
+            const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Protected,
@@ -37,7 +37,7 @@ describe("Events", () => {
 
         it("declaration with multiple declarators", async () => {
             const input = Input.InClass(`public event Type Event1, Event2;`);
-            const tokens = await tokenize(input);
+            const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -51,7 +51,7 @@ describe("Events", () => {
 
         it("generic", async () => {
             const input = Input.InClass(`public event EventHandler<List<T>, Dictionary<T, D>> Event;`);
-            const tokens = await tokenize(input);
+            const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -82,7 +82,7 @@ public event Type Event
     remove { }
 }`);
 
-            const tokens = await tokenize(input);
+            const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -101,7 +101,7 @@ public event Type Event
 
         it("explicitly-implemented interface member", async () => {
             const input = Input.InClass(`event EventHandler IFoo<string>.Event { add; remove; }`);
-            const tokens = await tokenize(input);
+            const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
                 Token.Keywords.Event,
@@ -122,7 +122,7 @@ public event Type Event
 
         it("declaration in interface", async () => {
             const input = Input.InInterface(`event EventHandler Event;`);
-            const tokens = await tokenize(input);
+            const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
                 Token.Keywords.Event,
@@ -142,7 +142,7 @@ interface IObj
     event EventHandler Event;
     int Prop2 { get; }
 }`;
-            const tokens = await tokenize(input);
+            const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
                 Token.Keywords.Interface,
@@ -179,7 +179,7 @@ public event Action E1
     remove { }
 }`);
 
-            const tokens = await tokenize(input);
+            const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
                 Token.Punctuation.OpenBracket,
@@ -221,7 +221,7 @@ event EventHandler E
     remove => Remove(value);
 }
 `);
-            const tokens = await tokenize(input);
+            const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
                 Token.Keywords.Event,
@@ -230,24 +230,28 @@ event EventHandler E
                 Token.Punctuation.OpenBrace,
                 Token.Keywords.Add,
                 Token.Operators.Arrow,
-                Token.Identifiers.MethodName("Add"),
-                Token.Punctuation.OpenParen,
-                Token.Variables.ReadWrite("value"),
-                Token.Punctuation.CloseParen,
+                ...Scope.Accessor.Setter(
+                    Token.Identifiers.MethodName("Add"),
+                    Token.Punctuation.OpenParen,
+                    Token.Variables.Value,
+                    Token.Punctuation.CloseParen,
+                ),
                 Token.Punctuation.Semicolon,
                 Token.Keywords.Remove,
                 Token.Operators.Arrow,
-                Token.Identifiers.MethodName("Remove"),
-                Token.Punctuation.OpenParen,
-                Token.Variables.ReadWrite("value"),
-                Token.Punctuation.CloseParen,
+                ...Scope.Accessor.Setter(
+                    Token.Identifiers.MethodName("Remove"),
+                    Token.Punctuation.OpenParen,
+                    Token.Variables.Value,
+                    Token.Punctuation.CloseParen,
+                ),
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace]);
         });
 
         it("comment before initializer - single line (issue #264)", async () => {
             const input = Input.InClass(`event EventHandler Event /* comment */ { add; remove; }`);
-            const tokens = await tokenize(input);
+            const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
                 Token.Keywords.Event,
@@ -272,7 +276,7 @@ event EventHandler Event // comment
     add;
     remove;
 }`);
-            const tokens = await tokenize(input);
+            const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
                 Token.Keywords.Event,
@@ -291,7 +295,7 @@ event EventHandler Event // comment
 
         it("declaration with default value (issue #118)", async () => {
             const input = Input.InClass(`event EventHandler Event = null;`);
-            const tokens = await tokenize(input);
+            const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
                 Token.Keywords.Event,
@@ -308,7 +312,7 @@ event EventHandler Event // comment
 event EventHandler Event1 = delegate { },
                    Event2 = () => { }
                    , Event3 = null;`);
-            const tokens = await tokenize(input);
+            const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
                 Token.Keywords.Event,
