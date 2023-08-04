@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { should } from 'chai';
-import { tokenize, Input, Token } from './utils/tokenize';
+import { tokenize, Input, Token, Scope } from './utils/tokenize';
 
 describe("Property", () => {
     before(() => { should(); });
@@ -17,7 +17,7 @@ public IBooom Property
     get { return null; }
     set { something = value; }
 }`);
-            const tokens = await tokenize(input);
+            const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -26,23 +26,27 @@ public IBooom Property
                 Token.Punctuation.OpenBrace,
                 Token.Keywords.Get,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Control.Return,
-                Token.Literals.Null,
-                Token.Punctuation.Semicolon,
+                ...Scope.Accessor.Getter(
+                    Token.Keywords.Control.Return,
+                    Token.Literals.Null,
+                    Token.Punctuation.Semicolon,
+                ),
                 Token.Punctuation.CloseBrace,
                 Token.Keywords.Set,
                 Token.Punctuation.OpenBrace,
-                Token.Variables.ReadWrite("something"),
-                Token.Operators.Assignment,
-                Token.Variables.ReadWrite("value"),
-                Token.Punctuation.Semicolon,
+                ...Scope.Accessor.Setter(
+                    Token.Variables.ReadWrite("something"),
+                    Token.Operators.Assignment,
+                    Token.Variables.Value,
+                    Token.Punctuation.Semicolon,
+                ),
                 Token.Punctuation.CloseBrace,
                 Token.Punctuation.CloseBrace]);
         });
 
         it("declaration single line", async () => {
             const input = Input.InClass(`public IBooom Property { get { return null; } private set { something = value; } }`);
-            const tokens = await tokenize(input);
+            const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -51,24 +55,28 @@ public IBooom Property
                 Token.Punctuation.OpenBrace,
                 Token.Keywords.Get,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Control.Return,
-                Token.Literals.Null,
-                Token.Punctuation.Semicolon,
+                ...Scope.Accessor.Getter(
+                    Token.Keywords.Control.Return,
+                    Token.Literals.Null,
+                    Token.Punctuation.Semicolon,
+                ),
                 Token.Punctuation.CloseBrace,
                 Token.Keywords.Modifiers.Private,
                 Token.Keywords.Set,
                 Token.Punctuation.OpenBrace,
-                Token.Variables.ReadWrite("something"),
-                Token.Operators.Assignment,
-                Token.Variables.ReadWrite("value"),
-                Token.Punctuation.Semicolon,
+                ...Scope.Accessor.Setter(
+                    Token.Variables.ReadWrite("something"),
+                    Token.Operators.Assignment,
+                    Token.Variables.Value,
+                    Token.Punctuation.Semicolon,
+                ),
                 Token.Punctuation.CloseBrace,
                 Token.Punctuation.CloseBrace]);
         });
 
         it("declaration without modifiers", async () => {
             const input = Input.InClass(`IBooom Property {get; set;}`);
-            const tokens = await tokenize(input);
+            const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
                 Token.Type("IBooom"),
@@ -83,7 +91,7 @@ public IBooom Property
 
         it("auto-property single line", async function () {
             const input = Input.InClass(`public IBooom Property { get; set; }`);
-            const tokens = await tokenize(input);
+            const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -99,7 +107,7 @@ public IBooom Property
 
         it("auto-property single line (protected internal)", async function () {
             const input = Input.InClass(`protected internal IBooom Property { get; set; }`);
-            const tokens = await tokenize(input);
+            const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Protected,
@@ -121,7 +129,7 @@ public IBooom Property
     get;
     set;
 }`);
-            const tokens = await tokenize(input);
+            const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -137,7 +145,7 @@ public IBooom Property
 
         it("init auto-property", async () => {
             const input = Input.InClass(`public int X { get; init; }`);
-            const tokens = await tokenize(input);
+            const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -153,7 +161,7 @@ public IBooom Property
 
         it("generic auto-property", async () => {
             const input = Input.InClass(`public Dictionary<string, List<T>[]> Property { get; set; }`);
-            const tokens = await tokenize(input);
+            const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -179,7 +187,7 @@ public IBooom Property
 
         it("auto-property initializer", async () => {
             const input = Input.InClass(`public Dictionary<string, List<T>[]> Property { get; } = new Dictionary<string, List<T>[]>();`);
-            const tokens = await tokenize(input);
+            const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -221,29 +229,33 @@ public IBooom Property
             const input = Input.InClass(`
 private string prop1 => "hello";
 private bool   prop2 => true;`);
-            const tokens = await tokenize(input);
+            const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Private,
                 Token.PrimitiveType.String,
                 Token.Identifiers.PropertyName("prop1"),
                 Token.Operators.Arrow,
-                Token.Punctuation.String.Begin,
-                Token.Literals.String("hello"),
-                Token.Punctuation.String.End,
+                ...Scope.Accessor.Getter(
+                    Token.Punctuation.String.Begin,
+                    Token.Literals.String("hello"),
+                    Token.Punctuation.String.End,
+                ),
                 Token.Punctuation.Semicolon,
 
                 Token.Keywords.Modifiers.Private,
                 Token.PrimitiveType.Bool,
                 Token.Identifiers.PropertyName("prop2"),
                 Token.Operators.Arrow,
-                Token.Literals.Boolean.True,
+                ...Scope.Accessor.Getter(
+                    Token.Literals.Boolean.True,
+                ),
                 Token.Punctuation.Semicolon]);
         });
 
         it("explicitly-implemented interface member", async () => {
             const input = Input.InClass(`string IFoo<string>.Bar { get; set; }`);
-            const tokens = await tokenize(input);
+            const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
@@ -263,7 +275,7 @@ private bool   prop2 => true;`);
 
         it("declaration in interface", async () => {
             const input = Input.InInterface(`string Bar { get; set; }`);
-            const tokens = await tokenize(input);
+            const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
@@ -278,7 +290,7 @@ private bool   prop2 => true;`);
 
         it("declaration in interface (read-only)", async () => {
             const input = Input.InInterface(`string Bar { get; }`);
-            const tokens = await tokenize(input);
+            const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
@@ -291,7 +303,7 @@ private bool   prop2 => true;`);
 
         it("declaration in interface (write-only)", async () => {
             const input = Input.InInterface(`string Bar { set; }`);
-            const tokens = await tokenize(input);
+            const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
@@ -312,7 +324,7 @@ public int P1
     [Obsolete]
     set { }
 }`);
-            const tokens = await tokenize(input);
+            const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
                 Token.Punctuation.OpenBracket,
@@ -344,7 +356,7 @@ public int Timeout
     get => Socket.ReceiveTimeout;
     set => Socket.ReceiveTimeout = value;
 }`);
-            const tokens = await tokenize(input);
+            const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Public,
@@ -353,24 +365,28 @@ public int Timeout
                 Token.Punctuation.OpenBrace,
                 Token.Keywords.Get,
                 Token.Operators.Arrow,
-                Token.Variables.Object("Socket"),
-                Token.Punctuation.Accessor,
-                Token.Variables.Property("ReceiveTimeout"),
+                ...Scope.Accessor.Getter(
+                    Token.Variables.Object("Socket"),
+                    Token.Punctuation.Accessor,
+                    Token.Variables.Property("ReceiveTimeout"),
+                ),
                 Token.Punctuation.Semicolon,
                 Token.Keywords.Set,
                 Token.Operators.Arrow,
-                Token.Variables.Object("Socket"),
-                Token.Punctuation.Accessor,
-                Token.Variables.Property("ReceiveTimeout"),
-                Token.Operators.Assignment,
-                Token.Variables.ReadWrite("value"),
+                ...Scope.Accessor.Setter(
+                    Token.Variables.Object("Socket"),
+                    Token.Punctuation.Accessor,
+                    Token.Variables.Property("ReceiveTimeout"),
+                    Token.Operators.Assignment,
+                    Token.Variables.Value,
+                ),
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace]);
         });
 
         it("ref return", async () => {
             const input = Input.InInterface(`ref int P { get; }`);
-            const tokens = await tokenize(input);
+            const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Ref,
@@ -384,7 +400,7 @@ public int Timeout
 
         it("ref readonly return", async () => {
             const input = Input.InInterface(`ref readonly int P { get; }`);
-            const tokens = await tokenize(input);
+            const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Ref,
@@ -399,21 +415,23 @@ public int Timeout
 
         it("expression body ref return", async () => {
             const input = Input.InClass(`ref int P => ref x;`);
-            const tokens = await tokenize(input);
+            const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Ref,
                 Token.PrimitiveType.Int,
                 Token.Identifiers.PropertyName("P"),
                 Token.Operators.Arrow,
-                Token.Keywords.Modifiers.Ref,
-                Token.Variables.ReadWrite("x"),
+                ...Scope.Accessor.Getter(
+                    Token.Keywords.Modifiers.Ref,
+                    Token.Variables.ReadWrite("x"),
+                ),
                 Token.Punctuation.Semicolon]);
         });
 
         it("expression body ref readonly return", async () => {
             const input = Input.InClass(`ref readonly int P => ref x;`);
-            const tokens = await tokenize(input);
+            const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Ref,
@@ -421,14 +439,16 @@ public int Timeout
                 Token.PrimitiveType.Int,
                 Token.Identifiers.PropertyName("P"),
                 Token.Operators.Arrow,
-                Token.Keywords.Modifiers.Ref,
-                Token.Variables.ReadWrite("x"),
+                ...Scope.Accessor.Getter(
+                    Token.Keywords.Modifiers.Ref,
+                    Token.Variables.ReadWrite("x"),
+                ),
                 Token.Punctuation.Semicolon]);
         });
 
         it("required property", async () => {
             const input = Input.InClass(`required int P { get; set; }`);
-            const tokens = await tokenize(input);
+            const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
                 Token.Keywords.Modifiers.Required,
@@ -449,7 +469,7 @@ int Property // comment
     get;
     set;
 }`);
-            const tokens = await tokenize(input);
+            const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.Int,
@@ -467,7 +487,7 @@ int Property // comment
 
         it("comment before initializer - single line (issue #264)", async () => {
             const input = Input.InClass(`int Property /* comment */ { get; set; }`);
-            const tokens = await tokenize(input);
+            const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.Int,
