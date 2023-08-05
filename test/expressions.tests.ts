@@ -1681,7 +1681,7 @@ var x = new // comment
       });
 
       it("as type ?? (issue #245)", async () => {
-        const input = Input.InMethod(`var a = b as string ?? "";`)
+        const input = Input.InMethod(`var a = b as string ?? "";`);
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
@@ -1695,11 +1695,11 @@ var x = new // comment
           Token.Punctuation.String.Begin,
           Token.Punctuation.String.End,
           Token.Punctuation.Semicolon,
-        ])
+        ]);
       });
 
       it("as type? ?? (issue #245)", async () => {
-        const input = Input.InMethod(`var a = b as int? ?? 0;`)
+        const input = Input.InMethod(`var a = b as int? ?? 0;`);
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
@@ -1713,11 +1713,11 @@ var x = new // comment
           Token.Operators.NullCoalescing,
           Token.Literals.Numeric.Decimal("0"),
           Token.Punctuation.Semicolon,
-        ])
+        ]);
       });
 
       it("as type[] ?? (issue #245)", async () => {
-        const input = Input.InMethod(`var a = b as int[] ?? new int[0];`)
+        const input = Input.InMethod(`var a = b as int[] ?? new int[0];`);
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
@@ -1736,8 +1736,9 @@ var x = new // comment
           Token.Literals.Numeric.Decimal("0"),
           Token.Punctuation.CloseBracket,
           Token.Punctuation.Semicolon,
-        ])
+        ]);
       });
+    });
 
     describe("Checked/Unchecked", () => {
       it("checked expression", async () => {
