@@ -6034,14 +6034,12 @@
       (?:\s*\.\s*\g&lt;name_and_type_args&gt;)* | # Are there any more names being dotted into?
       (?&lt;tuple&gt;\s*\((?:[^\(\)]|\g&lt;tuple&gt;)+\))
     )
-    (?:\s*\?\s*)? # nullable suffix?
+    (?:\s*\?(?!\?))? # nullable suffix?
     (?:\s* # array suffix?
       \[
-        (?:\s*,\s*)* # commata for multi-dimensional arrays
+        \s*(?:,\s*)* # commata for multi-dimensional arrays
       \]
-      \s*
-      (?:\?)? # arrays can be nullable reference types
-      \s*
+      (?:\s*\?(?!\?))? # arrays can be nullable reference types
     )*
   )
 )?</string>
