@@ -1679,6 +1679,65 @@ var x = new // comment
           Token.Punctuation.Semicolon
         ]);
       });
+
+      it("as type ?? (issue #245)", async () => {
+        const input = Input.InMethod(`var a = b as string ?? "";`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Keywords.Var,
+          Token.Identifiers.LocalName("a"),
+          Token.Operators.Assignment,
+          Token.Variables.ReadWrite("b"),
+          Token.Keywords.As,
+          Token.PrimitiveType.String,
+          Token.Operators.NullCoalescing,
+          Token.Punctuation.String.Begin,
+          Token.Punctuation.String.End,
+          Token.Punctuation.Semicolon,
+        ]);
+      });
+
+      it("as type? ?? (issue #245)", async () => {
+        const input = Input.InMethod(`var a = b as int? ?? 0;`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Keywords.Var,
+          Token.Identifiers.LocalName("a"),
+          Token.Operators.Assignment,
+          Token.Variables.ReadWrite("b"),
+          Token.Keywords.As,
+          Token.PrimitiveType.Int,
+          Token.Punctuation.QuestionMark,
+          Token.Operators.NullCoalescing,
+          Token.Literals.Numeric.Decimal("0"),
+          Token.Punctuation.Semicolon,
+        ]);
+      });
+
+      it("as type[] ?? (issue #245)", async () => {
+        const input = Input.InMethod(`var a = b as int[] ?? new int[0];`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Keywords.Var,
+          Token.Identifiers.LocalName("a"),
+          Token.Operators.Assignment,
+          Token.Variables.ReadWrite("b"),
+          Token.Keywords.As,
+          Token.PrimitiveType.Int,
+          Token.Punctuation.OpenBracket,
+          Token.Punctuation.CloseBracket,
+          Token.Operators.NullCoalescing,
+          Token.Keywords.New,
+          Token.PrimitiveType.Int,
+          Token.Punctuation.OpenBracket,
+          Token.Literals.Numeric.Decimal("0"),
+          Token.Punctuation.CloseBracket,
+          Token.Punctuation.Semicolon,
+        ]);
+      });
     });
 
     describe("Checked/Unchecked", () => {

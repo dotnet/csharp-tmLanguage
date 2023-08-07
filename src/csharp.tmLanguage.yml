@@ -2340,14 +2340,12 @@ repository:
             (?:\s*\.\s*\g<name_and_type_args>)* | # Are there any more names being dotted into?
             (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
           )
-          (?:\s*\?\s*)? # nullable suffix?
+          (?:\s*\?(?!\?))? # nullable suffix?
           (?:\s* # array suffix?
             \[
-              (?:\s*,\s*)* # commata for multi-dimensional arrays
+              \s*(?:,\s*)* # commata for multi-dimensional arrays
             \]
-            \s*
-            (?:\?)? # arrays can be nullable reference types
-            \s*
+            (?:\s*\?(?!\?))? # arrays can be nullable reference types
           )*
         )
       )?
