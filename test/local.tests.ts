@@ -9,7 +9,7 @@ import { tokenize, Input, Token } from './utils/tokenize';
 describe("Locals", () => {
     before(() => { should(); });
 
-    describe("Locals", () => {
+    describe("Local variables", () => {
         it("declaration", async () => {
             const input = Input.InMethod(`int x;`);
             const tokens = await tokenize(input);
@@ -167,9 +167,11 @@ describe("Locals", () => {
                 Token.Punctuation.Semicolon
             ]);
         });
+    });
 
+    describe("Local functions", () => {
         it("local function declaration with arrow body", async () => {
-            const input = Input.InClass(`nuint Add(nuint x, uint y) => x + y;`);
+            const input = Input.InMethod(`nuint Add(nuint x, uint y) => x + y;`);
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
@@ -219,7 +221,7 @@ int Add(int x, int y)
         });
 
         it("local function declaration with async modifier", async () => {
-            const input = Input.InClass(`async void Foo() { }`);
+            const input = Input.InMethod(`async void Foo() { }`);
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
@@ -234,7 +236,7 @@ int Add(int x, int y)
         });
 
         it("local function declaration with unsafe modifier", async () => {
-            const input = Input.InClass(`unsafe void Foo() { }`);
+            const input = Input.InMethod(`unsafe void Foo() { }`);
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
@@ -249,7 +251,7 @@ int Add(int x, int y)
         });
 
         it("local function declaration with static modifier", async () => {
-            const input = Input.InClass(`static void Foo() { }`);
+            const input = Input.InMethod(`static void Foo() { }`);
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
@@ -264,7 +266,7 @@ int Add(int x, int y)
         });
 
         it("local function declaration with extern modifier", async () => {
-            const input = Input.InClass(`extern static void Foo() { }`);
+            const input = Input.InMethod(`extern static void Foo() { }`);
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
