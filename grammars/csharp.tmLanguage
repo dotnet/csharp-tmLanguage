@@ -3329,6 +3329,23 @@
         <key>patterns</key>
         <array>
           <dict>
+            <key>match</key>
+            <string>(@?[_[:alpha:]][_[:alnum:]]*)\s*(:)</string>
+            <key>captures</key>
+            <dict>
+              <key>1</key>
+              <dict>
+                <key>name</key>
+                <string>variable.other.object.property.cs</string>
+              </dict>
+              <key>2</key>
+              <dict>
+                <key>name</key>
+                <string>punctuation.separator.colon.cs</string>
+              </dict>
+            </dict>
+          </dict>
+          <dict>
             <key>include</key>
             <string>#expression</string>
           </dict>
@@ -5941,31 +5958,19 @@
       </dict>
       <key>conditional-operator</key>
       <dict>
-        <key>begin</key>
-        <string>\?(?!\s*[?.\[]|\s*$)</string>
-        <key>beginCaptures</key>
-        <dict>
-          <key>0</key>
-          <dict>
-            <key>name</key>
-            <string>keyword.operator.conditional.question-mark.cs</string>
-          </dict>
-        </dict>
-        <key>end</key>
-        <string>:</string>
-        <key>endCaptures</key>
-        <dict>
-          <key>0</key>
-          <dict>
-            <key>name</key>
-            <string>keyword.operator.conditional.colon.cs</string>
-          </dict>
-        </dict>
         <key>patterns</key>
         <array>
           <dict>
-            <key>include</key>
-            <string>#expression</string>
+            <key>name</key>
+            <string>keyword.operator.conditional.question-mark.cs</string>
+            <key>match</key>
+            <string>\?(?!\?|\s*[.\[])</string>
+          </dict>
+          <dict>
+            <key>name</key>
+            <string>keyword.operator.conditional.colon.cs</string>
+            <key>match</key>
+            <string>:</string>
           </dict>
         </array>
       </dict>
@@ -5974,7 +5979,7 @@
         <key>name</key>
         <string>keyword.other.await.cs</string>
         <key>match</key>
-        <string>(?!\.)\b(await)\b</string>
+        <string>(?&lt;!\.)\b(await)\b</string>
       </dict>
       <key>parenthesized-expression</key>
       <dict>
