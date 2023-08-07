@@ -1032,7 +1032,7 @@ repository:
     begin: (?<!\.)\b(goto)\b
     beginCaptures:
       '1': { name: keyword.control.goto.cs }
-    end: (?=;)
+    end: (?=[;}])
     patterns:
     - begin: \b(case)\b
       beginCaptures:
@@ -1050,7 +1050,7 @@ repository:
     begin: (?<!\.)\b(return)\b
     beginCaptures:
       '1': { name: keyword.control.flow.return.cs }
-    end: (?=;)
+    end: (?=[;}])
     patterns:
     - include: '#ref-modifier'
     - include: '#expression'
@@ -1065,7 +1065,7 @@ repository:
     begin: (?<!\.)\b(throw)\b
     beginCaptures:
       '1': { name: keyword.control.flow.throw.cs }
-    end: (?=;)
+    end: (?=[;}])
     patterns:
     - include: '#expression'
 
@@ -1079,7 +1079,7 @@ repository:
     beginCaptures:
       '1': { name: keyword.control.flow.yield.cs }
       '2': { name: keyword.control.flow.return.cs }
-    end: (?=;)
+    end: (?=[;}])
     patterns:
     - include: '#expression'
 
@@ -1095,7 +1095,7 @@ repository:
     begin: (?<!\.)\b(await)\b
     beginCaptures:
       '1': { name: keyword.other.await.cs }
-    end: (?=;)
+    end: (?=[;}])
     patterns:
     - include: '#statement'
 
