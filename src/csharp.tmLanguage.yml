@@ -1037,7 +1037,7 @@ repository:
     - begin: \b(case)\b
       beginCaptures:
         '1': { name: keyword.control.case.cs }
-      end: (?=;)
+      end: (?=[;}])
       patterns:
       - include: '#expression'
     - match: \b(default)\b
