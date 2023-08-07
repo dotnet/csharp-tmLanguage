@@ -2073,6 +2073,14 @@ repository:
         name: "punctuation.curlybrace.close.cs"
     patterns: [
       {
+        match: "(@?[_[:alpha:]][_[:alnum:]]*)\\s*(:)"
+        captures:
+          "1":
+            name: "variable.other.object.property.cs"
+          "2":
+            name: "punctuation.separator.colon.cs"
+      }
+      {
         include: "#expression"
       }
       {
@@ -3543,22 +3551,19 @@ repository:
       }
     ]
   "conditional-operator":
-    begin: "\\?(?!\\s*[?.\\[]|\\s*$)"
-    beginCaptures:
-      "0":
-        name: "keyword.operator.conditional.question-mark.cs"
-    end: ":"
-    endCaptures:
-      "0":
-        name: "keyword.operator.conditional.colon.cs"
     patterns: [
       {
-        include: "#expression"
+        name: "keyword.operator.conditional.question-mark.cs"
+        match: "\\?(?!\\?|\\s*[.\\[])"
+      }
+      {
+        name: "keyword.operator.conditional.colon.cs"
+        match: ":"
       }
     ]
   "await-expression":
     name: "keyword.other.await.cs"
-    match: "(?!\\.)\\b(await)\\b"
+    match: "(?<!\\.)\\b(await)\\b"
   "parenthesized-expression":
     begin: "\\("
     beginCaptures:
