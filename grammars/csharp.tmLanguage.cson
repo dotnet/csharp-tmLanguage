@@ -2664,9 +2664,69 @@ repository:
       }
     ]
   "local-function-declaration":
+    begin: '''
+      (?x)
+      \\b((?:(?:async|unsafe|static|extern)\\s+)*)
+      (?<type_name>
+        (?:ref\\s+(?:readonly\\s+)?)?   # ref return
+        (?:
+          (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
+          (?<name_and_type_args> # identifier + type arguments (if any)
+            \\g<identifier>\\s*
+            (?<type_args>\\s*<(?:[^<>]|\\g<type_args>)+>\\s*)?
+          )
+          (?:\\s*\\.\\s*\\g<name_and_type_args>)* | # Are there any more names being dotted into?
+          (?<tuple>\\s*\\((?:[^\\(\\)]|\\g<tuple>)+\\))
+        )
+        (?:\\s*\\?)? # nullable suffix?
+        (?:\\s* # array suffix?
+          \\[
+            \\s*(?:,\\s*)* # commata for multi-dimensional arrays
+          \\]
+          (?:\\s*\\?)? # arrays can be nullable reference types
+        )*
+      )\\s+
+      (\\g<identifier>)\\s*
+      (<[^<>]+>)?\\s*
+      (?=\\()
+    '''
+    beginCaptures:
+      "1":
+        patterns: [
+          {
+            include: "#storage-modifier"
+          }
+        ]
+      "2":
+        patterns: [
+          {
+            include: "#type"
+          }
+        ]
+      "7":
+        name: "entity.name.function.cs"
+      "8":
+        patterns: [
+          {
+            include: "#type-parameter-list"
+          }
+        ]
+    end: "(?<=\\})|(?=;)"
     patterns: [
       {
-        include: "#method-declaration"
+        include: "#comment"
+      }
+      {
+        include: "#parenthesized-parameter-list"
+      }
+      {
+        include: "#generic-constraints"
+      }
+      {
+        include: "#expression-body"
+      }
+      {
+        include: "#block"
       }
     ]
   "local-tuple-var-deconstruction":

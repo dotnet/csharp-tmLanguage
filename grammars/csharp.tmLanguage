@@ -4323,11 +4323,92 @@
       </dict>
       <key>local-function-declaration</key>
       <dict>
+        <key>begin</key>
+        <string>(?x)
+\b((?:(?:async|unsafe|static|extern)\s+)*)
+(?&lt;type_name&gt;
+  (?:ref\s+(?:readonly\s+)?)?   # ref return
+  (?:
+    (?:(?&lt;identifier&gt;@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
+    (?&lt;name_and_type_args&gt; # identifier + type arguments (if any)
+      \g&lt;identifier&gt;\s*
+      (?&lt;type_args&gt;\s*&lt;(?:[^&lt;&gt;]|\g&lt;type_args&gt;)+&gt;\s*)?
+    )
+    (?:\s*\.\s*\g&lt;name_and_type_args&gt;)* | # Are there any more names being dotted into?
+    (?&lt;tuple&gt;\s*\((?:[^\(\)]|\g&lt;tuple&gt;)+\))
+  )
+  (?:\s*\?)? # nullable suffix?
+  (?:\s* # array suffix?
+    \[
+      \s*(?:,\s*)* # commata for multi-dimensional arrays
+    \]
+    (?:\s*\?)? # arrays can be nullable reference types
+  )*
+)\s+
+(\g&lt;identifier&gt;)\s*
+(&lt;[^&lt;&gt;]+&gt;)?\s*
+(?=\()</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#storage-modifier</string>
+              </dict>
+            </array>
+          </dict>
+          <key>2</key>
+          <dict>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#type</string>
+              </dict>
+            </array>
+          </dict>
+          <key>7</key>
+          <dict>
+            <key>name</key>
+            <string>entity.name.function.cs</string>
+          </dict>
+          <key>8</key>
+          <dict>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#type-parameter-list</string>
+              </dict>
+            </array>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>(?&lt;=\})|(?=;)</string>
         <key>patterns</key>
         <array>
           <dict>
             <key>include</key>
-            <string>#method-declaration</string>
+            <string>#comment</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#parenthesized-parameter-list</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#generic-constraints</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#expression-body</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#block</string>
           </dict>
         </array>
       </dict>
