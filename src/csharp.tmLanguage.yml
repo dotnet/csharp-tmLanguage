@@ -1129,6 +1129,7 @@ repository:
       '1': { name: keyword.control.switch.cs }
     end: (?<=\})
     patterns:
+    - include: '#comment'
     - begin: \(
       beginCaptures:
         '0': { name: punctuation.parenthesis.open.cs }

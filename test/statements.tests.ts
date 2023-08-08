@@ -657,6 +657,31 @@ switch (i) {
                     Token.Punctuation.CloseBrace
                 ]);
             });
+            
+            it("switch statement with comment (issue #145)", async () => {
+                const input = Input.InMethod(`
+switch (i) /* comment */ {
+default:
+    break;
+}`);
+                const tokens = await tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Keywords.Control.Switch,
+                    Token.Punctuation.OpenParen,
+                    Token.Variables.ReadWrite("i"),
+                    Token.Punctuation.CloseParen,
+                    Token.Comment.MultiLine.Start,
+                    Token.Comment.MultiLine.Text(" comment "),
+                    Token.Comment.MultiLine.End,
+                    Token.Punctuation.OpenBrace,
+                    Token.Keywords.Control.Default,
+                    Token.Punctuation.Colon,
+                    Token.Keywords.Control.Break,
+                    Token.Punctuation.Semicolon,
+                    Token.Punctuation.CloseBrace
+                ]);
+            });
         });
 
         describe("Try", () => {
