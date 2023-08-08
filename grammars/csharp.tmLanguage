@@ -6222,7 +6222,15 @@
   (-&gt;)\s*                                         # preceding pointer arrow?
 )?
 (@?[_[:alpha:]][_[:alnum:]]*)\s*                  # method name
-(?&lt;type_args&gt;\s*&lt;([^&lt;&gt;]|\g&lt;type_args&gt;)+&gt;\s*)?\s*  # type arguments
+(
+  &lt;
+  (?&lt;type_args&gt;
+    [^&lt;&gt;()]+|
+    &lt;\g&lt;type_args&gt;+&gt;|
+    \(\g&lt;type_args&gt;+\)
+  )+
+  &gt;\s*
+)?                                                # type arguments
 (?=\()                                            # open paren of argument list</string>
         <key>beginCaptures</key>
         <dict>
