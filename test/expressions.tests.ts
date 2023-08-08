@@ -2112,28 +2112,6 @@ var result = list.Select(l => new {
         ]);
       });
 
-      it("in argument declaration", async () => {
-        const input = Input.InMethod(`var o = P[in int x, in var y];`);
-        const tokens = await tokenize(input);
-
-        tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("o"),
-          Token.Operators.Assignment,
-          Token.Variables.Property("P"),
-          Token.Punctuation.OpenBracket,
-          Token.Keywords.Modifiers.In,
-          Token.PrimitiveType.Int,
-          Token.Identifiers.LocalName("x"),
-          Token.Punctuation.Comma,
-          Token.Keywords.Modifiers.In,
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("y"),
-          Token.Punctuation.CloseBracket,
-          Token.Punctuation.Semicolon
-        ]);
-      });
-
       it("member of generic with no arguments", async () => {
         const input = Input.InMethod(`var o = C<int>.P[];`);
         const tokens = await tokenize(input);
@@ -2637,25 +2615,6 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
           Token.Identifiers.LocalName("x"),
           Token.Punctuation.Comma,
           Token.Keywords.Modifiers.Out,
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("y"),
-          Token.Punctuation.CloseParen,
-          Token.Punctuation.Semicolon
-        ]);
-      });
-
-      it("in argument declaration", async () => {
-        const input = Input.InMethod(`M(in int x, in var y);`);
-        const tokens = await tokenize(input);
-
-        tokens.should.deep.equal([
-          Token.Identifiers.MethodName("M"),
-          Token.Punctuation.OpenParen,
-          Token.Keywords.Modifiers.In,
-          Token.PrimitiveType.Int,
-          Token.Identifiers.LocalName("x"),
-          Token.Punctuation.Comma,
-          Token.Keywords.Modifiers.In,
           Token.Keywords.Var,
           Token.Identifiers.LocalName("y"),
           Token.Punctuation.CloseParen,

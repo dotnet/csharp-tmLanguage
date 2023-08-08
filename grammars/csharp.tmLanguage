@@ -6876,11 +6876,32 @@
             <key>name</key>
             <string>storage.modifier.cs</string>
             <key>match</key>
-            <string>\b(ref|out|in)\b</string>
+            <string>\b(ref|in)\b</string>
           </dict>
           <dict>
-            <key>include</key>
-            <string>#declaration-expression-local</string>
+            <key>begin</key>
+            <string>\b(out)\b</string>
+            <key>beginCaptures</key>
+            <dict>
+              <key>1</key>
+              <dict>
+                <key>name</key>
+                <string>storage.modifier.cs</string>
+              </dict>
+            </dict>
+            <key>end</key>
+            <string>(?=,|\)|\])</string>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#declaration-expression-local</string>
+              </dict>
+              <dict>
+                <key>include</key>
+                <string>#expression</string>
+              </dict>
+            </array>
           </dict>
           <dict>
             <key>include</key>

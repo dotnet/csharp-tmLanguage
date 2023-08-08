@@ -2754,8 +2754,14 @@ repository:
   argument:
     patterns:
     - name: storage.modifier.cs
-      match: \b(ref|out|in)\b
-    - include: '#declaration-expression-local'
+      match: \b(ref|in)\b
+    - begin: \b(out)\b
+      beginCaptures:
+        '1': { name: storage.modifier.cs }
+      end: (?=,|\)|\])
+      patterns:
+      - include: '#declaration-expression-local'
+      - include: '#expression'
     - include: '#expression'
 
   query-expression:
