@@ -4141,10 +4141,22 @@ repository:
     patterns: [
       {
         name: "storage.modifier.cs"
-        match: "\\b(ref|out|in)\\b"
+        match: "\\b(ref|in)\\b"
       }
       {
-        include: "#declaration-expression-local"
+        begin: "\\b(out)\\b"
+        beginCaptures:
+          "1":
+            name: "storage.modifier.cs"
+        end: "(?=,|\\)|\\])"
+        patterns: [
+          {
+            include: "#declaration-expression-local"
+          }
+          {
+            include: "#expression"
+          }
+        ]
       }
       {
         include: "#expression"
