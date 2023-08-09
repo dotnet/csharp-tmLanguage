@@ -2676,6 +2676,82 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
         ]);
       });
 
+      it("generic with parentheses (issue #200)", async () => {
+        const input = Input.InMethod(`
+v = (a << b) >> (c);
+f(A<B,C>(D+E));
+f(A<B,(C>(D+E)));
+f(A<(B,C)>(D+E));`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Variables.ReadWrite("v"),
+          Token.Operators.Assignment,
+          Token.Punctuation.OpenParen,
+          Token.Variables.ReadWrite("a"),
+          Token.Operators.Bitwise.ShiftLeft,
+          Token.Variables.ReadWrite("b"),
+          Token.Punctuation.CloseParen,
+          Token.Operators.Bitwise.ShiftRight,
+          Token.Punctuation.OpenParen,
+          Token.Variables.ReadWrite("c"),
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.Semicolon,
+
+          Token.Identifiers.MethodName("f"),
+          Token.Punctuation.OpenParen,
+          Token.Identifiers.MethodName("A"),
+          Token.Punctuation.TypeParameters.Begin,
+          Token.Type("B"),
+          Token.Punctuation.Comma,
+          Token.Type("C"),
+          Token.Punctuation.TypeParameters.End,
+          Token.Punctuation.OpenParen,
+          Token.Variables.ReadWrite("D"),
+          Token.Operators.Arithmetic.Addition,
+          Token.Variables.ReadWrite("E"),
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.Semicolon,
+
+          Token.Identifiers.MethodName("f"),
+          Token.Punctuation.OpenParen,
+          Token.Variables.ReadWrite("A"),
+          Token.Operators.Relational.LessThan,
+          Token.Variables.ReadWrite("B"),
+          Token.Punctuation.Comma,
+          Token.Punctuation.OpenParen,
+          Token.Variables.ReadWrite("C"),
+          Token.Operators.Relational.GreaterThan,
+          Token.Punctuation.OpenParen,
+          Token.Variables.ReadWrite("D"),
+          Token.Operators.Arithmetic.Addition,
+          Token.Variables.ReadWrite("E"),
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.Semicolon,
+
+          Token.Identifiers.MethodName("f"),
+          Token.Punctuation.OpenParen,
+          Token.Identifiers.MethodName("A"),
+          Token.Punctuation.TypeParameters.Begin,
+          Token.Punctuation.OpenParen,
+          Token.Type("B"),
+          Token.Punctuation.Comma,
+          Token.Type("C"),
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.TypeParameters.End,
+          Token.Punctuation.OpenParen,
+          Token.Variables.ReadWrite("D"),
+          Token.Operators.Arithmetic.Addition,
+          Token.Variables.ReadWrite("E"),
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.Semicolon,
+        ]);
+      });
+
       it("member of generic with no arguments", async () => {
         const input = Input.InMethod(`C<int>.M();`);
         const tokens = await tokenize(input);

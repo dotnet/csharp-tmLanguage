@@ -2446,7 +2446,15 @@ repository:
         (->)\s*                                         # preceding pointer arrow?
       )?
       (@?[_[:alpha:]][_[:alnum:]]*)\s*                  # method name
-      (?<type_args>\s*<([^<>]|\g<type_args>)+>\s*)?\s*  # type arguments
+      (
+        <
+        (?<type_args>
+          [^<>()]+|
+          <\g<type_args>+>|
+          \(\g<type_args>+\)
+        )+
+        >\s*
+      )?                                                # type arguments
       (?=\()                                            # open paren of argument list
     beginCaptures:
       '1': { name: keyword.operator.null-conditional.cs }
