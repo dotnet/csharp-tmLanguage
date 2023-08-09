@@ -2721,7 +2721,8 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
         const input = Input.InMethod(`
 v = (a << b) >> (c);
 f(A<B,C>(D+E));
-f(A<B,(C>(D+E)));`);
+f(A<B,(C>(D+E)));
+f(A<(B,C)>(D+E));`);
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
@@ -2768,6 +2769,24 @@ f(A<B,(C>(D+E)));`);
           Token.Operators.Arithmetic.Addition,
           Token.Variables.ReadWrite("E"),
           Token.Punctuation.CloseParen,
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.Semicolon,
+
+          Token.Identifiers.MethodName("f"),
+          Token.Punctuation.OpenParen,
+          Token.Identifiers.MethodName("A"),
+          Token.Punctuation.TypeParameters.Begin,
+          Token.Punctuation.OpenParen,
+          Token.Type("B"),
+          Token.Punctuation.Comma,
+          Token.Type("C"),
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.TypeParameters.End,
+          Token.Punctuation.OpenParen,
+          Token.Variables.ReadWrite("D"),
+          Token.Operators.Arithmetic.Addition,
+          Token.Variables.ReadWrite("E"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon,
