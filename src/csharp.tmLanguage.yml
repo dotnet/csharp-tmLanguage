@@ -1168,16 +1168,16 @@ repository:
     endCaptures:
       1: { name: punctuation.separator.colon.cs }
     patterns:
-    - begin: (?!\s|\bwhen\b)
-      end: (?=\bwhen\b|:|})
-      patterns:
-      - include: '#pattern'
     - begin: \b(when)\b
       beginCaptures:
         1: { name: keyword.control.when.cs }
       end: (?=:|})
       patterns:
       - include: '#case-guard'
+    - begin: (?!\s)
+      end: (?=\bwhen\b|:|})
+      patterns:
+      - include: '#pattern'
 
   switch-expression:
     begin: \{
@@ -1187,16 +1187,7 @@ repository:
     endCaptures:
       0: { name: punctuation.curlybrace.close.cs }
     patterns:
-    - begin: (?!\s|\bwhen\b|=>|,)
-      end: (?=\bwhen\b|=>|,|})
-      patterns:
-      - include: '#pattern'
-    - begin: \b(when)\b
-      beginCaptures:
-        1: { name: keyword.control.when.cs }
-      end: (?==>|,|})
-      patterns:
-      - include: '#case-guard'
+    - include: '#punctuation-comma'
     - begin: =>
       beginCaptures:
         0: { name: keyword.operator.arrow.cs }
@@ -1204,7 +1195,16 @@ repository:
       patterns:
       # - include: '#ref-modifier' # not supported yet
       - include: '#expression'
-    - include: '#punctuation-comma'
+    - begin: \b(when)\b
+      beginCaptures:
+        1: { name: keyword.control.when.cs }
+      end: (?==>|,|})
+      patterns:
+      - include: '#case-guard'
+    - begin: (?!\s)
+      end: (?=\bwhen\b|=>|,|})
+      patterns:
+      - include: '#pattern'
 
   case-guard:
     patterns:
