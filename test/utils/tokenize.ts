@@ -482,6 +482,12 @@ export namespace Token {
             export const GreaterThanOrEqual = createToken('>=', 'keyword.operator.relational.cs');
         }
 
+        export namespace Word {
+            export const And = createToken('and', 'keyword.operator.word.and.cs');
+            export const Not = createToken('not', 'keyword.operator.word.not.cs');
+            export const Or = createToken('or', 'keyword.operator.word.or.cs');
+        }
+
         export const Arrow = createToken('=>', 'keyword.operator.arrow.cs');
         export const Assignment = createToken('=', 'keyword.operator.assignment.cs');
         export const Decrement = createToken('--', 'keyword.operator.decrement.cs');
