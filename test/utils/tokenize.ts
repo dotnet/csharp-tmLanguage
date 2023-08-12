@@ -278,7 +278,7 @@ export namespace Token {
             export const Switch = createToken('switch', 'keyword.control.switch.cs');
             export const Throw = createToken('throw', 'keyword.control.flow.throw.cs');
             export const Try = createToken('try', 'keyword.control.try.cs');
-            export const When = createToken('when', 'keyword.control.try.when.cs');
+            export const When = createToken('when', 'keyword.control.when.cs');
             export const While = createToken('while', 'keyword.control.loop.while.cs');
             export const Yield = createToken('yield', 'keyword.control.flow.yield.cs');
         }
@@ -571,6 +571,7 @@ export namespace Token {
         export const Property = (text: string) => createToken(text, 'variable.other.object.property.cs');
         export const ReadWrite = (text: string) => createToken(text, 'variable.other.readwrite.cs');
         export const Base = createToken('base', 'variable.language.base.cs');
+        export const Discard = createToken('_', 'variable.language.discard.cs');
         export const This = createToken('this', 'variable.language.this.cs');
         export const Value = createToken('value', 'variable.other.value.cs');
     }
