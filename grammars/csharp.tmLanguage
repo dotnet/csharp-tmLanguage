@@ -3165,19 +3165,6 @@
         <array>
           <dict>
             <key>begin</key>
-            <string>(?!\s|\bwhen\b)</string>
-            <key>end</key>
-            <string>(?=\bwhen\b|:|})</string>
-            <key>patterns</key>
-            <array>
-              <dict>
-                <key>include</key>
-                <string>#pattern</string>
-              </dict>
-            </array>
-          </dict>
-          <dict>
-            <key>begin</key>
             <string>\b(when)\b</string>
             <key>beginCaptures</key>
             <dict>
@@ -3194,6 +3181,19 @@
               <dict>
                 <key>include</key>
                 <string>#case-guard</string>
+              </dict>
+            </array>
+          </dict>
+          <dict>
+            <key>begin</key>
+            <string>(?!\s)</string>
+            <key>end</key>
+            <string>(?=\bwhen\b|:|})</string>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#pattern</string>
               </dict>
             </array>
           </dict>
@@ -3224,15 +3224,27 @@
         <key>patterns</key>
         <array>
           <dict>
+            <key>include</key>
+            <string>#punctuation-comma</string>
+          </dict>
+          <dict>
             <key>begin</key>
-            <string>(?!\s|\bwhen\b|=&gt;|,)</string>
+            <string>=&gt;</string>
+            <key>beginCaptures</key>
+            <dict>
+              <key>0</key>
+              <dict>
+                <key>name</key>
+                <string>keyword.operator.arrow.cs</string>
+              </dict>
+            </dict>
             <key>end</key>
-            <string>(?=\bwhen\b|=&gt;|,|})</string>
+            <string>(?=,|})</string>
             <key>patterns</key>
             <array>
               <dict>
                 <key>include</key>
-                <string>#pattern</string>
+                <string>#expression</string>
               </dict>
             </array>
           </dict>
@@ -3259,28 +3271,16 @@
           </dict>
           <dict>
             <key>begin</key>
-            <string>=&gt;</string>
-            <key>beginCaptures</key>
-            <dict>
-              <key>0</key>
-              <dict>
-                <key>name</key>
-                <string>keyword.operator.arrow.cs</string>
-              </dict>
-            </dict>
+            <string>(?!\s)</string>
             <key>end</key>
-            <string>(?=,|})</string>
+            <string>(?=\bwhen\b|=&gt;|,|})</string>
             <key>patterns</key>
             <array>
               <dict>
                 <key>include</key>
-                <string>#expression</string>
+                <string>#pattern</string>
               </dict>
             </array>
-          </dict>
-          <dict>
-            <key>include</key>
-            <string>#punctuation-comma</string>
           </dict>
         </array>
       </dict>

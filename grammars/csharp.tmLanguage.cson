@@ -1960,15 +1960,6 @@ repository:
         name: "punctuation.separator.colon.cs"
     patterns: [
       {
-        begin: "(?!\\s|\\bwhen\\b)"
-        end: "(?=\\bwhen\\b|:|})"
-        patterns: [
-          {
-            include: "#pattern"
-          }
-        ]
-      }
-      {
         begin: "\\b(when)\\b"
         beginCaptures:
           "1":
@@ -1977,6 +1968,15 @@ repository:
         patterns: [
           {
             include: "#case-guard"
+          }
+        ]
+      }
+      {
+        begin: "(?!\\s)"
+        end: "(?=\\bwhen\\b|:|})"
+        patterns: [
+          {
+            include: "#pattern"
           }
         ]
       }
@@ -1992,11 +1992,17 @@ repository:
         name: "punctuation.curlybrace.close.cs"
     patterns: [
       {
-        begin: "(?!\\s|\\bwhen\\b|=>|,)"
-        end: "(?=\\bwhen\\b|=>|,|})"
+        include: "#punctuation-comma"
+      }
+      {
+        begin: "=>"
+        beginCaptures:
+          "0":
+            name: "keyword.operator.arrow.cs"
+        end: "(?=,|})"
         patterns: [
           {
-            include: "#pattern"
+            include: "#expression"
           }
         ]
       }
@@ -2013,19 +2019,13 @@ repository:
         ]
       }
       {
-        begin: "=>"
-        beginCaptures:
-          "0":
-            name: "keyword.operator.arrow.cs"
-        end: "(?=,|})"
+        begin: "(?!\\s)"
+        end: "(?=\\bwhen\\b|=>|,|})"
         patterns: [
           {
-            include: "#expression"
+            include: "#pattern"
           }
         ]
-      }
-      {
-        include: "#punctuation-comma"
       }
     ]
   "case-guard":

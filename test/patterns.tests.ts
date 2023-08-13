@@ -4,15 +4,61 @@ import { tokenize, Input, Token } from "./utils/tokenize";
 describe("Patterns", () => {
   before(should);
 
-  describe("is pattern", () => {
+  describe("is operator", () => {
+    it("relational pattern", async () => {
+
+    });
+
+    it("constant pattern", async () => {
+
+    });
+
+    it("declaration pattern", async () => {
+
+    });
+
+    it("var pattern", async () => {
+
+    });
+
+    it("type pattern", async () => {
+
+    });
+
+    it("positional pattern", async () => {
+
+    });
+
+    it("property pattern", async () => {
+
+    });
+
+    it("discard pattern", async () => {
+
+    });
+
+    it("list pattern", async () => {
+
+    });
+
+    it("slice pattern", async () => {
+
+    });
+
+    it("pattern combinators", async () => {
+
+    });
+
+    it("parenthesized pattern", async () => {
+
+    });
+  });
+
+  describe("switch statement", () => {
 
   });
 
-  describe("switch case pattern", () => {
-
-  });
-
-  describe("switch expression pattern", () => {
+  describe("switch expression", () => {
     it("simple", async () => {
       const input = Input.InClass(`
 public decimal Calculate(object thing) =>
@@ -387,7 +433,7 @@ public static decimal ComputeSalesTax(Address location, decimal salePrice) =>
         Token.Literals.Numeric.Decimal("05"),
         Token.Literals.Numeric.Other.Suffix("M"),
         Token.Punctuation.Comma,
-        Token.Comment.LeadingWhitespace("            "),
+        Token.Comment.LeadingWhitespace("      "),
         Token.Comment.SingleLine.Start,
         Token.Comment.SingleLine.Text(" other cases removed for brevity..."),
         Token.Variables.Discard,
