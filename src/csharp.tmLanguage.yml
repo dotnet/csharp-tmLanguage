@@ -123,6 +123,7 @@ repository:
     - include: '#switch-statement-or-expression'
     - include: '#with-expression'
     - include: '#conditional-operator'
+    - include: '#assignment-expression'
     - include: '#expression-operators'
     - include: '#await-expression'
     - include: '#query-expression'
@@ -1216,7 +1217,7 @@ repository:
     begin: (?<!\.)\b(is)\b
     beginCaptures:
       1: { name: keyword.other.is.cs }
-    end: (?=[)}\];:?=&|^]|!=)
+    end: (?=[)}\],;:?=&|^]|!=)
     patterns:
     - include: '#pattern'
 
@@ -1256,7 +1257,7 @@ repository:
     begin: <=?|>=?
     beginCaptures:
       0: { name: keyword.operator.relational.cs }
-    end: (?=[)}\];:?=&|^]|!=|\b(and|or|when)\b)
+    end: (?=[)}\],;:?=&|^]|!=|\b(and|or|when)\b)
     patterns:
     - include: '#expression'
 
@@ -1264,7 +1265,7 @@ repository:
     begin: \b(var)\b
     beginCaptures:
       1: { name: keyword.other.var.cs }
-    end: (?=[)}\];:?=&|^]|!=|\b(and|or|when)\b)
+    end: (?=[)}\],;:?=&|^]|!=|\b(and|or|when)\b)
     patterns:
     - include: '#designation-pattern'
 
@@ -1290,10 +1291,10 @@ repository:
 
   type-pattern:
     begin: (?=@?[_[:alpha:]][_[:alnum:]]*)
-    end: (?=[)}\];:?=&|^]|!=|\b(and|or|when)\b)
+    end: (?=[)}\],;:?=&|^]|!=|\b(and|or|when)\b)
     patterns:
     - begin: \G
-      end: (?=\s|[)}\];:?=&|^]|!=|\b(and|or|when)\b)
+      end: (?=\s|[)}\],;:?=&|^]|!=|\b(and|or|when)\b)
       # hacky solution - can't have whitespace/comments/preprocessor around dot
       patterns:
       # - include: '#intrusive'
@@ -1303,7 +1304,7 @@ repository:
       - include: '#type-array-suffix'
       - include: '#type-nullable-suffix'
     - begin: (?=\s)
-      end: (?=[)}\];:?=&|^]|!=|\b(and|or|when)\b)
+      end: (?=[)}\],;:?=&|^]|!=|\b(and|or|when)\b)
       patterns:
       - include: '#intrusive'
       - include: '#positional-pattern'
@@ -1312,7 +1313,7 @@ repository:
 
   positional-pattern:
     begin: (?=\()
-    end: (?=[)}\];:?=&|^]|!=|\b(and|or|when)\b)
+    end: (?=[)}\],;:?=&|^]|!=|\b(and|or|when)\b)
     patterns:
     - begin: \(
       beginCaptures:
@@ -1324,7 +1325,7 @@ repository:
       - include: '#subpattern'
       - include: '#punctuation-comma'
     - begin: (?<=\))
-      end: (?=[)}\];:?=&|^]|!=|\b(and|or|when)\b)
+      end: (?=[)}\],;:?=&|^]|!=|\b(and|or|when)\b)
       patterns:
       - include: '#intrusive'
       - include: '#property-pattern'
@@ -1332,7 +1333,7 @@ repository:
 
   property-pattern:
     begin: (?={)
-    end: (?=[)}\];:?=&|^]|!=|\b(and|or|when)\b)
+    end: (?=[)}\],;:?=&|^]|!=|\b(and|or|when)\b)
     patterns:
     - begin: \{
       beginCaptures:
@@ -1344,7 +1345,7 @@ repository:
       - include: '#subpattern'
       - include: '#punctuation-comma'
     - begin: (?<=\})
-      end: (?=[)}\];:?=&|^]|!=|\b(and|or|when)\b)
+      end: (?=[)}\],;:?=&|^]|!=|\b(and|or|when)\b)
       patterns:
       - include: '#intrusive'
       - include: '#simple-designation-pattern'
@@ -1363,7 +1364,7 @@ repository:
 
   list-pattern:
     begin: (?=\[)
-    end: (?=[)}\];:?=&|^]|!=|\b(and|or|when)\b)
+    end: (?=[)}\],;:?=&|^]|!=|\b(and|or|when)\b)
     patterns:
     - begin: \[
       beginCaptures:
@@ -1375,7 +1376,7 @@ repository:
       - include: '#pattern'
       - include: '#punctuation-comma'
     - begin: (?<=\])
-      end: (?=[)}\];:?=&|^]|!=|\b(and|or|when)\b)
+      end: (?=[)}\],;:?=&|^]|!=|\b(and|or|when)\b)
       patterns:
       - include: '#intrusive'
       - include: '#simple-designation-pattern'
@@ -2327,6 +2328,15 @@ repository:
     endCaptures:
       '0': { name: punctuation.separator.colon.cs }
 
+  assignment-expression:
+    begin: (=)(?!=|>)
+    beginCaptures:
+      1: { name: keyword.operator.assignment.cs }
+    end: (?=[,\)\];}])
+    patterns:
+    - include: '#ref-modifier'
+    - include: '#expression'
+  
   expression-operators:
     patterns:
     - name: keyword.operator.assignment.compound.cs

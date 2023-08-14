@@ -304,6 +304,9 @@ repository:
         include: "#conditional-operator"
       }
       {
+        include: "#assignment-expression"
+      }
+      {
         include: "#expression-operators"
       }
       {
@@ -2042,7 +2045,7 @@ repository:
     beginCaptures:
       "1":
         name: "keyword.other.is.cs"
-    end: "(?=[)}\\];:?=&|^]|!=)"
+    end: "(?=[)}\\],;:?=&|^]|!=)"
     patterns: [
       {
         include: "#pattern"
@@ -2119,7 +2122,7 @@ repository:
     beginCaptures:
       "0":
         name: "keyword.operator.relational.cs"
-    end: "(?=[)}\\];:?=&|^]|!=|\\b(and|or|when)\\b)"
+    end: "(?=[)}\\],;:?=&|^]|!=|\\b(and|or|when)\\b)"
     patterns: [
       {
         include: "#expression"
@@ -2130,7 +2133,7 @@ repository:
     beginCaptures:
       "1":
         name: "keyword.other.var.cs"
-    end: "(?=[)}\\];:?=&|^]|!=|\\b(and|or|when)\\b)"
+    end: "(?=[)}\\],;:?=&|^]|!=|\\b(and|or|when)\\b)"
     patterns: [
       {
         include: "#designation-pattern"
@@ -2175,11 +2178,11 @@ repository:
     ]
   "type-pattern":
     begin: "(?=@?[_[:alpha:]][_[:alnum:]]*)"
-    end: "(?=[)}\\];:?=&|^]|!=|\\b(and|or|when)\\b)"
+    end: "(?=[)}\\],;:?=&|^]|!=|\\b(and|or|when)\\b)"
     patterns: [
       {
         begin: "\\G"
-        end: "(?=\\s|[)}\\];:?=&|^]|!=|\\b(and|or|when)\\b)"
+        end: "(?=\\s|[)}\\],;:?=&|^]|!=|\\b(and|or|when)\\b)"
         patterns: [
           {
             include: "#type-builtin"
@@ -2200,7 +2203,7 @@ repository:
       }
       {
         begin: "(?=\\s)"
-        end: "(?=[)}\\];:?=&|^]|!=|\\b(and|or|when)\\b)"
+        end: "(?=[)}\\],;:?=&|^]|!=|\\b(and|or|when)\\b)"
         patterns: [
           {
             include: "#intrusive"
@@ -2219,7 +2222,7 @@ repository:
     ]
   "positional-pattern":
     begin: "(?=\\()"
-    end: "(?=[)}\\];:?=&|^]|!=|\\b(and|or|when)\\b)"
+    end: "(?=[)}\\],;:?=&|^]|!=|\\b(and|or|when)\\b)"
     patterns: [
       {
         begin: "\\("
@@ -2241,7 +2244,7 @@ repository:
       }
       {
         begin: "(?<=\\))"
-        end: "(?=[)}\\];:?=&|^]|!=|\\b(and|or|when)\\b)"
+        end: "(?=[)}\\],;:?=&|^]|!=|\\b(and|or|when)\\b)"
         patterns: [
           {
             include: "#intrusive"
@@ -2257,7 +2260,7 @@ repository:
     ]
   "property-pattern":
     begin: "(?={)"
-    end: "(?=[)}\\];:?=&|^]|!=|\\b(and|or|when)\\b)"
+    end: "(?=[)}\\],;:?=&|^]|!=|\\b(and|or|when)\\b)"
     patterns: [
       {
         begin: "\\{"
@@ -2279,7 +2282,7 @@ repository:
       }
       {
         begin: "(?<=\\})"
-        end: "(?=[)}\\];:?=&|^]|!=|\\b(and|or|when)\\b)"
+        end: "(?=[)}\\],;:?=&|^]|!=|\\b(and|or|when)\\b)"
         patterns: [
           {
             include: "#intrusive"
@@ -2314,7 +2317,7 @@ repository:
     ]
   "list-pattern":
     begin: "(?=\\[)"
-    end: "(?=[)}\\];:?=&|^]|!=|\\b(and|or|when)\\b)"
+    end: "(?=[)}\\],;:?=&|^]|!=|\\b(and|or|when)\\b)"
     patterns: [
       {
         begin: "\\["
@@ -2336,7 +2339,7 @@ repository:
       }
       {
         begin: "(?<=\\])"
-        end: "(?=[)}\\];:?=&|^]|!=|\\b(and|or|when)\\b)"
+        end: "(?=[)}\\],;:?=&|^]|!=|\\b(and|or|when)\\b)"
         patterns: [
           {
             include: "#intrusive"
@@ -3660,6 +3663,20 @@ repository:
     endCaptures:
       "0":
         name: "punctuation.separator.colon.cs"
+  "assignment-expression":
+    begin: "(=)(?!=|>)"
+    beginCaptures:
+      "1":
+        name: "keyword.operator.assignment.cs"
+    end: "(?=[,\\)\\];}])"
+    patterns: [
+      {
+        include: "#ref-modifier"
+      }
+      {
+        include: "#expression"
+      }
+    ]
   "expression-operators":
     patterns: [
       {

@@ -429,6 +429,10 @@
           </dict>
           <dict>
             <key>include</key>
+            <string>#assignment-expression</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#expression-operators</string>
           </dict>
           <dict>
@@ -3311,7 +3315,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=[)}\];:?=&amp;|^]|!=)</string>
+        <string>(?=[)}\],;:?=&amp;|^]|!=)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -3431,7 +3435,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=[)}\];:?=&amp;|^]|!=|\b(and|or|when)\b)</string>
+        <string>(?=[)}\],;:?=&amp;|^]|!=|\b(and|or|when)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -3453,7 +3457,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=[)}\];:?=&amp;|^]|!=|\b(and|or|when)\b)</string>
+        <string>(?=[)}\],;:?=&amp;|^]|!=|\b(and|or|when)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -3530,14 +3534,14 @@
         <key>begin</key>
         <string>(?=@?[_[:alpha:]][_[:alnum:]]*)</string>
         <key>end</key>
-        <string>(?=[)}\];:?=&amp;|^]|!=|\b(and|or|when)\b)</string>
+        <string>(?=[)}\],;:?=&amp;|^]|!=|\b(and|or|when)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
             <key>begin</key>
             <string>\G</string>
             <key>end</key>
-            <string>(?=\s|[)}\];:?=&amp;|^]|!=|\b(and|or|when)\b)</string>
+            <string>(?=\s|[)}\],;:?=&amp;|^]|!=|\b(and|or|when)\b)</string>
             <key>patterns</key>
             <array>
               <dict>
@@ -3566,7 +3570,7 @@
             <key>begin</key>
             <string>(?=\s)</string>
             <key>end</key>
-            <string>(?=[)}\];:?=&amp;|^]|!=|\b(and|or|when)\b)</string>
+            <string>(?=[)}\],;:?=&amp;|^]|!=|\b(and|or|when)\b)</string>
             <key>patterns</key>
             <array>
               <dict>
@@ -3594,7 +3598,7 @@
         <key>begin</key>
         <string>(?=\()</string>
         <key>end</key>
-        <string>(?=[)}\];:?=&amp;|^]|!=|\b(and|or|when)\b)</string>
+        <string>(?=[)}\],;:?=&amp;|^]|!=|\b(and|or|when)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -3634,7 +3638,7 @@
             <key>begin</key>
             <string>(?&lt;=\))</string>
             <key>end</key>
-            <string>(?=[)}\];:?=&amp;|^]|!=|\b(and|or|when)\b)</string>
+            <string>(?=[)}\],;:?=&amp;|^]|!=|\b(and|or|when)\b)</string>
             <key>patterns</key>
             <array>
               <dict>
@@ -3658,7 +3662,7 @@
         <key>begin</key>
         <string>(?={)</string>
         <key>end</key>
-        <string>(?=[)}\];:?=&amp;|^]|!=|\b(and|or|when)\b)</string>
+        <string>(?=[)}\],;:?=&amp;|^]|!=|\b(and|or|when)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -3698,7 +3702,7 @@
             <key>begin</key>
             <string>(?&lt;=\})</string>
             <key>end</key>
-            <string>(?=[)}\];:?=&amp;|^]|!=|\b(and|or|when)\b)</string>
+            <string>(?=[)}\],;:?=&amp;|^]|!=|\b(and|or|when)\b)</string>
             <key>patterns</key>
             <array>
               <dict>
@@ -3756,7 +3760,7 @@
         <key>begin</key>
         <string>(?=\[)</string>
         <key>end</key>
-        <string>(?=[)}\];:?=&amp;|^]|!=|\b(and|or|when)\b)</string>
+        <string>(?=[)}\],;:?=&amp;|^]|!=|\b(and|or|when)\b)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -3796,7 +3800,7 @@
             <key>begin</key>
             <string>(?&lt;=\])</string>
             <key>end</key>
-            <string>(?=[)}\];:?=&amp;|^]|!=|\b(and|or|when)\b)</string>
+            <string>(?=[)}\],;:?=&amp;|^]|!=|\b(and|or|when)\b)</string>
             <key>patterns</key>
             <array>
               <dict>
@@ -6155,6 +6159,32 @@
             <string>punctuation.separator.colon.cs</string>
           </dict>
         </dict>
+      </dict>
+      <key>assignment-expression</key>
+      <dict>
+        <key>begin</key>
+        <string>(=)(?!=|&gt;)</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.operator.assignment.cs</string>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>(?=[,\)\];}])</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#ref-modifier</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#expression</string>
+          </dict>
+        </array>
       </dict>
       <key>expression-operators</key>
       <dict>

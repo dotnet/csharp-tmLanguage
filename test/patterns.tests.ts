@@ -5,51 +5,381 @@ describe("Patterns", () => {
   before(should);
 
   describe("is operator", () => {
-    it("relational pattern", async () => {
+    it("Discard pattern", async () => {
+      const input = Input.InMethod(`
+if (var is _) { }
+`);
+      const tokens = await tokenize(input);
 
+      tokens.should.deep.equal([
+        Token.Keywords.Control.If,
+        Token.Punctuation.OpenParen,
+        Token.Variables.ReadWrite("var"),
+        Token.Keywords.Is,
+        Token.Variables.Discard,
+        Token.Punctuation.CloseParen,
+        Token.Punctuation.OpenBrace,
+        Token.Punctuation.CloseBrace,
+      ]);
     });
 
-    it("constant pattern", async () => {
+    it("Constant pattern", async () => {
+      const input = Input.InMethod(`
+if (var is 0) { }
+if (var is null) { }
+if (var is "") { }
+if (var is true) { }
+`);
+      const tokens = await tokenize(input);
 
+      tokens.should.deep.equal([
+        Token.Keywords.Control.If,
+        Token.Punctuation.OpenParen,
+        Token.Variables.ReadWrite("var"),
+        Token.Keywords.Is,
+        Token.Literals.Numeric.Decimal("0"),
+        Token.Punctuation.CloseParen,
+        Token.Punctuation.OpenBrace,
+        Token.Punctuation.CloseBrace,
+
+        Token.Keywords.Control.If,
+        Token.Punctuation.OpenParen,
+        Token.Variables.ReadWrite("var"),
+        Token.Keywords.Is,
+        Token.Literals.Null,
+        Token.Punctuation.CloseParen,
+        Token.Punctuation.OpenBrace,
+        Token.Punctuation.CloseBrace,
+
+        Token.Keywords.Control.If,
+        Token.Punctuation.OpenParen,
+        Token.Variables.ReadWrite("var"),
+        Token.Keywords.Is,
+        Token.Punctuation.String.Begin,
+        Token.Punctuation.String.End,
+        Token.Punctuation.CloseParen,
+        Token.Punctuation.OpenBrace,
+        Token.Punctuation.CloseBrace,
+
+        Token.Keywords.Control.If,
+        Token.Punctuation.OpenParen,
+        Token.Variables.ReadWrite("var"),
+        Token.Keywords.Is,
+        Token.Literals.Boolean.True,
+        Token.Punctuation.CloseParen,
+        Token.Punctuation.OpenBrace,
+        Token.Punctuation.CloseBrace,
+      ]);
     });
 
-    it("declaration pattern", async () => {
+    it("Relational pattern", async () => {
+      const input = Input.InMethod(`
+if (var is > 0) { }
+if (var is < 0) { }
+if (var is >= 0) { }
+if (var is <= 0) { }
+`);
+      const tokens = await tokenize(input);
 
+      tokens.should.deep.equal([
+        Token.Keywords.Control.If,
+        Token.Punctuation.OpenParen,
+        Token.Variables.ReadWrite("var"),
+        Token.Keywords.Is,
+        Token.Operators.Relational.GreaterThan,
+        Token.Literals.Numeric.Decimal("0"),
+        Token.Punctuation.CloseParen,
+        Token.Punctuation.OpenBrace,
+        Token.Punctuation.CloseBrace,
+
+        Token.Keywords.Control.If,
+        Token.Punctuation.OpenParen,
+        Token.Variables.ReadWrite("var"),
+        Token.Keywords.Is,
+        Token.Operators.Relational.LessThan,
+        Token.Literals.Numeric.Decimal("0"),
+        Token.Punctuation.CloseParen,
+        Token.Punctuation.OpenBrace,
+        Token.Punctuation.CloseBrace,
+
+        Token.Keywords.Control.If,
+        Token.Punctuation.OpenParen,
+        Token.Variables.ReadWrite("var"),
+        Token.Keywords.Is,
+        Token.Operators.Relational.GreaterThanOrEqual,
+        Token.Literals.Numeric.Decimal("0"),
+        Token.Punctuation.CloseParen,
+        Token.Punctuation.OpenBrace,
+        Token.Punctuation.CloseBrace,
+
+        Token.Keywords.Control.If,
+        Token.Punctuation.OpenParen,
+        Token.Variables.ReadWrite("var"),
+        Token.Keywords.Is,
+        Token.Operators.Relational.LessThanOrEqual,
+        Token.Literals.Numeric.Decimal("0"),
+        Token.Punctuation.CloseParen,
+        Token.Punctuation.OpenBrace,
+        Token.Punctuation.CloseBrace,
+      ]);
+    });
+
+    it("Declaration pattern", async () => {
+      const input = Input.InMethod(`
+if (var is string str) { }
+if (var is List<int> list) { }
+if (var is int[,] arr) { }
+if (var is Dictionary<string, List<int>> dict) { }
+`);
+      const tokens = await tokenize(input);
+
+      tokens.should.deep.equal([
+        Token.Keywords.Control.If,
+        Token.Punctuation.OpenParen,
+        Token.Variables.ReadWrite("var"),
+        Token.Keywords.Is,
+        Token.PrimitiveType.String,
+        Token.Identifiers.LocalName("str"),
+        Token.Punctuation.CloseParen,
+        Token.Punctuation.OpenBrace,
+        Token.Punctuation.CloseBrace,
+
+        Token.Keywords.Control.If,
+        Token.Punctuation.OpenParen,
+        Token.Variables.ReadWrite("var"),
+        Token.Keywords.Is,
+        Token.Type("List"),
+        Token.Punctuation.TypeParameters.Begin,
+        Token.PrimitiveType.Int,
+        Token.Punctuation.TypeParameters.End,
+        Token.Identifiers.LocalName("list"),
+        Token.Punctuation.CloseParen,
+        Token.Punctuation.OpenBrace,
+        Token.Punctuation.CloseBrace,
+
+        Token.Keywords.Control.If,
+        Token.Punctuation.OpenParen,
+        Token.Variables.ReadWrite("var"),
+        Token.Keywords.Is,
+        Token.PrimitiveType.Int,
+        Token.Punctuation.OpenBracket,
+        Token.Punctuation.Comma,
+        Token.Punctuation.CloseBracket,
+        Token.Identifiers.LocalName("arr"),
+        Token.Punctuation.CloseParen,
+        Token.Punctuation.OpenBrace,
+        Token.Punctuation.CloseBrace,
+
+        Token.Keywords.Control.If,
+        Token.Punctuation.OpenParen,
+        Token.Variables.ReadWrite("var"),
+        Token.Keywords.Is,
+        Token.Type("Dictionary"),
+        Token.Punctuation.TypeParameters.Begin,
+        Token.PrimitiveType.String,
+        Token.Punctuation.Comma,
+        Token.Type("List"),
+        Token.Punctuation.TypeParameters.Begin,
+        Token.PrimitiveType.Int,
+        Token.Punctuation.TypeParameters.End,
+        Token.Punctuation.TypeParameters.End,
+        Token.Identifiers.LocalName("dict"),
+        Token.Punctuation.CloseParen,
+        Token.Punctuation.OpenBrace,
+        Token.Punctuation.CloseBrace,
+      ]);
     });
 
     it("var pattern", async () => {
+      const input = Input.InMethod(`
+if (var is var var) { }
+if (var is var (var, var)) { }
+if (var is var _) { }
+if (var is var (var, _)) { }
+`);
+      const tokens = await tokenize(input);
+
+      tokens.should.deep.equal([
+        Token.Keywords.Control.If,
+        Token.Punctuation.OpenParen,
+        Token.Variables.ReadWrite("var"),
+        Token.Keywords.Is,
+        Token.Keywords.Var,
+        Token.Identifiers.LocalName("var"),
+        Token.Punctuation.CloseParen,
+        Token.Punctuation.OpenBrace,
+        Token.Punctuation.CloseBrace,
+
+        Token.Keywords.Control.If,
+        Token.Punctuation.OpenParen,
+        Token.Variables.ReadWrite("var"),
+        Token.Keywords.Is,
+        Token.Keywords.Var,
+        Token.Punctuation.OpenParen,
+        Token.Identifiers.LocalName("var"),
+        Token.Punctuation.Comma,
+        Token.Identifiers.LocalName("var"),
+        Token.Punctuation.CloseParen,
+        Token.Punctuation.CloseParen,
+        Token.Punctuation.OpenBrace,
+        Token.Punctuation.CloseBrace,
+
+        Token.Keywords.Control.If,
+        Token.Punctuation.OpenParen,
+        Token.Variables.ReadWrite("var"),
+        Token.Keywords.Is,
+        Token.Keywords.Var,
+        Token.Variables.Discard,
+        Token.Punctuation.CloseParen,
+        Token.Punctuation.OpenBrace,
+        Token.Punctuation.CloseBrace,
+
+        Token.Keywords.Control.If,
+        Token.Punctuation.OpenParen,
+        Token.Variables.ReadWrite("var"),
+        Token.Keywords.Is,
+        Token.Keywords.Var,
+        Token.Punctuation.OpenParen,
+        Token.Identifiers.LocalName("var"),
+        Token.Punctuation.Comma,
+        Token.Variables.Discard,
+        Token.Punctuation.CloseParen,
+        Token.Punctuation.CloseParen,
+        Token.Punctuation.OpenBrace,
+        Token.Punctuation.CloseBrace,
+      ]);
+    });
+
+    it("Type pattern", async () => {
+      const input = Input.InMethod(`
+result = obj is string;
+result = obj is List<int>;
+result = obj is int[,];
+result = obj is Dictionary<string, List<int>>;
+`);
+      const tokens = await tokenize(input);
+
+      tokens.should.deep.equal([
+        Token.Variables.ReadWrite("result"),
+        Token.Operators.Assignment,
+        Token.Variables.ReadWrite("obj"),
+        Token.Keywords.Is,
+        Token.PrimitiveType.String,
+        Token.Punctuation.Semicolon,
+
+        Token.Variables.ReadWrite("result"),
+        Token.Operators.Assignment,
+        Token.Variables.ReadWrite("obj"),
+        Token.Keywords.Is,
+        Token.Type("List"),
+        Token.Punctuation.TypeParameters.Begin,
+        Token.PrimitiveType.Int,
+        Token.Punctuation.TypeParameters.End,
+        Token.Punctuation.Semicolon,
+
+        Token.Variables.ReadWrite("result"),
+        Token.Operators.Assignment,
+        Token.Variables.ReadWrite("obj"),
+        Token.Keywords.Is,
+        Token.PrimitiveType.Int,
+        Token.Punctuation.OpenBracket,
+        Token.Punctuation.Comma,
+        Token.Punctuation.CloseBracket,
+        Token.Punctuation.Semicolon,
+
+        Token.Variables.ReadWrite("result"),
+        Token.Operators.Assignment,
+        Token.Variables.ReadWrite("obj"),
+        Token.Keywords.Is,
+        Token.Type("Dictionary"),
+        Token.Punctuation.TypeParameters.Begin,
+        Token.PrimitiveType.String,
+        Token.Punctuation.Comma,
+        Token.Type("List"),
+        Token.Punctuation.TypeParameters.Begin,
+        Token.PrimitiveType.Int,
+        Token.Punctuation.TypeParameters.End,
+        Token.Punctuation.TypeParameters.End,
+        Token.Punctuation.Semicolon,
+      ]);
+    });
+
+    it("Positional sub-pattern", async () => {
+      const input = Input.InMethod(`
+result = (a, b, c, d, e) is
+(
+  _,
+  null,
+  c: > 3,
+  string str,
+  e: List<object>,
+);
+`);
+      const tokens = await tokenize(input);
+
+      tokens.should.deep.equal([
+        Token.Variables.ReadWrite("result"),
+        Token.Operators.Assignment,
+        Token.Punctuation.OpenParen,
+        Token.Variables.ReadWrite("a"),
+        Token.Punctuation.Comma,
+        Token.Variables.ReadWrite("b"),
+        Token.Punctuation.Comma,
+        Token.Variables.ReadWrite("c"),
+        Token.Punctuation.Comma,
+        Token.Variables.ReadWrite("d"),
+        Token.Punctuation.Comma,
+        Token.Variables.ReadWrite("e"),
+        Token.Punctuation.CloseParen,
+        Token.Keywords.Is,
+        Token.Punctuation.OpenParen,
+
+        Token.Variables.Discard,
+        Token.Punctuation.Comma,
+
+        Token.Literals.Null,
+        Token.Punctuation.Comma,
+        
+        Token.Variables.Property("c"),
+        Token.Punctuation.Colon,
+        Token.Operators.Relational.GreaterThan,
+        Token.Literals.Numeric.Decimal("3"),
+        Token.Punctuation.Comma,
+        
+        Token.PrimitiveType.String,
+        Token.Identifiers.LocalName("str"),
+        Token.Punctuation.Comma,
+
+        Token.Variables.Property("e"),
+        Token.Punctuation.Colon,
+        Token.Type("List"),
+        Token.Punctuation.TypeParameters.Begin,
+        Token.PrimitiveType.Object,
+        Token.Punctuation.TypeParameters.End,
+        Token.Punctuation.Comma,
+
+        Token.Punctuation.CloseParen,
+        Token.Punctuation.Semicolon,
+      ]);
+    });
+
+    it("Property pattern", async () => {
 
     });
 
-    it("type pattern", async () => {
+    it("List pattern", async () => {
 
     });
 
-    it("positional pattern", async () => {
+    it("Slice pattern", async () => {
 
     });
 
-    it("property pattern", async () => {
+    it("Pattern combinators", async () => {
 
     });
 
-    it("discard pattern", async () => {
-
-    });
-
-    it("list pattern", async () => {
-
-    });
-
-    it("slice pattern", async () => {
-
-    });
-
-    it("pattern combinators", async () => {
-
-    });
-
-    it("parenthesized pattern", async () => {
+    it("Parenthesized pattern", async () => {
 
     });
   });
