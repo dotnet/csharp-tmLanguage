@@ -339,13 +339,13 @@ result = (a, b, c, d, e) is
 
         Token.Literals.Null,
         Token.Punctuation.Comma,
-        
+
         Token.Variables.Property("c"),
         Token.Punctuation.Colon,
         Token.Operators.Relational.GreaterThan,
         Token.Literals.Numeric.Decimal("3"),
         Token.Punctuation.Comma,
-        
+
         Token.PrimitiveType.String,
         Token.Identifiers.LocalName("str"),
         Token.Punctuation.Comma,

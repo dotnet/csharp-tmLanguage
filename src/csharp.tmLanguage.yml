@@ -2329,9 +2329,11 @@ repository:
       '0': { name: punctuation.separator.colon.cs }
 
   assignment-expression:
-    begin: (=)(?!=|>)
+    begin: (\*=|/=|%=|\+=|-=|\?\?=|\&=|\^=|<<=|>>>?=|\|=|=)(?!=|>)
     beginCaptures:
-      1: { name: keyword.operator.assignment.cs }
+      1:
+        patterns:
+        - include: '#expression-operators'
     end: (?=[,\)\];}])
     patterns:
     - include: '#ref-modifier'

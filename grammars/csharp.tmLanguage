@@ -6163,13 +6163,18 @@
       <key>assignment-expression</key>
       <dict>
         <key>begin</key>
-        <string>(=)(?!=|&gt;)</string>
+        <string>(\*=|/=|%=|\+=|-=|\?\?=|\&amp;=|\^=|&lt;&lt;=|&gt;&gt;&gt;?=|\|=|=)(?!=|&gt;)</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
           <dict>
-            <key>name</key>
-            <string>keyword.operator.assignment.cs</string>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#expression-operators</string>
+              </dict>
+            </array>
           </dict>
         </dict>
         <key>end</key>
