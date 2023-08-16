@@ -1062,7 +1062,7 @@ switch (a)
   });
 
   describe("switch expression", () => {
-    it("simple", async () => {
+    it("Declaration, constant, discard patterns", async () => {
       const input = Input.InClass(`
 public decimal Calculate(object thing) =>
   thing switch
@@ -1192,7 +1192,7 @@ public decimal Calculate(object thing) =>
       ]);
     });
 
-    it("works with enum example", async () => {
+    it("Type pattern", async () => {
       const input = Input.InClass(`
 public static RGBColor FromRainbow(Rainbow colorBand) => colorBand switch
 {
@@ -1363,7 +1363,7 @@ public static RGBColor FromRainbow(Rainbow colorBand) => colorBand switch
       ]);
     });
 
-    it("works with property pattern", async () => {
+    it("Property pattern", async () => {
       const input = Input.InClass(`
 public static decimal ComputeSalesTax(Address location, decimal salePrice) =>
   location switch
@@ -1448,7 +1448,7 @@ public static decimal ComputeSalesTax(Address location, decimal salePrice) =>
       ]);
     });
 
-    it("works with tuple pattern", async () => {
+    it("Positional pattern", async () => {
       const input = Input.InClass(`
 public static string RockPaperScissors(string first, string second)
   => (first, second) switch
@@ -1580,7 +1580,7 @@ public static string RockPaperScissors(string first, string second)
       ]);
     });
 
-    it("works with positional pattern", async () => {
+    it("var pattern", async () => {
       const input = Input.InClass(`
 public static Quadrant GetQuadrant(Point point) => point switch
   {
@@ -1713,7 +1713,7 @@ public static Quadrant GetQuadrant(Point point) => point switch
       ]);
     });
 
-    it("works with nested expressions", async () => {
+    it("when clause", async () => {
       const input = Input.InClass(`
 public decimal CalculateToll(object vehicle) =>
   vehicle switch
