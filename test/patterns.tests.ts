@@ -313,8 +313,7 @@ result = (a, b, c, d, e) is
   c: > 3,
   string str,
   e: List<object>,
-);
-`);
+);`);
       const tokens = await tokenize(input);
 
       tokens.should.deep.equal([
@@ -634,9 +633,211 @@ result = c is
   });
 
   describe("switch statement", () => {
-    it("Supports patterns", async () => {
+    it("Supports all patterns", async () => {
       const input = Input.InMethod(`
-`);
+switch (allPatterns)
+{
+  case (>= 'a' and <= 'z') or (>= 'A' and <= 'Z'):
+  case >= 0 and <= 9 or >= 20 and <= 29:
+  case [_, 1, ..{ Length: > 0 }]:
+  case [1, 2, 3] x:
+  case string { Length: 5 } s:
+  case { IsPreRelease: false, FileName.Length: > 3 and < 10 }:
+  case Foo.Bar (int, not null) { Data.Length: > 0 } y:
+  case (_, null, c: > 3, string str, e: List<object>, ):
+  case Dictionary<string, List<int>>:
+  case int[,] arr:
+  case > 0:
+  case null:
+  case _:
+    break;
+}`);
+      const tokens = await tokenize(input);
+
+      tokens.should.deep.equal([
+        Token.Keywords.Control.Switch,
+        Token.Punctuation.OpenParen,
+        Token.Variables.ReadWrite("allPatterns"),
+        Token.Punctuation.CloseParen,
+        Token.Punctuation.OpenBrace,
+
+        Token.Keywords.Control.Case,
+        Token.Punctuation.OpenParen,
+        Token.Operators.Relational.GreaterThanOrEqual,
+        Token.Punctuation.Char.Begin,
+        Token.Literals.Char("a"),
+        Token.Punctuation.Char.End,
+        Token.Operators.Pattern.And,
+        Token.Operators.Relational.LessThanOrEqual,
+        Token.Punctuation.Char.Begin,
+        Token.Literals.Char("z"),
+        Token.Punctuation.Char.End,
+        Token.Punctuation.CloseParen,
+        Token.Operators.Pattern.Or,
+        Token.Punctuation.OpenParen,
+        Token.Operators.Relational.GreaterThanOrEqual,
+        Token.Punctuation.Char.Begin,
+        Token.Literals.Char("A"),
+        Token.Punctuation.Char.End,
+        Token.Operators.Pattern.And,
+        Token.Operators.Relational.LessThanOrEqual,
+        Token.Punctuation.Char.Begin,
+        Token.Literals.Char("Z"),
+        Token.Punctuation.Char.End,
+        Token.Punctuation.CloseParen,
+        Token.Punctuation.Colon,
+
+        Token.Keywords.Control.Case,
+        Token.Operators.Relational.GreaterThanOrEqual,
+        Token.Literals.Numeric.Decimal("0"),
+        Token.Operators.Pattern.And,
+        Token.Operators.Relational.LessThanOrEqual,
+        Token.Literals.Numeric.Decimal("9"),
+        Token.Operators.Pattern.Or,
+        Token.Operators.Relational.GreaterThanOrEqual,
+        Token.Literals.Numeric.Decimal("20"),
+        Token.Operators.Pattern.And,
+        Token.Operators.Relational.LessThanOrEqual,
+        Token.Literals.Numeric.Decimal("29"),
+        Token.Punctuation.Colon,
+
+        Token.Keywords.Control.Case,
+        Token.Punctuation.OpenBracket,
+        Token.Variables.Discard,
+        Token.Punctuation.Comma,
+        Token.Literals.Numeric.Decimal("1"),
+        Token.Punctuation.Comma,
+        Token.Operators.Range,
+        Token.Punctuation.OpenBrace,
+        Token.Variables.Property("Length"),
+        Token.Punctuation.Colon,
+        Token.Operators.Relational.GreaterThan,
+        Token.Literals.Numeric.Decimal("0"),
+        Token.Punctuation.CloseBrace,
+        Token.Punctuation.CloseBracket,
+        Token.Punctuation.Colon,
+
+        Token.Keywords.Control.Case,
+        Token.Punctuation.OpenBracket,
+        Token.Literals.Numeric.Decimal("1"),
+        Token.Punctuation.Comma,
+        Token.Literals.Numeric.Decimal("2"),
+        Token.Punctuation.Comma,
+        Token.Literals.Numeric.Decimal("3"),
+        Token.Punctuation.CloseBracket,
+        Token.Identifiers.LocalName("x"),
+        Token.Punctuation.Colon,
+
+        Token.Keywords.Control.Case,
+        Token.PrimitiveType.String,
+        Token.Punctuation.OpenBrace,
+        Token.Variables.Property("Length"),
+        Token.Punctuation.Colon,
+        Token.Literals.Numeric.Decimal("5"),
+        Token.Punctuation.CloseBrace,
+        Token.Identifiers.LocalName("s"),
+        Token.Punctuation.Colon,
+
+        Token.Keywords.Control.Case,
+        Token.Punctuation.OpenBrace,
+        Token.Variables.Property("IsPreRelease"),
+        Token.Punctuation.Colon,
+        Token.Literals.Boolean.False,
+        Token.Punctuation.Comma,
+        Token.Variables.Property("FileName"),
+        Token.Punctuation.Accessor,
+        Token.Variables.Property("Length"),
+        Token.Punctuation.Colon,
+        Token.Operators.Relational.GreaterThan,
+        Token.Literals.Numeric.Decimal("3"),
+        Token.Operators.Pattern.And,
+        Token.Operators.Relational.LessThan,
+        Token.Literals.Numeric.Decimal("10"),
+        Token.Punctuation.CloseBrace,
+        Token.Punctuation.Colon,
+
+        Token.Keywords.Control.Case,
+        Token.Type("Foo"),
+        Token.Punctuation.Accessor,
+        Token.Type("Bar"),
+        Token.Punctuation.OpenParen,
+        Token.PrimitiveType.Int,
+        Token.Punctuation.Comma,
+        Token.Operators.Pattern.Not,
+        Token.Literals.Null,
+        Token.Punctuation.CloseParen,
+        Token.Punctuation.OpenBrace,
+        Token.Variables.Property("Data"),
+        Token.Punctuation.Accessor,
+        Token.Variables.Property("Length"),
+        Token.Punctuation.Colon,
+        Token.Operators.Relational.GreaterThan,
+        Token.Literals.Numeric.Decimal("0"),
+        Token.Punctuation.CloseBrace,
+        Token.Identifiers.LocalName("y"),
+        Token.Punctuation.Colon,
+
+        Token.Keywords.Control.Case,
+        Token.Punctuation.OpenParen,
+        Token.Variables.Discard,
+        Token.Punctuation.Comma,
+        Token.Literals.Null,
+        Token.Punctuation.Comma,
+        Token.Variables.Property("c"),
+        Token.Punctuation.Colon,
+        Token.Operators.Relational.GreaterThan,
+        Token.Literals.Numeric.Decimal("3"),
+        Token.Punctuation.Comma,
+        Token.PrimitiveType.String,
+        Token.Identifiers.LocalName("str"),
+        Token.Punctuation.Comma,
+        Token.Variables.Property("e"),
+        Token.Punctuation.Colon,
+        Token.Type("List"),
+        Token.Punctuation.TypeParameters.Begin,
+        Token.PrimitiveType.Object,
+        Token.Punctuation.TypeParameters.End,
+        Token.Punctuation.Comma,
+        Token.Punctuation.CloseParen,
+        Token.Punctuation.Colon,
+
+        Token.Keywords.Control.Case,
+        Token.Type("Dictionary"),
+        Token.Punctuation.TypeParameters.Begin,
+        Token.PrimitiveType.String,
+        Token.Punctuation.Comma,
+        Token.Type("List"),
+        Token.Punctuation.TypeParameters.Begin,
+        Token.PrimitiveType.Int,
+        Token.Punctuation.TypeParameters.End,
+        Token.Punctuation.TypeParameters.End,
+        Token.Punctuation.Colon,
+
+        Token.Keywords.Control.Case,
+        Token.PrimitiveType.Int,
+        Token.Punctuation.OpenBracket,
+        Token.Punctuation.Comma,
+        Token.Punctuation.CloseBracket,
+        Token.Identifiers.LocalName("arr"),
+        Token.Punctuation.Colon,
+
+        Token.Keywords.Control.Case,
+        Token.Operators.Relational.GreaterThan,
+        Token.Literals.Numeric.Decimal("0"),
+        Token.Punctuation.Colon,
+
+        Token.Keywords.Control.Case,
+        Token.Literals.Null,
+        Token.Punctuation.Colon,
+
+        Token.Keywords.Control.Case,
+        Token.Variables.Discard,
+        Token.Punctuation.Colon,
+
+        Token.Keywords.Control.Break,
+        Token.Punctuation.Semicolon,
+        Token.Punctuation.CloseBrace,
+      ]);
     })
 
     it("when clause", async () => {
@@ -644,10 +845,7 @@ result = c is
 switch (a)
 {
     case string str when str.Length is > 3 and not > 8: break;
-    case "" or null or 0: break;
-    case { Length: > 8 or <= 2 }: break;
-    case (first: int, { A: not null, B.C: string }): break;
-    case _: break;
+    case var (x, y) when x is not null && y is int: break;
 }`);
       const tokens = await tokenize(input);
 
@@ -676,55 +874,21 @@ switch (a)
         Token.Punctuation.Semicolon,
 
         Token.Keywords.Control.Case,
-        Token.Punctuation.String.Begin,
-        Token.Punctuation.String.End,
-        Token.Operators.Pattern.Or,
-        Token.Literals.Null,
-        Token.Operators.Pattern.Or,
-        Token.Literals.Numeric.Decimal("0"),
-        Token.Punctuation.Colon,
-        Token.Keywords.Control.Break,
-        Token.Punctuation.Semicolon,
-
-        Token.Keywords.Control.Case,
-        Token.Punctuation.OpenBrace,
-        Token.Variables.Property("Length"),
-        Token.Punctuation.Colon,
-        Token.Operators.Relational.GreaterThan,
-        Token.Literals.Numeric.Decimal("8"),
-        Token.Operators.Pattern.Or,
-        Token.Operators.Relational.LessThanOrEqual,
-        Token.Literals.Numeric.Decimal("2"),
-        Token.Punctuation.CloseBrace,
-        Token.Punctuation.Colon,
-        Token.Keywords.Control.Break,
-        Token.Punctuation.Semicolon,
-
-        Token.Keywords.Control.Case,
+        Token.Keywords.Var,
         Token.Punctuation.OpenParen,
-        Token.Variables.Property("first"),
-        Token.Punctuation.Colon,
-        Token.PrimitiveType.Int,
+        Token.Identifiers.LocalName("x"),
         Token.Punctuation.Comma,
-        Token.Punctuation.OpenBrace,
-        Token.Variables.Property("A"),
-        Token.Punctuation.Colon,
+        Token.Identifiers.LocalName("y"),
+        Token.Punctuation.CloseParen,
+        Token.Keywords.Control.When,
+        Token.Variables.ReadWrite("x"),
+        Token.Operators.Pattern.Is,
         Token.Operators.Pattern.Not,
         Token.Literals.Null,
-        Token.Punctuation.Comma,
-        Token.Variables.Property("B"),
-        Token.Punctuation.Accessor,
-        Token.Variables.Property("C"),
-        Token.Punctuation.Colon,
-        Token.PrimitiveType.String,
-        Token.Punctuation.CloseBrace,
-        Token.Punctuation.CloseParen,
-        Token.Punctuation.Colon,
-        Token.Keywords.Control.Break,
-        Token.Punctuation.Semicolon,
-
-        Token.Keywords.Control.Case,
-        Token.Variables.Discard,
+        Token.Operators.Logical.And,
+        Token.Variables.ReadWrite("y"),
+        Token.Operators.Pattern.Is,
+        Token.PrimitiveType.Int,
         Token.Punctuation.Colon,
         Token.Keywords.Control.Break,
         Token.Punctuation.Semicolon,
@@ -733,7 +897,7 @@ switch (a)
       ]);
     });
 
-    it("handles line breaks", async () => {
+    it("Handles line breaks", async () => {
       const input = Input.InMethod(`
 switch (a)
 {
