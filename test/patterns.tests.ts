@@ -902,7 +902,7 @@ switch (a)
 switch (a)
 {
   case
-    string
+    string?
     str
     when
     str
@@ -972,6 +972,7 @@ switch (a)
 
         Token.Keywords.Control.Case,
         Token.PrimitiveType.String,
+        Token.Punctuation.QuestionMark,
         Token.Identifiers.LocalName("str"),
         Token.Keywords.Control.When,
         Token.Variables.ReadWrite("str"),

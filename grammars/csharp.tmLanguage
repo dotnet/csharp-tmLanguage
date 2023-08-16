@@ -3541,7 +3541,7 @@
             <key>begin</key>
             <string>\G</string>
             <key>end</key>
-            <string>(?!\G[@_[:alpha:]])(?=[\({@_[:alpha:])}\],;:?=&amp;|^]|!=|\b(and|or|when)\b)</string>
+            <string>(?!\G[@_[:alpha:]])(?=[\({@_[:alpha:])}\],;:=&amp;|^]|(?:\s|^)\?|!=|\b(and|or|when)\b)</string>
             <key>patterns</key>
             <array>
               <dict>
@@ -3661,6 +3661,12 @@
           <dict>
             <key>include</key>
             <string>#type-array-suffix</string>
+          </dict>
+          <dict>
+            <key>match</key>
+            <string>(?&lt;!\s)\?</string>
+            <key>name</key>
+            <string>punctuation.separator.question-mark.cs</string>
           </dict>
         </array>
       </dict>

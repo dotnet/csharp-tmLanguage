@@ -1294,7 +1294,7 @@ repository:
     end: (?=[)}\],;:?=&|^]|!=|\b(and|or|when)\b)
     patterns:
     - begin: \G
-      end: (?!\G[@_[:alpha:]])(?=[\({@_[:alpha:])}\],;:?=&|^]|!=|\b(and|or|when)\b)
+      end: (?!\G[@_[:alpha:]])(?=[\({@_[:alpha:])}\],;:=&|^]|(?:\s|^)\?|!=|\b(and|or|when)\b)
       patterns:
       - include: '#intrusive'
       - include: '#type-subpattern'
@@ -1330,6 +1330,8 @@ repository:
         name: entity.name.type.cs
     - include: '#type-arguments'
     - include: '#type-array-suffix'
+    - match: (?<!\s)\?
+      name: punctuation.separator.question-mark.cs
 
   positional-pattern:
     begin: (?=\()

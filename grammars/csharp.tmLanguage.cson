@@ -2182,7 +2182,7 @@ repository:
     patterns: [
       {
         begin: "\\G"
-        end: "(?!\\G[@_[:alpha:]])(?=[\\({@_[:alpha:])}\\],;:?=&|^]|!=|\\b(and|or|when)\\b)"
+        end: "(?!\\G[@_[:alpha:]])(?=[\\({@_[:alpha:])}\\],;:=&|^]|(?:\\s|^)\\?|!=|\\b(and|or|when)\\b)"
         patterns: [
           {
             include: "#intrusive"
@@ -2259,6 +2259,10 @@ repository:
       }
       {
         include: "#type-array-suffix"
+      }
+      {
+        match: "(?<!\\s)\\?"
+        name: "punctuation.separator.question-mark.cs"
       }
     ]
   "positional-pattern":
