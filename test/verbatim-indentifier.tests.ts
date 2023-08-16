@@ -580,7 +580,7 @@ const string @class = obj.@class;`);
                 Token.Identifiers.LocalName("x"),
                 Token.Operators.Assignment,
                 Token.Variables.ReadWrite("@variable"),
-                Token.Keywords.Is,
+                Token.Operators.Pattern.Is,
                 Token.Type("@class"),
                 Token.Punctuation.Semicolon
             ]);

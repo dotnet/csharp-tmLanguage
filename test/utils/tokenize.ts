@@ -366,7 +366,6 @@ export namespace Token {
         export const Implicit = createToken('implicit', 'keyword.other.implicit.cs');
         export const Init = createToken('init', 'keyword.other.init.cs');
         export const Interface = createToken('interface', 'keyword.other.interface.cs');
-        export const Is = createToken('is', 'keyword.other.is.cs');
         export const Lock = createToken('lock', 'keyword.other.lock.cs');
         export const NameOf = createToken('nameof', 'keyword.other.nameof.cs');
         export const Namespace = createToken('namespace', 'keyword.other.namespace.cs');
@@ -482,10 +481,11 @@ export namespace Token {
             export const GreaterThanOrEqual = createToken('>=', 'keyword.operator.relational.cs');
         }
 
-        export namespace Word {
-            export const And = createToken('and', 'keyword.operator.word.and.cs');
-            export const Not = createToken('not', 'keyword.operator.word.not.cs');
-            export const Or = createToken('or', 'keyword.operator.word.or.cs');
+        export namespace Pattern {
+            export const And = createToken('and', 'keyword.operator.word.pattern.combinator.and.cs');
+            export const Is = createToken('is', 'keyword.operator.word.pattern.is.cs');
+            export const Not = createToken('not', 'keyword.operator.word.pattern.combinator.not.cs');
+            export const Or = createToken('or', 'keyword.operator.word.pattern.combinator.or.cs');
         }
 
         export const Arrow = createToken('=>', 'keyword.operator.arrow.cs');
