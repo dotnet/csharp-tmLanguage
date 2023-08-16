@@ -2,7 +2,7 @@ import { should } from "chai";
 import { tokenize, Input, Token } from "./utils/tokenize";
 
 describe("Patterns", () => {
-  before(should);
+  before(() => { should(); });
 
   describe("is operator", () => {
     it("Discard pattern", async () => {
@@ -364,7 +364,7 @@ result = (a, b, c, d, e) is
 
     it("Positional pattern", async () => {
       const input = Input.InMethod(`
-if (x is Foo.Bar (int, not null) { Data.Length: > 0 } y) { }
+if (x is Foo.Bar(int, not null) { Data.Length: > 0 } y) { }
 `);
       const tokens = await tokenize(input);
 
@@ -946,7 +946,19 @@ switch (a)
     )
     : break;
   case
-    _
+    global ::
+    System
+    .
+    Collections
+    .
+    Generic
+    .
+    List
+    <
+      int
+    >
+    [
+    ]
     : break;
 }`);
       const tokens = await tokenize(input);
@@ -1025,7 +1037,20 @@ switch (a)
         Token.Punctuation.Semicolon,
 
         Token.Keywords.Control.Case,
-        Token.Variables.Discard,
+        Token.Identifiers.AliasName("global"),
+        Token.Punctuation.ColonColon,
+        Token.Type("System"),
+        Token.Punctuation.Accessor,
+        Token.Type("Collections"),
+        Token.Punctuation.Accessor,
+        Token.Type("Generic"),
+        Token.Punctuation.Accessor,
+        Token.Type("List"),
+        Token.Punctuation.TypeParameters.Begin,
+        Token.PrimitiveType.Int,
+        Token.Punctuation.TypeParameters.End,
+        Token.Punctuation.OpenBracket,
+        Token.Punctuation.CloseBracket,
         Token.Punctuation.Colon,
         Token.Keywords.Control.Break,
         Token.Punctuation.Semicolon,

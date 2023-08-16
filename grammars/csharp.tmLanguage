@@ -3541,34 +3541,22 @@
             <key>begin</key>
             <string>\G</string>
             <key>end</key>
-            <string>(?=\s|[)}\],;:?=&amp;|^]|!=|\b(and|or|when)\b)</string>
+            <string>(?!\G[@_[:alpha:]])(?=[\({@_[:alpha:])}\],;:?=&amp;|^]|!=|\b(and|or|when)\b)</string>
             <key>patterns</key>
             <array>
               <dict>
                 <key>include</key>
-                <string>#type-builtin</string>
+                <string>#intrusive</string>
               </dict>
               <dict>
                 <key>include</key>
-                <string>#type-name</string>
-              </dict>
-              <dict>
-                <key>include</key>
-                <string>#type-arguments</string>
-              </dict>
-              <dict>
-                <key>include</key>
-                <string>#type-array-suffix</string>
-              </dict>
-              <dict>
-                <key>include</key>
-                <string>#type-nullable-suffix</string>
+                <string>#type-subpattern</string>
               </dict>
             </array>
           </dict>
           <dict>
             <key>begin</key>
-            <string>(?=\s)</string>
+            <string>(?=[\({@_[:alpha:]])</string>
             <key>end</key>
             <string>(?=[)}\],;:?=&amp;|^]|!=|\b(and|or|when)\b)</string>
             <key>patterns</key>
@@ -3590,6 +3578,89 @@
                 <string>#simple-designation-pattern</string>
               </dict>
             </array>
+          </dict>
+        </array>
+      </dict>
+      <key>type-subpattern</key>
+      <dict>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#type-builtin</string>
+          </dict>
+          <dict>
+            <key>begin</key>
+            <string>(@?[_[:alpha:]][_[:alnum:]]*)\s*(::)</string>
+            <key>beginCaptures</key>
+            <dict>
+              <key>1</key>
+              <dict>
+                <key>name</key>
+                <string>entity.name.type.alias.cs</string>
+              </dict>
+              <key>2</key>
+              <dict>
+                <key>name</key>
+                <string>punctuation.separator.coloncolon.cs</string>
+              </dict>
+            </dict>
+            <key>end</key>
+            <string>(?&lt;=[_[:alnum:]])|(?=[.&lt;\[\({)}\],;:?=&amp;|^]|!=|\b(and|or|when)\b)</string>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#intrusive</string>
+              </dict>
+              <dict>
+                <key>match</key>
+                <string>\@?[_[:alpha:]][_[:alnum:]]*</string>
+                <key>name</key>
+                <string>entity.name.type.cs</string>
+              </dict>
+            </array>
+          </dict>
+          <dict>
+            <key>match</key>
+            <string>\@?[_[:alpha:]][_[:alnum:]]*</string>
+            <key>name</key>
+            <string>entity.name.type.cs</string>
+          </dict>
+          <dict>
+            <key>begin</key>
+            <string>\.</string>
+            <key>beginCaptures</key>
+            <dict>
+              <key>0</key>
+              <dict>
+                <key>name</key>
+                <string>punctuation.accessor.cs</string>
+              </dict>
+            </dict>
+            <key>end</key>
+            <string>(?&lt;=[_[:alnum:]])|(?=[&lt;\[\({)}\],;:?=&amp;|^]|!=|\b(and|or|when)\b)</string>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#intrusive</string>
+              </dict>
+              <dict>
+                <key>match</key>
+                <string>\@?[_[:alpha:]][_[:alnum:]]*</string>
+                <key>name</key>
+                <string>entity.name.type.cs</string>
+              </dict>
+            </array>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#type-arguments</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#type-array-suffix</string>
           </dict>
         </array>
       </dict>

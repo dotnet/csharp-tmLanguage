@@ -1294,22 +1294,42 @@ repository:
     end: (?=[)}\],;:?=&|^]|!=|\b(and|or|when)\b)
     patterns:
     - begin: \G
-      end: (?=\s|[)}\],;:?=&|^]|!=|\b(and|or|when)\b)
-      # hacky solution - can't have whitespace/comments/preprocessor around dot
+      end: (?!\G[@_[:alpha:]])(?=[\({@_[:alpha:])}\],;:?=&|^]|!=|\b(and|or|when)\b)
       patterns:
-      # - include: '#intrusive'
-      - include: '#type-builtin'
-      - include: '#type-name'
-      - include: '#type-arguments'
-      - include: '#type-array-suffix'
-      - include: '#type-nullable-suffix'
-    - begin: (?=\s)
+      - include: '#intrusive'
+      - include: '#type-subpattern'
+    - begin: (?=[\({@_[:alpha:]])
       end: (?=[)}\],;:?=&|^]|!=|\b(and|or|when)\b)
       patterns:
       - include: '#intrusive'
       - include: '#positional-pattern'
       - include: '#property-pattern'
       - include: '#simple-designation-pattern'
+
+  type-subpattern:
+    patterns:
+    - include: '#type-builtin'
+    - begin: (@?[_[:alpha:]][_[:alnum:]]*)\s*(::)
+      beginCaptures:
+        1: { name: entity.name.type.alias.cs }
+        2: { name: punctuation.separator.coloncolon.cs }
+      end: (?<=[_[:alnum:]])|(?=[.<\[\({)}\],;:?=&|^]|!=|\b(and|or|when)\b)
+      patterns:
+      - include: '#intrusive'
+      - match: \@?[_[:alpha:]][_[:alnum:]]*
+        name: entity.name.type.cs
+    - match: \@?[_[:alpha:]][_[:alnum:]]*
+      name: entity.name.type.cs
+    - begin: \.
+      beginCaptures:
+        0: { name: punctuation.accessor.cs }
+      end: (?<=[_[:alnum:]])|(?=[<\[\({)}\],;:?=&|^]|!=|\b(and|or|when)\b)
+      patterns:
+      - include: '#intrusive'
+      - match: \@?[_[:alpha:]][_[:alnum:]]*
+        name: entity.name.type.cs
+    - include: '#type-arguments'
+    - include: '#type-array-suffix'
 
   positional-pattern:
     begin: (?=\()
