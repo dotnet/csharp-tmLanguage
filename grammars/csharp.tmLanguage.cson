@@ -2044,7 +2044,7 @@ repository:
     begin: "(?<!\\.)\\b(is)\\b"
     beginCaptures:
       "1":
-        name: "keyword.other.is.cs"
+        name: "keyword.operator.word.pattern.is.cs"
     end: "(?=[)}\\],;:?=&|^]|!=)"
     patterns: [
       {
@@ -2089,7 +2089,7 @@ repository:
     ]
   "combinator-pattern":
     match: "\\b(and|or|not)\\b"
-    name: "keyword.operator.word.$1.cs"
+    name: "keyword.operator.word.pattern.combinator.$1.cs"
   "discard-pattern":
     match: "_(?![_[:alnum:]])"
     name: "variable.language.discard.cs"
