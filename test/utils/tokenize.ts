@@ -278,7 +278,7 @@ export namespace Token {
             export const Switch = createToken('switch', 'keyword.control.switch.cs');
             export const Throw = createToken('throw', 'keyword.control.flow.throw.cs');
             export const Try = createToken('try', 'keyword.control.try.cs');
-            export const When = createToken('when', 'keyword.control.try.when.cs');
+            export const When = createToken('when', 'keyword.control.when.cs');
             export const While = createToken('while', 'keyword.control.loop.while.cs');
             export const Yield = createToken('yield', 'keyword.control.flow.yield.cs');
         }
@@ -366,7 +366,6 @@ export namespace Token {
         export const Implicit = createToken('implicit', 'keyword.other.implicit.cs');
         export const Init = createToken('init', 'keyword.other.init.cs');
         export const Interface = createToken('interface', 'keyword.other.interface.cs');
-        export const Is = createToken('is', 'keyword.other.is.cs');
         export const Lock = createToken('lock', 'keyword.other.lock.cs');
         export const NameOf = createToken('nameof', 'keyword.other.nameof.cs');
         export const Namespace = createToken('namespace', 'keyword.other.namespace.cs');
@@ -482,6 +481,13 @@ export namespace Token {
             export const GreaterThanOrEqual = createToken('>=', 'keyword.operator.relational.cs');
         }
 
+        export namespace Pattern {
+            export const And = createToken('and', 'keyword.operator.word.pattern.combinator.and.cs');
+            export const Is = createToken('is', 'keyword.operator.word.pattern.is.cs');
+            export const Not = createToken('not', 'keyword.operator.word.pattern.combinator.not.cs');
+            export const Or = createToken('or', 'keyword.operator.word.pattern.combinator.or.cs');
+        }
+
         export const Arrow = createToken('=>', 'keyword.operator.arrow.cs');
         export const Assignment = createToken('=', 'keyword.operator.assignment.cs');
         export const Decrement = createToken('--', 'keyword.operator.decrement.cs');
@@ -571,6 +577,7 @@ export namespace Token {
         export const Property = (text: string) => createToken(text, 'variable.other.object.property.cs');
         export const ReadWrite = (text: string) => createToken(text, 'variable.other.readwrite.cs');
         export const Base = createToken('base', 'variable.language.base.cs');
+        export const Discard = createToken('_', 'variable.language.discard.cs');
         export const This = createToken('this', 'variable.language.this.cs');
         export const Value = createToken('value', 'variable.other.value.cs');
     }

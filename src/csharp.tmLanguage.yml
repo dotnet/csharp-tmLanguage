@@ -86,7 +86,7 @@ repository:
     - include: '#foreach-statement'
     - include: '#if-statement'
     - include: '#else-part'
-    - include: '#switch-statement'
+    # - include: '#switch-statement'
     - include: '#goto-statement'
     - include: '#return-statement'
     - include: '#break-or-continue-statement'
@@ -120,9 +120,10 @@ repository:
     - include: '#verbatim-interpolated-string'
     - include: '#type-builtin'
     - include: '#language-variable'
-    - include: '#switch-expression'
+    - include: '#switch-statement-or-expression'
     - include: '#with-expression'
     - include: '#conditional-operator'
+    - include: '#assignment-expression'
     - include: '#expression-operators'
     - include: '#await-expression'
     - include: '#query-expression'
@@ -1103,7 +1104,7 @@ repository:
     begin: (?<!\.)\b(if)\b\s*(?=\()
     beginCaptures:
       '1': { name: keyword.control.conditional.if.cs }
-    end: (?<=\})|(?=;)
+    end: (?<=})|(?=;)
     patterns:
     - begin: \(
       beginCaptures:
@@ -1119,194 +1120,292 @@ repository:
     begin: (?<!\.)\b(else)\b
     beginCaptures:
       '1': { name: keyword.control.conditional.else.cs }
-    end: (?<=\})|(?=;)
+    end: (?<=})|(?=;)
     patterns:
     - include: '#statement'
 
-  switch-statement:
-    begin: (?<!\.)\b(switch)\b\s*(?=\()
+  switch-statement-or-expression:
+    begin: (?<!\.)\b(switch)\b
     beginCaptures:
-      '1': { name: keyword.control.switch.cs }
-    end: (?<=\})
+      1: { name: keyword.control.switch.cs }
+    end: (?<=})|(?=})
     patterns:
-    - include: '#comment'
+    - include: '#intrusive'
+    - begin: (?=\()
+      end: (?<=\})|(?=\})
+      patterns:
+      - include: '#switch-statement'
+    - begin: (?=\{)
+      end: (?<=\})|(?=\})
+      patterns:
+      - include: '#switch-expression'
+
+  switch-statement:
+    patterns:
+    - include: '#intrusive'
     - begin: \(
       beginCaptures:
-        '0': { name: punctuation.parenthesis.open.cs }
+        0: { name: punctuation.parenthesis.open.cs }
       end: \)
       endCaptures:
-        '0': { name: punctuation.parenthesis.close.cs }
+        0: { name: punctuation.parenthesis.close.cs }
       patterns:
       - include: '#expression'
     - begin: \{
       beginCaptures:
-        '0': { name: punctuation.curlybrace.open.cs }
+        0: { name: punctuation.curlybrace.open.cs }
       end: \}
       endCaptures:
-        '0': { name: punctuation.curlybrace.close.cs }
+        0: { name: punctuation.curlybrace.close.cs }
       patterns:
       - include: '#switch-label'
       - include: '#statement'
 
-  switch-expression:
-    begin: (?x) (?<!\.)\b(switch)\b
+  switch-label:
+    begin: \b(case|default)\b
     beginCaptures:
-      '1': { name: keyword.control.switch.cs }
-    end: (?<=\})
+      1: { name: keyword.control.$1.cs }
+    end: (:)|(?=})
     endCaptures:
-      '0': { name: punctuation.curlybrace.close.cs }
+      1: { name: punctuation.separator.colon.cs }
+    patterns:
+    - begin: \b(when)\b
+      beginCaptures:
+        1: { name: keyword.control.when.cs }
+      end: (?=:|})
+      patterns:
+      - include: '#case-guard'
+    - begin: (?!\s)
+      end: (?=\bwhen\b|:|})
+      patterns:
+      - include: '#pattern'
+
+  switch-expression:
+    begin: \{
+    beginCaptures:
+      0: { name: punctuation.curlybrace.open.cs }
+    end: \}
+    endCaptures:
+      0: { name: punctuation.curlybrace.close.cs }
+    patterns:
+    - include: '#punctuation-comma'
+    - begin: =>
+      beginCaptures:
+        0: { name: keyword.operator.arrow.cs }
+      end: (?=,|})
+      patterns:
+      # - include: '#ref-modifier' # not supported yet
+      - include: '#expression'
+    - begin: \b(when)\b
+      beginCaptures:
+        1: { name: keyword.control.when.cs }
+      end: (?==>|,|})
+      patterns:
+      - include: '#case-guard'
+    - begin: (?!\s)
+      end: (?=\bwhen\b|=>|,|})
+      patterns:
+      - include: '#pattern'
+
+  case-guard:
+    patterns:
+    # conditional_expression should not contain lambda_expression -> consume ( early
+    - include: '#parenthesized-expression'
+    - include: '#expression'
+
+  is-expression:
+    begin: (?<!\.)\b(is)\b
+    beginCaptures:
+      1: { name: keyword.operator.word.pattern.is.cs }
+    end: (?=[)}\],;:?=&|^]|!=)
+    patterns:
+    - include: '#pattern'
+
+  pattern:
+    patterns:
+    - include: '#intrusive'
+    - include: '#combinator-pattern'
+    - include: '#discard-pattern'
+    - include: '#constant-pattern'
+    - include: '#relational-pattern'
+    - include: '#var-pattern'
+    - include: '#type-pattern'
+    - include: '#positional-pattern'
+    - include: '#property-pattern'
+    - include: '#list-pattern'
+    - include: '#slice-pattern'
+
+  combinator-pattern:
+    match: \b(and|or|not)\b
+    name: keyword.operator.word.pattern.combinator.$1.cs
+
+  discard-pattern:
+    match: _(?![_[:alnum:]])
+    name: variable.language.discard.cs
+
+  constant-pattern:
+    patterns:
+    - include: '#boolean-literal'
+    - include: '#null-literal'
+    - include: '#numeric-literal'
+    - include: '#char-literal'
+    - include: '#string-literal'
+    - include: '#raw-string-literal'
+    - include: '#verbatim-string-literal'
+
+  relational-pattern:
+    begin: <=?|>=?
+    beginCaptures:
+      0: { name: keyword.operator.relational.cs }
+    end: (?=[)}\],;:?=&|^]|!=|\b(and|or|when)\b)
+    patterns:
+    - include: '#expression'
+
+  var-pattern:
+    begin: \b(var)\b
+    beginCaptures:
+      1: { name: keyword.other.var.cs }
+    end: (?=[)}\],;:?=&|^]|!=|\b(and|or|when)\b)
+    patterns:
+    - include: '#designation-pattern'
+
+  designation-pattern:
+    patterns:
+    - include: '#intrusive'
+    - begin: \(
+      beginCaptures:
+        0: { name: punctuation.parenthesis.open.cs }
+      end: \)
+      endCaptures:
+        0: { name: punctuation.parenthesis.close.cs }
+      patterns:
+      - include: '#punctuation-comma'
+      - include: '#designation-pattern'
+    - include: '#simple-designation-pattern'
+
+  simple-designation-pattern:
+    patterns:
+    - include: '#discard-pattern'
+    - match: '@?[_[:alpha:]][_[:alnum:]]*'
+      name: entity.name.variable.local.cs
+
+  type-pattern:
+    begin: (?=@?[_[:alpha:]][_[:alnum:]]*)
+    end: (?=[)}\],;:?=&|^]|!=|\b(and|or|when)\b)
+    patterns:
+    - begin: \G
+      end: (?!\G[@_[:alpha:]])(?=[\({@_[:alpha:])}\],;:=&|^]|(?:\s|^)\?|!=|\b(and|or|when)\b)
+      patterns:
+      - include: '#intrusive'
+      - include: '#type-subpattern'
+    - begin: (?=[\({@_[:alpha:]])
+      end: (?=[)}\],;:?=&|^]|!=|\b(and|or|when)\b)
+      patterns:
+      - include: '#intrusive'
+      - include: '#positional-pattern'
+      - include: '#property-pattern'
+      - include: '#simple-designation-pattern'
+
+  type-subpattern:
+    patterns:
+    - include: '#type-builtin'
+    - begin: (@?[_[:alpha:]][_[:alnum:]]*)\s*(::)
+      beginCaptures:
+        1: { name: entity.name.type.alias.cs }
+        2: { name: punctuation.separator.coloncolon.cs }
+      end: (?<=[_[:alnum:]])|(?=[.<\[\({)}\],;:?=&|^]|!=|\b(and|or|when)\b)
+      patterns:
+      - include: '#intrusive'
+      - match: \@?[_[:alpha:]][_[:alnum:]]*
+        name: entity.name.type.cs
+    - match: \@?[_[:alpha:]][_[:alnum:]]*
+      name: entity.name.type.cs
+    - begin: \.
+      beginCaptures:
+        0: { name: punctuation.accessor.cs }
+      end: (?<=[_[:alnum:]])|(?=[<\[\({)}\],;:?=&|^]|!=|\b(and|or|when)\b)
+      patterns:
+      - include: '#intrusive'
+      - match: \@?[_[:alpha:]][_[:alnum:]]*
+        name: entity.name.type.cs
+    - include: '#type-arguments'
+    - include: '#type-array-suffix'
+    - match: (?<!\s)\?
+      name: punctuation.separator.question-mark.cs
+
+  positional-pattern:
+    begin: (?=\()
+    end: (?=[)}\],;:?=&|^]|!=|\b(and|or|when)\b)
+    patterns:
+    - begin: \(
+      beginCaptures:
+        0: { name: punctuation.parenthesis.open.cs }
+      end: \)
+      endCaptures:
+        0: { name: punctuation.parenthesis.close.cs }
+      patterns:
+      - include: '#subpattern'
+      - include: '#punctuation-comma'
+    - begin: (?<=\))
+      end: (?=[)}\],;:?=&|^]|!=|\b(and|or|when)\b)
+      patterns:
+      - include: '#intrusive'
+      - include: '#property-pattern'
+      - include: '#simple-designation-pattern'
+
+  property-pattern:
+    begin: (?={)
+    end: (?=[)}\],;:?=&|^]|!=|\b(and|or|when)\b)
     patterns:
     - begin: \{
       beginCaptures:
-        '0': { name: punctuation.curlybrace.open.cs }
+        0: { name: punctuation.curlybrace.open.cs }
       end: \}
       endCaptures:
-        '0': { name: punctuation.curlybrace.close.cs }
+        0: { name: punctuation.curlybrace.close.cs }
       patterns:
-      - include: '#comment'
-      - include: '#literal'
-      # - include: '#switch-literal'
-      - include: '#switch-var-pattern'
-      - include: '#switch-property-expression'
-      - include: '#member-access-expression'
-      - include: '#switch-pattern'
-      - include: '#expression-body'
+      - include: '#subpattern'
       - include: '#punctuation-comma'
-
-  with-expression:
-    begin: (?<!\.)\b(with)\b\s*(?=\{|//|/\*|$)
-    beginCaptures:
-      '1': { name: keyword.other.with.cs }
-    end: (?<=\})
-    patterns:
-    - include: '#comment'
-    - include: '#initializer-expression'
-
-  switch-pattern:
-    begin: |-
-      (?x) # e.g. int x OR var x
-      (?<type_name>
-        (?:
-          (?:
-            (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
-            (?<name_and_type_args> # identifier + type arguments (if any)
-              \g<identifier>\s*
-              (?<type_args>\s*<(?:[^<>]|\g<type_args>)+>\s*)?
-            )
-            (?:\s*\.\s*\g<name_and_type_args>)* | # Are there any more names being dotted into?
-            (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
-          )
-          (?:\s*\?\s*)? # nullable suffix?
-          (?:\s* # array suffix?
-            \[
-              (?:\s*,\s*)* # commata for multi-dimensional arrays
-            \]
-            \s*
-            (?:\?)? # arrays can be nullable reference types
-            \s*
-          )*
-        )
-      )\s+
-      (\g<identifier>)\b\s*
-    beginCaptures:
-      '1':
-        patterns:
-        - include: '#type'
-      '2': { name: entity.name.variable.local.cs }
-    end: (?==>)
-    patterns:
-      - include: '#comment'
-      - include: '#switch-when-clause'
-
-  switch-property-expression:
-    begin: |-
-      (?x) # e.g. int x OR var x
-      (?<type_name>
-        (?:
-          (?:
-            (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
-            (?<name_and_type_args> # identifier + type arguments (if any)
-              \g<identifier>\s*
-              (?<type_args>\s*<(?:[^<>]|\g<type_args>)+>\s*)?
-            )
-            (?:\s*\.\s*\g<name_and_type_args>)* | # Are there any more names being dotted into?
-            (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
-          )
-          (?:\s*\?\s*)? # nullable suffix?
-          (?:\s* # array suffix?
-            \[
-              (?:\s*,\s*)* # commata for multi-dimensional arrays
-            \]
-            \s*
-            (?:\?)? # arrays can be nullable reference types
-            \s*
-          )*
-        )
-      )?\s*
-      (\{)
-    beginCaptures:
-      '1':
-        patterns:
-        - include: '#type'
-      # '': { name: punctuation.curlybrace.open.cs }
-      '6': { name: punctuation.curlybrace.open.cs }
-    end: \}
-    endCaptures:
-      '0': { name: punctuation.curlybrace.close.cs }
-    patterns:
-    - match: (@?[_[:alpha:]][_[:alnum:]]*)\s*(:)
-      captures:
-        '1': { name: variable.other.object.property.cs }
-        '2': { name: punctuation.separator.colon.cs }
-    - include: '#expression'
-    - include: '#punctuation-comma'
-
-  switch-var-pattern:
-    begin: |-
-      (?x) # match foreach (var (x, y) in ...)
-      (?:\b(var)\b\s*)
-      (?<tuple>\((?:[^\(\)]|\g<tuple>)+\))\s*
-    beginCaptures:
-      '1': { name: keyword.other.var.cs }
-      '2':
-        patterns:
-        - include: '#tuple-declaration-deconstruction-element-list'
-    end: (?==>)
-    patterns:
-      - include: '#comment'
-      - include: '#switch-when-clause'
-
-  switch-when-clause:
-    begin: (?<!\.)\b(when)\b\s*(\()?
-    beginCaptures:
-      '1': { name: keyword.control.try.when.cs }
-      '2': { name: punctuation.parenthesis.open.cs }
-    end: (?==>)
-    patterns:
-    - include: '#comment'
-    - include: '#expression'
-    - include: '#punctuation-comma'
-    - match: \(
-      captures:
-        '0': { name: punctuation.parenthesis.open.cs }
-    - match: \)
-      captures:
-        '0': { name: punctuation.parenthesis.close.cs }
-
-  switch-label:
-    patterns:
-    - begin: (?<!\.)\b(case)\b\s+
-      beginCaptures:
-        '1': { name: keyword.control.case.cs }
-      end: ':'
-      endCaptures:
-        '0': { name: punctuation.separator.colon.cs }
+    - begin: (?<=\})
+      end: (?=[)}\],;:?=&|^]|!=|\b(and|or|when)\b)
       patterns:
-      - include: '#expression'
-    - match: (?<!\.)\b(default)\b\s*(:)
+      - include: '#intrusive'
+      - include: '#simple-designation-pattern'
+
+  subpattern:
+    patterns:
+    - match: (@?[_[:alpha:]][_[:alnum:]]*(?:\s*\.\s*@?[_[:alpha:]][_[:alnum:]]*)*)\s*(:)
       captures:
-        '1': { name: keyword.control.default.cs }
-        '2': { name: punctuation.separator.colon.cs }
+        1: 
+          patterns:
+          - match: \@?[_[:alpha:]][_[:alnum:]]*
+            name: variable.other.object.property.cs
+          - include: '#punctuation-accessor'
+        2: { name: punctuation.separator.colon.cs }
+    - include: '#pattern'
+
+  list-pattern:
+    begin: (?=\[)
+    end: (?=[)}\],;:?=&|^]|!=|\b(and|or|when)\b)
+    patterns:
+    - begin: \[
+      beginCaptures:
+        0: { name: punctuation.squarebracket.open.cs }
+      end: \]
+      endCaptures:
+        0: { name: punctuation.squarebracket.close.cs }
+      patterns:
+      - include: '#pattern'
+      - include: '#punctuation-comma'
+    - begin: (?<=\])
+      end: (?=[)}\],;:?=&|^]|!=|\b(and|or|when)\b)
+      patterns:
+      - include: '#intrusive'
+      - include: '#simple-designation-pattern'
+
+  slice-pattern:
+    match: \.\.
+    name: keyword.operator.range.cs
 
   do-statement:
     begin: (?<!\.)\b(do)\b
@@ -1496,7 +1595,7 @@ repository:
   when-clause:
     begin: (?<!\.)\b(when)\b\s*(\()
     beginCaptures:
-      '1': { name: keyword.control.try.when.cs }
+      '1': { name: keyword.control.when.cs }
       '2': { name: punctuation.parenthesis.open.cs }
     end: \)
     endCaptures:
@@ -2251,6 +2350,17 @@ repository:
     endCaptures:
       '0': { name: punctuation.separator.colon.cs }
 
+  assignment-expression:
+    begin: (\*=|/=|%=|\+=|-=|\?\?=|\&=|\^=|<<=|>>>?=|\|=|=)(?!=|>)
+    beginCaptures:
+      1:
+        patterns:
+        - include: '#expression-operators'
+    end: (?=[,\)\];}])
+    patterns:
+    - include: '#ref-modifier'
+    - include: '#expression'
+  
   expression-operators:
     patterns:
     - name: keyword.operator.assignment.compound.cs
@@ -2280,16 +2390,14 @@ repository:
     - name: keyword.operator.range.cs
       match: \.\.
 
-  switch-literal:
-    # <<: *null-literal
-    name: constant.language.null.cs
-    match: (?<!\.)\bnull\b
+  with-expression:
+    begin: (?<!\.)\b(with)\b\s*(?=\{|//|/\*|$)
     beginCaptures:
-      '1': { name: constant.language.null.cs }
+      '1': { name: keyword.other.with.cs }
+    end: (?<=\})
     patterns:
-      - include: '#comment'
-      - include: '#punctuation-comma'
-      - include: '#expression-body'
+    - include: '#comment'
+    - include: '#initializer-expression'
 
   conditional-operator:
     patterns:
@@ -2394,38 +2502,6 @@ repository:
       )?
     captures:
       '1': { name: keyword.other.as.cs }
-      '2':
-        patterns:
-        - include: '#type'
-
-  is-expression:
-    match: |-
-      (?x)
-      (?<!\.)\b(is)\b\s*
-      (?<type_name>
-        (?:
-          (?:
-            (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
-            (?<name_and_type_args> # identifier + type arguments (if any)
-              \g<identifier>\s*
-              (?<type_args>\s*<(?:[^<>]|\g<type_args>)+>\s*)?
-            )
-            (?:\s*\.\s*\g<name_and_type_args>)* | # Are there any more names being dotted into?
-            (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
-          )
-          (?:\s*\?\s*)? # nullable suffix?
-          (?:\s* # array suffix?
-            \[
-              (?:\s*,\s*)* # commata for multi-dimensional arrays
-            \]
-            \s*
-            (?:\?)? # arrays can be nullable reference types
-            \s*
-          )*
-        )
-      )?
-    captures:
-      '1': { name: keyword.other.is.cs }
       '2':
         patterns:
         - include: '#type'
@@ -3066,7 +3142,6 @@ repository:
       '7': { name: entity.name.variable.parameter.cs }
 
   type:
-    name: meta.type.cs
     patterns:
     - include: '#comment'
     - include: '#ref-modifier'
@@ -3163,7 +3238,6 @@ repository:
     endCaptures:
       '0': { name: punctuation.definition.typeparameters.end.cs }
     patterns:
-    - include: '#comment'
     - include: '#type'
     - include: '#punctuation-comma'
 
@@ -3175,6 +3249,7 @@ repository:
     endCaptures:
       '0': { name: punctuation.squarebracket.close.cs }
     patterns:
+    - include: '#intrusive'
     - include: '#punctuation-comma'
 
   type-nullable-suffix:
@@ -3197,6 +3272,11 @@ repository:
   punctuation-accessor:
     name: punctuation.accessor.cs
     match: \.
+
+  intrusive:
+    patterns:
+    - include: '#preprocessor'
+    - include: '#comment'
 
   preprocessor:
     name: meta.preprocessor.cs
