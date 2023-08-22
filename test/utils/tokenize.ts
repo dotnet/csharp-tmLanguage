@@ -482,10 +482,10 @@ export namespace Token {
         }
 
         export namespace Pattern {
-            export const And = createToken('and', 'keyword.operator.word.pattern.combinator.and.cs');
-            export const Is = createToken('is', 'keyword.operator.word.pattern.is.cs');
-            export const Not = createToken('not', 'keyword.operator.word.pattern.combinator.not.cs');
-            export const Or = createToken('or', 'keyword.operator.word.pattern.combinator.or.cs');
+            export const And = createToken('and', 'keyword.operator.wordlike.pattern.combinator.and.cs');
+            export const Is = createToken('is', 'keyword.operator.wordlike.pattern.is.cs');
+            export const Not = createToken('not', 'keyword.operator.wordlike.pattern.combinator.not.cs');
+            export const Or = createToken('or', 'keyword.operator.wordlike.pattern.combinator.or.cs');
         }
 
         export const Arrow = createToken('=>', 'keyword.operator.arrow.cs');

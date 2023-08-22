@@ -1216,7 +1216,7 @@ repository:
   is-expression:
     begin: (?<!\.)\b(is)\b
     beginCaptures:
-      1: { name: keyword.operator.word.pattern.is.cs }
+      1: { name: keyword.operator.wordlike.pattern.is.cs }
     end: (?=[)}\],;:?=&|^]|!=)
     patterns:
     - include: '#pattern'
@@ -1237,7 +1237,7 @@ repository:
 
   combinator-pattern:
     match: \b(and|or|not)\b
-    name: keyword.operator.word.pattern.combinator.$1.cs
+    name: keyword.operator.wordlike.pattern.combinator.$1.cs
 
   discard-pattern:
     match: _(?![_[:alnum:]])

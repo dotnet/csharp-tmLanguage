@@ -3311,7 +3311,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.operator.word.pattern.is.cs</string>
+            <string>keyword.operator.wordlike.pattern.is.cs</string>
           </dict>
         </dict>
         <key>end</key>
@@ -3379,7 +3379,7 @@
         <key>match</key>
         <string>\b(and|or|not)\b</string>
         <key>name</key>
-        <string>keyword.operator.word.pattern.combinator.$1.cs</string>
+        <string>keyword.operator.wordlike.pattern.combinator.$1.cs</string>
       </dict>
       <key>discard-pattern</key>
       <dict>
