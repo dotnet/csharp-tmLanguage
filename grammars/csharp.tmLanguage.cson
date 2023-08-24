@@ -2116,6 +2116,12 @@ repository:
       {
         include: "#verbatim-string-literal"
       }
+      {
+        include: "#typeof-or-default-expression"
+      }
+      {
+        include: "#nameof-expression"
+      }
     ]
   "relational-pattern":
     begin: "<=?|>=?"
@@ -3174,13 +3180,11 @@ repository:
       }
     ]
   "typeof-or-default-expression":
-    begin: "(?<!\\.)\\b(?:(typeof)|(default))\\b\\s*(\\()"
+    begin: "(?<!\\.)\\b(typeof|default)\\b\\s*(\\()"
     beginCaptures:
       "1":
-        name: "keyword.other.typeof.cs"
+        name: "keyword.other.$1.cs"
       "2":
-        name: "keyword.other.default.cs"
-      "3":
         name: "punctuation.parenthesis.open.cs"
     end: "\\)"
     endCaptures:
