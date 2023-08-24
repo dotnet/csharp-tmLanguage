@@ -29,6 +29,8 @@ if (var is 0) { }
 if (var is null) { }
 if (var is "") { }
 if (var is true) { }
+if (var is nameof(Foo)) { }
+if (var is default(int)) { }
 `);
       const tokens = await tokenize(input);
 
@@ -66,6 +68,30 @@ if (var is true) { }
         Token.Variables.ReadWrite("var"),
         Token.Operators.Pattern.Is,
         Token.Literals.Boolean.True,
+        Token.Punctuation.CloseParen,
+        Token.Punctuation.OpenBrace,
+        Token.Punctuation.CloseBrace,
+
+        Token.Keywords.Control.If,
+        Token.Punctuation.OpenParen,
+        Token.Variables.ReadWrite("var"),
+        Token.Operators.Pattern.Is,
+        Token.Keywords.NameOf,
+        Token.Punctuation.OpenParen,
+        Token.Variables.ReadWrite("Foo"),
+        Token.Punctuation.CloseParen,
+        Token.Punctuation.CloseParen,
+        Token.Punctuation.OpenBrace,
+        Token.Punctuation.CloseBrace,
+
+        Token.Keywords.Control.If,
+        Token.Punctuation.OpenParen,
+        Token.Variables.ReadWrite("var"),
+        Token.Operators.Pattern.Is,
+        Token.Keywords.Default,
+        Token.Punctuation.OpenParen,
+        Token.PrimitiveType.Int,
+        Token.Punctuation.CloseParen,
         Token.Punctuation.CloseParen,
         Token.Punctuation.OpenBrace,
         Token.Punctuation.CloseBrace,

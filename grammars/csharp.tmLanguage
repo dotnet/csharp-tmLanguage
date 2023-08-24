@@ -3420,6 +3420,14 @@
             <key>include</key>
             <string>#verbatim-string-literal</string>
           </dict>
+          <dict>
+            <key>include</key>
+            <string>#typeof-or-default-expression</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#nameof-expression</string>
+          </dict>
         </array>
       </dict>
       <key>relational-pattern</key>
@@ -5148,20 +5156,15 @@
       <key>typeof-or-default-expression</key>
       <dict>
         <key>begin</key>
-        <string>(?&lt;!\.)\b(?:(typeof)|(default))\b\s*(\()</string>
+        <string>(?&lt;!\.)\b(typeof|default)\b\s*(\()</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.other.typeof.cs</string>
+            <string>keyword.other.$1.cs</string>
           </dict>
           <key>2</key>
-          <dict>
-            <key>name</key>
-            <string>keyword.other.default.cs</string>
-          </dict>
-          <key>3</key>
           <dict>
             <key>name</key>
             <string>punctuation.parenthesis.open.cs</string>
