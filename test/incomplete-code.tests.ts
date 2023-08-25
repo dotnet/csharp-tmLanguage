@@ -22,20 +22,20 @@ public ColorTest(string white)
             let tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Private,
-                Token.Keywords.Modifiers.ReadOnly,
+                Token.Keyword.Modifier.Private,
+                Token.Keyword.Modifier.ReadOnly,
                 Token.PrimitiveType.String,
-                Token.Identifiers.PropertyName("_color"),
-                Token.Keywords.Modifiers.Public,
-                Token.Identifiers.MethodName("ColorTest"),
+                Token.Identifier.PropertyName("_color"),
+                Token.Keyword.Modifier.Public,
+                Token.Identifier.MethodName("ColorTest"),
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.String,
-                Token.Identifiers.ParameterName("white"),
+                Token.Identifier.ParameterName("white"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
-                Token.Variables.ReadWrite("_color"),
-                Token.Operators.Assignment,
-                Token.Variables.ReadWrite("white"),
+                Token.Variable.ReadWrite("_color"),
+                Token.Operator.Assignment,
+                Token.Variable.ReadWrite("white"),
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace
             ]);

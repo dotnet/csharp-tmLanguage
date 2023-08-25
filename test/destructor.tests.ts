@@ -17,7 +17,7 @@ describe("Destructor", () => {
 
             tokens.should.deep.equal([
                 Token.Punctuation.Tilde,
-                Token.Identifiers.MethodName("TestClass"),
+                Token.Identifier.MethodName("TestClass"),
                 Token.Punctuation.OpenParen,
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
@@ -31,11 +31,11 @@ describe("Destructor", () => {
 
             tokens.should.deep.equal([
                 Token.Punctuation.Tilde,
-                Token.Identifiers.MethodName("TestClass"),
+                Token.Identifier.MethodName("TestClass"),
                 Token.Punctuation.OpenParen,
                 Token.Punctuation.CloseParen,
-                Token.Operators.Arrow,
-                Token.Identifiers.MethodName("Foo"),
+                Token.Operator.Arrow,
+                Token.Identifier.MethodName("Foo"),
                 Token.Punctuation.OpenParen,
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.Semicolon]);

@@ -16,8 +16,8 @@ describe("Interfaces", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Interface,
-                Token.Identifiers.InterfaceName("IFoo"),
+                Token.Keyword.Definition.Interface,
+                Token.Identifier.InterfaceName("IFoo"),
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace]);
         });
@@ -32,12 +32,12 @@ interface IBar : IFoo { }
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Interface,
-                Token.Identifiers.InterfaceName("IFoo"),
+                Token.Keyword.Definition.Interface,
+                Token.Identifier.InterfaceName("IFoo"),
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace,
-                Token.Keywords.Interface,
-                Token.Identifiers.InterfaceName("IBar"),
+                Token.Keyword.Definition.Interface,
+                Token.Identifier.InterfaceName("IBar"),
                 Token.Punctuation.Colon,
                 Token.Type("IFoo"),
                 Token.Punctuation.OpenBrace,
@@ -50,13 +50,13 @@ interface IBar : IFoo { }
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Interface,
-                Token.Identifiers.InterfaceName("IFoo"),
-                Token.Punctuation.TypeParameters.Begin,
-                Token.Identifiers.TypeParameterName("T1"),
+                Token.Keyword.Definition.Interface,
+                Token.Identifier.InterfaceName("IFoo"),
+                Token.Punctuation.TypeParameter.Begin,
+                Token.Identifier.TypeParameterName("T1"),
                 Token.Punctuation.Comma,
-                Token.Identifiers.TypeParameterName("T2"),
-                Token.Punctuation.TypeParameters.End,
+                Token.Identifier.TypeParameterName("T2"),
+                Token.Punctuation.TypeParameter.End,
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace]);
         });
@@ -67,15 +67,15 @@ interface IBar : IFoo { }
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Interface,
-                Token.Identifiers.InterfaceName("IFoo"),
-                Token.Punctuation.TypeParameters.Begin,
-                Token.Keywords.Modifiers.In,
-                Token.Identifiers.TypeParameterName("T1"),
+                Token.Keyword.Definition.Interface,
+                Token.Identifier.InterfaceName("IFoo"),
+                Token.Punctuation.TypeParameter.Begin,
+                Token.Keyword.Modifier.In,
+                Token.Identifier.TypeParameterName("T1"),
                 Token.Punctuation.Comma,
-                Token.Keywords.Modifiers.Out,
-                Token.Identifiers.TypeParameterName("T2"),
-                Token.Punctuation.TypeParameters.End,
+                Token.Keyword.Modifier.Out,
+                Token.Identifier.TypeParameterName("T2"),
+                Token.Punctuation.TypeParameter.End,
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace]);
         });
@@ -86,15 +86,15 @@ interface IBar : IFoo { }
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Interface,
-                Token.Identifiers.InterfaceName("IFoo"),
-                Token.Punctuation.TypeParameters.Begin,
-                Token.Identifiers.TypeParameterName("T1"),
+                Token.Keyword.Definition.Interface,
+                Token.Identifier.InterfaceName("IFoo"),
+                Token.Punctuation.TypeParameter.Begin,
+                Token.Identifier.TypeParameterName("T1"),
                 Token.Punctuation.Comma,
-                Token.Identifiers.TypeParameterName("T2"),
-                Token.Punctuation.TypeParameters.End,
-                Token.Keywords.Where,
-                Token.Identifiers.TypeParameterName("T1"),
+                Token.Identifier.TypeParameterName("T2"),
+                Token.Punctuation.TypeParameter.End,
+                Token.Keyword.Modifier.Where,
+                Token.Identifier.TypeParameterName("T1"),
                 Token.Punctuation.Colon,
                 Token.Type("T2"),
                 Token.Punctuation.OpenBrace,

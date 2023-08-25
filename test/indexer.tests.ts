@@ -21,20 +21,20 @@ public string this[int index]
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
+                Token.Keyword.Modifier.Public,
                 Token.PrimitiveType.String,
-                Token.Variables.This,
+                Token.Variable.This,
                 Token.Punctuation.OpenBracket,
                 Token.PrimitiveType.Int,
-                Token.Identifiers.ParameterName("index"),
+                Token.Identifier.ParameterName("index"),
                 Token.Punctuation.CloseBracket,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Get,
+                Token.Keyword.Definition.Get,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Control.Return,
-                Token.Variables.Object("index"),
+                Token.Keyword.Flow.Return,
+                Token.Variable.Object("index"),
                 Token.Punctuation.Accessor,
-                Token.Identifiers.MethodName("ToString"),
+                Token.Identifier.MethodName("ToString"),
                 Token.Punctuation.OpenParen,
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.Semicolon,
@@ -50,14 +50,14 @@ public string this[int index]
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
                 Token.Type("IFoo"),
-                Token.Punctuation.TypeParameters.Begin,
+                Token.Punctuation.TypeParameter.Begin,
                 Token.PrimitiveType.String,
-                Token.Punctuation.TypeParameters.End,
+                Token.Punctuation.TypeParameter.End,
                 Token.Punctuation.Accessor,
-                Token.Variables.This,
+                Token.Variable.This,
                 Token.Punctuation.OpenBracket,
                 Token.PrimitiveType.Int,
-                Token.Identifiers.ParameterName("index"),
+                Token.Identifier.ParameterName("index"),
                 Token.Punctuation.CloseBracket,
                 Token.Punctuation.Semicolon]);
         });
@@ -69,15 +69,15 @@ public string this[int index]
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
-                Token.Variables.This,
+                Token.Variable.This,
                 Token.Punctuation.OpenBracket,
                 Token.PrimitiveType.Int,
-                Token.Identifiers.ParameterName("index"),
+                Token.Identifier.ParameterName("index"),
                 Token.Punctuation.CloseBracket,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Get,
+                Token.Keyword.Definition.Get,
                 Token.Punctuation.Semicolon,
-                Token.Keywords.Set,
+                Token.Keyword.Definition.Set,
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace]);
         });
@@ -89,13 +89,13 @@ public string this[int index]
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
-                Token.Variables.This,
+                Token.Variable.This,
                 Token.Punctuation.OpenBracket,
                 Token.PrimitiveType.Int,
-                Token.Identifiers.ParameterName("index"),
+                Token.Identifier.ParameterName("index"),
                 Token.Punctuation.CloseBracket,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Get,
+                Token.Keyword.Definition.Get,
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace]);
         });
@@ -107,13 +107,13 @@ public string this[int index]
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
-                Token.Variables.This,
+                Token.Variable.This,
                 Token.Punctuation.OpenBracket,
                 Token.PrimitiveType.Int,
-                Token.Identifiers.ParameterName("index"),
+                Token.Identifier.ParameterName("index"),
                 Token.Punctuation.CloseBracket,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Set,
+                Token.Keyword.Definition.Set,
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace]);
         });
@@ -126,12 +126,12 @@ int this[string p = null] { }
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.Int,
-                Token.Variables.This,
+                Token.Variable.This,
                 Token.Punctuation.OpenBracket,
                 Token.PrimitiveType.String,
-                Token.Identifiers.ParameterName("p"),
-                Token.Operators.Assignment,
-                Token.Literals.Null,
+                Token.Identifier.ParameterName("p"),
+                Token.Operator.Assignment,
+                Token.Literal.Null,
                 Token.Punctuation.CloseBracket,
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace
@@ -143,15 +143,15 @@ int this[string p = null] { }
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Ref,
+                Token.Keyword.Modifier.Ref,
                 Token.PrimitiveType.Int,
-                Token.Variables.This,
+                Token.Variable.This,
                 Token.Punctuation.OpenBracket,
                 Token.PrimitiveType.Int,
-                Token.Identifiers.ParameterName("index"),
+                Token.Identifier.ParameterName("index"),
                 Token.Punctuation.CloseBracket,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Get,
+                Token.Keyword.Definition.Get,
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace]);
         });
@@ -161,16 +161,16 @@ int this[string p = null] { }
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Ref,
-                Token.Keywords.Modifiers.ReadOnly,
+                Token.Keyword.Modifier.Ref,
+                Token.Keyword.Modifier.ReadOnly,
                 Token.PrimitiveType.Int,
-                Token.Variables.This,
+                Token.Variable.This,
                 Token.Punctuation.OpenBracket,
                 Token.PrimitiveType.Int,
-                Token.Identifiers.ParameterName("index"),
+                Token.Identifier.ParameterName("index"),
                 Token.Punctuation.CloseBracket,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Get,
+                Token.Keyword.Definition.Get,
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace]);
         });
@@ -186,11 +186,11 @@ string this[
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
-                Token.Variables.This,
+                Token.Variable.This,
                 Token.Punctuation.OpenBracket,
 
                 Token.PrimitiveType.Int,
-                Token.Identifiers.ParameterName("index"),
+                Token.Identifier.ParameterName("index"),
 
                 Token.Punctuation.CloseBracket,
                 Token.Punctuation.OpenBrace,
@@ -209,7 +209,7 @@ string this[
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
-                Token.Variables.This,
+                Token.Variable.This,
                 Token.Punctuation.OpenBracket,
 
                 Token.Punctuation.OpenBracket,
@@ -217,7 +217,7 @@ string this[
                 Token.Punctuation.CloseBracket,
 
                 Token.PrimitiveType.Int,
-                Token.Identifiers.ParameterName("index"),
+                Token.Identifier.ParameterName("index"),
 
                 Token.Punctuation.CloseBracket,
                 Token.Punctuation.OpenBrace,

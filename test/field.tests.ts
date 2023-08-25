@@ -21,22 +21,22 @@ private List field123;`);
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.Int,
-                Token.Identifiers.FieldName("file"),
+                Token.Identifier.FieldName("file"),
                 Token.Punctuation.Semicolon,
 
-                Token.Keywords.Modifiers.Private,
+                Token.Keyword.Modifier.Private,
                 Token.Type("List"),
-                Token.Identifiers.FieldName("_field"),
+                Token.Identifier.FieldName("_field"),
                 Token.Punctuation.Semicolon,
 
-                Token.Keywords.Modifiers.Private,
+                Token.Keyword.Modifier.Private,
                 Token.Type("List"),
-                Token.Identifiers.FieldName("field"),
+                Token.Identifier.FieldName("field"),
                 Token.Punctuation.Semicolon,
 
-                Token.Keywords.Modifiers.Private,
+                Token.Keyword.Modifier.Private,
                 Token.Type("List"),
-                Token.Identifiers.FieldName("field123"),
+                Token.Identifier.FieldName("field123"),
                 Token.Punctuation.Semicolon]);
         });
 
@@ -45,22 +45,22 @@ private List field123;`);
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Private,
+                Token.Keyword.Modifier.Private,
                 Token.Type("Dictionary"),
-                Token.Punctuation.TypeParameters.Begin,
+                Token.Punctuation.TypeParameter.Begin,
                 Token.Type("List"),
-                Token.Punctuation.TypeParameters.Begin,
+                Token.Punctuation.TypeParameter.Begin,
                 Token.Type("T"),
-                Token.Punctuation.TypeParameters.End,
+                Token.Punctuation.TypeParameter.End,
                 Token.Punctuation.Comma,
                 Token.Type("Dictionary"),
-                Token.Punctuation.TypeParameters.Begin,
+                Token.Punctuation.TypeParameter.Begin,
                 Token.Type("T"),
                 Token.Punctuation.Comma,
                 Token.Type("D"),
-                Token.Punctuation.TypeParameters.End,
-                Token.Punctuation.TypeParameters.End,
-                Token.Identifiers.FieldName("_field"),
+                Token.Punctuation.TypeParameter.End,
+                Token.Punctuation.TypeParameter.End,
+                Token.Identifier.FieldName("_field"),
                 Token.Punctuation.Semicolon]);
         });
 
@@ -75,25 +75,25 @@ required int _field4;`);
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Private,
-                Token.Keywords.Modifiers.Static,
-                Token.Keywords.Modifiers.ReadOnly,
+                Token.Keyword.Modifier.Private,
+                Token.Keyword.Modifier.Static,
+                Token.Keyword.Modifier.ReadOnly,
                 Token.Type("List"),
-                Token.Identifiers.FieldName("_field"),
+                Token.Identifier.FieldName("_field"),
                 Token.Punctuation.Semicolon,
 
-                Token.Keywords.Modifiers.ReadOnly,
+                Token.Keyword.Modifier.ReadOnly,
                 Token.PrimitiveType.String,
-                Token.Identifiers.FieldName("_field2"),
+                Token.Identifier.FieldName("_field2"),
                 Token.Punctuation.Semicolon,
 
                 Token.PrimitiveType.String,
-                Token.Identifiers.FieldName("_field3"),
+                Token.Identifier.FieldName("_field3"),
                 Token.Punctuation.Semicolon,
 
-                Token.Keywords.Modifiers.Required,
+                Token.Keyword.Modifier.Required,
                 Token.PrimitiveType.Int,
-                Token.Identifiers.FieldName("_field4"),
+                Token.Identifier.FieldName("_field4"),
                 Token.Punctuation.Semicolon]);
         });
 
@@ -106,13 +106,13 @@ string[] field123;`);
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
-                Token.Identifiers.FieldName("field123"),
+                Token.Identifier.FieldName("field123"),
                 Token.Punctuation.Semicolon,
 
                 Token.PrimitiveType.String,
                 Token.Punctuation.OpenBracket,
                 Token.Punctuation.CloseBracket,
-                Token.Identifiers.FieldName("field123"),
+                Token.Identifier.FieldName("field123"),
                 Token.Punctuation.Semicolon]);
         });
 
@@ -124,20 +124,20 @@ const   bool   field = true;`);
             let tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Private,
+                Token.Keyword.Modifier.Private,
                 Token.PrimitiveType.String,
-                Token.Identifiers.FieldName("field"),
-                Token.Operators.Assignment,
+                Token.Identifier.FieldName("field"),
+                Token.Operator.Assignment,
                 Token.Punctuation.String.Begin,
-                Token.Literals.String("hello"),
+                Token.Literal.String("hello"),
                 Token.Punctuation.String.End,
                 Token.Punctuation.Semicolon,
 
-                Token.Keywords.Modifiers.Const,
+                Token.Keyword.Modifier.Const,
                 Token.PrimitiveType.Bool,
-                Token.Identifiers.FieldName("field"),
-                Token.Operators.Assignment,
-                Token.Literals.Boolean.True,
+                Token.Identifier.FieldName("field"),
+                Token.Operator.Assignment,
+                Token.Literal.Boolean.True,
                 Token.Punctuation.Semicolon]);
         });
 
@@ -147,17 +147,17 @@ const   bool   field = true;`);
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.Int,
-                Token.Identifiers.FieldName("x"),
-                Token.Operators.Assignment,
-                Token.Literals.Numeric.Decimal("19"),
+                Token.Identifier.FieldName("x"),
+                Token.Operator.Assignment,
+                Token.Literal.Numeric.Decimal("19"),
                 Token.Punctuation.Comma,
-                Token.Identifiers.FieldName("y"),
-                Token.Operators.Assignment,
-                Token.Literals.Numeric.Decimal("23"),
+                Token.Identifier.FieldName("y"),
+                Token.Operator.Assignment,
+                Token.Literal.Numeric.Decimal("23"),
                 Token.Punctuation.Comma,
-                Token.Identifiers.FieldName("z"),
-                Token.Operators.Assignment,
-                Token.Literals.Numeric.Decimal("42"),
+                Token.Identifier.FieldName("z"),
+                Token.Operator.Assignment,
+                Token.Literal.Numeric.Decimal("42"),
                 Token.Punctuation.Semicolon]);
         });
 
@@ -171,7 +171,7 @@ const   bool   field = true;`);
                 Token.Punctuation.Comma,
                 Token.PrimitiveType.Int,
                 Token.Punctuation.CloseParen,
-                Token.Identifiers.FieldName("x"),
+                Token.Identifier.FieldName("x"),
                 Token.Punctuation.Semicolon]);
         });
 
@@ -180,13 +180,13 @@ const   bool   field = true;`);
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Private,
+                Token.Keyword.Modifier.Private,
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Int,
                 Token.Punctuation.Comma,
                 Token.PrimitiveType.Int,
                 Token.Punctuation.CloseParen,
-                Token.Identifiers.FieldName("x"),
+                Token.Identifier.FieldName("x"),
                 Token.Punctuation.Semicolon]);
         });
 
@@ -197,12 +197,12 @@ const   bool   field = true;`);
             tokens.should.deep.equal([
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Int,
-                Token.Identifiers.TupleElementName("x"),
+                Token.Identifier.TupleElementName("x"),
                 Token.Punctuation.Comma,
                 Token.PrimitiveType.Int,
-                Token.Identifiers.TupleElementName("y"),
+                Token.Identifier.TupleElementName("y"),
                 Token.Punctuation.CloseParen,
-                Token.Identifiers.FieldName("z"),
+                Token.Identifier.FieldName("z"),
                 Token.Punctuation.Semicolon]);
         });
 
@@ -211,15 +211,15 @@ const   bool   field = true;`);
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Private,
+                Token.Keyword.Modifier.Private,
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Int,
-                Token.Identifiers.TupleElementName("x"),
+                Token.Identifier.TupleElementName("x"),
                 Token.Punctuation.Comma,
                 Token.PrimitiveType.Int,
-                Token.Identifiers.TupleElementName("y"),
+                Token.Identifier.TupleElementName("y"),
                 Token.Punctuation.CloseParen,
-                Token.Identifiers.FieldName("z"),
+                Token.Identifier.FieldName("z"),
                 Token.Punctuation.Semicolon]);
         });
 
@@ -231,13 +231,13 @@ private UnityEngine.UI.Image[] selectedImages;
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Private,
+                Token.Keyword.Modifier.Private,
                 Token.Type("CanvasGroup"),
                 Token.Punctuation.OpenBracket,
                 Token.Punctuation.CloseBracket,
-                Token.Identifiers.FieldName("groups"),
+                Token.Identifier.FieldName("groups"),
                 Token.Punctuation.Semicolon,
-                Token.Keywords.Modifiers.Private,
+                Token.Keyword.Modifier.Private,
                 Token.Type("UnityEngine"),
                 Token.Punctuation.Accessor,
                 Token.Type("UI"),
@@ -245,7 +245,7 @@ private UnityEngine.UI.Image[] selectedImages;
                 Token.Type("Image"),
                 Token.Punctuation.OpenBracket,
                 Token.Punctuation.CloseBracket,
-                Token.Identifiers.FieldName("selectedImages"),
+                Token.Identifier.FieldName("selectedImages"),
                 Token.Punctuation.Semicolon
             ]);
         });
@@ -263,56 +263,56 @@ private readonly Dictionary<string, int> languageToIndex = new Dictionary<string
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Private,
-                Token.Keywords.Modifiers.ReadOnly,
+                Token.Keyword.Modifier.Private,
+                Token.Keyword.Modifier.ReadOnly,
                 Token.Type("Dictionary"),
-                Token.Punctuation.TypeParameters.Begin,
+                Token.Punctuation.TypeParameter.Begin,
                 Token.PrimitiveType.String,
                 Token.Punctuation.Comma,
                 Token.PrimitiveType.Int,
-                Token.Punctuation.TypeParameters.End,
-                Token.Identifiers.FieldName("languageToIndex"),
-                Token.Operators.Assignment,
-                Token.Keywords.New,
+                Token.Punctuation.TypeParameter.End,
+                Token.Identifier.FieldName("languageToIndex"),
+                Token.Operator.Assignment,
+                Token.Operator.Expression.New,
                 Token.Type("Dictionary"),
-                Token.Punctuation.TypeParameters.Begin,
+                Token.Punctuation.TypeParameter.Begin,
                 Token.PrimitiveType.String,
                 Token.Punctuation.Comma,
                 Token.PrimitiveType.Int,
-                Token.Punctuation.TypeParameters.End,
+                Token.Punctuation.TypeParameter.End,
                 Token.Punctuation.OpenParen,
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.String.Begin,
-                Token.Literals.String("Simplified Chinese"),
+                Token.Literal.String("Simplified Chinese"),
                 Token.Punctuation.String.End,
                 Token.Punctuation.Comma,
-                Token.Literals.Numeric.Decimal("0"),
+                Token.Literal.Numeric.Decimal("0"),
                 Token.Punctuation.CloseBrace,
                 Token.Punctuation.Comma,
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.String.Begin,
-                Token.Literals.String("English"),
+                Token.Literal.String("English"),
                 Token.Punctuation.String.End,
                 Token.Punctuation.Comma,
-                Token.Literals.Numeric.Decimal("1"),
+                Token.Literal.Numeric.Decimal("1"),
                 Token.Punctuation.CloseBrace,
                 Token.Punctuation.Comma,
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.String.Begin,
-                Token.Literals.String("Japanese"),
+                Token.Literal.String("Japanese"),
                 Token.Punctuation.String.End,
                 Token.Punctuation.Comma,
-                Token.Literals.Numeric.Decimal("2"),
+                Token.Literal.Numeric.Decimal("2"),
                 Token.Punctuation.CloseBrace,
                 Token.Punctuation.Comma,
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.String.Begin,
-                Token.Literals.String("Korean"),
+                Token.Literal.String("Korean"),
                 Token.Punctuation.String.End,
                 Token.Punctuation.Comma,
-                Token.Literals.Numeric.Decimal("3"),
+                Token.Literal.Numeric.Decimal("3"),
                 Token.Punctuation.CloseBrace,
                 Token.Punctuation.CloseBrace,
                 Token.Punctuation.Semicolon
@@ -327,17 +327,17 @@ private readonly string initSportMessageFormatString = "line1"
             let tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Private,
-                Token.Keywords.Modifiers.ReadOnly,
+                Token.Keyword.Modifier.Private,
+                Token.Keyword.Modifier.ReadOnly,
                 Token.PrimitiveType.String,
-                Token.Identifiers.FieldName("initSportMessageFormatString"),
-                Token.Operators.Assignment,
+                Token.Identifier.FieldName("initSportMessageFormatString"),
+                Token.Operator.Assignment,
                 Token.Punctuation.String.Begin,
-                Token.Literals.String("line1"),
+                Token.Literal.String("line1"),
                 Token.Punctuation.String.End,
-                Token.Operators.Arithmetic.Addition,
+                Token.Operator.Arithmetic.Addition,
                 Token.Punctuation.String.Begin,
-                Token.Literals.String("line2"),
+                Token.Literal.String("line2"),
                 Token.Punctuation.String.End,
                 Token.Punctuation.Semicolon
             ]);
@@ -358,37 +358,37 @@ class C
             let tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Class,
-                Token.Identifiers.ClassName("C"),
+                Token.Keyword.Definition.Class,
+                Token.Identifier.ClassName("C"),
                 Token.Punctuation.OpenBrace,
                 Token.Type("List"),
-                Token.Punctuation.TypeParameters.Begin,
+                Token.Punctuation.TypeParameter.Begin,
                 Token.Type("Action"),
-                Token.Punctuation.TypeParameters.End,
-                Token.Identifiers.FieldName("f"),
-                Token.Operators.Assignment,
-                Token.Keywords.New,
+                Token.Punctuation.TypeParameter.End,
+                Token.Identifier.FieldName("f"),
+                Token.Operator.Assignment,
+                Token.Operator.Expression.New,
                 Token.Type("List"),
-                Token.Punctuation.TypeParameters.Begin,
+                Token.Punctuation.TypeParameter.Begin,
                 Token.Type("Action"),
-                Token.Punctuation.TypeParameters.End,
+                Token.Punctuation.TypeParameter.End,
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.OpenParen,
                 Token.Punctuation.CloseParen,
-                Token.Operators.Arrow,
-                Token.Identifiers.MethodName("DoStuff"),
+                Token.Operator.Arrow,
+                Token.Identifier.MethodName("DoStuff"),
                 Token.Punctuation.OpenParen,
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.CloseBrace,
                 Token.Punctuation.Semicolon,
-                Token.Keywords.Modifiers.Public,
-                Token.Identifiers.MethodName("C"),
+                Token.Keyword.Modifier.Public,
+                Token.Identifier.MethodName("C"),
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Int,
-                Token.Identifiers.ParameterName("x"),
+                Token.Identifier.ParameterName("x"),
                 Token.Punctuation.Comma,
                 Token.PrimitiveType.Int,
-                Token.Identifiers.ParameterName("y"),
+                Token.Identifier.ParameterName("y"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace,

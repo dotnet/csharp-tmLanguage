@@ -20,19 +20,19 @@ describe("Expressions", () => {
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("newPoint"),
-          Token.Operators.Assignment,
-          Token.Keywords.New,
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("newPoint"),
+          Token.Operator.Assignment,
+          Token.Operator.Expression.New,
           Token.Type("Vector"),
           Token.Punctuation.OpenParen,
-          Token.Variables.Object("point"),
+          Token.Variable.Object("point"),
           Token.Punctuation.Accessor,
-          Token.Variables.Property("x"),
-          Token.Operators.Arithmetic.Multiplication,
-          Token.Variables.ReadWrite("z"),
+          Token.Variable.Property("x"),
+          Token.Operator.Arithmetic.Multiplication,
+          Token.Variable.ReadWrite("z"),
           Token.Punctuation.Comma,
-          Token.Literals.Numeric.Decimal("0"),
+          Token.Literal.Numeric.Decimal("0"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
         ]);
@@ -43,13 +43,13 @@ describe("Expressions", () => {
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("bytes"),
-          Token.Operators.Assignment,
-          Token.Keywords.Stackalloc,
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("bytes"),
+          Token.Operator.Assignment,
+          Token.Operator.Expression.StackAlloc,
           Token.PrimitiveType.Byte,
           Token.Punctuation.OpenBracket,
-          Token.Literals.Numeric.Decimal("10"),
+          Token.Literal.Numeric.Decimal("10"),
           Token.Punctuation.CloseBracket,
           Token.Punctuation.Semicolon
         ]);
@@ -60,13 +60,13 @@ describe("Expressions", () => {
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("ints"),
-          Token.Operators.Assignment,
-          Token.Keywords.Stackalloc,
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("ints"),
+          Token.Operator.Assignment,
+          Token.Operator.Expression.StackAlloc,
           Token.PrimitiveType.Int,
           Token.Punctuation.OpenBracket,
-          Token.Literals.Numeric.Decimal("42"),
+          Token.Literal.Numeric.Decimal("42"),
           Token.Punctuation.CloseBracket,
           Token.Punctuation.Semicolon
         ]);
@@ -77,15 +77,15 @@ describe("Expressions", () => {
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Identifiers.MethodName("Foo"),
+          Token.Identifier.MethodName("Foo"),
           Token.Punctuation.OpenParen,
-          Token.Keywords.Stackalloc,
+          Token.Operator.Expression.StackAlloc,
           Token.Punctuation.OpenBracket,
           Token.Punctuation.CloseBracket,
           Token.Punctuation.OpenBrace,
-          Token.Literals.Numeric.Decimal("1"),
+          Token.Literal.Numeric.Decimal("1"),
           Token.Punctuation.Comma,
-          Token.Literals.Numeric.Decimal("3"),
+          Token.Literal.Numeric.Decimal("3"),
           Token.Punctuation.CloseBrace,
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
@@ -101,17 +101,17 @@ var a = new A // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("a"),
-          Token.Operators.Assignment,
-          Token.Keywords.New,
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("a"),
+          Token.Operator.Assignment,
+          Token.Operator.Expression.New,
           Token.Type("A"),
           Token.Comment.SingleLine.Start,
           Token.Comment.SingleLine.Text(" comment"),
           Token.Punctuation.OpenBrace,
-          Token.Variables.ReadWrite("X"),
-          Token.Operators.Assignment,
-          Token.Literals.Numeric.Decimal("1"),
+          Token.Variable.ReadWrite("X"),
+          Token.Operator.Assignment,
+          Token.Literal.Numeric.Decimal("1"),
           Token.Punctuation.CloseBrace,
           Token.Punctuation.Semicolon,
         ]);
@@ -125,11 +125,11 @@ var a = new A // comment
 
         tokens.should.deep.equal([
           Token.Type("Action"),
-          Token.Identifiers.LocalName("a"),
-          Token.Operators.Assignment,
+          Token.Identifier.LocalName("a"),
+          Token.Operator.Assignment,
           Token.Punctuation.OpenParen,
           Token.Punctuation.CloseParen,
-          Token.Operators.Arrow,
+          Token.Operator.Arrow,
           Token.Punctuation.OpenBrace,
           Token.Punctuation.CloseBrace,
           Token.Punctuation.Semicolon
@@ -142,13 +142,13 @@ var a = new A // comment
 
         tokens.should.deep.equal([
           Token.Type("Action"),
-          Token.Punctuation.TypeParameters.Begin,
+          Token.Punctuation.TypeParameter.Begin,
           Token.PrimitiveType.Int,
-          Token.Punctuation.TypeParameters.End,
-          Token.Identifiers.LocalName("a"),
-          Token.Operators.Assignment,
-          Token.Identifiers.ParameterName("x"),
-          Token.Operators.Arrow,
+          Token.Punctuation.TypeParameter.End,
+          Token.Identifier.LocalName("a"),
+          Token.Operator.Assignment,
+          Token.Identifier.ParameterName("x"),
+          Token.Operator.Arrow,
           Token.Punctuation.OpenBrace,
           Token.Punctuation.CloseBrace,
           Token.Punctuation.Semicolon
@@ -161,15 +161,15 @@ var a = new A // comment
 
         tokens.should.deep.equal([
           Token.Type("Action"),
-          Token.Punctuation.TypeParameters.Begin,
+          Token.Punctuation.TypeParameter.Begin,
           Token.PrimitiveType.Int,
-          Token.Punctuation.TypeParameters.End,
-          Token.Identifiers.LocalName("a"),
-          Token.Operators.Assignment,
+          Token.Punctuation.TypeParameter.End,
+          Token.Identifier.LocalName("a"),
+          Token.Operator.Assignment,
           Token.Punctuation.OpenParen,
-          Token.Identifiers.ParameterName("x"),
+          Token.Identifier.ParameterName("x"),
           Token.Punctuation.CloseParen,
-          Token.Operators.Arrow,
+          Token.Operator.Arrow,
           Token.Punctuation.OpenBrace,
           Token.Punctuation.CloseBrace,
           Token.Punctuation.Semicolon
@@ -182,16 +182,16 @@ var a = new A // comment
 
         tokens.should.deep.equal([
           Token.Type("Action"),
-          Token.Punctuation.TypeParameters.Begin,
+          Token.Punctuation.TypeParameter.Begin,
           Token.PrimitiveType.Int,
-          Token.Punctuation.TypeParameters.End,
-          Token.Identifiers.LocalName("a"),
-          Token.Operators.Assignment,
+          Token.Punctuation.TypeParameter.End,
+          Token.Identifier.LocalName("a"),
+          Token.Operator.Assignment,
           Token.Punctuation.OpenParen,
           Token.PrimitiveType.Int,
-          Token.Identifiers.ParameterName("x"),
+          Token.Identifier.ParameterName("x"),
           Token.Punctuation.CloseParen,
-          Token.Operators.Arrow,
+          Token.Operator.Arrow,
           Token.Punctuation.OpenBrace,
           Token.Punctuation.CloseBrace,
           Token.Punctuation.Semicolon
@@ -204,19 +204,19 @@ var a = new A // comment
 
         tokens.should.deep.equal([
           Token.Type("Action"),
-          Token.Punctuation.TypeParameters.Begin,
+          Token.Punctuation.TypeParameter.Begin,
           Token.PrimitiveType.Int,
           Token.Punctuation.Comma,
           Token.PrimitiveType.Int,
-          Token.Punctuation.TypeParameters.End,
-          Token.Identifiers.LocalName("a"),
-          Token.Operators.Assignment,
+          Token.Punctuation.TypeParameter.End,
+          Token.Identifier.LocalName("a"),
+          Token.Operator.Assignment,
           Token.Punctuation.OpenParen,
-          Token.Identifiers.ParameterName("x"),
+          Token.Identifier.ParameterName("x"),
           Token.Punctuation.Comma,
-          Token.Identifiers.ParameterName("y"),
+          Token.Identifier.ParameterName("y"),
           Token.Punctuation.CloseParen,
-          Token.Operators.Arrow,
+          Token.Operator.Arrow,
           Token.Punctuation.OpenBrace,
           Token.Punctuation.CloseBrace,
           Token.Punctuation.Semicolon
@@ -231,19 +231,19 @@ var a = new A // comment
 
         tokens.should.deep.equal([
           Token.Type("Action"),
-          Token.Punctuation.TypeParameters.Begin,
+          Token.Punctuation.TypeParameter.Begin,
           Token.PrimitiveType.Int,
           Token.Punctuation.Comma,
           Token.PrimitiveType.Int,
-          Token.Punctuation.TypeParameters.End,
-          Token.Identifiers.LocalName("a"),
-          Token.Operators.Assignment,
+          Token.Punctuation.TypeParameter.End,
+          Token.Identifier.LocalName("a"),
+          Token.Operator.Assignment,
           Token.Punctuation.OpenParen,
-          Token.Identifiers.ParameterName("parameterNo1"),
+          Token.Identifier.ParameterName("parameterNo1"),
           Token.Punctuation.Comma,
-          Token.Identifiers.ParameterName("parameterNo2"),
+          Token.Identifier.ParameterName("parameterNo2"),
           Token.Punctuation.CloseParen,
-          Token.Operators.Arrow,
+          Token.Operator.Arrow,
           Token.Punctuation.OpenBrace,
           Token.Punctuation.CloseBrace,
           Token.Punctuation.Semicolon
@@ -258,21 +258,21 @@ var a = new A // comment
 
         tokens.should.deep.equal([
           Token.Type("Action"),
-          Token.Punctuation.TypeParameters.Begin,
+          Token.Punctuation.TypeParameter.Begin,
           Token.PrimitiveType.Int,
           Token.Punctuation.Comma,
           Token.PrimitiveType.Int,
-          Token.Punctuation.TypeParameters.End,
-          Token.Identifiers.LocalName("a"),
-          Token.Operators.Assignment,
+          Token.Punctuation.TypeParameter.End,
+          Token.Identifier.LocalName("a"),
+          Token.Operator.Assignment,
           Token.Punctuation.OpenParen,
           Token.PrimitiveType.Int,
-          Token.Identifiers.ParameterName("x"),
+          Token.Identifier.ParameterName("x"),
           Token.Punctuation.Comma,
           Token.PrimitiveType.Int,
-          Token.Identifiers.ParameterName("y"),
+          Token.Identifier.ParameterName("y"),
           Token.Punctuation.CloseParen,
-          Token.Operators.Arrow,
+          Token.Operator.Arrow,
           Token.Punctuation.OpenBrace,
           Token.Punctuation.CloseBrace,
           Token.Punctuation.Semicolon
@@ -285,15 +285,15 @@ var a = new A // comment
 
         tokens.should.deep.equal([
           Token.Type("Func"),
-          Token.Punctuation.TypeParameters.Begin,
+          Token.Punctuation.TypeParameter.Begin,
           Token.Type("Task"),
-          Token.Punctuation.TypeParameters.End,
-          Token.Identifiers.LocalName("a"),
-          Token.Operators.Assignment,
-          Token.Keywords.Modifiers.Async,
+          Token.Punctuation.TypeParameter.End,
+          Token.Identifier.LocalName("a"),
+          Token.Operator.Assignment,
+          Token.Keyword.Modifier.Async,
           Token.Punctuation.OpenParen,
           Token.Punctuation.CloseParen,
-          Token.Operators.Arrow,
+          Token.Operator.Arrow,
           Token.Punctuation.OpenBrace,
           Token.Punctuation.CloseBrace,
           Token.Punctuation.Semicolon
@@ -306,16 +306,16 @@ var a = new A // comment
 
         tokens.should.deep.equal([
           Token.Type("Func"),
-          Token.Punctuation.TypeParameters.Begin,
+          Token.Punctuation.TypeParameter.Begin,
           Token.PrimitiveType.Int,
           Token.Punctuation.Comma,
           Token.Type("Task"),
-          Token.Punctuation.TypeParameters.End,
-          Token.Identifiers.LocalName("a"),
-          Token.Operators.Assignment,
-          Token.Keywords.Modifiers.Async,
-          Token.Identifiers.ParameterName("x"),
-          Token.Operators.Arrow,
+          Token.Punctuation.TypeParameter.End,
+          Token.Identifier.LocalName("a"),
+          Token.Operator.Assignment,
+          Token.Keyword.Modifier.Async,
+          Token.Identifier.ParameterName("x"),
+          Token.Operator.Arrow,
           Token.Punctuation.OpenBrace,
           Token.Punctuation.CloseBrace,
           Token.Punctuation.Semicolon
@@ -328,18 +328,18 @@ var a = new A // comment
 
         tokens.should.deep.equal([
           Token.Type("Func"),
-          Token.Punctuation.TypeParameters.Begin,
+          Token.Punctuation.TypeParameter.Begin,
           Token.PrimitiveType.Int,
           Token.Punctuation.Comma,
           Token.Type("Task"),
-          Token.Punctuation.TypeParameters.End,
-          Token.Identifiers.LocalName("a"),
-          Token.Operators.Assignment,
-          Token.Keywords.Modifiers.Async,
+          Token.Punctuation.TypeParameter.End,
+          Token.Identifier.LocalName("a"),
+          Token.Operator.Assignment,
+          Token.Keyword.Modifier.Async,
           Token.Punctuation.OpenParen,
-          Token.Identifiers.ParameterName("x"),
+          Token.Identifier.ParameterName("x"),
           Token.Punctuation.CloseParen,
-          Token.Operators.Arrow,
+          Token.Operator.Arrow,
           Token.Punctuation.OpenBrace,
           Token.Punctuation.CloseBrace,
           Token.Punctuation.Semicolon
@@ -354,19 +354,19 @@ var a = new A // comment
 
         tokens.should.deep.equal([
           Token.Type("Func"),
-          Token.Punctuation.TypeParameters.Begin,
+          Token.Punctuation.TypeParameter.Begin,
           Token.PrimitiveType.Int,
           Token.Punctuation.Comma,
           Token.Type("Task"),
-          Token.Punctuation.TypeParameters.End,
-          Token.Identifiers.LocalName("a"),
-          Token.Operators.Assignment,
-          Token.Keywords.Modifiers.Async,
+          Token.Punctuation.TypeParameter.End,
+          Token.Identifier.LocalName("a"),
+          Token.Operator.Assignment,
+          Token.Keyword.Modifier.Async,
           Token.Punctuation.OpenParen,
           Token.PrimitiveType.Int,
-          Token.Identifiers.ParameterName("x"),
+          Token.Identifier.ParameterName("x"),
           Token.Punctuation.CloseParen,
-          Token.Operators.Arrow,
+          Token.Operator.Arrow,
           Token.Punctuation.OpenBrace,
           Token.Punctuation.CloseBrace,
           Token.Punctuation.Semicolon
@@ -381,24 +381,24 @@ var a = new A // comment
 
         tokens.should.deep.equal([
           Token.Type("Func"),
-          Token.Punctuation.TypeParameters.Begin,
+          Token.Punctuation.TypeParameter.Begin,
           Token.PrimitiveType.Int,
           Token.Punctuation.Comma,
           Token.PrimitiveType.Int,
           Token.Punctuation.Comma,
           Token.Type("Task"),
-          Token.Punctuation.TypeParameters.End,
-          Token.Identifiers.LocalName("a"),
-          Token.Operators.Assignment,
-          Token.Keywords.Modifiers.Async,
+          Token.Punctuation.TypeParameter.End,
+          Token.Identifier.LocalName("a"),
+          Token.Operator.Assignment,
+          Token.Keyword.Modifier.Async,
           Token.Punctuation.OpenParen,
           Token.PrimitiveType.Int,
-          Token.Identifiers.ParameterName("x"),
+          Token.Identifier.ParameterName("x"),
           Token.Punctuation.Comma,
           Token.PrimitiveType.Int,
-          Token.Identifiers.ParameterName("y"),
+          Token.Identifier.ParameterName("y"),
           Token.Punctuation.CloseParen,
-          Token.Operators.Arrow,
+          Token.Operator.Arrow,
           Token.Punctuation.OpenBrace,
           Token.Punctuation.CloseBrace,
           Token.Punctuation.Semicolon
@@ -413,22 +413,22 @@ var a = new A // comment
 
         tokens.should.deep.equal([
           Token.Type("Func"),
-          Token.Punctuation.TypeParameters.Begin,
+          Token.Punctuation.TypeParameter.Begin,
           Token.PrimitiveType.Int,
           Token.Punctuation.Comma,
           Token.PrimitiveType.Int,
           Token.Punctuation.Comma,
           Token.Type("Task"),
-          Token.Punctuation.TypeParameters.End,
-          Token.Identifiers.LocalName("a"),
-          Token.Operators.Assignment,
-          Token.Keywords.Modifiers.Async,
+          Token.Punctuation.TypeParameter.End,
+          Token.Identifier.LocalName("a"),
+          Token.Operator.Assignment,
+          Token.Keyword.Modifier.Async,
           Token.Punctuation.OpenParen,
-          Token.Identifiers.ParameterName("x"),
+          Token.Identifier.ParameterName("x"),
           Token.Punctuation.Comma,
-          Token.Identifiers.ParameterName("y"),
+          Token.Identifier.ParameterName("y"),
           Token.Punctuation.CloseParen,
-          Token.Operators.Arrow,
+          Token.Operator.Arrow,
           Token.Punctuation.OpenBrace,
           Token.Punctuation.CloseBrace,
           Token.Punctuation.Semicolon
@@ -442,16 +442,16 @@ var a = new A // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Variables.Object("Something"),
+          Token.Variable.Object("Something"),
           Token.Punctuation.Accessor,
-          Token.Variables.Property("listener"),
-          Token.Operators.Assignment,
-          Token.Keywords.Modifiers.Async,
-          Token.Identifiers.ParameterName("args"),
-          Token.Operators.Arrow,
+          Token.Variable.Property("listener"),
+          Token.Operator.Assignment,
+          Token.Keyword.Modifier.Async,
+          Token.Identifier.ParameterName("args"),
+          Token.Operator.Arrow,
           Token.Punctuation.OpenBrace,
-          Token.Keywords.Control.Return,
-          Token.Literals.Boolean.True,
+          Token.Keyword.Flow.Return,
+          Token.Literal.Boolean.True,
           Token.Punctuation.Semicolon,
           Token.Punctuation.CloseBrace,
           Token.Punctuation.Semicolon
@@ -464,9 +464,9 @@ var a = new A // comment
 
         tokens.should.deep.equal([
           Token.Type("Action"),
-          Token.Identifiers.LocalName("a"),
-          Token.Operators.Assignment,
-          Token.Keywords.Delegate,
+          Token.Identifier.LocalName("a"),
+          Token.Operator.Assignment,
+          Token.Keyword.Definition.Delegate,
           Token.Punctuation.OpenBrace,
           Token.Punctuation.CloseBrace,
           Token.Punctuation.Semicolon
@@ -479,9 +479,9 @@ var a = new A // comment
 
         tokens.should.deep.equal([
           Token.Type("Action"),
-          Token.Identifiers.LocalName("a"),
-          Token.Operators.Assignment,
-          Token.Keywords.Delegate,
+          Token.Identifier.LocalName("a"),
+          Token.Operator.Assignment,
+          Token.Keyword.Definition.Delegate,
           Token.Punctuation.OpenParen,
           Token.Punctuation.CloseParen,
           Token.Punctuation.OpenBrace,
@@ -496,15 +496,15 @@ var a = new A // comment
 
         tokens.should.deep.equal([
           Token.Type("Action"),
-          Token.Identifiers.LocalName("a"),
-          Token.Operators.Assignment,
-          Token.Keywords.Delegate,
+          Token.Identifier.LocalName("a"),
+          Token.Operator.Assignment,
+          Token.Keyword.Definition.Delegate,
           Token.Punctuation.OpenParen,
           Token.PrimitiveType.Int,
-          Token.Identifiers.ParameterName("x"),
+          Token.Identifier.ParameterName("x"),
           Token.Punctuation.Comma,
           Token.PrimitiveType.Int,
-          Token.Identifiers.ParameterName("y"),
+          Token.Identifier.ParameterName("y"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.OpenBrace,
           Token.Punctuation.CloseBrace,
@@ -518,13 +518,13 @@ var a = new A // comment
 
         tokens.should.deep.equal([
           Token.Type("Func"),
-          Token.Punctuation.TypeParameters.Begin,
+          Token.Punctuation.TypeParameter.Begin,
           Token.Type("Task"),
-          Token.Punctuation.TypeParameters.End,
-          Token.Identifiers.LocalName("a"),
-          Token.Operators.Assignment,
-          Token.Keywords.Modifiers.Async,
-          Token.Keywords.Delegate,
+          Token.Punctuation.TypeParameter.End,
+          Token.Identifier.LocalName("a"),
+          Token.Operator.Assignment,
+          Token.Keyword.Modifier.Async,
+          Token.Keyword.Definition.Delegate,
           Token.Punctuation.OpenBrace,
           Token.Punctuation.CloseBrace,
           Token.Punctuation.Semicolon
@@ -537,13 +537,13 @@ var a = new A // comment
 
         tokens.should.deep.equal([
           Token.Type("Func"),
-          Token.Punctuation.TypeParameters.Begin,
+          Token.Punctuation.TypeParameter.Begin,
           Token.Type("Task"),
-          Token.Punctuation.TypeParameters.End,
-          Token.Identifiers.LocalName("a"),
-          Token.Operators.Assignment,
-          Token.Keywords.Modifiers.Async,
-          Token.Keywords.Delegate,
+          Token.Punctuation.TypeParameter.End,
+          Token.Identifier.LocalName("a"),
+          Token.Operator.Assignment,
+          Token.Keyword.Modifier.Async,
+          Token.Keyword.Definition.Delegate,
           Token.Punctuation.OpenParen,
           Token.Punctuation.CloseParen,
           Token.Punctuation.OpenBrace,
@@ -560,19 +560,19 @@ var a = new A // comment
 
         tokens.should.deep.equal([
           Token.Type("Func"),
-          Token.Punctuation.TypeParameters.Begin,
+          Token.Punctuation.TypeParameter.Begin,
           Token.Type("Task"),
-          Token.Punctuation.TypeParameters.End,
-          Token.Identifiers.LocalName("a"),
-          Token.Operators.Assignment,
-          Token.Keywords.Modifiers.Async,
-          Token.Keywords.Delegate,
+          Token.Punctuation.TypeParameter.End,
+          Token.Identifier.LocalName("a"),
+          Token.Operator.Assignment,
+          Token.Keyword.Modifier.Async,
+          Token.Keyword.Definition.Delegate,
           Token.Punctuation.OpenParen,
           Token.PrimitiveType.Int,
-          Token.Identifiers.ParameterName("x"),
+          Token.Identifier.ParameterName("x"),
           Token.Punctuation.Comma,
           Token.PrimitiveType.Int,
-          Token.Identifiers.ParameterName("y"),
+          Token.Identifier.ParameterName("y"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.OpenBrace,
           Token.Punctuation.CloseBrace,
@@ -585,11 +585,11 @@ var a = new A // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Identifiers.MethodName("M"),
+          Token.Identifier.MethodName("M"),
           Token.Punctuation.OpenParen,
           Token.Punctuation.OpenParen,
           Token.Punctuation.CloseParen,
-          Token.Operators.Arrow,
+          Token.Operator.Arrow,
           Token.Punctuation.OpenBrace,
           Token.Punctuation.CloseBrace,
           Token.Punctuation.CloseParen,
@@ -602,10 +602,10 @@ var a = new A // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Identifiers.MethodName("M"),
+          Token.Identifier.MethodName("M"),
           Token.Punctuation.OpenParen,
-          Token.Identifiers.ParameterName("x"),
-          Token.Operators.Arrow,
+          Token.Identifier.ParameterName("x"),
+          Token.Operator.Arrow,
           Token.Punctuation.OpenBrace,
           Token.Punctuation.CloseBrace,
           Token.Punctuation.CloseParen,
@@ -618,12 +618,12 @@ var a = new A // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Identifiers.MethodName("M"),
+          Token.Identifier.MethodName("M"),
           Token.Punctuation.OpenParen,
           Token.Punctuation.OpenParen,
-          Token.Identifiers.ParameterName("x"),
+          Token.Identifier.ParameterName("x"),
           Token.Punctuation.CloseParen,
-          Token.Operators.Arrow,
+          Token.Operator.Arrow,
           Token.Punctuation.OpenBrace,
           Token.Punctuation.CloseBrace,
           Token.Punctuation.CloseParen,
@@ -636,13 +636,13 @@ var a = new A // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Identifiers.MethodName("M"),
+          Token.Identifier.MethodName("M"),
           Token.Punctuation.OpenParen,
           Token.Punctuation.OpenParen,
           Token.PrimitiveType.Int,
-          Token.Identifiers.ParameterName("x"),
+          Token.Identifier.ParameterName("x"),
           Token.Punctuation.CloseParen,
-          Token.Operators.Arrow,
+          Token.Operator.Arrow,
           Token.Punctuation.OpenBrace,
           Token.Punctuation.CloseBrace,
           Token.Punctuation.CloseParen,
@@ -655,14 +655,14 @@ var a = new A // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Identifiers.MethodName("M"),
+          Token.Identifier.MethodName("M"),
           Token.Punctuation.OpenParen,
           Token.Punctuation.OpenParen,
-          Token.Identifiers.ParameterName("x"),
+          Token.Identifier.ParameterName("x"),
           Token.Punctuation.Comma,
-          Token.Identifiers.ParameterName("y"),
+          Token.Identifier.ParameterName("y"),
           Token.Punctuation.CloseParen,
-          Token.Operators.Arrow,
+          Token.Operator.Arrow,
           Token.Punctuation.OpenBrace,
           Token.Punctuation.CloseBrace,
           Token.Punctuation.CloseParen,
@@ -675,16 +675,16 @@ var a = new A // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Identifiers.MethodName("M"),
+          Token.Identifier.MethodName("M"),
           Token.Punctuation.OpenParen,
           Token.Punctuation.OpenParen,
           Token.PrimitiveType.Int,
-          Token.Identifiers.ParameterName("x"),
+          Token.Identifier.ParameterName("x"),
           Token.Punctuation.Comma,
           Token.PrimitiveType.Int,
-          Token.Identifiers.ParameterName("y"),
+          Token.Identifier.ParameterName("y"),
           Token.Punctuation.CloseParen,
-          Token.Operators.Arrow,
+          Token.Operator.Arrow,
           Token.Punctuation.OpenBrace,
           Token.Punctuation.CloseBrace,
           Token.Punctuation.CloseParen,
@@ -697,12 +697,12 @@ var a = new A // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Identifiers.MethodName("M"),
+          Token.Identifier.MethodName("M"),
           Token.Punctuation.OpenParen,
-          Token.Keywords.Modifiers.Async,
+          Token.Keyword.Modifier.Async,
           Token.Punctuation.OpenParen,
           Token.Punctuation.CloseParen,
-          Token.Operators.Arrow,
+          Token.Operator.Arrow,
           Token.Punctuation.OpenBrace,
           Token.Punctuation.CloseBrace,
           Token.Punctuation.CloseParen,
@@ -715,11 +715,11 @@ var a = new A // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Identifiers.MethodName("M"),
+          Token.Identifier.MethodName("M"),
           Token.Punctuation.OpenParen,
-          Token.Keywords.Modifiers.Async,
-          Token.Identifiers.ParameterName("x"),
-          Token.Operators.Arrow,
+          Token.Keyword.Modifier.Async,
+          Token.Identifier.ParameterName("x"),
+          Token.Operator.Arrow,
           Token.Punctuation.OpenBrace,
           Token.Punctuation.CloseBrace,
           Token.Punctuation.CloseParen,
@@ -732,13 +732,13 @@ var a = new A // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Identifiers.MethodName("M"),
+          Token.Identifier.MethodName("M"),
           Token.Punctuation.OpenParen,
-          Token.Keywords.Modifiers.Async,
+          Token.Keyword.Modifier.Async,
           Token.Punctuation.OpenParen,
-          Token.Identifiers.ParameterName("x"),
+          Token.Identifier.ParameterName("x"),
           Token.Punctuation.CloseParen,
-          Token.Operators.Arrow,
+          Token.Operator.Arrow,
           Token.Punctuation.OpenBrace,
           Token.Punctuation.CloseBrace,
           Token.Punctuation.CloseParen,
@@ -751,14 +751,14 @@ var a = new A // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Identifiers.MethodName("M"),
+          Token.Identifier.MethodName("M"),
           Token.Punctuation.OpenParen,
-          Token.Keywords.Modifiers.Async,
+          Token.Keyword.Modifier.Async,
           Token.Punctuation.OpenParen,
           Token.PrimitiveType.Int,
-          Token.Identifiers.ParameterName("x"),
+          Token.Identifier.ParameterName("x"),
           Token.Punctuation.CloseParen,
-          Token.Operators.Arrow,
+          Token.Operator.Arrow,
           Token.Punctuation.OpenBrace,
           Token.Punctuation.CloseBrace,
           Token.Punctuation.CloseParen,
@@ -771,15 +771,15 @@ var a = new A // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Identifiers.MethodName("M"),
+          Token.Identifier.MethodName("M"),
           Token.Punctuation.OpenParen,
-          Token.Keywords.Modifiers.Async,
+          Token.Keyword.Modifier.Async,
           Token.Punctuation.OpenParen,
-          Token.Identifiers.ParameterName("x"),
+          Token.Identifier.ParameterName("x"),
           Token.Punctuation.Comma,
-          Token.Identifiers.ParameterName("y"),
+          Token.Identifier.ParameterName("y"),
           Token.Punctuation.CloseParen,
-          Token.Operators.Arrow,
+          Token.Operator.Arrow,
           Token.Punctuation.OpenBrace,
           Token.Punctuation.CloseBrace,
           Token.Punctuation.CloseParen,
@@ -792,17 +792,17 @@ var a = new A // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Identifiers.MethodName("M"),
+          Token.Identifier.MethodName("M"),
           Token.Punctuation.OpenParen,
-          Token.Keywords.Modifiers.Async,
+          Token.Keyword.Modifier.Async,
           Token.Punctuation.OpenParen,
           Token.PrimitiveType.Int,
-          Token.Identifiers.ParameterName("x"),
+          Token.Identifier.ParameterName("x"),
           Token.Punctuation.Comma,
           Token.PrimitiveType.Int,
-          Token.Identifiers.ParameterName("y"),
+          Token.Identifier.ParameterName("y"),
           Token.Punctuation.CloseParen,
-          Token.Operators.Arrow,
+          Token.Operator.Arrow,
           Token.Punctuation.OpenBrace,
           Token.Punctuation.CloseBrace,
           Token.Punctuation.CloseParen,
@@ -815,16 +815,16 @@ var a = new A // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Identifiers.MethodName("M"),
+          Token.Identifier.MethodName("M"),
           Token.Punctuation.OpenParen,
           Token.Punctuation.OpenParen,
-          Token.Keywords.Modifiers.Ref,
+          Token.Keyword.Modifier.Ref,
           Token.PrimitiveType.Int,
-          Token.Identifiers.ParameterName("x"),
+          Token.Identifier.ParameterName("x"),
           Token.Punctuation.CloseParen,
-          Token.Operators.Arrow,
-          Token.Keywords.Modifiers.Ref,
-          Token.Variables.ReadWrite("x"),
+          Token.Operator.Arrow,
+          Token.Keyword.Modifier.Ref,
+          Token.Variable.ReadWrite("x"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
         ]);
@@ -835,15 +835,15 @@ var a = new A // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Identifiers.MethodName("M"),
+          Token.Identifier.MethodName("M"),
           Token.Punctuation.OpenParen,
           Token.Punctuation.OpenParen,
-          Token.Keywords.Modifiers.In,
+          Token.Keyword.Modifier.In,
           Token.PrimitiveType.Int,
-          Token.Identifiers.ParameterName("x"),
+          Token.Identifier.ParameterName("x"),
           Token.Punctuation.CloseParen,
-          Token.Operators.Arrow,
-          Token.Variables.ReadWrite("x"),
+          Token.Operator.Arrow,
+          Token.Variable.ReadWrite("x"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
         ]);
@@ -854,9 +854,9 @@ var a = new A // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Identifiers.MethodName("M"),
+          Token.Identifier.MethodName("M"),
           Token.Punctuation.OpenParen,
-          Token.Keywords.Delegate,
+          Token.Keyword.Definition.Delegate,
           Token.Punctuation.OpenBrace,
           Token.Punctuation.CloseBrace,
           Token.Punctuation.CloseParen,
@@ -869,9 +869,9 @@ var a = new A // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Identifiers.MethodName("M"),
+          Token.Identifier.MethodName("M"),
           Token.Punctuation.OpenParen,
-          Token.Keywords.Delegate,
+          Token.Keyword.Definition.Delegate,
           Token.Punctuation.OpenParen,
           Token.Punctuation.CloseParen,
           Token.Punctuation.OpenBrace,
@@ -886,15 +886,15 @@ var a = new A // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Identifiers.MethodName("M"),
+          Token.Identifier.MethodName("M"),
           Token.Punctuation.OpenParen,
-          Token.Keywords.Delegate,
+          Token.Keyword.Definition.Delegate,
           Token.Punctuation.OpenParen,
           Token.PrimitiveType.Int,
-          Token.Identifiers.ParameterName("x"),
+          Token.Identifier.ParameterName("x"),
           Token.Punctuation.Comma,
           Token.PrimitiveType.Int,
-          Token.Identifiers.ParameterName("y"),
+          Token.Identifier.ParameterName("y"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.OpenBrace,
           Token.Punctuation.CloseBrace,
@@ -908,10 +908,10 @@ var a = new A // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Identifiers.MethodName("M"),
+          Token.Identifier.MethodName("M"),
           Token.Punctuation.OpenParen,
-          Token.Keywords.Modifiers.Async,
-          Token.Keywords.Delegate,
+          Token.Keyword.Modifier.Async,
+          Token.Keyword.Definition.Delegate,
           Token.Punctuation.OpenBrace,
           Token.Punctuation.CloseBrace,
           Token.Punctuation.CloseParen,
@@ -924,10 +924,10 @@ var a = new A // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Identifiers.MethodName("M"),
+          Token.Identifier.MethodName("M"),
           Token.Punctuation.OpenParen,
-          Token.Keywords.Modifiers.Async,
-          Token.Keywords.Delegate,
+          Token.Keyword.Modifier.Async,
+          Token.Keyword.Definition.Delegate,
           Token.Punctuation.OpenParen,
           Token.Punctuation.CloseParen,
           Token.Punctuation.OpenBrace,
@@ -942,16 +942,16 @@ var a = new A // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Identifiers.MethodName("M"),
+          Token.Identifier.MethodName("M"),
           Token.Punctuation.OpenParen,
-          Token.Keywords.Modifiers.Async,
-          Token.Keywords.Delegate,
+          Token.Keyword.Modifier.Async,
+          Token.Keyword.Definition.Delegate,
           Token.Punctuation.OpenParen,
           Token.PrimitiveType.Int,
-          Token.Identifiers.ParameterName("x"),
+          Token.Identifier.ParameterName("x"),
           Token.Punctuation.Comma,
           Token.PrimitiveType.Int,
-          Token.Identifiers.ParameterName("y"),
+          Token.Identifier.ParameterName("y"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.OpenBrace,
           Token.Punctuation.CloseBrace,
@@ -979,22 +979,22 @@ public void Method2()
           Token.Punctuation.OpenBracket,
           Token.Type("Fact"),
           Token.Punctuation.CloseBracket,
-          Token.Keywords.Modifiers.Public,
+          Token.Keyword.Modifier.Public,
           Token.PrimitiveType.Void,
-          Token.Identifiers.MethodName("Method1"),
+          Token.Identifier.MethodName("Method1"),
           Token.Punctuation.OpenParen,
           Token.Punctuation.CloseParen,
           Token.Punctuation.OpenBrace,
 
           // app.Command(_ => throw new InvalidOperationException());
-          Token.Variables.Object("app"),
+          Token.Variable.Object("app"),
           Token.Punctuation.Accessor,
-          Token.Identifiers.MethodName("Command"),
+          Token.Identifier.MethodName("Command"),
           Token.Punctuation.OpenParen,
-          Token.Identifiers.ParameterName("_"),
-          Token.Operators.Arrow,
-          Token.Keywords.Control.Throw,
-          Token.Keywords.New,
+          Token.Identifier.ParameterName("_"),
+          Token.Operator.Arrow,
+          Token.Keyword.Flow.Throw,
+          Token.Operator.Expression.New,
           Token.Type("InvalidOperationException"),
           Token.Punctuation.OpenParen,
           Token.Punctuation.CloseParen,
@@ -1005,17 +1005,17 @@ public void Method2()
           Token.Punctuation.OpenBracket,
           Token.Type("Fact"),
           Token.Punctuation.CloseBracket,
-          Token.Keywords.Modifiers.Public,
+          Token.Keyword.Modifier.Public,
           Token.PrimitiveType.Void,
-          Token.Identifiers.MethodName("Method2"),
+          Token.Identifier.MethodName("Method2"),
           Token.Punctuation.OpenParen,
           Token.Punctuation.CloseParen,
           Token.Punctuation.OpenBrace,
 
           // app.Command()
-          Token.Variables.Object("app"),
+          Token.Variable.Object("app"),
           Token.Punctuation.Accessor,
-          Token.Identifiers.MethodName("Command"),
+          Token.Identifier.MethodName("Command"),
           Token.Punctuation.OpenParen,
           Token.Punctuation.CloseParen,
           Token.Punctuation.CloseBrace
@@ -1031,50 +1031,50 @@ var outObjectsToKeep = allOutObjects.Where(outObject => outObject.ShouldKeep);`)
 
         tokens.should.deep.equal([
           // var refObjectsToKeep = allRefObjects.Where(refObject => refObject.ShouldKeep);
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("refObjectsToKeep"),
-          Token.Operators.Assignment,
-          Token.Variables.Object("allRefObjects"),
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("refObjectsToKeep"),
+          Token.Operator.Assignment,
+          Token.Variable.Object("allRefObjects"),
           Token.Punctuation.Accessor,
-          Token.Identifiers.MethodName("Where"),
+          Token.Identifier.MethodName("Where"),
           Token.Punctuation.OpenParen,
-          Token.Identifiers.ParameterName("refObject"),
-          Token.Operators.Arrow,
-          Token.Variables.Object("refObject"),
+          Token.Identifier.ParameterName("refObject"),
+          Token.Operator.Arrow,
+          Token.Variable.Object("refObject"),
           Token.Punctuation.Accessor,
-          Token.Variables.Property("ShouldKeep"),
+          Token.Variable.Property("ShouldKeep"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon,
 
           // var intObjectsToKeep = allIntObjects.Where(intObject => intObject.ShouldKeep);
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("intObjectsToKeep"),
-          Token.Operators.Assignment,
-          Token.Variables.Object("allIntObjects"),
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("intObjectsToKeep"),
+          Token.Operator.Assignment,
+          Token.Variable.Object("allIntObjects"),
           Token.Punctuation.Accessor,
-          Token.Identifiers.MethodName("Where"),
+          Token.Identifier.MethodName("Where"),
           Token.Punctuation.OpenParen,
-          Token.Identifiers.ParameterName("intObject"),
-          Token.Operators.Arrow,
-          Token.Variables.Object("intObject"),
+          Token.Identifier.ParameterName("intObject"),
+          Token.Operator.Arrow,
+          Token.Variable.Object("intObject"),
           Token.Punctuation.Accessor,
-          Token.Variables.Property("ShouldKeep"),
+          Token.Variable.Property("ShouldKeep"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon,
 
           // var outObjectsToKeep = allOutObjects.Where(outObject => outObject.ShouldKeep);;
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("outObjectsToKeep"),
-          Token.Operators.Assignment,
-          Token.Variables.Object("allOutObjects"),
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("outObjectsToKeep"),
+          Token.Operator.Assignment,
+          Token.Variable.Object("allOutObjects"),
           Token.Punctuation.Accessor,
-          Token.Identifiers.MethodName("Where"),
+          Token.Identifier.MethodName("Where"),
           Token.Punctuation.OpenParen,
-          Token.Identifiers.ParameterName("outObject"),
-          Token.Operators.Arrow,
-          Token.Variables.Object("outObject"),
+          Token.Identifier.ParameterName("outObject"),
+          Token.Operator.Arrow,
+          Token.Variable.Object("outObject"),
           Token.Punctuation.Accessor,
-          Token.Variables.Property("ShouldKeep"),
+          Token.Variable.Property("ShouldKeep"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
         ]);
@@ -1087,14 +1087,14 @@ var outObjectsToKeep = allOutObjects.Where(outObject => outObject.ShouldKeep);`)
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("x"),
-          Token.Operators.Assignment,
-          Token.Keywords.New,
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("x"),
+          Token.Operator.Assignment,
+          Token.Operator.Expression.New,
           Token.Punctuation.OpenBrace,
-          Token.Variables.ReadWrite("ID"),
-          Token.Operators.Assignment,
-          Token.Literals.Numeric.Decimal("42"),
+          Token.Variable.ReadWrite("ID"),
+          Token.Operator.Assignment,
+          Token.Literal.Numeric.Decimal("42"),
           Token.Punctuation.CloseBrace,
           Token.Punctuation.Semicolon
         ]);
@@ -1109,14 +1109,14 @@ var x = new
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("x"),
-          Token.Operators.Assignment,
-          Token.Keywords.New,
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("x"),
+          Token.Operator.Assignment,
+          Token.Operator.Expression.New,
           Token.Punctuation.OpenBrace,
-          Token.Variables.ReadWrite("ID"),
-          Token.Operators.Assignment,
-          Token.Literals.Numeric.Decimal("42"),
+          Token.Variable.ReadWrite("ID"),
+          Token.Operator.Assignment,
+          Token.Literal.Numeric.Decimal("42"),
           Token.Punctuation.CloseBrace,
           Token.Punctuation.Semicolon
         ]);
@@ -1127,18 +1127,18 @@ var x = new
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("x"),
-          Token.Operators.Assignment,
-          Token.Keywords.New,
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("x"),
+          Token.Operator.Assignment,
+          Token.Operator.Expression.New,
           Token.Punctuation.OpenBrace,
-          Token.Variables.ReadWrite("y"),
-          Token.Operators.Assignment,
-          Token.Keywords.New,
+          Token.Variable.ReadWrite("y"),
+          Token.Operator.Assignment,
+          Token.Operator.Expression.New,
           Token.Punctuation.OpenBrace,
-          Token.Variables.ReadWrite("ID"),
-          Token.Operators.Assignment,
-          Token.Literals.Numeric.Decimal("42"),
+          Token.Variable.ReadWrite("ID"),
+          Token.Operator.Assignment,
+          Token.Literal.Numeric.Decimal("42"),
           Token.Punctuation.CloseBrace,
           Token.Punctuation.CloseBrace,
           Token.Punctuation.Semicolon
@@ -1157,18 +1157,18 @@ var x = new
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("x"),
-          Token.Operators.Assignment,
-          Token.Keywords.New,
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("x"),
+          Token.Operator.Assignment,
+          Token.Operator.Expression.New,
           Token.Punctuation.OpenBrace,
-          Token.Variables.ReadWrite("y"),
-          Token.Operators.Assignment,
-          Token.Keywords.New,
+          Token.Variable.ReadWrite("y"),
+          Token.Operator.Assignment,
+          Token.Operator.Expression.New,
           Token.Punctuation.OpenBrace,
-          Token.Variables.ReadWrite("ID"),
-          Token.Operators.Assignment,
-          Token.Literals.Numeric.Decimal("42"),
+          Token.Variable.ReadWrite("ID"),
+          Token.Operator.Assignment,
+          Token.Literal.Numeric.Decimal("42"),
           Token.Punctuation.CloseBrace,
           Token.Punctuation.CloseBrace,
           Token.Punctuation.Semicolon
@@ -1184,16 +1184,16 @@ var x = new // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("x"),
-          Token.Operators.Assignment,
-          Token.Keywords.New,
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("x"),
+          Token.Operator.Assignment,
+          Token.Operator.Expression.New,
           Token.Comment.SingleLine.Start,
           Token.Comment.SingleLine.Text(" comment"),
           Token.Punctuation.OpenBrace,
-          Token.Variables.ReadWrite("ID"),
-          Token.Operators.Assignment,
-          Token.Literals.Numeric.Decimal("42"),
+          Token.Variable.ReadWrite("ID"),
+          Token.Operator.Assignment,
+          Token.Literal.Numeric.Decimal("42"),
           Token.Punctuation.CloseBrace,
           Token.Punctuation.Semicolon,
         ]);
@@ -1206,18 +1206,18 @@ var x = new // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Variables.ReadWrite("b"),
-          Token.Operators.Assignment,
-          Token.Variables.This,
+          Token.Variable.ReadWrite("b"),
+          Token.Operator.Assignment,
+          Token.Variable.This,
           Token.Punctuation.Accessor,
-          Token.Variables.Property("i"),
-          Token.Operators.Relational.NotEqual,
-          Token.Literals.Numeric.Decimal("1"),
-          Token.Operators.Arithmetic.Addition,
+          Token.Variable.Property("i"),
+          Token.Operator.Relational.NotEqual,
+          Token.Literal.Numeric.Decimal("1"),
+          Token.Operator.Arithmetic.Addition,
           Token.Punctuation.OpenParen,
-          Token.Literals.Numeric.Decimal("2"),
-          Token.Operators.Arithmetic.Subtraction,
-          Token.Literals.Numeric.Decimal("3"),
+          Token.Literal.Numeric.Decimal("2"),
+          Token.Operator.Arithmetic.Subtraction,
+          Token.Literal.Numeric.Decimal("3"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
         ]);
@@ -1230,23 +1230,23 @@ var x = new // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Variables.Object("c"),
+          Token.Variable.Object("c"),
           Token.Punctuation.Accessor,
-          Token.Identifiers.MethodName("abst"),
+          Token.Identifier.MethodName("abst"),
           Token.Punctuation.OpenParen,
-          Token.Keywords.Modifiers.Ref,
-          Token.Variables.ReadWrite("s"),
+          Token.Keyword.Modifier.Ref,
+          Token.Variable.ReadWrite("s"),
           Token.Punctuation.Comma,
-          Token.Keywords.New,
+          Token.Operator.Expression.New,
           Token.PrimitiveType.Int,
           Token.Punctuation.OpenBracket,
           Token.Punctuation.CloseBracket,
           Token.Punctuation.OpenBrace,
-          Token.Literals.Numeric.Decimal("1"),
+          Token.Literal.Numeric.Decimal("1"),
           Token.Punctuation.Comma,
-          Token.Variables.ReadWrite("i"),
+          Token.Variable.ReadWrite("i"),
           Token.Punctuation.Comma,
-          Token.Variables.ReadWrite("i"),
+          Token.Variable.ReadWrite("i"),
           Token.Punctuation.CloseBrace,
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
@@ -1261,9 +1261,9 @@ var x = new // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Variables.ReadWrite("x"),
-          Token.Operators.Assignment,
-          Token.Literals.Numeric.Decimal("1"),
+          Token.Variable.ReadWrite("x"),
+          Token.Operator.Assignment,
+          Token.Literal.Numeric.Decimal("1"),
           Token.Punctuation.Semicolon
         ]);
       });
@@ -1273,9 +1273,9 @@ var x = new // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Variables.ReadWrite("x"),
-          Token.Operators.CompoundAssignment.Arithmetic.Addition,
-          Token.Literals.Numeric.Decimal("1"),
+          Token.Variable.ReadWrite("x"),
+          Token.Operator.CompoundAssignment.Arithmetic.Addition,
+          Token.Literal.Numeric.Decimal("1"),
           Token.Punctuation.Semicolon
         ]);
       });
@@ -1285,9 +1285,9 @@ var x = new // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Variables.ReadWrite("x"),
-          Token.Operators.CompoundAssignment.Arithmetic.Division,
-          Token.Literals.Numeric.Decimal("1"),
+          Token.Variable.ReadWrite("x"),
+          Token.Operator.CompoundAssignment.Arithmetic.Division,
+          Token.Literal.Numeric.Decimal("1"),
           Token.Punctuation.Semicolon
         ]);
       });
@@ -1297,9 +1297,9 @@ var x = new // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Variables.ReadWrite("x"),
-          Token.Operators.CompoundAssignment.Arithmetic.Multiplication,
-          Token.Literals.Numeric.Decimal("1"),
+          Token.Variable.ReadWrite("x"),
+          Token.Operator.CompoundAssignment.Arithmetic.Multiplication,
+          Token.Literal.Numeric.Decimal("1"),
           Token.Punctuation.Semicolon
         ]);
       });
@@ -1309,9 +1309,9 @@ var x = new // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Variables.ReadWrite("x"),
-          Token.Operators.CompoundAssignment.Arithmetic.Remainder,
-          Token.Literals.Numeric.Decimal("1"),
+          Token.Variable.ReadWrite("x"),
+          Token.Operator.CompoundAssignment.Arithmetic.Remainder,
+          Token.Literal.Numeric.Decimal("1"),
           Token.Punctuation.Semicolon
         ]);
       });
@@ -1321,9 +1321,9 @@ var x = new // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Variables.ReadWrite("x"),
-          Token.Operators.CompoundAssignment.Arithmetic.Subtraction,
-          Token.Literals.Numeric.Decimal("1"),
+          Token.Variable.ReadWrite("x"),
+          Token.Operator.CompoundAssignment.Arithmetic.Subtraction,
+          Token.Literal.Numeric.Decimal("1"),
           Token.Punctuation.Semicolon
         ]);
       });
@@ -1333,9 +1333,9 @@ var x = new // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Variables.ReadWrite("x"),
-          Token.Operators.CompoundAssignment.Bitwise.And,
-          Token.Literals.Numeric.Decimal("1"),
+          Token.Variable.ReadWrite("x"),
+          Token.Operator.CompoundAssignment.Bitwise.And,
+          Token.Literal.Numeric.Decimal("1"),
           Token.Punctuation.Semicolon
         ]);
       });
@@ -1345,9 +1345,9 @@ var x = new // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Variables.ReadWrite("x"),
-          Token.Operators.CompoundAssignment.Bitwise.ExclusiveOr,
-          Token.Literals.Numeric.Decimal("1"),
+          Token.Variable.ReadWrite("x"),
+          Token.Operator.CompoundAssignment.Bitwise.ExclusiveOr,
+          Token.Literal.Numeric.Decimal("1"),
           Token.Punctuation.Semicolon
         ]);
       });
@@ -1357,9 +1357,9 @@ var x = new // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Variables.ReadWrite("x"),
-          Token.Operators.CompoundAssignment.Bitwise.Or,
-          Token.Literals.Numeric.Decimal("1"),
+          Token.Variable.ReadWrite("x"),
+          Token.Operator.CompoundAssignment.Bitwise.Or,
+          Token.Literal.Numeric.Decimal("1"),
           Token.Punctuation.Semicolon
         ]);
       });
@@ -1369,9 +1369,9 @@ var x = new // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Variables.ReadWrite("x"),
-          Token.Operators.CompoundAssignment.Bitwise.ShiftLeft,
-          Token.Literals.Numeric.Decimal("1"),
+          Token.Variable.ReadWrite("x"),
+          Token.Operator.CompoundAssignment.Bitwise.ShiftLeft,
+          Token.Literal.Numeric.Decimal("1"),
           Token.Punctuation.Semicolon
         ]);
       });
@@ -1381,9 +1381,9 @@ var x = new // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Variables.ReadWrite("x"),
-          Token.Operators.CompoundAssignment.Bitwise.ShiftRight,
-          Token.Literals.Numeric.Decimal("1"),
+          Token.Variable.ReadWrite("x"),
+          Token.Operator.CompoundAssignment.Bitwise.ShiftRight,
+          Token.Literal.Numeric.Decimal("1"),
           Token.Punctuation.Semicolon
         ]);
       });
@@ -1393,9 +1393,9 @@ var x = new // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Variables.ReadWrite("x"),
-          Token.Operators.CompoundAssignment.Bitwise.ShiftRightUnsigned,
-          Token.Literals.Numeric.Decimal("1"),
+          Token.Variable.ReadWrite("x"),
+          Token.Operator.CompoundAssignment.Bitwise.ShiftRightUnsigned,
+          Token.Literal.Numeric.Decimal("1"),
           Token.Punctuation.Semicolon
         ]);
       });
@@ -1405,9 +1405,9 @@ var x = new // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Variables.ReadWrite("x"),
-          Token.Operators.CompoundAssignment.NullCoalescing,
-          Token.Literals.Numeric.Decimal("1"),
+          Token.Variable.ReadWrite("x"),
+          Token.Operator.CompoundAssignment.NullCoalescing,
+          Token.Literal.Numeric.Decimal("1"),
           Token.Punctuation.Semicolon
         ]);
       });
@@ -1419,8 +1419,8 @@ var x = new // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Await,
-          Token.Identifiers.MethodName("M"),
+          Token.Operator.Expression.Await,
+          Token.Identifier.MethodName("M"),
           Token.Punctuation.OpenParen,
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
@@ -1432,11 +1432,11 @@ var x = new // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("x"),
-          Token.Operators.Assignment,
-          Token.Keywords.Await,
-          Token.Identifiers.MethodName("M"),
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("x"),
+          Token.Operator.Assignment,
+          Token.Operator.Expression.Await,
+          Token.Identifier.MethodName("M"),
           Token.Punctuation.OpenParen,
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
@@ -1448,10 +1448,10 @@ var x = new // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Identifiers.MethodName("M1"),
+          Token.Identifier.MethodName("M1"),
           Token.Punctuation.OpenParen,
-          Token.Keywords.Await,
-          Token.Identifiers.MethodName("M2"),
+          Token.Operator.Expression.Await,
+          Token.Identifier.MethodName("M2"),
           Token.Punctuation.OpenParen,
           Token.Punctuation.CloseParen,
           Token.Punctuation.CloseParen,
@@ -1464,8 +1464,8 @@ var x = new // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Await,
-          Token.Variables.ReadWrite("x"),
+          Token.Operator.Expression.Await,
+          Token.Variable.ReadWrite("x"),
           Token.Punctuation.Semicolon
         ]);
       });
@@ -1480,20 +1480,20 @@ var x = new // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Await,
-          Token.Keywords.Control.ForEach,
+          Token.Operator.Expression.Await,
+          Token.Keyword.Loop.ForEach,
           Token.Punctuation.OpenParen,
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("item"),
-          Token.Keywords.Control.In,
-          Token.Variables.ReadWrite("list"),
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("item"),
+          Token.Keyword.Loop.In,
+          Token.Variable.ReadWrite("list"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.OpenBrace,
           Token.Punctuation.CloseBrace,
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("i"),
-          Token.Operators.Assignment,
-          Token.Literals.Numeric.Decimal("1"),
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("i"),
+          Token.Operator.Assignment,
+          Token.Literal.Numeric.Decimal("1"),
           Token.Punctuation.Semicolon
         ]);
       });
@@ -1505,13 +1505,13 @@ var x = new // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("o"),
-          Token.Operators.Assignment,
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("o"),
+          Token.Operator.Assignment,
           Token.Punctuation.OpenParen,
           Token.PrimitiveType.Object,
           Token.Punctuation.CloseParen,
-          Token.Literals.Numeric.Decimal("42"),
+          Token.Literal.Numeric.Decimal("42"),
           Token.Punctuation.Semicolon
         ]);
       });
@@ -1521,16 +1521,16 @@ var x = new // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("o"),
-          Token.Operators.Assignment,
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("o"),
+          Token.Operator.Assignment,
           Token.Punctuation.OpenParen,
           Token.Type("C"),
-          Token.Punctuation.TypeParameters.Begin,
+          Token.Punctuation.TypeParameter.Begin,
           Token.PrimitiveType.Int,
-          Token.Punctuation.TypeParameters.End,
+          Token.Punctuation.TypeParameter.End,
           Token.Punctuation.CloseParen,
-          Token.Literals.Numeric.Decimal("42"),
+          Token.Literal.Numeric.Decimal("42"),
           Token.Punctuation.Semicolon
         ]);
       });
@@ -1540,19 +1540,19 @@ var x = new // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("t"),
-          Token.Operators.Assignment,
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("t"),
+          Token.Operator.Assignment,
           Token.Punctuation.OpenParen,
           Token.Punctuation.OpenParen,
           Token.PrimitiveType.Int,
-          Token.Identifiers.TupleElementName("x"),
+          Token.Identifier.TupleElementName("x"),
           Token.Punctuation.Comma,
           Token.PrimitiveType.Int,
-          Token.Identifiers.TupleElementName("y"),
+          Token.Identifier.TupleElementName("y"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.CloseParen,
-          Token.Variables.ReadWrite("o"),
+          Token.Variable.ReadWrite("o"),
           Token.Punctuation.Semicolon
         ]);
       });
@@ -1562,12 +1562,12 @@ var x = new // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Identifiers.MethodName("M"),
+          Token.Identifier.MethodName("M"),
           Token.Punctuation.OpenParen,
           Token.Punctuation.OpenParen,
           Token.PrimitiveType.Int,
           Token.Punctuation.CloseParen,
-          Token.Literals.Numeric.Decimal("42"),
+          Token.Literal.Numeric.Decimal("42"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
         ]);
@@ -1578,7 +1578,7 @@ var x = new // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Identifiers.MethodName("M"),
+          Token.Identifier.MethodName("M"),
           Token.Punctuation.OpenParen,
           Token.Punctuation.OpenParen,
           Token.PrimitiveType.Int,
@@ -1586,7 +1586,7 @@ var x = new // comment
           Token.Punctuation.OpenParen,
           Token.PrimitiveType.Object,
           Token.Punctuation.CloseParen,
-          Token.Literals.Numeric.Decimal("42"),
+          Token.Literal.Numeric.Decimal("42"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
         ]);
@@ -1597,18 +1597,18 @@ var x = new // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("x"),
-          Token.Operators.Assignment,
-          Token.Variables.ReadWrite("o"),
-          Token.Keywords.As,
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("x"),
+          Token.Operator.Assignment,
+          Token.Variable.ReadWrite("o"),
+          Token.Operator.Expression.As,
           Token.Type("List"),
-          Token.Punctuation.TypeParameters.Begin,
+          Token.Punctuation.TypeParameter.Begin,
           Token.Type("Lazy"),
-          Token.Punctuation.TypeParameters.Begin,
+          Token.Punctuation.TypeParameter.Begin,
           Token.PrimitiveType.String,
-          Token.Punctuation.TypeParameters.End,
-          Token.Punctuation.TypeParameters.End,
+          Token.Punctuation.TypeParameter.End,
+          Token.Punctuation.TypeParameter.End,
           Token.Punctuation.Semicolon
         ]);
       });
@@ -1618,20 +1618,20 @@ var x = new // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("x"),
-          Token.Operators.Assignment,
-          Token.Identifiers.MethodName("M"),
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("x"),
+          Token.Operator.Assignment,
+          Token.Identifier.MethodName("M"),
           Token.Punctuation.OpenParen,
           Token.Punctuation.CloseParen,
-          Token.Keywords.As,
+          Token.Operator.Expression.As,
           Token.Type("List"),
-          Token.Punctuation.TypeParameters.Begin,
+          Token.Punctuation.TypeParameter.Begin,
           Token.Type("Lazy"),
-          Token.Punctuation.TypeParameters.Begin,
+          Token.Punctuation.TypeParameter.Begin,
           Token.PrimitiveType.String,
-          Token.Punctuation.TypeParameters.End,
-          Token.Punctuation.TypeParameters.End,
+          Token.Punctuation.TypeParameter.End,
+          Token.Punctuation.TypeParameter.End,
           Token.Punctuation.Semicolon
         ]);
       });
@@ -1641,18 +1641,18 @@ var x = new // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("x"),
-          Token.Operators.Assignment,
-          Token.Variables.ReadWrite("o"),
-          Token.Operators.Pattern.Is,
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("x"),
+          Token.Operator.Assignment,
+          Token.Variable.ReadWrite("o"),
+          Token.Operator.Pattern.Is,
           Token.Type("List"),
-          Token.Punctuation.TypeParameters.Begin,
+          Token.Punctuation.TypeParameter.Begin,
           Token.Type("Lazy"),
-          Token.Punctuation.TypeParameters.Begin,
+          Token.Punctuation.TypeParameter.Begin,
           Token.PrimitiveType.String,
-          Token.Punctuation.TypeParameters.End,
-          Token.Punctuation.TypeParameters.End,
+          Token.Punctuation.TypeParameter.End,
+          Token.Punctuation.TypeParameter.End,
           Token.Punctuation.Semicolon
         ]);
       });
@@ -1662,20 +1662,20 @@ var x = new // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("x"),
-          Token.Operators.Assignment,
-          Token.Identifiers.MethodName("M"),
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("x"),
+          Token.Operator.Assignment,
+          Token.Identifier.MethodName("M"),
           Token.Punctuation.OpenParen,
           Token.Punctuation.CloseParen,
-          Token.Operators.Pattern.Is,
+          Token.Operator.Pattern.Is,
           Token.Type("List"),
-          Token.Punctuation.TypeParameters.Begin,
+          Token.Punctuation.TypeParameter.Begin,
           Token.Type("Lazy"),
-          Token.Punctuation.TypeParameters.Begin,
+          Token.Punctuation.TypeParameter.Begin,
           Token.PrimitiveType.String,
-          Token.Punctuation.TypeParameters.End,
-          Token.Punctuation.TypeParameters.End,
+          Token.Punctuation.TypeParameter.End,
+          Token.Punctuation.TypeParameter.End,
           Token.Punctuation.Semicolon
         ]);
       });
@@ -1685,13 +1685,13 @@ var x = new // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("a"),
-          Token.Operators.Assignment,
-          Token.Variables.ReadWrite("b"),
-          Token.Keywords.As,
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("a"),
+          Token.Operator.Assignment,
+          Token.Variable.ReadWrite("b"),
+          Token.Operator.Expression.As,
           Token.PrimitiveType.String,
-          Token.Operators.NullCoalescing,
+          Token.Operator.NullCoalescing,
           Token.Punctuation.String.Begin,
           Token.Punctuation.String.End,
           Token.Punctuation.Semicolon,
@@ -1703,15 +1703,15 @@ var x = new // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("a"),
-          Token.Operators.Assignment,
-          Token.Variables.ReadWrite("b"),
-          Token.Keywords.As,
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("a"),
+          Token.Operator.Assignment,
+          Token.Variable.ReadWrite("b"),
+          Token.Operator.Expression.As,
           Token.PrimitiveType.Int,
           Token.Punctuation.QuestionMark,
-          Token.Operators.NullCoalescing,
-          Token.Literals.Numeric.Decimal("0"),
+          Token.Operator.NullCoalescing,
+          Token.Literal.Numeric.Decimal("0"),
           Token.Punctuation.Semicolon,
         ]);
       });
@@ -1721,19 +1721,19 @@ var x = new // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("a"),
-          Token.Operators.Assignment,
-          Token.Variables.ReadWrite("b"),
-          Token.Keywords.As,
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("a"),
+          Token.Operator.Assignment,
+          Token.Variable.ReadWrite("b"),
+          Token.Operator.Expression.As,
           Token.PrimitiveType.Int,
           Token.Punctuation.OpenBracket,
           Token.Punctuation.CloseBracket,
-          Token.Operators.NullCoalescing,
-          Token.Keywords.New,
+          Token.Operator.NullCoalescing,
+          Token.Operator.Expression.New,
           Token.PrimitiveType.Int,
           Token.Punctuation.OpenBracket,
-          Token.Literals.Numeric.Decimal("0"),
+          Token.Literal.Numeric.Decimal("0"),
           Token.Punctuation.CloseBracket,
           Token.Punctuation.Semicolon,
         ]);
@@ -1747,11 +1747,11 @@ var x = new // comment
 
         tokens.should.deep.equal([
           Token.PrimitiveType.Int,
-          Token.Identifiers.LocalName("x"),
-          Token.Operators.Assignment,
-          Token.Keywords.Checked,
+          Token.Identifier.LocalName("x"),
+          Token.Operator.Assignment,
+          Token.Operator.Expression.Checked,
           Token.Punctuation.OpenParen,
-          Token.Literals.Numeric.Decimal("42"),
+          Token.Literal.Numeric.Decimal("42"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
         ]);
@@ -1763,11 +1763,11 @@ var x = new // comment
 
         tokens.should.deep.equal([
           Token.PrimitiveType.Int,
-          Token.Identifiers.LocalName("x"),
-          Token.Operators.Assignment,
-          Token.Keywords.Unchecked,
+          Token.Identifier.LocalName("x"),
+          Token.Operator.Assignment,
+          Token.Operator.Expression.Unchecked,
           Token.Punctuation.OpenParen,
-          Token.Literals.Numeric.Decimal("42"),
+          Token.Literal.Numeric.Decimal("42"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
         ]);
@@ -1789,28 +1789,28 @@ class C
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Class,
-          Token.Identifiers.ClassName("C"),
+          Token.Keyword.Definition.Class,
+          Token.Identifier.ClassName("C"),
           Token.Punctuation.OpenBrace,
           Token.PrimitiveType.Void,
-          Token.Identifiers.MethodName("M1"),
+          Token.Identifier.MethodName("M1"),
           Token.Punctuation.OpenParen,
           Token.Punctuation.CloseParen,
           Token.Punctuation.OpenBrace,
 
-          Token.Keywords.Checked,
+          Token.Keyword.Context.Checked,
           Token.Punctuation.OpenBrace,
-          Token.Keywords.Checked,
+          Token.Operator.Expression.Checked,
           Token.Punctuation.OpenParen,
-          Token.Operators.Increment,
-          Token.Variables.ReadWrite("i"),
+          Token.Operator.Increment,
+          Token.Variable.ReadWrite("i"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon,
           Token.Punctuation.CloseBrace,
 
           Token.Punctuation.CloseBrace,
           Token.PrimitiveType.Void,
-          Token.Identifiers.MethodName("M2"),
+          Token.Identifier.MethodName("M2"),
           Token.Punctuation.OpenParen,
           Token.Punctuation.CloseParen,
           Token.Punctuation.OpenBrace,
@@ -1826,14 +1826,14 @@ class C
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("y"),
-          Token.Operators.Assignment,
-          Token.Variables.ReadWrite("x"),
-          Token.Operators.Conditional.QuestionMark,
-          Token.Literals.Numeric.Decimal("19"),
-          Token.Operators.Conditional.Colon,
-          Token.Literals.Numeric.Decimal("23"),
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("y"),
+          Token.Operator.Assignment,
+          Token.Variable.ReadWrite("x"),
+          Token.Operator.Conditional.QuestionMark,
+          Token.Literal.Numeric.Decimal("19"),
+          Token.Operator.Conditional.Colon,
+          Token.Literal.Numeric.Decimal("23"),
           Token.Punctuation.Semicolon
         ]);
       });
@@ -1843,13 +1843,13 @@ class C
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Identifiers.MethodName("M"),
+          Token.Identifier.MethodName("M"),
           Token.Punctuation.OpenParen,
-          Token.Variables.ReadWrite("x"),
-          Token.Operators.Conditional.QuestionMark,
-          Token.Literals.Numeric.Decimal("19"),
-          Token.Operators.Conditional.Colon,
-          Token.Literals.Numeric.Decimal("23"),
+          Token.Variable.ReadWrite("x"),
+          Token.Operator.Conditional.QuestionMark,
+          Token.Literal.Numeric.Decimal("19"),
+          Token.Operator.Conditional.Colon,
+          Token.Literal.Numeric.Decimal("23"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
         ]);
@@ -1866,41 +1866,41 @@ var result = list.Select(l => new {
 
         tokens.should.deep.equal([
           // var result = list.Select(l => new {
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("result"),
-          Token.Operators.Assignment,
-          Token.Variables.Object("list"),
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("result"),
+          Token.Operator.Assignment,
+          Token.Variable.Object("list"),
           Token.Punctuation.Accessor,
-          Token.Identifiers.MethodName("Select"),
+          Token.Identifier.MethodName("Select"),
           Token.Punctuation.OpenParen,
-          Token.Identifiers.ParameterName("l"),
-          Token.Operators.Arrow,
-          Token.Keywords.New,
+          Token.Identifier.ParameterName("l"),
+          Token.Operator.Arrow,
+          Token.Operator.Expression.New,
           Token.Punctuation.OpenBrace,
 
           // w = l != null ? new {
-          Token.Variables.ReadWrite("w"),
-          Token.Operators.Assignment,
-          Token.Variables.ReadWrite("l"),
-          Token.Operators.Relational.NotEqual,
-          Token.Literals.Null,
-          Token.Operators.Conditional.QuestionMark,
-          Token.Keywords.New,
+          Token.Variable.ReadWrite("w"),
+          Token.Operator.Assignment,
+          Token.Variable.ReadWrite("l"),
+          Token.Operator.Relational.NotEqual,
+          Token.Literal.Null,
+          Token.Operator.Conditional.QuestionMark,
+          Token.Operator.Expression.New,
           Token.Punctuation.OpenBrace,
 
           // h = l.ToUpper()
-          Token.Variables.ReadWrite("h"),
-          Token.Operators.Assignment,
-          Token.Variables.Object("l"),
+          Token.Variable.ReadWrite("h"),
+          Token.Operator.Assignment,
+          Token.Variable.Object("l"),
           Token.Punctuation.Accessor,
-          Token.Identifiers.MethodName("ToUpper"),
+          Token.Identifier.MethodName("ToUpper"),
           Token.Punctuation.OpenParen,
           Token.Punctuation.CloseParen,
 
           // } : null
           Token.Punctuation.CloseBrace,
-          Token.Operators.Conditional.Colon,
-          Token.Literals.Null,
+          Token.Operator.Conditional.Colon,
+          Token.Literal.Null,
 
           // });
           Token.Punctuation.CloseBrace,
@@ -1916,10 +1916,10 @@ var result = list.Select(l => new {
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("o"),
-          Token.Operators.Assignment,
-          Token.Variables.Property("P"),
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("o"),
+          Token.Operator.Assignment,
+          Token.Variable.Property("P"),
           Token.Punctuation.OpenBracket,
           Token.Punctuation.CloseBracket,
           Token.Punctuation.Semicolon
@@ -1931,12 +1931,12 @@ var result = list.Select(l => new {
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("o"),
-          Token.Operators.Assignment,
-          Token.Variables.Property("P"),
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("o"),
+          Token.Operator.Assignment,
+          Token.Variable.Property("P"),
           Token.Punctuation.OpenBracket,
-          Token.Literals.Numeric.Decimal("42"),
+          Token.Literal.Numeric.Decimal("42"),
           Token.Punctuation.CloseBracket,
           Token.Punctuation.Semicolon
         ]);
@@ -1947,14 +1947,14 @@ var result = list.Select(l => new {
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("o"),
-          Token.Operators.Assignment,
-          Token.Variables.Property("P"),
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("o"),
+          Token.Operator.Assignment,
+          Token.Variable.Property("P"),
           Token.Punctuation.OpenBracket,
-          Token.Literals.Numeric.Decimal("19"),
+          Token.Literal.Numeric.Decimal("19"),
           Token.Punctuation.Comma,
-          Token.Literals.Numeric.Decimal("23"),
+          Token.Literal.Numeric.Decimal("23"),
           Token.Punctuation.CloseBracket,
           Token.Punctuation.Semicolon
         ]);
@@ -1965,18 +1965,18 @@ var result = list.Select(l => new {
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("o"),
-          Token.Operators.Assignment,
-          Token.Variables.Property("P"),
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("o"),
+          Token.Operator.Assignment,
+          Token.Variable.Property("P"),
           Token.Punctuation.OpenBracket,
-          Token.Identifiers.ParameterName("x"),
+          Token.Identifier.ParameterName("x"),
           Token.Punctuation.Colon,
-          Token.Literals.Numeric.Decimal("19"),
+          Token.Literal.Numeric.Decimal("19"),
           Token.Punctuation.Comma,
-          Token.Identifiers.ParameterName("y"),
+          Token.Identifier.ParameterName("y"),
           Token.Punctuation.Colon,
-          Token.Literals.Numeric.Decimal("23"),
+          Token.Literal.Numeric.Decimal("23"),
           Token.Punctuation.CloseBracket,
           Token.Punctuation.Semicolon
         ]);
@@ -1987,13 +1987,13 @@ var result = list.Select(l => new {
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("o"),
-          Token.Operators.Assignment,
-          Token.Variables.Property("P"),
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("o"),
+          Token.Operator.Assignment,
+          Token.Variable.Property("P"),
           Token.Punctuation.OpenBracket,
-          Token.Keywords.Modifiers.Ref,
-          Token.Variables.ReadWrite("x"),
+          Token.Keyword.Modifier.Ref,
+          Token.Variable.ReadWrite("x"),
           Token.Punctuation.CloseBracket,
           Token.Punctuation.Semicolon
         ]);
@@ -2004,13 +2004,13 @@ var result = list.Select(l => new {
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("o"),
-          Token.Operators.Assignment,
-          Token.Variables.Property("P"),
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("o"),
+          Token.Operator.Assignment,
+          Token.Variable.Property("P"),
           Token.Punctuation.OpenBracket,
-          Token.Keywords.Modifiers.Out,
-          Token.Variables.ReadWrite("x"),
+          Token.Keyword.Modifier.Out,
+          Token.Variable.ReadWrite("x"),
           Token.Punctuation.CloseBracket,
           Token.Punctuation.Semicolon
         ]);
@@ -2021,13 +2021,13 @@ var result = list.Select(l => new {
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("o"),
-          Token.Operators.Assignment,
-          Token.Variables.Property("P"),
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("o"),
+          Token.Operator.Assignment,
+          Token.Variable.Property("P"),
           Token.Punctuation.OpenBracket,
-          Token.Keywords.Modifiers.In,
-          Token.Variables.ReadWrite("x"),
+          Token.Keyword.Modifier.In,
+          Token.Variable.ReadWrite("x"),
           Token.Punctuation.CloseBracket,
           Token.Punctuation.Semicolon
         ]);
@@ -2038,15 +2038,15 @@ var result = list.Select(l => new {
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("o"),
-          Token.Operators.Assignment,
-          Token.Variables.Property("P"),
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("o"),
+          Token.Operator.Assignment,
+          Token.Variable.Property("P"),
           Token.Punctuation.OpenBracket,
-          Token.Identifiers.ParameterName("x"),
+          Token.Identifier.ParameterName("x"),
           Token.Punctuation.Colon,
-          Token.Keywords.Modifiers.Ref,
-          Token.Variables.ReadWrite("y"),
+          Token.Keyword.Modifier.Ref,
+          Token.Variable.ReadWrite("y"),
           Token.Punctuation.CloseBracket,
           Token.Punctuation.Semicolon
         ]);
@@ -2057,15 +2057,15 @@ var result = list.Select(l => new {
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("o"),
-          Token.Operators.Assignment,
-          Token.Variables.Property("P"),
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("o"),
+          Token.Operator.Assignment,
+          Token.Variable.Property("P"),
           Token.Punctuation.OpenBracket,
-          Token.Identifiers.ParameterName("x"),
+          Token.Identifier.ParameterName("x"),
           Token.Punctuation.Colon,
-          Token.Keywords.Modifiers.Out,
-          Token.Variables.ReadWrite("y"),
+          Token.Keyword.Modifier.Out,
+          Token.Variable.ReadWrite("y"),
           Token.Punctuation.CloseBracket,
           Token.Punctuation.Semicolon
         ]);
@@ -2076,15 +2076,15 @@ var result = list.Select(l => new {
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("o"),
-          Token.Operators.Assignment,
-          Token.Variables.Property("P"),
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("o"),
+          Token.Operator.Assignment,
+          Token.Variable.Property("P"),
           Token.Punctuation.OpenBracket,
-          Token.Identifiers.ParameterName("x"),
+          Token.Identifier.ParameterName("x"),
           Token.Punctuation.Colon,
-          Token.Keywords.Modifiers.In,
-          Token.Variables.ReadWrite("y"),
+          Token.Keyword.Modifier.In,
+          Token.Variable.ReadWrite("y"),
           Token.Punctuation.CloseBracket,
           Token.Punctuation.Semicolon
         ]);
@@ -2095,18 +2095,18 @@ var result = list.Select(l => new {
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("o"),
-          Token.Operators.Assignment,
-          Token.Variables.Property("P"),
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("o"),
+          Token.Operator.Assignment,
+          Token.Variable.Property("P"),
           Token.Punctuation.OpenBracket,
-          Token.Keywords.Modifiers.Out,
+          Token.Keyword.Modifier.Out,
           Token.PrimitiveType.Int,
-          Token.Identifiers.LocalName("x"),
+          Token.Identifier.LocalName("x"),
           Token.Punctuation.Comma,
-          Token.Keywords.Modifiers.Out,
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("y"),
+          Token.Keyword.Modifier.Out,
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("y"),
           Token.Punctuation.CloseBracket,
           Token.Punctuation.Semicolon
         ]);
@@ -2117,15 +2117,15 @@ var result = list.Select(l => new {
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("o"),
-          Token.Operators.Assignment,
-          Token.Variables.Object("C"),
-          Token.Punctuation.TypeParameters.Begin,
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("o"),
+          Token.Operator.Assignment,
+          Token.Variable.Object("C"),
+          Token.Punctuation.TypeParameter.Begin,
           Token.PrimitiveType.Int,
-          Token.Punctuation.TypeParameters.End,
+          Token.Punctuation.TypeParameter.End,
           Token.Punctuation.Accessor,
-          Token.Variables.Property("P"),
+          Token.Variable.Property("P"),
           Token.Punctuation.OpenBracket,
           Token.Punctuation.CloseBracket,
           Token.Punctuation.Semicolon
@@ -2137,17 +2137,17 @@ var result = list.Select(l => new {
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("o"),
-          Token.Operators.Assignment,
-          Token.Variables.Object("N"),
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("o"),
+          Token.Operator.Assignment,
+          Token.Variable.Object("N"),
           Token.Punctuation.Accessor,
-          Token.Variables.Object("C"),
-          Token.Punctuation.TypeParameters.Begin,
+          Token.Variable.Object("C"),
+          Token.Punctuation.TypeParameter.Begin,
           Token.PrimitiveType.Int,
-          Token.Punctuation.TypeParameters.End,
+          Token.Punctuation.TypeParameter.End,
           Token.Punctuation.Accessor,
-          Token.Variables.Property("P"),
+          Token.Variable.Property("P"),
           Token.Punctuation.OpenBracket,
           Token.Punctuation.CloseBracket,
           Token.Punctuation.Semicolon
@@ -2159,14 +2159,14 @@ var result = list.Select(l => new {
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("a"),
-          Token.Operators.Assignment,
-          Token.Variables.Object("b"),
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("a"),
+          Token.Operator.Assignment,
+          Token.Variable.Object("b"),
           Token.Punctuation.Accessor,
-          Token.Variables.Property("c"),
+          Token.Variable.Property("c"),
           Token.Punctuation.OpenBracket,
-          Token.Literals.Numeric.Decimal("0"),
+          Token.Literal.Numeric.Decimal("0"),
           Token.Punctuation.CloseBracket,
           Token.Punctuation.Semicolon
         ]);
@@ -2177,17 +2177,17 @@ var result = list.Select(l => new {
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("a"),
-          Token.Operators.Assignment,
-          Token.Variables.Object("b"),
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("a"),
+          Token.Operator.Assignment,
+          Token.Variable.Object("b"),
           Token.Punctuation.Accessor,
-          Token.Variables.Property("c"),
+          Token.Variable.Property("c"),
           Token.Punctuation.OpenBracket,
-          Token.Literals.Numeric.Decimal("19"),
+          Token.Literal.Numeric.Decimal("19"),
           Token.Punctuation.CloseBracket,
           Token.Punctuation.OpenBracket,
-          Token.Literals.Numeric.Decimal("23"),
+          Token.Literal.Numeric.Decimal("23"),
           Token.Punctuation.CloseBracket,
           Token.Punctuation.Semicolon
         ]);
@@ -2198,20 +2198,20 @@ var result = list.Select(l => new {
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("a"),
-          Token.Operators.Assignment,
-          Token.Variables.Object("b"),
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("a"),
+          Token.Operator.Assignment,
+          Token.Variable.Object("b"),
           Token.Punctuation.Accessor,
-          Token.Variables.Property("c"),
+          Token.Variable.Property("c"),
           Token.Punctuation.OpenBracket,
-          Token.Literals.Numeric.Decimal("19"),
+          Token.Literal.Numeric.Decimal("19"),
           Token.Punctuation.CloseBracket,
           Token.Punctuation.OpenBracket,
-          Token.Literals.Numeric.Decimal("23"),
+          Token.Literal.Numeric.Decimal("23"),
           Token.Punctuation.CloseBracket,
           Token.Punctuation.Accessor,
-          Token.Variables.Property("d"),
+          Token.Variable.Property("d"),
           Token.Punctuation.Semicolon
         ]);
       });
@@ -2221,20 +2221,20 @@ var result = list.Select(l => new {
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("a"),
-          Token.Operators.Assignment,
-          Token.Variables.Object("b"),
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("a"),
+          Token.Operator.Assignment,
+          Token.Variable.Object("b"),
           Token.Punctuation.Accessor,
-          Token.Variables.Property("c"),
+          Token.Variable.Property("c"),
           Token.Punctuation.OpenBracket,
-          Token.Literals.Numeric.Decimal("19"),
+          Token.Literal.Numeric.Decimal("19"),
           Token.Punctuation.CloseBracket,
           Token.Punctuation.OpenBracket,
-          Token.Literals.Numeric.Decimal("23"),
+          Token.Literal.Numeric.Decimal("23"),
           Token.Punctuation.CloseBracket,
           Token.Punctuation.Accessor,
-          Token.Identifiers.MethodName("d"),
+          Token.Identifier.MethodName("d"),
           Token.Punctuation.OpenParen,
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
@@ -2252,52 +2252,52 @@ a1[1] = ((this.a)); a1[2] = (c); a1[1] = (i);
           Token.PrimitiveType.Object,
           Token.Punctuation.OpenBracket,
           Token.Punctuation.CloseBracket,
-          Token.Identifiers.LocalName("a1"),
-          Token.Operators.Assignment,
+          Token.Identifier.LocalName("a1"),
+          Token.Operator.Assignment,
           Token.Punctuation.OpenBrace,
           Token.Punctuation.OpenParen,
-          Token.Literals.Null,
+          Token.Literal.Null,
           Token.Punctuation.CloseParen,
           Token.Punctuation.Comma,
           Token.Punctuation.OpenParen,
-          Token.Variables.This,
+          Token.Variable.This,
           Token.Punctuation.Accessor,
-          Token.Variables.Property("a"),
+          Token.Variable.Property("a"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.Comma,
-          Token.Variables.ReadWrite("c"),
+          Token.Variable.ReadWrite("c"),
           Token.Punctuation.CloseBrace,
           Token.Punctuation.Semicolon,
 
-          Token.Variables.Property("a1"),
+          Token.Variable.Property("a1"),
           Token.Punctuation.OpenBracket,
-          Token.Literals.Numeric.Decimal("1"),
+          Token.Literal.Numeric.Decimal("1"),
           Token.Punctuation.CloseBracket,
-          Token.Operators.Assignment,
+          Token.Operator.Assignment,
           Token.Punctuation.OpenParen,
           Token.Punctuation.OpenParen,
-          Token.Variables.This,
+          Token.Variable.This,
           Token.Punctuation.Accessor,
-          Token.Variables.Property("a"),
+          Token.Variable.Property("a"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon,
-          Token.Variables.Property("a1"),
+          Token.Variable.Property("a1"),
           Token.Punctuation.OpenBracket,
-          Token.Literals.Numeric.Decimal("2"),
+          Token.Literal.Numeric.Decimal("2"),
           Token.Punctuation.CloseBracket,
-          Token.Operators.Assignment,
+          Token.Operator.Assignment,
           Token.Punctuation.OpenParen,
-          Token.Variables.ReadWrite("c"),
+          Token.Variable.ReadWrite("c"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon,
-          Token.Variables.Property("a1"),
+          Token.Variable.Property("a1"),
           Token.Punctuation.OpenBracket,
-          Token.Literals.Numeric.Decimal("1"),
+          Token.Literal.Numeric.Decimal("1"),
           Token.Punctuation.CloseBracket,
-          Token.Operators.Assignment,
+          Token.Operator.Assignment,
           Token.Punctuation.OpenParen,
-          Token.Variables.ReadWrite("i"),
+          Token.Variable.ReadWrite("i"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
         ]);
@@ -2311,35 +2311,35 @@ long total = data["bonusGame"]["win"].AsLong * data["bonusGame"]["betMult"].AsLo
 
         tokens.should.deep.equal([
           Token.PrimitiveType.Long,
-          Token.Identifiers.LocalName("total"),
-          Token.Operators.Assignment,
-          Token.Variables.Property("data"),
+          Token.Identifier.LocalName("total"),
+          Token.Operator.Assignment,
+          Token.Variable.Property("data"),
           Token.Punctuation.OpenBracket,
           Token.Punctuation.String.Begin,
-          Token.Literals.String("bonusGame"),
+          Token.Literal.String("bonusGame"),
           Token.Punctuation.String.End,
           Token.Punctuation.CloseBracket,
           Token.Punctuation.OpenBracket,
           Token.Punctuation.String.Begin,
-          Token.Literals.String("win"),
-          Token.Punctuation.String.End,
-          Token.Punctuation.CloseBracket,
-          Token.Punctuation.Accessor,
-          Token.Variables.Property("AsLong"),
-          Token.Operators.Arithmetic.Multiplication,
-          Token.Variables.Property("data"),
-          Token.Punctuation.OpenBracket,
-          Token.Punctuation.String.Begin,
-          Token.Literals.String("bonusGame"),
-          Token.Punctuation.String.End,
-          Token.Punctuation.CloseBracket,
-          Token.Punctuation.OpenBracket,
-          Token.Punctuation.String.Begin,
-          Token.Literals.String("betMult"),
+          Token.Literal.String("win"),
           Token.Punctuation.String.End,
           Token.Punctuation.CloseBracket,
           Token.Punctuation.Accessor,
-          Token.Variables.Property("AsLong"),
+          Token.Variable.Property("AsLong"),
+          Token.Operator.Arithmetic.Multiplication,
+          Token.Variable.Property("data"),
+          Token.Punctuation.OpenBracket,
+          Token.Punctuation.String.Begin,
+          Token.Literal.String("bonusGame"),
+          Token.Punctuation.String.End,
+          Token.Punctuation.CloseBracket,
+          Token.Punctuation.OpenBracket,
+          Token.Punctuation.String.Begin,
+          Token.Literal.String("betMult"),
+          Token.Punctuation.String.End,
+          Token.Punctuation.CloseBracket,
+          Token.Punctuation.Accessor,
+          Token.Variable.Property("AsLong"),
           Token.Punctuation.Semicolon
         ]);
       });
@@ -2351,35 +2351,35 @@ total = data["bonusGame"]["win"].AsLong * data["bonusGame"]["betMult"].AsLong;
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Variables.ReadWrite("total"),
-          Token.Operators.Assignment,
-          Token.Variables.Property("data"),
+          Token.Variable.ReadWrite("total"),
+          Token.Operator.Assignment,
+          Token.Variable.Property("data"),
           Token.Punctuation.OpenBracket,
           Token.Punctuation.String.Begin,
-          Token.Literals.String("bonusGame"),
+          Token.Literal.String("bonusGame"),
           Token.Punctuation.String.End,
           Token.Punctuation.CloseBracket,
           Token.Punctuation.OpenBracket,
           Token.Punctuation.String.Begin,
-          Token.Literals.String("win"),
-          Token.Punctuation.String.End,
-          Token.Punctuation.CloseBracket,
-          Token.Punctuation.Accessor,
-          Token.Variables.Property("AsLong"),
-          Token.Operators.Arithmetic.Multiplication,
-          Token.Variables.Property("data"),
-          Token.Punctuation.OpenBracket,
-          Token.Punctuation.String.Begin,
-          Token.Literals.String("bonusGame"),
-          Token.Punctuation.String.End,
-          Token.Punctuation.CloseBracket,
-          Token.Punctuation.OpenBracket,
-          Token.Punctuation.String.Begin,
-          Token.Literals.String("betMult"),
+          Token.Literal.String("win"),
           Token.Punctuation.String.End,
           Token.Punctuation.CloseBracket,
           Token.Punctuation.Accessor,
-          Token.Variables.Property("AsLong"),
+          Token.Variable.Property("AsLong"),
+          Token.Operator.Arithmetic.Multiplication,
+          Token.Variable.Property("data"),
+          Token.Punctuation.OpenBracket,
+          Token.Punctuation.String.Begin,
+          Token.Literal.String("bonusGame"),
+          Token.Punctuation.String.End,
+          Token.Punctuation.CloseBracket,
+          Token.Punctuation.OpenBracket,
+          Token.Punctuation.String.Begin,
+          Token.Literal.String("betMult"),
+          Token.Punctuation.String.End,
+          Token.Punctuation.CloseBracket,
+          Token.Punctuation.Accessor,
+          Token.Variable.Property("AsLong"),
           Token.Punctuation.Semicolon
         ]);
       });
@@ -2392,37 +2392,37 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
 
         tokens.should.deep.equal([
           Token.PrimitiveType.Long,
-          Token.Identifiers.LocalName("total"),
-          Token.Operators.Assignment,
+          Token.Identifier.LocalName("total"),
+          Token.Operator.Assignment,
           Token.Punctuation.OpenParen,
-          Token.Variables.Property("data"),
+          Token.Variable.Property("data"),
           Token.Punctuation.OpenBracket,
           Token.Punctuation.String.Begin,
-          Token.Literals.String("bonusGame"),
+          Token.Literal.String("bonusGame"),
           Token.Punctuation.String.End,
           Token.Punctuation.CloseBracket,
           Token.Punctuation.OpenBracket,
           Token.Punctuation.String.Begin,
-          Token.Literals.String("win"),
+          Token.Literal.String("win"),
           Token.Punctuation.String.End,
           Token.Punctuation.CloseBracket,
           Token.Punctuation.Accessor,
-          Token.Variables.Property("AsLong"),
+          Token.Variable.Property("AsLong"),
           Token.Punctuation.CloseParen,
-          Token.Operators.Arithmetic.Multiplication,
-          Token.Variables.Property("data"),
+          Token.Operator.Arithmetic.Multiplication,
+          Token.Variable.Property("data"),
           Token.Punctuation.OpenBracket,
           Token.Punctuation.String.Begin,
-          Token.Literals.String("bonusGame"),
+          Token.Literal.String("bonusGame"),
           Token.Punctuation.String.End,
           Token.Punctuation.CloseBracket,
           Token.Punctuation.OpenBracket,
           Token.Punctuation.String.Begin,
-          Token.Literals.String("betMult"),
+          Token.Literal.String("betMult"),
           Token.Punctuation.String.End,
           Token.Punctuation.CloseBracket,
           Token.Punctuation.Accessor,
-          Token.Variables.Property("AsLong"),
+          Token.Variable.Property("AsLong"),
           Token.Punctuation.Semicolon
         ]);
       });
@@ -2434,7 +2434,7 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Identifiers.MethodName("M"),
+          Token.Identifier.MethodName("M"),
           Token.Punctuation.OpenParen,
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
@@ -2446,7 +2446,7 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Identifiers.MethodName("M"),
+          Token.Identifier.MethodName("M"),
           Token.Punctuation.OpenParen,
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
@@ -2458,9 +2458,9 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Identifiers.MethodName("M"),
+          Token.Identifier.MethodName("M"),
           Token.Punctuation.OpenParen,
-          Token.Literals.Numeric.Decimal("42"),
+          Token.Literal.Numeric.Decimal("42"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
         ]);
@@ -2471,9 +2471,9 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Identifiers.MethodName("M"),
+          Token.Identifier.MethodName("M"),
           Token.Punctuation.OpenParen,
-          Token.Literals.Numeric.Decimal("42"),
+          Token.Literal.Numeric.Decimal("42"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
         ]);
@@ -2484,11 +2484,11 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Identifiers.MethodName("M"),
+          Token.Identifier.MethodName("M"),
           Token.Punctuation.OpenParen,
-          Token.Literals.Numeric.Decimal("19"),
+          Token.Literal.Numeric.Decimal("19"),
           Token.Punctuation.Comma,
-          Token.Literals.Numeric.Decimal("23"),
+          Token.Literal.Numeric.Decimal("23"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
         ]);
@@ -2499,15 +2499,15 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Identifiers.MethodName("M"),
+          Token.Identifier.MethodName("M"),
           Token.Punctuation.OpenParen,
-          Token.Identifiers.ParameterName("x"),
+          Token.Identifier.ParameterName("x"),
           Token.Punctuation.Colon,
-          Token.Literals.Numeric.Decimal("19"),
+          Token.Literal.Numeric.Decimal("19"),
           Token.Punctuation.Comma,
-          Token.Identifiers.ParameterName("y"),
+          Token.Identifier.ParameterName("y"),
           Token.Punctuation.Colon,
-          Token.Literals.Numeric.Decimal("23"),
+          Token.Literal.Numeric.Decimal("23"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
         ]);
@@ -2518,10 +2518,10 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Identifiers.MethodName("M"),
+          Token.Identifier.MethodName("M"),
           Token.Punctuation.OpenParen,
-          Token.Keywords.Modifiers.Ref,
-          Token.Variables.ReadWrite("x"),
+          Token.Keyword.Modifier.Ref,
+          Token.Variable.ReadWrite("x"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
         ]);
@@ -2532,10 +2532,10 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Identifiers.MethodName("M"),
+          Token.Identifier.MethodName("M"),
           Token.Punctuation.OpenParen,
-          Token.Keywords.Modifiers.Out,
-          Token.Variables.ReadWrite("x"),
+          Token.Keyword.Modifier.Out,
+          Token.Variable.ReadWrite("x"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
         ]);
@@ -2546,10 +2546,10 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Identifiers.MethodName("M"),
+          Token.Identifier.MethodName("M"),
           Token.Punctuation.OpenParen,
-          Token.Keywords.Modifiers.In,
-          Token.Variables.ReadWrite("x"),
+          Token.Keyword.Modifier.In,
+          Token.Variable.ReadWrite("x"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
         ]);
@@ -2560,12 +2560,12 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Identifiers.MethodName("M"),
+          Token.Identifier.MethodName("M"),
           Token.Punctuation.OpenParen,
-          Token.Identifiers.ParameterName("x"),
+          Token.Identifier.ParameterName("x"),
           Token.Punctuation.Colon,
-          Token.Keywords.Modifiers.Ref,
-          Token.Variables.ReadWrite("y"),
+          Token.Keyword.Modifier.Ref,
+          Token.Variable.ReadWrite("y"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
         ]);
@@ -2576,12 +2576,12 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Identifiers.MethodName("M"),
+          Token.Identifier.MethodName("M"),
           Token.Punctuation.OpenParen,
-          Token.Identifiers.ParameterName("x"),
+          Token.Identifier.ParameterName("x"),
           Token.Punctuation.Colon,
-          Token.Keywords.Modifiers.Out,
-          Token.Variables.ReadWrite("y"),
+          Token.Keyword.Modifier.Out,
+          Token.Variable.ReadWrite("y"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
         ]);
@@ -2592,12 +2592,12 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Identifiers.MethodName("M"),
+          Token.Identifier.MethodName("M"),
           Token.Punctuation.OpenParen,
-          Token.Identifiers.ParameterName("x"),
+          Token.Identifier.ParameterName("x"),
           Token.Punctuation.Colon,
-          Token.Keywords.Modifiers.In,
-          Token.Variables.ReadWrite("y"),
+          Token.Keyword.Modifier.In,
+          Token.Variable.ReadWrite("y"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
         ]);
@@ -2608,15 +2608,15 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Identifiers.MethodName("M"),
+          Token.Identifier.MethodName("M"),
           Token.Punctuation.OpenParen,
-          Token.Keywords.Modifiers.Out,
+          Token.Keyword.Modifier.Out,
           Token.PrimitiveType.Int,
-          Token.Identifiers.LocalName("x"),
+          Token.Identifier.LocalName("x"),
           Token.Punctuation.Comma,
-          Token.Keywords.Modifiers.Out,
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("y"),
+          Token.Keyword.Modifier.Out,
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("y"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
         ]);
@@ -2627,10 +2627,10 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Identifiers.MethodName("M"),
-          Token.Punctuation.TypeParameters.Begin,
+          Token.Identifier.MethodName("M"),
+          Token.Punctuation.TypeParameter.Begin,
           Token.PrimitiveType.Int,
-          Token.Punctuation.TypeParameters.End,
+          Token.Punctuation.TypeParameter.End,
           Token.Punctuation.OpenParen,
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
@@ -2642,13 +2642,13 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Identifiers.MethodName("M"),
-          Token.Punctuation.TypeParameters.Begin,
+          Token.Identifier.MethodName("M"),
+          Token.Punctuation.TypeParameter.Begin,
           Token.Type("T"),
-          Token.Punctuation.TypeParameters.Begin,
+          Token.Punctuation.TypeParameter.Begin,
           Token.PrimitiveType.Int,
-          Token.Punctuation.TypeParameters.End,
-          Token.Punctuation.TypeParameters.End,
+          Token.Punctuation.TypeParameter.End,
+          Token.Punctuation.TypeParameter.End,
           Token.Punctuation.OpenParen,
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
@@ -2660,16 +2660,16 @@ long total = (data["bonusGame"]["win"].AsLong) * data["bonusGame"]["betMult"].As
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Identifiers.MethodName("M"),
-          Token.Punctuation.TypeParameters.Begin,
+          Token.Identifier.MethodName("M"),
+          Token.Punctuation.TypeParameter.Begin,
           Token.Type("T"),
-          Token.Punctuation.TypeParameters.Begin,
+          Token.Punctuation.TypeParameter.Begin,
           Token.Type("U"),
-          Token.Punctuation.TypeParameters.Begin,
+          Token.Punctuation.TypeParameter.Begin,
           Token.PrimitiveType.Int,
-          Token.Punctuation.TypeParameters.End,
-          Token.Punctuation.TypeParameters.End,
-          Token.Punctuation.TypeParameters.End,
+          Token.Punctuation.TypeParameter.End,
+          Token.Punctuation.TypeParameter.End,
+          Token.Punctuation.TypeParameter.End,
           Token.Punctuation.OpenParen,
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
@@ -2685,67 +2685,67 @@ f(A<(B,C)>(D+E));`);
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Variables.ReadWrite("v"),
-          Token.Operators.Assignment,
+          Token.Variable.ReadWrite("v"),
+          Token.Operator.Assignment,
           Token.Punctuation.OpenParen,
-          Token.Variables.ReadWrite("a"),
-          Token.Operators.Bitwise.ShiftLeft,
-          Token.Variables.ReadWrite("b"),
+          Token.Variable.ReadWrite("a"),
+          Token.Operator.Bitwise.ShiftLeft,
+          Token.Variable.ReadWrite("b"),
           Token.Punctuation.CloseParen,
-          Token.Operators.Bitwise.ShiftRight,
+          Token.Operator.Bitwise.ShiftRight,
           Token.Punctuation.OpenParen,
-          Token.Variables.ReadWrite("c"),
+          Token.Variable.ReadWrite("c"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon,
 
-          Token.Identifiers.MethodName("f"),
+          Token.Identifier.MethodName("f"),
           Token.Punctuation.OpenParen,
-          Token.Identifiers.MethodName("A"),
-          Token.Punctuation.TypeParameters.Begin,
+          Token.Identifier.MethodName("A"),
+          Token.Punctuation.TypeParameter.Begin,
           Token.Type("B"),
           Token.Punctuation.Comma,
           Token.Type("C"),
-          Token.Punctuation.TypeParameters.End,
+          Token.Punctuation.TypeParameter.End,
           Token.Punctuation.OpenParen,
-          Token.Variables.ReadWrite("D"),
-          Token.Operators.Arithmetic.Addition,
-          Token.Variables.ReadWrite("E"),
+          Token.Variable.ReadWrite("D"),
+          Token.Operator.Arithmetic.Addition,
+          Token.Variable.ReadWrite("E"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon,
 
-          Token.Identifiers.MethodName("f"),
+          Token.Identifier.MethodName("f"),
           Token.Punctuation.OpenParen,
-          Token.Variables.ReadWrite("A"),
-          Token.Operators.Relational.LessThan,
-          Token.Variables.ReadWrite("B"),
+          Token.Variable.ReadWrite("A"),
+          Token.Operator.Relational.LessThan,
+          Token.Variable.ReadWrite("B"),
           Token.Punctuation.Comma,
           Token.Punctuation.OpenParen,
-          Token.Variables.ReadWrite("C"),
-          Token.Operators.Relational.GreaterThan,
+          Token.Variable.ReadWrite("C"),
+          Token.Operator.Relational.GreaterThan,
           Token.Punctuation.OpenParen,
-          Token.Variables.ReadWrite("D"),
-          Token.Operators.Arithmetic.Addition,
-          Token.Variables.ReadWrite("E"),
+          Token.Variable.ReadWrite("D"),
+          Token.Operator.Arithmetic.Addition,
+          Token.Variable.ReadWrite("E"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.CloseParen,
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon,
 
-          Token.Identifiers.MethodName("f"),
+          Token.Identifier.MethodName("f"),
           Token.Punctuation.OpenParen,
-          Token.Identifiers.MethodName("A"),
-          Token.Punctuation.TypeParameters.Begin,
+          Token.Identifier.MethodName("A"),
+          Token.Punctuation.TypeParameter.Begin,
           Token.Punctuation.OpenParen,
           Token.Type("B"),
           Token.Punctuation.Comma,
           Token.Type("C"),
           Token.Punctuation.CloseParen,
-          Token.Punctuation.TypeParameters.End,
+          Token.Punctuation.TypeParameter.End,
           Token.Punctuation.OpenParen,
-          Token.Variables.ReadWrite("D"),
-          Token.Operators.Arithmetic.Addition,
-          Token.Variables.ReadWrite("E"),
+          Token.Variable.ReadWrite("D"),
+          Token.Operator.Arithmetic.Addition,
+          Token.Variable.ReadWrite("E"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon,
@@ -2757,12 +2757,12 @@ f(A<(B,C)>(D+E));`);
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Variables.Object("C"),
-          Token.Punctuation.TypeParameters.Begin,
+          Token.Variable.Object("C"),
+          Token.Punctuation.TypeParameter.Begin,
           Token.PrimitiveType.Int,
-          Token.Punctuation.TypeParameters.End,
+          Token.Punctuation.TypeParameter.End,
           Token.Punctuation.Accessor,
-          Token.Identifiers.MethodName("M"),
+          Token.Identifier.MethodName("M"),
           Token.Punctuation.OpenParen,
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
@@ -2774,14 +2774,14 @@ f(A<(B,C)>(D+E));`);
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Variables.Object("N"),
+          Token.Variable.Object("N"),
           Token.Punctuation.Accessor,
-          Token.Variables.Object("C"),
-          Token.Punctuation.TypeParameters.Begin,
+          Token.Variable.Object("C"),
+          Token.Punctuation.TypeParameter.Begin,
           Token.PrimitiveType.Int,
-          Token.Punctuation.TypeParameters.End,
+          Token.Punctuation.TypeParameter.End,
           Token.Punctuation.Accessor,
-          Token.Identifiers.MethodName("M"),
+          Token.Identifier.MethodName("M"),
           Token.Punctuation.OpenParen,
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
@@ -2793,17 +2793,17 @@ f(A<(B,C)>(D+E));`);
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("o"),
-          Token.Operators.Assignment,
-          Token.Variables.Object("N"),
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("o"),
+          Token.Operator.Assignment,
+          Token.Variable.Object("N"),
           Token.Punctuation.Accessor,
-          Token.Variables.Object("C"),
-          Token.Punctuation.TypeParameters.Begin,
+          Token.Variable.Object("C"),
+          Token.Punctuation.TypeParameter.Begin,
           Token.PrimitiveType.Int,
-          Token.Punctuation.TypeParameters.End,
+          Token.Punctuation.TypeParameter.End,
           Token.Punctuation.Accessor,
-          Token.Identifiers.MethodName("M"),
+          Token.Identifier.MethodName("M"),
           Token.Punctuation.OpenParen,
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
@@ -2815,14 +2815,14 @@ f(A<(B,C)>(D+E));`);
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("o"),
-          Token.Operators.Assignment,
-          Token.Variables.Object("N"),
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("o"),
+          Token.Operator.Assignment,
+          Token.Variable.Object("N"),
           Token.Punctuation.Accessor,
-          Token.Variables.Property("C"),
+          Token.Variable.Property("C"),
           Token.Punctuation.Accessor,
-          Token.Identifiers.MethodName("M"),
+          Token.Identifier.MethodName("M"),
           Token.Punctuation.OpenParen,
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
@@ -2834,11 +2834,11 @@ f(A<(B,C)>(D+E));`);
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Variables.Object("N"),
+          Token.Variable.Object("N"),
           Token.Punctuation.Accessor,
-          Token.Variables.Property("C"),
+          Token.Variable.Property("C"),
           Token.Punctuation.Accessor,
-          Token.Identifiers.MethodName("M"),
+          Token.Identifier.MethodName("M"),
           Token.Punctuation.OpenParen,
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
@@ -2850,9 +2850,9 @@ f(A<(B,C)>(D+E));`);
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Variables.Object("C"),
+          Token.Variable.Object("C"),
           Token.Punctuation.Accessor,
-          Token.Identifiers.MethodName("M"),
+          Token.Identifier.MethodName("M"),
           Token.Punctuation.OpenParen,
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
@@ -2864,14 +2864,14 @@ f(A<(B,C)>(D+E));`);
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("o"),
-          Token.Operators.Assignment,
-          Token.Variables.This,
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("o"),
+          Token.Operator.Assignment,
+          Token.Variable.This,
           Token.Punctuation.Accessor,
-          Token.Variables.Property("C"),
+          Token.Variable.Property("C"),
           Token.Punctuation.Accessor,
-          Token.Identifiers.MethodName("M"),
+          Token.Identifier.MethodName("M"),
           Token.Punctuation.OpenParen,
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
@@ -2883,18 +2883,18 @@ f(A<(B,C)>(D+E));`);
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("o"),
-          Token.Operators.Assignment,
-          Token.Identifiers.MethodName("M"),
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("o"),
+          Token.Operator.Assignment,
+          Token.Identifier.MethodName("M"),
           Token.Punctuation.OpenParen,
-          Token.Identifiers.ParameterName("x"),
+          Token.Identifier.ParameterName("x"),
           Token.Punctuation.Colon,
-          Token.Literals.Numeric.Decimal("19"),
+          Token.Literal.Numeric.Decimal("19"),
           Token.Punctuation.Comma,
-          Token.Identifiers.ParameterName("y"),
+          Token.Identifier.ParameterName("y"),
           Token.Punctuation.Colon,
-          Token.Literals.Numeric.Decimal("23"),
+          Token.Literal.Numeric.Decimal("23"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
         ]);
@@ -2905,11 +2905,11 @@ f(A<(B,C)>(D+E));`);
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Identifiers.MethodName("Multiply"),
+          Token.Identifier.MethodName("Multiply"),
           Token.Punctuation.OpenParen,
-          Token.Variables.ReadWrite("n1"),
-          Token.Operators.Arithmetic.Multiplication,
-          Token.Variables.ReadWrite("n2"),
+          Token.Variable.ReadWrite("n1"),
+          Token.Operator.Arithmetic.Multiplication,
+          Token.Variable.ReadWrite("n2"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
         ]);
@@ -2920,11 +2920,11 @@ f(A<(B,C)>(D+E));`);
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Identifiers.MethodName("M1"),
+          Token.Identifier.MethodName("M1"),
           Token.Punctuation.OpenParen,
           Token.Punctuation.CloseParen,
           Token.Punctuation.Accessor,
-          Token.Identifiers.MethodName("M2"),
+          Token.Identifier.MethodName("M2"),
           Token.Punctuation.OpenParen,
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
@@ -2936,18 +2936,18 @@ f(A<(B,C)>(D+E));`);
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Identifiers.MethodName("M1"),
+          Token.Identifier.MethodName("M1"),
           Token.Punctuation.OpenParen,
-          Token.Identifiers.ParameterName("x"),
-          Token.Operators.Arrow,
-          Token.Variables.ReadWrite("x"),
+          Token.Identifier.ParameterName("x"),
+          Token.Operator.Arrow,
+          Token.Variable.ReadWrite("x"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.Accessor,
-          Token.Identifiers.MethodName("M2"),
+          Token.Identifier.MethodName("M2"),
           Token.Punctuation.OpenParen,
-          Token.Identifiers.ParameterName("x"),
-          Token.Operators.Arrow,
-          Token.Variables.ReadWrite("x"),
+          Token.Identifier.ParameterName("x"),
+          Token.Operator.Arrow,
+          Token.Variable.ReadWrite("x"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
         ]);
@@ -2958,22 +2958,22 @@ f(A<(B,C)>(D+E));`);
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Identifiers.MethodName("M1"),
+          Token.Identifier.MethodName("M1"),
           Token.Punctuation.OpenParen,
           Token.Punctuation.OpenParen,
-          Token.Identifiers.ParameterName("x"),
+          Token.Identifier.ParameterName("x"),
           Token.Punctuation.CloseParen,
-          Token.Operators.Arrow,
-          Token.Variables.ReadWrite("x"),
+          Token.Operator.Arrow,
+          Token.Variable.ReadWrite("x"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.Accessor,
-          Token.Identifiers.MethodName("M2"),
+          Token.Identifier.MethodName("M2"),
           Token.Punctuation.OpenParen,
           Token.Punctuation.OpenParen,
-          Token.Identifiers.ParameterName("x"),
+          Token.Identifier.ParameterName("x"),
           Token.Punctuation.CloseParen,
-          Token.Operators.Arrow,
-          Token.Variables.ReadWrite("x"),
+          Token.Operator.Arrow,
+          Token.Variable.ReadWrite("x"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
         ]);
@@ -2984,26 +2984,26 @@ f(A<(B,C)>(D+E));`);
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Identifiers.MethodName("M1"),
+          Token.Identifier.MethodName("M1"),
           Token.Punctuation.OpenParen,
-          Token.Identifiers.ParameterName("x"),
-          Token.Operators.Arrow,
-          Token.Variables.ReadWrite("x"),
+          Token.Identifier.ParameterName("x"),
+          Token.Operator.Arrow,
+          Token.Variable.ReadWrite("x"),
           Token.Punctuation.Comma,
-          Token.Identifiers.ParameterName("y"),
-          Token.Operators.Arrow,
-          Token.Variables.ReadWrite("y"),
+          Token.Identifier.ParameterName("y"),
+          Token.Operator.Arrow,
+          Token.Variable.ReadWrite("y"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.Accessor,
-          Token.Identifiers.MethodName("M2"),
+          Token.Identifier.MethodName("M2"),
           Token.Punctuation.OpenParen,
-          Token.Identifiers.ParameterName("x"),
-          Token.Operators.Arrow,
-          Token.Variables.ReadWrite("x"),
+          Token.Identifier.ParameterName("x"),
+          Token.Operator.Arrow,
+          Token.Variable.ReadWrite("x"),
           Token.Punctuation.Comma,
-          Token.Identifiers.ParameterName("y"),
-          Token.Operators.Arrow,
-          Token.Variables.ReadWrite("y"),
+          Token.Identifier.ParameterName("y"),
+          Token.Operator.Arrow,
+          Token.Variable.ReadWrite("y"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
         ]);
@@ -3016,34 +3016,34 @@ f(A<(B,C)>(D+E));`);
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Identifiers.MethodName("M1"),
+          Token.Identifier.MethodName("M1"),
           Token.Punctuation.OpenParen,
           Token.Punctuation.OpenParen,
-          Token.Identifiers.ParameterName("x"),
+          Token.Identifier.ParameterName("x"),
           Token.Punctuation.CloseParen,
-          Token.Operators.Arrow,
-          Token.Variables.ReadWrite("x"),
+          Token.Operator.Arrow,
+          Token.Variable.ReadWrite("x"),
           Token.Punctuation.Comma,
           Token.Punctuation.OpenParen,
-          Token.Identifiers.ParameterName("y"),
+          Token.Identifier.ParameterName("y"),
           Token.Punctuation.CloseParen,
-          Token.Operators.Arrow,
-          Token.Variables.ReadWrite("y"),
+          Token.Operator.Arrow,
+          Token.Variable.ReadWrite("y"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.Accessor,
-          Token.Identifiers.MethodName("M2"),
+          Token.Identifier.MethodName("M2"),
           Token.Punctuation.OpenParen,
           Token.Punctuation.OpenParen,
-          Token.Identifiers.ParameterName("x"),
+          Token.Identifier.ParameterName("x"),
           Token.Punctuation.CloseParen,
-          Token.Operators.Arrow,
-          Token.Variables.ReadWrite("x"),
+          Token.Operator.Arrow,
+          Token.Variable.ReadWrite("x"),
           Token.Punctuation.Comma,
           Token.Punctuation.OpenParen,
-          Token.Identifiers.ParameterName("y"),
+          Token.Identifier.ParameterName("y"),
           Token.Punctuation.CloseParen,
-          Token.Operators.Arrow,
-          Token.Variables.ReadWrite("y"),
+          Token.Operator.Arrow,
+          Token.Variable.ReadWrite("y"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
         ]);
@@ -3060,99 +3060,99 @@ void CandleLightOffSecond(int index)
 
         tokens.should.deep.equal([
           Token.PrimitiveType.Void,
-          Token.Identifiers.MethodName("CandleLightOffSecond"),
+          Token.Identifier.MethodName("CandleLightOffSecond"),
           Token.Punctuation.OpenParen,
           Token.PrimitiveType.Int,
-          Token.Identifiers.ParameterName("index"),
+          Token.Identifier.ParameterName("index"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.OpenBrace,
 
-          Token.Variables.Object("DOTween"),
+          Token.Variable.Object("DOTween"),
           Token.Punctuation.Accessor,
-          Token.Identifiers.MethodName("ToAlpha"),
+          Token.Identifier.MethodName("ToAlpha"),
           Token.Punctuation.OpenParen,
           Token.Punctuation.OpenParen,
           Token.Punctuation.CloseParen,
-          Token.Operators.Arrow,
-          Token.Variables.Property("FSItems"),
+          Token.Operator.Arrow,
+          Token.Variable.Property("FSItems"),
           Token.Punctuation.OpenBracket,
-          Token.Variables.ReadWrite("index"),
+          Token.Variable.ReadWrite("index"),
           Token.Punctuation.CloseBracket,
           Token.Punctuation.Accessor,
-          Token.Variables.Property("CandleSecond"),
+          Token.Variable.Property("CandleSecond"),
           Token.Punctuation.Accessor,
-          Token.Variables.Property("startColor"),
+          Token.Variable.Property("startColor"),
           Token.Punctuation.Comma,
           Token.Punctuation.OpenParen,
-          Token.Identifiers.ParameterName("x"),
+          Token.Identifier.ParameterName("x"),
           Token.Punctuation.CloseParen,
-          Token.Operators.Arrow,
-          Token.Variables.Property("FSItems"),
+          Token.Operator.Arrow,
+          Token.Variable.Property("FSItems"),
           Token.Punctuation.OpenBracket,
-          Token.Variables.ReadWrite("index"),
+          Token.Variable.ReadWrite("index"),
           Token.Punctuation.CloseBracket,
           Token.Punctuation.Accessor,
-          Token.Variables.Property("CandleSecond"),
+          Token.Variable.Property("CandleSecond"),
           Token.Punctuation.Accessor,
-          Token.Variables.Property("startColor"),
-          Token.Operators.Assignment,
-          Token.Variables.ReadWrite("x"),
+          Token.Variable.Property("startColor"),
+          Token.Operator.Assignment,
+          Token.Variable.ReadWrite("x"),
           Token.Punctuation.Comma,
-          Token.Literals.Numeric.Decimal("0"),
-          Token.Literals.Numeric.Other.Suffix("f"),
+          Token.Literal.Numeric.Decimal("0"),
+          Token.Literal.Numeric.Other.Suffix("f"),
           Token.Punctuation.Comma,
-          Token.Literals.Numeric.Decimal("1"),
-          Token.Literals.Numeric.Other.Suffix("f"),
+          Token.Literal.Numeric.Decimal("1"),
+          Token.Literal.Numeric.Other.Suffix("f"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.Accessor,
-          Token.Identifiers.MethodName("OnComplete"),
+          Token.Identifier.MethodName("OnComplete"),
           Token.Punctuation.OpenParen,
           Token.Punctuation.OpenParen,
           Token.Punctuation.CloseParen,
-          Token.Operators.Arrow,
-          Token.Identifiers.MethodName("DisableCandleFX"),
+          Token.Operator.Arrow,
+          Token.Identifier.MethodName("DisableCandleFX"),
           Token.Punctuation.OpenParen,
-          Token.Variables.ReadWrite("index"),
+          Token.Variable.ReadWrite("index"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon,
 
-          Token.Variables.Object("DOTween"),
+          Token.Variable.Object("DOTween"),
           Token.Punctuation.Accessor,
-          Token.Identifiers.MethodName("ToAlpha"),
+          Token.Identifier.MethodName("ToAlpha"),
           Token.Punctuation.OpenParen,
           Token.Punctuation.OpenParen,
           Token.Punctuation.CloseParen,
-          Token.Operators.Arrow,
-          Token.Variables.Property("FSItems"),
+          Token.Operator.Arrow,
+          Token.Variable.Property("FSItems"),
           Token.Punctuation.OpenBracket,
-          Token.Variables.ReadWrite("index"),
+          Token.Variable.ReadWrite("index"),
           Token.Punctuation.CloseBracket,
           Token.Punctuation.Accessor,
-          Token.Variables.Property("CandleSecond"),
+          Token.Variable.Property("CandleSecond"),
           Token.Punctuation.Accessor,
-          Token.Variables.Property("startColor"),
+          Token.Variable.Property("startColor"),
           Token.Punctuation.Comma,
           Token.Punctuation.OpenParen,
-          Token.Identifiers.ParameterName("x"),
+          Token.Identifier.ParameterName("x"),
           Token.Punctuation.CloseParen,
-          Token.Operators.Arrow,
-          Token.Variables.Property("FSItems"),
+          Token.Operator.Arrow,
+          Token.Variable.Property("FSItems"),
           Token.Punctuation.OpenBracket,
-          Token.Variables.ReadWrite("index"),
+          Token.Variable.ReadWrite("index"),
           Token.Punctuation.CloseBracket,
           Token.Punctuation.Accessor,
-          Token.Variables.Property("CandleSecond"),
+          Token.Variable.Property("CandleSecond"),
           Token.Punctuation.Accessor,
-          Token.Variables.Property("startColor"),
-          Token.Operators.Assignment,
-          Token.Variables.ReadWrite("x"),
+          Token.Variable.Property("startColor"),
+          Token.Operator.Assignment,
+          Token.Variable.ReadWrite("x"),
           Token.Punctuation.Comma,
-          Token.Literals.Numeric.Decimal("0"),
-          Token.Literals.Numeric.Other.Suffix("f"),
+          Token.Literal.Numeric.Decimal("0"),
+          Token.Literal.Numeric.Other.Suffix("f"),
           Token.Punctuation.Comma,
-          Token.Literals.Numeric.Decimal("1"),
-          Token.Literals.Numeric.Other.Suffix("f"),
+          Token.Literal.Numeric.Decimal("1"),
+          Token.Literal.Numeric.Other.Suffix("f"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon,
 
@@ -3167,13 +3167,13 @@ void CandleLightOffSecond(int index)
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Modifiers.Const,
+          Token.Keyword.Modifier.Const,
           Token.PrimitiveType.Int,
-          Token.Identifiers.LocalName("x"),
-          Token.Operators.Assignment,
-          Token.Keywords.NameOf,
+          Token.Identifier.LocalName("x"),
+          Token.Operator.Assignment,
+          Token.Operator.Expression.NameOf,
           Token.Punctuation.OpenParen,
-          Token.Variables.ReadWrite("x"),
+          Token.Variable.ReadWrite("x"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
         ]);
@@ -3186,12 +3186,12 @@ void CandleLightOffSecond(int index)
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("y"),
-          Token.Operators.Assignment,
-          Token.Variables.ReadWrite("x"),
-          Token.Operators.NullCoalescing,
-          Token.Keywords.New,
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("y"),
+          Token.Operator.Assignment,
+          Token.Variable.ReadWrite("x"),
+          Token.Operator.NullCoalescing,
+          Token.Operator.Expression.New,
           Token.PrimitiveType.Object,
           Token.Punctuation.OpenParen,
           Token.Punctuation.CloseParen,
@@ -3204,11 +3204,11 @@ void CandleLightOffSecond(int index)
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Identifiers.MethodName("M"),
+          Token.Identifier.MethodName("M"),
           Token.Punctuation.OpenParen,
-          Token.Variables.ReadWrite("x"),
-          Token.Operators.NullCoalescing,
-          Token.Keywords.New,
+          Token.Variable.ReadWrite("x"),
+          Token.Operator.NullCoalescing,
+          Token.Operator.Expression.New,
           Token.PrimitiveType.Object,
           Token.Punctuation.OpenParen,
           Token.Punctuation.CloseParen,
@@ -3224,13 +3224,13 @@ void CandleLightOffSecond(int index)
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("a"),
-          Token.Operators.Assignment,
-          Token.Variables.Object("b"),
-          Token.Operators.NullConditional,
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("a"),
+          Token.Operator.Assignment,
+          Token.Variable.Object("b"),
+          Token.Operator.NullConditional,
           Token.Punctuation.Accessor,
-          Token.Variables.Property("c"),
+          Token.Variable.Property("c"),
           Token.Punctuation.Semicolon
         ]);
       });
@@ -3240,15 +3240,15 @@ void CandleLightOffSecond(int index)
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("a"),
-          Token.Operators.Assignment,
-          Token.Variables.Object("b"),
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("a"),
+          Token.Operator.Assignment,
+          Token.Variable.Object("b"),
           Token.Punctuation.Accessor,
-          Token.Variables.Property("c"),
-          Token.Operators.NullConditional,
+          Token.Variable.Property("c"),
+          Token.Operator.NullConditional,
           Token.Punctuation.Accessor,
-          Token.Variables.Property("d"),
+          Token.Variable.Property("d"),
           Token.Punctuation.Semicolon
         ]);
       });
@@ -3258,15 +3258,15 @@ void CandleLightOffSecond(int index)
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("a"),
-          Token.Operators.Assignment,
-          Token.Variables.Object("b"),
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("a"),
+          Token.Operator.Assignment,
+          Token.Variable.Object("b"),
           Token.Punctuation.Accessor,
-          Token.Variables.Property("c"),
-          Token.Operators.NullConditional,
+          Token.Variable.Property("c"),
+          Token.Operator.NullConditional,
           Token.Punctuation.OpenBracket,
-          Token.Literals.Numeric.Decimal("0"),
+          Token.Literal.Numeric.Decimal("0"),
           Token.Punctuation.CloseBracket,
           Token.Punctuation.Semicolon
         ]);
@@ -3277,18 +3277,18 @@ void CandleLightOffSecond(int index)
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("a"),
-          Token.Operators.Assignment,
-          Token.Variables.Object("b"),
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("a"),
+          Token.Operator.Assignment,
+          Token.Variable.Object("b"),
           Token.Punctuation.Accessor,
-          Token.Variables.Property("c"),
-          Token.Operators.NullConditional,
+          Token.Variable.Property("c"),
+          Token.Operator.NullConditional,
           Token.Punctuation.Accessor,
-          Token.Variables.Property("d"),
-          Token.Operators.NullConditional,
+          Token.Variable.Property("d"),
+          Token.Operator.NullConditional,
           Token.Punctuation.OpenBracket,
-          Token.Literals.Numeric.Decimal("0"),
+          Token.Literal.Numeric.Decimal("0"),
           Token.Punctuation.CloseBracket,
           Token.Punctuation.Semicolon
         ]);
@@ -3299,14 +3299,14 @@ void CandleLightOffSecond(int index)
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("a"),
-          Token.Operators.Assignment,
-          Token.Variables.Object("b"),
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("a"),
+          Token.Operator.Assignment,
+          Token.Variable.Object("b"),
           Token.Punctuation.Accessor,
-          Token.Variables.Property("c"),
+          Token.Variable.Property("c"),
           Token.Punctuation.OpenBracket,
-          Token.Literals.Numeric.Decimal("0"),
+          Token.Literal.Numeric.Decimal("0"),
           Token.Punctuation.CloseBracket,
           Token.Punctuation.Semicolon
         ]);
@@ -3317,13 +3317,13 @@ void CandleLightOffSecond(int index)
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("a"),
-          Token.Operators.Assignment,
-          Token.Variables.Object("b"),
-          Token.Operators.NullConditional,
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("a"),
+          Token.Operator.Assignment,
+          Token.Variable.Object("b"),
+          Token.Operator.NullConditional,
           Token.Punctuation.Accessor,
-          Token.Identifiers.MethodName("c"),
+          Token.Identifier.MethodName("c"),
           Token.Punctuation.OpenParen,
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
@@ -3338,11 +3338,11 @@ void CandleLightOffSecond(int index)
 
         tokens.should.deep.equal([
           Token.Type("Range"),
-          Token.Identifiers.LocalName("slice"),
-          Token.Operators.Assignment,
-          Token.Literals.Numeric.Decimal("0"),
-          Token.Operators.Range,
-          Token.Literals.Numeric.Decimal("1"),
+          Token.Identifier.LocalName("slice"),
+          Token.Operator.Assignment,
+          Token.Literal.Numeric.Decimal("0"),
+          Token.Operator.Range,
+          Token.Literal.Numeric.Decimal("1"),
           Token.Punctuation.Semicolon,
         ]);
       });
@@ -3354,14 +3354,14 @@ void CandleLightOffSecond(int index)
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("a"),
-          Token.Operators.Assignment,
-          Token.Variables.Object("b"),
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("a"),
+          Token.Operator.Assignment,
+          Token.Variable.Object("b"),
           Token.Punctuation.AccessorPointer,
-          Token.Variables.Property("c"),
+          Token.Variable.Property("c"),
           Token.Punctuation.AccessorPointer,
-          Token.Variables.Property("d"),
+          Token.Variable.Property("d"),
           Token.Punctuation.Semicolon,
         ]);
       });
@@ -3371,14 +3371,14 @@ void CandleLightOffSecond(int index)
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("a"),
-          Token.Operators.Assignment,
-          Token.Variables.Object("b"),
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("a"),
+          Token.Operator.Assignment,
+          Token.Variable.Object("b"),
           Token.Punctuation.AccessorPointer,
-          Token.Variables.Property("c"),
+          Token.Variable.Property("c"),
           Token.Punctuation.OpenBracket,
-          Token.Literals.Numeric.Decimal("0"),
+          Token.Literal.Numeric.Decimal("0"),
           Token.Punctuation.CloseBracket,
           Token.Punctuation.Semicolon,
         ]);
@@ -3389,12 +3389,12 @@ void CandleLightOffSecond(int index)
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("a"),
-          Token.Operators.Assignment,
-          Token.Variables.Object("b"),
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("a"),
+          Token.Operator.Assignment,
+          Token.Variable.Object("b"),
           Token.Punctuation.AccessorPointer,
-          Token.Identifiers.MethodName("c"),
+          Token.Identifier.MethodName("c"),
           Token.Punctuation.OpenParen,
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon,
@@ -3408,14 +3408,14 @@ void CandleLightOffSecond(int index)
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("t"),
-          Token.Operators.Assignment,
-          Token.Keywords.Default,
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("t"),
+          Token.Operator.Assignment,
+          Token.Operator.Expression.Default,
           Token.Punctuation.OpenParen,
           Token.Type("List"),
-          Token.Punctuation.TypeParameters.Begin,
-          Token.Punctuation.TypeParameters.End,
+          Token.Punctuation.TypeParameter.Begin,
+          Token.Punctuation.TypeParameter.End,
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
         ]);
@@ -3427,9 +3427,9 @@ void CandleLightOffSecond(int index)
 
         tokens.should.deep.equal([
           Token.PrimitiveType.Int,
-          Token.Identifiers.LocalName("t"),
-          Token.Operators.Assignment,
-          Token.Keywords.Default,
+          Token.Identifier.LocalName("t"),
+          Token.Operator.Assignment,
+          Token.Operator.Expression.Default,
           Token.Punctuation.Semicolon
         ]);
       });
@@ -3439,14 +3439,14 @@ void CandleLightOffSecond(int index)
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("t"),
-          Token.Operators.Assignment,
-          Token.Keywords.TypeOf,
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("t"),
+          Token.Operator.Assignment,
+          Token.Operator.Expression.TypeOf,
           Token.Punctuation.OpenParen,
           Token.Type("List"),
-          Token.Punctuation.TypeParameters.Begin,
-          Token.Punctuation.TypeParameters.End,
+          Token.Punctuation.TypeParameter.Begin,
+          Token.Punctuation.TypeParameter.End,
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
         ]);
@@ -3459,13 +3459,13 @@ void CandleLightOffSecond(int index)
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("q"),
-          Token.Operators.Assignment,
-          Token.Keywords.Queries.From,
-          Token.Identifiers.RangeVariableName("n"),
-          Token.Keywords.Queries.In,
-          Token.Variables.ReadWrite("numbers")
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("q"),
+          Token.Operator.Assignment,
+          Token.Operator.Query.From,
+          Token.Identifier.RangeVariableName("n"),
+          Token.Operator.Query.In,
+          Token.Variable.ReadWrite("numbers")
         ]);
       });
 
@@ -3474,14 +3474,14 @@ void CandleLightOffSecond(int index)
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("q"),
-          Token.Operators.Assignment,
-          Token.Keywords.Queries.From,
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("q"),
+          Token.Operator.Assignment,
+          Token.Operator.Query.From,
           Token.PrimitiveType.Int,
-          Token.Identifiers.RangeVariableName("n"),
-          Token.Keywords.Queries.In,
-          Token.Variables.ReadWrite("numbers")
+          Token.Identifier.RangeVariableName("n"),
+          Token.Operator.Query.In,
+          Token.Variable.ReadWrite("numbers")
         ]);
       });
 
@@ -3493,17 +3493,17 @@ var q = from x in list1
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("q"),
-          Token.Operators.Assignment,
-          Token.Keywords.Queries.From,
-          Token.Identifiers.RangeVariableName("x"),
-          Token.Keywords.Queries.In,
-          Token.Variables.ReadWrite("list1"),
-          Token.Keywords.Queries.From,
-          Token.Identifiers.RangeVariableName("y"),
-          Token.Keywords.Queries.In,
-          Token.Variables.ReadWrite("list2")
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("q"),
+          Token.Operator.Assignment,
+          Token.Operator.Query.From,
+          Token.Identifier.RangeVariableName("x"),
+          Token.Operator.Query.In,
+          Token.Variable.ReadWrite("list1"),
+          Token.Operator.Query.From,
+          Token.Identifier.RangeVariableName("y"),
+          Token.Operator.Query.In,
+          Token.Variable.ReadWrite("list2")
         ]);
       });
 
@@ -3515,25 +3515,25 @@ var q = from c in customers
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("q"),
-          Token.Operators.Assignment,
-          Token.Keywords.Queries.From,
-          Token.Identifiers.RangeVariableName("c"),
-          Token.Keywords.Queries.In,
-          Token.Variables.ReadWrite("customers"),
-          Token.Keywords.Queries.Join,
-          Token.Identifiers.RangeVariableName("o"),
-          Token.Keywords.Queries.In,
-          Token.Variables.ReadWrite("orders"),
-          Token.Keywords.Queries.On,
-          Token.Variables.Object("c"),
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("q"),
+          Token.Operator.Assignment,
+          Token.Operator.Query.From,
+          Token.Identifier.RangeVariableName("c"),
+          Token.Operator.Query.In,
+          Token.Variable.ReadWrite("customers"),
+          Token.Operator.Query.Join,
+          Token.Identifier.RangeVariableName("o"),
+          Token.Operator.Query.In,
+          Token.Variable.ReadWrite("orders"),
+          Token.Operator.Query.On,
+          Token.Variable.Object("c"),
           Token.Punctuation.Accessor,
-          Token.Variables.Property("CustomerID"),
-          Token.Keywords.Queries.Equals,
-          Token.Variables.Object("o"),
+          Token.Variable.Property("CustomerID"),
+          Token.Operator.Query.Equals,
+          Token.Variable.Object("o"),
           Token.Punctuation.Accessor,
-          Token.Variables.Property("CustomerID")
+          Token.Variable.Property("CustomerID")
         ]);
       });
 
@@ -3545,27 +3545,27 @@ var q = from c in customers
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("q"),
-          Token.Operators.Assignment,
-          Token.Keywords.Queries.From,
-          Token.Identifiers.RangeVariableName("c"),
-          Token.Keywords.Queries.In,
-          Token.Variables.ReadWrite("customers"),
-          Token.Keywords.Queries.Join,
-          Token.Identifiers.RangeVariableName("o"),
-          Token.Keywords.Queries.In,
-          Token.Variables.ReadWrite("orders"),
-          Token.Keywords.Queries.On,
-          Token.Variables.Object("c"),
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("q"),
+          Token.Operator.Assignment,
+          Token.Operator.Query.From,
+          Token.Identifier.RangeVariableName("c"),
+          Token.Operator.Query.In,
+          Token.Variable.ReadWrite("customers"),
+          Token.Operator.Query.Join,
+          Token.Identifier.RangeVariableName("o"),
+          Token.Operator.Query.In,
+          Token.Variable.ReadWrite("orders"),
+          Token.Operator.Query.On,
+          Token.Variable.Object("c"),
           Token.Punctuation.Accessor,
-          Token.Variables.Property("CustomerID"),
-          Token.Keywords.Queries.Equals,
-          Token.Variables.Object("o"),
+          Token.Variable.Property("CustomerID"),
+          Token.Operator.Query.Equals,
+          Token.Variable.Object("o"),
           Token.Punctuation.Accessor,
-          Token.Variables.Property("CustomerID"),
-          Token.Keywords.Queries.Into,
-          Token.Identifiers.RangeVariableName("co")
+          Token.Variable.Property("CustomerID"),
+          Token.Operator.Query.Into,
+          Token.Identifier.RangeVariableName("co")
         ]);
       });
 
@@ -3577,23 +3577,23 @@ var q = from o in orders
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("q"),
-          Token.Operators.Assignment,
-          Token.Keywords.Queries.From,
-          Token.Identifiers.RangeVariableName("o"),
-          Token.Keywords.Queries.In,
-          Token.Variables.ReadWrite("orders"),
-          Token.Keywords.Queries.OrderBy,
-          Token.Variables.Object("o"),
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("q"),
+          Token.Operator.Assignment,
+          Token.Operator.Query.From,
+          Token.Identifier.RangeVariableName("o"),
+          Token.Operator.Query.In,
+          Token.Variable.ReadWrite("orders"),
+          Token.Operator.Query.OrderBy,
+          Token.Variable.Object("o"),
           Token.Punctuation.Accessor,
-          Token.Variables.Property("Customer"),
+          Token.Variable.Property("Customer"),
           Token.Punctuation.Accessor,
-          Token.Variables.Property("Name"),
+          Token.Variable.Property("Name"),
           Token.Punctuation.Comma,
-          Token.Variables.Object("o"),
+          Token.Variable.Object("o"),
           Token.Punctuation.Accessor,
-          Token.Variables.Property("Total")
+          Token.Variable.Property("Total")
         ]);
       });
 
@@ -3605,24 +3605,24 @@ var q = from o in orders
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("q"),
-          Token.Operators.Assignment,
-          Token.Keywords.Queries.From,
-          Token.Identifiers.RangeVariableName("o"),
-          Token.Keywords.Queries.In,
-          Token.Variables.ReadWrite("orders"),
-          Token.Keywords.Queries.OrderBy,
-          Token.Variables.Object("o"),
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("q"),
+          Token.Operator.Assignment,
+          Token.Operator.Query.From,
+          Token.Identifier.RangeVariableName("o"),
+          Token.Operator.Query.In,
+          Token.Variable.ReadWrite("orders"),
+          Token.Operator.Query.OrderBy,
+          Token.Variable.Object("o"),
           Token.Punctuation.Accessor,
-          Token.Variables.Property("Customer"),
+          Token.Variable.Property("Customer"),
           Token.Punctuation.Accessor,
-          Token.Variables.Property("Name"),
-          Token.Keywords.Queries.Ascending,
+          Token.Variable.Property("Name"),
+          Token.Operator.Query.Ascending,
           Token.Punctuation.Comma,
-          Token.Variables.Object("o"),
+          Token.Variable.Object("o"),
           Token.Punctuation.Accessor,
-          Token.Variables.Property("Total")
+          Token.Variable.Property("Total")
         ]);
       });
 
@@ -3634,24 +3634,24 @@ var q = from o in orders
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("q"),
-          Token.Operators.Assignment,
-          Token.Keywords.Queries.From,
-          Token.Identifiers.RangeVariableName("o"),
-          Token.Keywords.Queries.In,
-          Token.Variables.ReadWrite("orders"),
-          Token.Keywords.Queries.OrderBy,
-          Token.Variables.Object("o"),
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("q"),
+          Token.Operator.Assignment,
+          Token.Operator.Query.From,
+          Token.Identifier.RangeVariableName("o"),
+          Token.Operator.Query.In,
+          Token.Variable.ReadWrite("orders"),
+          Token.Operator.Query.OrderBy,
+          Token.Variable.Object("o"),
           Token.Punctuation.Accessor,
-          Token.Variables.Property("Customer"),
+          Token.Variable.Property("Customer"),
           Token.Punctuation.Accessor,
-          Token.Variables.Property("Name"),
+          Token.Variable.Property("Name"),
           Token.Punctuation.Comma,
-          Token.Variables.Object("o"),
+          Token.Variable.Object("o"),
           Token.Punctuation.Accessor,
-          Token.Variables.Property("Total"),
-          Token.Keywords.Queries.Descending
+          Token.Variable.Property("Total"),
+          Token.Operator.Query.Descending
         ]);
       });
 
@@ -3662,15 +3662,15 @@ var q = from n in numbers
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("q"),
-          Token.Operators.Assignment,
-          Token.Keywords.Queries.From,
-          Token.Identifiers.RangeVariableName("n"),
-          Token.Keywords.Queries.In,
-          Token.Variables.ReadWrite("numbers"),
-          Token.Keywords.Queries.Select,
-          Token.Variables.ReadWrite("n"),
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("q"),
+          Token.Operator.Assignment,
+          Token.Operator.Query.From,
+          Token.Identifier.RangeVariableName("n"),
+          Token.Operator.Query.In,
+          Token.Variable.ReadWrite("numbers"),
+          Token.Operator.Query.Select,
+          Token.Variable.ReadWrite("n"),
           Token.Punctuation.Semicolon
         ]);
       });
@@ -3682,32 +3682,32 @@ var q = from n in new[] { 1, 3, 5, 7, 9 }
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("q"),
-          Token.Operators.Assignment,
-          Token.Keywords.Queries.From,
-          Token.Identifiers.RangeVariableName("n"),
-          Token.Keywords.Queries.In,
-          Token.Keywords.New,
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("q"),
+          Token.Operator.Assignment,
+          Token.Operator.Query.From,
+          Token.Identifier.RangeVariableName("n"),
+          Token.Operator.Query.In,
+          Token.Operator.Expression.New,
           Token.Punctuation.OpenBracket,
           Token.Punctuation.CloseBracket,
           Token.Punctuation.OpenBrace,
-          Token.Literals.Numeric.Decimal("1"),
+          Token.Literal.Numeric.Decimal("1"),
           Token.Punctuation.Comma,
-          Token.Literals.Numeric.Decimal("3"),
+          Token.Literal.Numeric.Decimal("3"),
           Token.Punctuation.Comma,
-          Token.Literals.Numeric.Decimal("5"),
+          Token.Literal.Numeric.Decimal("5"),
           Token.Punctuation.Comma,
-          Token.Literals.Numeric.Decimal("7"),
+          Token.Literal.Numeric.Decimal("7"),
           Token.Punctuation.Comma,
-          Token.Literals.Numeric.Decimal("9"),
+          Token.Literal.Numeric.Decimal("9"),
           Token.Punctuation.CloseBrace,
-          Token.Keywords.Queries.Select,
-          Token.Variables.ReadWrite("n"),
-          Token.Operators.Arithmetic.Remainder,
-          Token.Literals.Numeric.Decimal("4"),
-          Token.Operators.Arithmetic.Multiplication,
-          Token.Literals.Numeric.Decimal("6"),
+          Token.Operator.Query.Select,
+          Token.Variable.ReadWrite("n"),
+          Token.Operator.Arithmetic.Remainder,
+          Token.Literal.Numeric.Decimal("4"),
+          Token.Operator.Arithmetic.Multiplication,
+          Token.Literal.Numeric.Decimal("6"),
           Token.Punctuation.Semicolon
         ]);
       });
@@ -3719,21 +3719,21 @@ var q = from c in customers
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("q"),
-          Token.Operators.Assignment,
-          Token.Keywords.Queries.From,
-          Token.Identifiers.RangeVariableName("c"),
-          Token.Keywords.Queries.In,
-          Token.Variables.ReadWrite("customers"),
-          Token.Keywords.Queries.Group,
-          Token.Variables.ReadWrite("c"),
-          Token.Keywords.Queries.By,
-          Token.Variables.Object("c"),
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("q"),
+          Token.Operator.Assignment,
+          Token.Operator.Query.From,
+          Token.Identifier.RangeVariableName("c"),
+          Token.Operator.Query.In,
+          Token.Variable.ReadWrite("customers"),
+          Token.Operator.Query.Group,
+          Token.Variable.ReadWrite("c"),
+          Token.Operator.Query.By,
+          Token.Variable.Object("c"),
           Token.Punctuation.Accessor,
-          Token.Variables.Property("Country"),
-          Token.Keywords.Queries.Into,
-          Token.Identifiers.RangeVariableName("g")
+          Token.Variable.Property("Country"),
+          Token.Operator.Query.Into,
+          Token.Identifier.RangeVariableName("g")
         ]);
       });
 
@@ -3744,22 +3744,22 @@ string s;`);
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("q"),
-          Token.Operators.Assignment,
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("q"),
+          Token.Operator.Assignment,
           Token.Punctuation.OpenParen,
-          Token.Keywords.Queries.From,
-          Token.Identifiers.RangeVariableName("x"),
-          Token.Keywords.Queries.In,
+          Token.Operator.Query.From,
+          Token.Identifier.RangeVariableName("x"),
+          Token.Operator.Query.In,
           Token.Punctuation.String.Begin,
-          Token.Literals.String("abc"),
+          Token.Literal.String("abc"),
           Token.Punctuation.String.End,
-          Token.Keywords.Queries.Select,
-          Token.Variables.ReadWrite("x"),
+          Token.Operator.Query.Select,
+          Token.Variable.ReadWrite("x"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon,
           Token.PrimitiveType.String,
-          Token.Identifiers.LocalName("s"),
+          Token.Identifier.LocalName("s"),
           Token.Punctuation.Semicolon
         ]);
       });
@@ -3785,104 +3785,104 @@ private static readonly Parser<Node> NodeParser =
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Modifiers.Private,
-          Token.Keywords.Modifiers.Static,
-          Token.Keywords.Modifiers.ReadOnly,
+          Token.Keyword.Modifier.Private,
+          Token.Keyword.Modifier.Static,
+          Token.Keyword.Modifier.ReadOnly,
           Token.Type("Parser"),
-          Token.Punctuation.TypeParameters.Begin,
+          Token.Punctuation.TypeParameter.Begin,
           Token.Type("Node"),
-          Token.Punctuation.TypeParameters.End,
-          Token.Identifiers.FieldName("NodeParser"),
-          Token.Operators.Assignment,
+          Token.Punctuation.TypeParameter.End,
+          Token.Identifier.FieldName("NodeParser"),
+          Token.Operator.Assignment,
 
           // from name in NodeName.Token()
-          Token.Keywords.Queries.From,
-          Token.Identifiers.RangeVariableName("name"),
-          Token.Keywords.Queries.In,
-          Token.Variables.Object("NodeName"),
+          Token.Operator.Query.From,
+          Token.Identifier.RangeVariableName("name"),
+          Token.Operator.Query.In,
+          Token.Variable.Object("NodeName"),
           Token.Punctuation.Accessor,
-          Token.Identifiers.MethodName("Token"),
+          Token.Identifier.MethodName("Token"),
           Token.Punctuation.OpenParen,
           Token.Punctuation.CloseParen,
 
           // from type in NodeValueType.Token()
-          Token.Keywords.Queries.From,
-          Token.Identifiers.RangeVariableName("type"),
-          Token.Keywords.Queries.In,
-          Token.Variables.Object("NodeValueType"),
+          Token.Operator.Query.From,
+          Token.Identifier.RangeVariableName("type"),
+          Token.Operator.Query.In,
+          Token.Variable.Object("NodeValueType"),
           Token.Punctuation.Accessor,
-          Token.Identifiers.MethodName("Token"),
+          Token.Identifier.MethodName("Token"),
           Token.Punctuation.OpenParen,
           Token.Punctuation.CloseParen,
 
           // from eq in Parse.Char('=')
-          Token.Keywords.Queries.From,
-          Token.Identifiers.RangeVariableName("eq"),
-          Token.Keywords.Queries.In,
-          Token.Variables.Object("Parse"),
+          Token.Operator.Query.From,
+          Token.Identifier.RangeVariableName("eq"),
+          Token.Operator.Query.In,
+          Token.Variable.Object("Parse"),
           Token.Punctuation.Accessor,
-          Token.Identifiers.MethodName("Char"),
+          Token.Identifier.MethodName("Char"),
           Token.Punctuation.OpenParen,
           Token.Punctuation.Char.Begin,
-          Token.Literals.Char("="),
+          Token.Literal.Char("="),
           Token.Punctuation.Char.End,
           Token.Punctuation.CloseParen,
 
           // from value in QuotedString.Token()
-          Token.Keywords.Queries.From,
-          Token.Identifiers.RangeVariableName("value"),
-          Token.Keywords.Queries.In,
-          Token.Variables.Object("QuotedString"),
+          Token.Operator.Query.From,
+          Token.Identifier.RangeVariableName("value"),
+          Token.Operator.Query.In,
+          Token.Variable.Object("QuotedString"),
           Token.Punctuation.Accessor,
-          Token.Identifiers.MethodName("Token"),
+          Token.Identifier.MethodName("Token"),
           Token.Punctuation.OpenParen,
           Token.Punctuation.CloseParen,
 
           // from lcurl in Parse.Char('{').Token()
-          Token.Keywords.Queries.From,
-          Token.Identifiers.RangeVariableName("lcurl"),
-          Token.Keywords.Queries.In,
-          Token.Variables.Object("Parse"),
+          Token.Operator.Query.From,
+          Token.Identifier.RangeVariableName("lcurl"),
+          Token.Operator.Query.In,
+          Token.Variable.Object("Parse"),
           Token.Punctuation.Accessor,
-          Token.Identifiers.MethodName("Char"),
+          Token.Identifier.MethodName("Char"),
           Token.Punctuation.OpenParen,
           Token.Punctuation.Char.Begin,
-          Token.Literals.Char("{"),
+          Token.Literal.Char("{"),
           Token.Punctuation.Char.End,
           Token.Punctuation.CloseParen,
           Token.Punctuation.Accessor,
-          Token.Identifiers.MethodName("Token"),
+          Token.Identifier.MethodName("Token"),
           Token.Punctuation.OpenParen,
           Token.Punctuation.CloseParen,
 
           // from children in Parse.Ref(() => ChildrenNodesParser)
-          Token.Keywords.Queries.From,
-          Token.Identifiers.RangeVariableName("children"),
-          Token.Keywords.Queries.In,
-          Token.Variables.Object("Parse"),
+          Token.Operator.Query.From,
+          Token.Identifier.RangeVariableName("children"),
+          Token.Operator.Query.In,
+          Token.Variable.Object("Parse"),
           Token.Punctuation.Accessor,
-          Token.Identifiers.MethodName("Ref"),
+          Token.Identifier.MethodName("Ref"),
           Token.Punctuation.OpenParen,
           Token.Punctuation.OpenParen,
           Token.Punctuation.CloseParen,
-          Token.Operators.Arrow,
-          Token.Variables.ReadWrite("ChildrenNodesParser"),
+          Token.Operator.Arrow,
+          Token.Variable.ReadWrite("ChildrenNodesParser"),
           Token.Punctuation.CloseParen,
 
           // from rcurl in Parse.Char('}').Token()
-          Token.Keywords.Queries.From,
-          Token.Identifiers.RangeVariableName("rcurl"),
-          Token.Keywords.Queries.In,
-          Token.Variables.Object("Parse"),
+          Token.Operator.Query.From,
+          Token.Identifier.RangeVariableName("rcurl"),
+          Token.Operator.Query.In,
+          Token.Variable.Object("Parse"),
           Token.Punctuation.Accessor,
-          Token.Identifiers.MethodName("Char"),
+          Token.Identifier.MethodName("Char"),
           Token.Punctuation.OpenParen,
           Token.Punctuation.Char.Begin,
-          Token.Literals.Char("}"),
+          Token.Literal.Char("}"),
           Token.Punctuation.Char.End,
           Token.Punctuation.CloseParen,
           Token.Punctuation.Accessor,
-          Token.Identifiers.MethodName("Token"),
+          Token.Identifier.MethodName("Token"),
           Token.Punctuation.OpenParen,
           Token.Punctuation.CloseParen,
 
@@ -3893,25 +3893,25 @@ private static readonly Parser<Node> NodeParser =
           //     Value = value,
           //     Children = children
           // };
-          Token.Keywords.Queries.Select,
-          Token.Keywords.New,
+          Token.Operator.Query.Select,
+          Token.Operator.Expression.New,
           Token.Type("Node"),
           Token.Punctuation.OpenBrace,
-          Token.Variables.ReadWrite("Name"),
-          Token.Operators.Assignment,
-          Token.Variables.ReadWrite("name"),
+          Token.Variable.ReadWrite("Name"),
+          Token.Operator.Assignment,
+          Token.Variable.ReadWrite("name"),
           Token.Punctuation.Comma,
-          Token.Variables.ReadWrite("Type"),
-          Token.Operators.Assignment,
-          Token.Variables.ReadWrite("type"),
+          Token.Variable.ReadWrite("Type"),
+          Token.Operator.Assignment,
+          Token.Variable.ReadWrite("type"),
           Token.Punctuation.Comma,
-          Token.Variables.ReadWrite("Value"),
-          Token.Operators.Assignment,
-          Token.Variables.Value,
+          Token.Variable.ReadWrite("Value"),
+          Token.Operator.Assignment,
+          Token.Variable.Value,
           Token.Punctuation.Comma,
-          Token.Variables.ReadWrite("Children"),
-          Token.Operators.Assignment,
-          Token.Variables.ReadWrite("children"),
+          Token.Variable.ReadWrite("Children"),
+          Token.Operator.Assignment,
+          Token.Variable.ReadWrite("children"),
           Token.Punctuation.CloseBrace,
           Token.Punctuation.Semicolon
         ]);
@@ -3935,43 +3935,43 @@ select x.Key1;`);
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("q"),
-          Token.Operators.Assignment,
-          Token.Keywords.Queries.From,
-          Token.Identifiers.RangeVariableName("x"),
-          Token.Keywords.Queries.In,
-          Token.Variables.ReadWrite("list1"),
-          Token.Keywords.Queries.Join,
-          Token.Identifiers.RangeVariableName("y"),
-          Token.Keywords.Queries.In,
-          Token.Variables.ReadWrite("list2"),
-          Token.Keywords.Queries.On,
-          Token.Keywords.New,
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("q"),
+          Token.Operator.Assignment,
+          Token.Operator.Query.From,
+          Token.Identifier.RangeVariableName("x"),
+          Token.Operator.Query.In,
+          Token.Variable.ReadWrite("list1"),
+          Token.Operator.Query.Join,
+          Token.Identifier.RangeVariableName("y"),
+          Token.Operator.Query.In,
+          Token.Variable.ReadWrite("list2"),
+          Token.Operator.Query.On,
+          Token.Operator.Expression.New,
           Token.Punctuation.OpenBrace,
-          Token.Variables.Object("x"),
+          Token.Variable.Object("x"),
           Token.Punctuation.Accessor,
-          Token.Variables.Property("Key1"),
+          Token.Variable.Property("Key1"),
           Token.Punctuation.Comma,
-          Token.Variables.Object("x"),
+          Token.Variable.Object("x"),
           Token.Punctuation.Accessor,
-          Token.Variables.Property("Key2"),
+          Token.Variable.Property("Key2"),
           Token.Punctuation.CloseBrace,
-          Token.Keywords.Queries.Equals,
-          Token.Keywords.New,
+          Token.Operator.Query.Equals,
+          Token.Operator.Expression.New,
           Token.Punctuation.OpenBrace,
-          Token.Variables.Object("y"),
+          Token.Variable.Object("y"),
           Token.Punctuation.Accessor,
-          Token.Variables.Property("Key1"),
+          Token.Variable.Property("Key1"),
           Token.Punctuation.Comma,
-          Token.Variables.Object("y"),
+          Token.Variable.Object("y"),
           Token.Punctuation.Accessor,
-          Token.Variables.Property("Key2"),
+          Token.Variable.Property("Key2"),
           Token.Punctuation.CloseBrace,
-          Token.Keywords.Queries.Select,
-          Token.Variables.Object("x"),
+          Token.Operator.Query.Select,
+          Token.Variable.Object("x"),
           Token.Punctuation.Accessor,
-          Token.Variables.Property("Key1"),
+          Token.Variable.Property("Key1"),
           Token.Punctuation.Semicolon
         ]);
       });
@@ -3985,20 +3985,20 @@ select x.Key1;`);
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Modifiers.Public,
-          Token.Keywords.Modifiers.Static,
+          Token.Keyword.Modifier.Public,
+          Token.Keyword.Modifier.Static,
           Token.PrimitiveType.Void,
-          Token.Identifiers.MethodName("A"),
+          Token.Identifier.MethodName("A"),
           Token.Punctuation.OpenParen,
           Token.PrimitiveType.String,
-          Token.Identifiers.ParameterName("str"),
+          Token.Identifier.ParameterName("str"),
           Token.Punctuation.CloseParen,
-          Token.Operators.Arrow,
-          Token.Keywords.Control.Throw,
-          Token.Keywords.New,
+          Token.Operator.Arrow,
+          Token.Keyword.Flow.Throw,
+          Token.Operator.Expression.New,
           Token.Type("Exception"),
           Token.Punctuation.OpenParen,
-          Token.Variables.ReadWrite("str"),
+          Token.Variable.ReadWrite("str"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
         ]);
@@ -4011,17 +4011,17 @@ select x.Key1;`);
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Variables.ReadWrite("_field"),
-          Token.Operators.Assignment,
-          Token.Variables.ReadWrite("field"),
-          Token.Operators.NullCoalescing,
-          Token.Keywords.Control.Throw,
-          Token.Keywords.New,
+          Token.Variable.ReadWrite("_field"),
+          Token.Operator.Assignment,
+          Token.Variable.ReadWrite("field"),
+          Token.Operator.NullCoalescing,
+          Token.Keyword.Flow.Throw,
+          Token.Operator.Expression.New,
           Token.Type("ArgumentNullException"),
           Token.Punctuation.OpenParen,
-          Token.Keywords.NameOf,
+          Token.Operator.Expression.NameOf,
           Token.Punctuation.OpenParen,
-          Token.Variables.ReadWrite("field"),
+          Token.Variable.ReadWrite("field"),
           Token.Punctuation.CloseParen,
           Token.Punctuation.CloseParen,
           Token.Punctuation.Semicolon
@@ -4035,15 +4035,15 @@ select x.Key1;`);
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("p2"),
-          Token.Operators.Assignment,
-          Token.Variables.ReadWrite("p1"),
-          Token.Keywords.With,
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("p2"),
+          Token.Operator.Assignment,
+          Token.Variable.ReadWrite("p1"),
+          Token.Operator.Expression.With,
           Token.Punctuation.OpenBrace,
-          Token.Variables.ReadWrite("X"),
-          Token.Operators.Assignment,
-          Token.Literals.Numeric.Decimal("5"),
+          Token.Variable.ReadWrite("X"),
+          Token.Operator.Assignment,
+          Token.Literal.Numeric.Decimal("5"),
           Token.Punctuation.CloseBrace,
           Token.Punctuation.Semicolon,
         ]);
@@ -4059,29 +4059,29 @@ var p2 = p1 with
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("p2"),
-          Token.Operators.Assignment,
-          Token.Variables.ReadWrite("p1"),
-          Token.Keywords.With,
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("p2"),
+          Token.Operator.Assignment,
+          Token.Variable.ReadWrite("p1"),
+          Token.Operator.Expression.With,
           Token.Punctuation.OpenBrace,
-          Token.Variables.ReadWrite("X"),
-          Token.Operators.Assignment,
-          Token.Literals.Numeric.Decimal("5"),
+          Token.Variable.ReadWrite("X"),
+          Token.Operator.Assignment,
+          Token.Literal.Numeric.Decimal("5"),
           Token.Punctuation.Comma,
           Token.Comment.SingleLine.Start,
           Token.Comment.SingleLine.Text(" comment"),
-          Token.Variables.ReadWrite("Y"),
-          Token.Operators.Assignment,
-          Token.Keywords.New,
+          Token.Variable.ReadWrite("Y"),
+          Token.Operator.Assignment,
+          Token.Operator.Expression.New,
           Token.Type("List"),
-          Token.Punctuation.TypeParameters.Begin,
+          Token.Punctuation.TypeParameter.Begin,
           Token.PrimitiveType.Int,
-          Token.Punctuation.TypeParameters.End,
+          Token.Punctuation.TypeParameter.End,
           Token.Punctuation.OpenBrace,
-          Token.Literals.Numeric.Decimal("0"),
+          Token.Literal.Numeric.Decimal("0"),
           Token.Punctuation.Comma,
-          Token.Literals.Numeric.Decimal("1"),
+          Token.Literal.Numeric.Decimal("1"),
           Token.Punctuation.CloseBrace,
           Token.Punctuation.CloseBrace,
           Token.Punctuation.Semicolon,
@@ -4097,17 +4097,17 @@ var p2 = p1 with // comment
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
-          Token.Keywords.Var,
-          Token.Identifiers.LocalName("p2"),
-          Token.Operators.Assignment,
-          Token.Variables.ReadWrite("p1"),
-          Token.Keywords.With,
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("p2"),
+          Token.Operator.Assignment,
+          Token.Variable.ReadWrite("p1"),
+          Token.Operator.Expression.With,
           Token.Comment.SingleLine.Start,
           Token.Comment.SingleLine.Text(" comment"),
           Token.Punctuation.OpenBrace,
-          Token.Variables.ReadWrite("X"),
-          Token.Operators.Assignment,
-          Token.Literals.Numeric.Decimal("5"),
+          Token.Variable.ReadWrite("X"),
+          Token.Operator.Assignment,
+          Token.Literal.Numeric.Decimal("5"),
           Token.Punctuation.CloseBrace,
           Token.Punctuation.Semicolon,
         ]);

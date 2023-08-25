@@ -16,9 +16,9 @@ describe("Delegates", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Delegate,
+                Token.Keyword.Definition.Delegate,
                 Token.PrimitiveType.Void,
-                Token.Identifiers.DelegateName("D"),
+                Token.Identifier.DelegateName("D"),
                 Token.Punctuation.OpenParen,
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.Semicolon]);
@@ -30,19 +30,19 @@ describe("Delegates", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Delegate,
+                Token.Keyword.Definition.Delegate,
                 Token.Type("TResult"),
-                Token.Identifiers.DelegateName("D"),
-                Token.Punctuation.TypeParameters.Begin,
-                Token.Keywords.Modifiers.In,
-                Token.Identifiers.TypeParameterName("T"),
+                Token.Identifier.DelegateName("D"),
+                Token.Punctuation.TypeParameter.Begin,
+                Token.Keyword.Modifier.In,
+                Token.Identifier.TypeParameterName("T"),
                 Token.Punctuation.Comma,
-                Token.Keywords.Modifiers.Out,
-                Token.Identifiers.TypeParameterName("TResult"),
-                Token.Punctuation.TypeParameters.End,
+                Token.Keyword.Modifier.Out,
+                Token.Identifier.TypeParameterName("TResult"),
+                Token.Punctuation.TypeParameter.End,
                 Token.Punctuation.OpenParen,
                 Token.Type("T"),
-                Token.Identifiers.ParameterName("arg1"),
+                Token.Identifier.ParameterName("arg1"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.Semicolon]);
         });
@@ -57,18 +57,18 @@ delegate void D<T1, T2>()
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Delegate,
+                Token.Keyword.Definition.Delegate,
                 Token.PrimitiveType.Void,
-                Token.Identifiers.DelegateName("D"),
-                Token.Punctuation.TypeParameters.Begin,
-                Token.Identifiers.TypeParameterName("T1"),
+                Token.Identifier.DelegateName("D"),
+                Token.Punctuation.TypeParameter.Begin,
+                Token.Identifier.TypeParameterName("T1"),
                 Token.Punctuation.Comma,
-                Token.Identifiers.TypeParameterName("T2"),
-                Token.Punctuation.TypeParameters.End,
+                Token.Identifier.TypeParameterName("T2"),
+                Token.Punctuation.TypeParameter.End,
                 Token.Punctuation.OpenParen,
                 Token.Punctuation.CloseParen,
-                Token.Keywords.Where,
-                Token.Identifiers.TypeParameterName("T1"),
+                Token.Keyword.Modifier.Where,
+                Token.Identifier.TypeParameterName("T1"),
                 Token.Punctuation.Colon,
                 Token.Type("T2"),
                 Token.Punctuation.Semicolon]);
@@ -80,20 +80,20 @@ delegate void D<T1, T2>()
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Delegate,
+                Token.Keyword.Definition.Delegate,
                 Token.PrimitiveType.Void,
-                Token.Identifiers.DelegateName("D"),
-                Token.Punctuation.TypeParameters.Begin,
+                Token.Identifier.DelegateName("D"),
+                Token.Punctuation.TypeParameter.Begin,
                 Token.Punctuation.OpenBracket,
                 Token.Type("Foo"),
                 Token.Punctuation.CloseBracket,
-                Token.Identifiers.TypeParameterName("T1"),
+                Token.Identifier.TypeParameterName("T1"),
                 Token.Punctuation.Comma,
                 Token.Punctuation.OpenBracket,
                 Token.Type("Bar"),
                 Token.Punctuation.CloseBracket,
-                Token.Identifiers.TypeParameterName("T2"),
-                Token.Punctuation.TypeParameters.End,
+                Token.Identifier.TypeParameterName("T2"),
+                Token.Punctuation.TypeParameter.End,
                 Token.Punctuation.OpenParen,
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.Semicolon]);
@@ -105,23 +105,23 @@ delegate void D<T1, T2>()
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Delegate,
+                Token.Keyword.Definition.Delegate,
                 Token.PrimitiveType.Int,
-                Token.Identifiers.DelegateName("D"),
+                Token.Identifier.DelegateName("D"),
                 Token.Punctuation.OpenParen,
-                Token.Keywords.Modifiers.Ref,
+                Token.Keyword.Modifier.Ref,
                 Token.PrimitiveType.String,
-                Token.Identifiers.ParameterName("x"),
+                Token.Identifier.ParameterName("x"),
                 Token.Punctuation.Comma,
-                Token.Keywords.Modifiers.Out,
+                Token.Keyword.Modifier.Out,
                 Token.PrimitiveType.Int,
-                Token.Identifiers.ParameterName("y"),
+                Token.Identifier.ParameterName("y"),
                 Token.Punctuation.Comma,
-                Token.Keywords.Modifiers.Params,
+                Token.Keyword.Modifier.Params,
                 Token.PrimitiveType.Object,
                 Token.Punctuation.OpenBracket,
                 Token.Punctuation.CloseBracket,
-                Token.Identifiers.ParameterName("z"),
+                Token.Identifier.ParameterName("z"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.Semicolon]);
         });
@@ -131,10 +131,10 @@ delegate void D<T1, T2>()
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Delegate,
-                Token.Keywords.Modifiers.Ref,
+                Token.Keyword.Definition.Delegate,
+                Token.Keyword.Modifier.Ref,
                 Token.PrimitiveType.Int,
-                Token.Identifiers.DelegateName("D"),
+                Token.Identifier.DelegateName("D"),
                 Token.Punctuation.OpenParen,
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.Semicolon]);
@@ -145,11 +145,11 @@ delegate void D<T1, T2>()
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Delegate,
-                Token.Keywords.Modifiers.Ref,
-                Token.Keywords.Modifiers.ReadOnly,
+                Token.Keyword.Definition.Delegate,
+                Token.Keyword.Modifier.Ref,
+                Token.Keyword.Modifier.ReadOnly,
                 Token.PrimitiveType.Int,
-                Token.Identifiers.DelegateName("D"),
+                Token.Identifier.DelegateName("D"),
                 Token.Punctuation.OpenParen,
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.Semicolon]);

@@ -146,8 +146,8 @@ repository:
   extern-alias-directive:
     begin: \s*(extern)\b\s*(alias)\b\s*(@?[_[:alpha:]][_[:alnum:]]*)
     beginCaptures:
-      '1': { name: keyword.other.extern.cs }
-      '2': { name: keyword.other.alias.cs }
+      '1': { name: keyword.other.directive.extern.cs }
+      '2': { name: keyword.other.directive.alias.cs }
       '3': { name: variable.other.alias.cs }
     end: (?=;)
 
@@ -155,18 +155,18 @@ repository:
     patterns:
     - begin: (\b(global)\b\s+)?\b(using)\b\s+(static)\b\s+(\b(unsafe)\b\s+)?
       beginCaptures:
-        '2': { name: keyword.other.global.cs }
-        '3': { name: keyword.other.using.cs }
-        '4': { name: keyword.other.static.cs }
-        '6': { name: storage.modifier.cs }
+        '2': { name: keyword.other.directive.global.cs }
+        '3': { name: keyword.other.directive.using.cs }
+        '4': { name: keyword.other.directive.static.cs }
+        '6': { name: storage.modifier.unsafe.cs }
       end: (?=;)
       patterns:
       - include: '#type'
     - begin: (\b(global)\b\s+)?\b(using)\b\s+(\b(unsafe)\b\s+)?(?=(@?[_[:alpha:]][_[:alnum:]]*)\s*=)
       beginCaptures:
-        '2': { name: keyword.other.global.cs }
-        '3': { name: keyword.other.using.cs }
-        '5': { name: storage.modifier.cs }
+        '2': { name: keyword.other.directive.global.cs }
+        '3': { name: keyword.other.directive.using.cs }
+        '5': { name: storage.modifier.unsafe.cs }
         '6': { name: entity.name.type.alias.cs }
       end: (?=;)
       patterns:
@@ -175,8 +175,8 @@ repository:
       - include: '#operator-assignment'
     - begin: (\b(global)\b\s+)?\b(using)\s*(?!\(|\s|var) # Use negative lookahead to exclude using statement forms.
       beginCaptures:
-        '2': { name: keyword.other.global.cs }
-        '3': { name: keyword.other.using.cs }
+        '2': { name: keyword.other.directive.global.cs }
+        '3': { name: keyword.other.directive.using.cs }
       end: (?=;)
       patterns:
       - include: '#comment'
@@ -227,7 +227,7 @@ repository:
   namespace-declaration:
     begin: \b(namespace)\s+
     beginCaptures:
-      '1': { name: keyword.other.namespace.cs }
+      '1': { name: storage.type.namespace.cs }
     end: (?<=\})|(?=;)
     patterns:
     - include: '#comment'
@@ -246,7 +246,7 @@ repository:
       - include: '#punctuation-semicolon'
 
   storage-modifier:
-    name: 'storage.modifier.cs'
+    name: storage.modifier.$1.cs
     match: (?<!\.)\b(new|public|protected|internal|private|abstract|virtual|override|sealed|static|partial|readonly|volatile|const|extern|async|unsafe|ref|required|file)\b
 
   class-declaration:
@@ -259,8 +259,8 @@ repository:
         \b(class)\b\s+
         (@?[_[:alpha:]][_[:alnum:]]*)\s*
       beginCaptures:
-        '2': { name: keyword.other.record.cs }
-        '3': { name: keyword.other.class.cs }
+        '2': { name: storage.type.record.cs }
+        '3': { name: storage.type.class.cs }
         '4': { name: entity.name.type.class.cs }
       end: (?=\{)|(?=;)
       patterns:
@@ -311,7 +311,7 @@ repository:
       (<([^<>]+)>)?\s*
       (?=\()
     beginCaptures:
-      '1': { name: keyword.other.delegate.cs }
+      '1': { name: storage.type.delegate.cs }
       '2':
         patterns:
         - include: '#type'
@@ -339,7 +339,7 @@ repository:
       - include: '#comment'
       - match: (enum)\s+(@?[_[:alpha:]][_[:alnum:]]*)
         captures:
-          '1': { name: keyword.other.enum.cs }
+          '1': { name: storage.type.enum.cs }
           '2': { name: entity.name.type.enum.cs }
       - begin: ':'
         beginCaptures:
@@ -377,7 +377,7 @@ repository:
         (interface)\b\s+
         (@?[_[:alpha:]][_[:alnum:]]*)
       beginCaptures:
-        '1': { name: keyword.other.interface.cs }
+        '1': { name: storage.type.interface.cs }
         '2': { name: entity.name.type.interface.cs }
       end: (?=\{)
       patterns:
@@ -405,7 +405,7 @@ repository:
         (record)\b\s+
         (@?[_[:alpha:]][_[:alnum:]]*)
       beginCaptures:
-        '1': { name: keyword.other.record.cs }
+        '1': { name: storage.type.record.cs }
         '2': { name: entity.name.type.class.cs }
       end: (?=\{)|(?=;)
       patterns:
@@ -435,8 +435,8 @@ repository:
         (struct)\b\s+
         (@?[_[:alpha:]][_[:alnum:]]*)
       beginCaptures:
-        '2': { name: keyword.other.record.cs }
-        '3': { name: keyword.other.struct.cs }
+        '2': { name: storage.type.record.cs }
+        '3': { name: storage.type.struct.cs }
         '4': { name: entity.name.type.struct.cs }
       end: (?=\{)|(?=;)
       patterns:
@@ -465,11 +465,9 @@ repository:
       '0': { name: punctuation.definition.typeparameters.end.cs }
     patterns:
     - match: \b(in|out)\b
-      captures:
-        '1': { name: storage.modifier.cs }
+      name: storage.modifier.$1.cs
     - match: (@?[_[:alpha:]][_[:alnum:]]*)\b
-      captures:
-        '1': { name: entity.name.type.type-parameter.cs }
+      name: entity.name.type.type-parameter.cs
     - include: '#comment'
     - include: '#punctuation-comma'
     - include: '#attribute-section'
@@ -487,18 +485,18 @@ repository:
   generic-constraints:
     begin: (where)\s+(@?[_[:alpha:]][_[:alnum:]]*)\s*(:)
     beginCaptures:
-      '1': { name: keyword.other.where.cs }
+      '1': { name: storage.modifier.where.cs }
       '2': { name: entity.name.type.type-parameter.cs }
       '3': { name: punctuation.separator.colon.cs }
     end: (?=\{|where|;|=>)
     patterns:
-    - name: keyword.other.class.cs
+    - name: storage.type.class.cs
       match: \bclass\b
-    - name: keyword.other.struct.cs
+    - name: storage.type.struct.cs
       match: \bstruct\b
     - match: (new)\s*(\()\s*(\))
       captures:
-        '1': { name: keyword.other.new.cs }
+        '1': { name: keyword.operator.expression.new.cs }
         '2': { name: punctuation.parenthesis.open.cs }
         '3': { name: punctuation.parenthesis.close.cs }
     - include: '#type'
@@ -694,7 +692,7 @@ repository:
       (\g<identifier>)\s* # first event name
       (?=\{|;|,|=|//|/\*|$)
     beginCaptures:
-      '1': { name: keyword.other.event.cs }
+      '1': { name: storage.type.event.cs }
       '2':
         patterns:
         - include: '#type'
@@ -733,17 +731,17 @@ repository:
     patterns:
     - include: '#comment'
     - include: '#attribute-section'
-    - name: storage.modifier.cs
+    - name: storage.modifier.$1.cs
       match: \b(private|protected|internal)\b
     - begin: \b(get)\b\s*(?=\{|;|=>|//|/\*|$)
       beginCaptures:
-        '1': { name: keyword.other.$1.cs }
+        '1': { name: storage.type.accessor.$1.cs }
       end: (?<=\}|;)|(?=\})
       patterns:
       - include: '#accessor-getter'
     - begin: \b(set|init)\b\s*(?=\{|;|=>|//|/\*|$)
       beginCaptures:
-        '1': { name: keyword.other.$1.cs }
+        '1': { name: storage.type.accessor.$1.cs }
       end: (?<=\}|;)|(?=\})
       patterns:
       - include: '#accessor-setter'
@@ -760,7 +758,7 @@ repository:
     - include: '#attribute-section'
     - begin: \b(add|remove)\b\s*(?=\{|;|=>|//|/\*|$)
       beginCaptures:
-        '1': { name: keyword.other.$1.cs }
+        '1': { name: storage.type.accessor.$1.cs }
       end: (?<=\}|;)|(?=\})
       patterns:
       - include: '#accessor-setter'
@@ -943,7 +941,7 @@ repository:
       # '3': ?<name_and_type_args> is a sub-expression. It's final value is not considered.
       # '4': ?<type_args> is a sub-expression. It's final value is not considered.
       # '5': ?<tuple> is a sub-expression. It's final value is not considered.
-      '6': { name: keyword.other.operator-decl.cs }
+      '6': { name: storage.type.operator.cs }
       '7': { name: entity.name.function.cs }
     end: (?<=\})|(?=;)
     patterns:
@@ -986,11 +984,11 @@ repository:
         patterns:
         - match: \b(explicit)\b
           captures:
-            '1': { name: keyword.other.explicit.cs }
+            '1': { name: storage.modifier.explicit.cs }
         - match: \b(implicit)\b
           captures:
-            '1': { name: keyword.other.implicit.cs }
-      '2': { name: keyword.other.operator-decl.cs }
+            '1': { name: storage.modifier.implicit.cs }
+      '2': { name: storage.type.operator.cs }
       '3':
         patterns:
         - include: '#type'
@@ -1032,18 +1030,18 @@ repository:
   goto-statement:
     begin: (?<!\.)\b(goto)\b
     beginCaptures:
-      '1': { name: keyword.control.goto.cs }
+      '1': { name: keyword.control.flow.goto.cs }
     end: (?=[;}])
     patterns:
     - begin: \b(case)\b
       beginCaptures:
-        '1': { name: keyword.control.case.cs }
+        '1': { name: keyword.control.conditional.case.cs }
       end: (?=[;}])
       patterns:
       - include: '#expression'
     - match: \b(default)\b
       captures:
-        '1': { name: keyword.control.default.cs }
+        '1': { name: keyword.control.conditional.default.cs }
     - name: entity.name.label.cs
       match: '@?[_[:alpha:]][_[:alnum:]]*'
 
@@ -1057,10 +1055,8 @@ repository:
     - include: '#expression'
 
   break-or-continue-statement:
-    match: (?<!\.)\b(?:(break)|(continue))\b
-    captures:
-      '1': { name: keyword.control.flow.break.cs }
-      '2': { name: keyword.control.flow.continue.cs }
+    match: (?<!\.)\b(break|continue)\b
+    name: keyword.control.flow.$1.cs
 
   throw-statement:
     begin: (?<!\.)\b(throw)\b
@@ -1095,7 +1091,7 @@ repository:
   await-statement:
     begin: (?<!\.)\b(await)\b
     beginCaptures:
-      '1': { name: keyword.other.await.cs }
+      '1': { name: keyword.operator.expression.await.cs }
     end: (?=[;}])
     patterns:
     - include: '#statement'
@@ -1127,7 +1123,7 @@ repository:
   switch-statement-or-expression:
     begin: (?<!\.)\b(switch)\b
     beginCaptures:
-      1: { name: keyword.control.switch.cs }
+      1: { name: keyword.control.conditional.switch.cs }
     end: (?<=})|(?=})
     patterns:
     - include: '#intrusive'
@@ -1164,14 +1160,14 @@ repository:
   switch-label:
     begin: \b(case|default)\b
     beginCaptures:
-      1: { name: keyword.control.$1.cs }
+      1: { name: keyword.control.conditional.$1.cs }
     end: (:)|(?=})
     endCaptures:
       1: { name: punctuation.separator.colon.cs }
     patterns:
     - begin: \b(when)\b
       beginCaptures:
-        1: { name: keyword.control.when.cs }
+        1: { name: keyword.control.conditional.when.cs }
       end: (?=:|})
       patterns:
       - include: '#case-guard'
@@ -1198,7 +1194,7 @@ repository:
       - include: '#expression'
     - begin: \b(when)\b
       beginCaptures:
-        1: { name: keyword.control.when.cs }
+        1: { name: keyword.control.conditional.when.cs }
       end: (?==>|,|})
       patterns:
       - include: '#case-guard'
@@ -1216,7 +1212,7 @@ repository:
   is-expression:
     begin: (?<!\.)\b(is)\b
     beginCaptures:
-      1: { name: keyword.operator.wordlike.pattern.is.cs }
+      1: { name: keyword.operator.expression.pattern.is.cs }
     end: (?=[)}\],;:?=&|^]|!=)
     patterns:
     - include: '#pattern'
@@ -1237,7 +1233,7 @@ repository:
 
   combinator-pattern:
     match: \b(and|or|not)\b
-    name: keyword.operator.wordlike.pattern.combinator.$1.cs
+    name: keyword.operator.expression.pattern.combinator.$1.cs
 
   discard-pattern:
     match: _(?![_[:alnum:]])
@@ -1267,7 +1263,7 @@ repository:
   var-pattern:
     begin: \b(var)\b
     beginCaptures:
-      1: { name: keyword.other.var.cs }
+      1: { name: storage.type.var.cs }
     end: (?=[)}\],;:?=&|^]|!=|\b(and|or|when)\b)
     patterns:
     - include: '#designation-pattern'
@@ -1496,7 +1492,7 @@ repository:
           (\g<identifier>)\s+
           \b(in)\b
         captures:
-          '1': { name: keyword.other.var.cs }
+          '1': { name: storage.type.var.cs }
           '2':
             patterns:
             - include: '#type'
@@ -1512,7 +1508,7 @@ repository:
           (?<tuple>\((?:[^\(\)]|\g<tuple>)+\))\s+
           \b(in)\b
         captures:
-          '1': { name: keyword.other.var.cs }
+          '1': { name: storage.type.var.cs }
           '2':
             patterns:
             - include: '#tuple-declaration-deconstruction-element-list'
@@ -1529,7 +1525,7 @@ repository:
   try-block:
     begin: (?<!\.)\b(try)\b
     beginCaptures:
-      '1': { name: keyword.control.try.cs }
+      '1': { name: keyword.control.exception.try.cs }
     end: (?<=\})
     patterns:
     - include: '#comment'
@@ -1538,7 +1534,7 @@ repository:
   finally-clause:
     begin: (?<!\.)\b(finally)\b
     beginCaptures:
-      '1': { name: keyword.control.try.finally.cs }
+      '1': { name: keyword.control.exception.finally.cs }
     end: (?<=\})
     patterns:
     - include: '#comment'
@@ -1547,7 +1543,7 @@ repository:
   catch-clause:
     begin: (?<!\.)\b(catch)\b
     beginCaptures:
-        '1': { name: keyword.control.try.catch.cs }
+        '1': { name: keyword.control.exception.catch.cs }
     end: (?<=\})
     patterns:
     - begin: \(
@@ -1598,7 +1594,7 @@ repository:
   when-clause:
     begin: (?<!\.)\b(when)\b\s*(\()
     beginCaptures:
-      '1': { name: keyword.control.when.cs }
+      '1': { name: keyword.control.exception.when.cs }
       '2': { name: punctuation.parenthesis.open.cs }
     end: \)
     endCaptures:
@@ -1610,8 +1606,8 @@ repository:
   checked-unchecked-statement:
     begin: (?<!\.)\b(?:(checked)|(unchecked))\b\s*(?!\()
     beginCaptures:
-      '1': { name: keyword.other.checked.cs }
-      '2': { name: keyword.other.unchecked.cs }
+      '1': { name: keyword.control.context.checked.cs }
+      '2': { name: keyword.control.context.unchecked.cs }
     end: (?<=\})
     patterns:
     - include: '#block'
@@ -1620,7 +1616,7 @@ repository:
   lock-statement:
     begin: (?<!\.)\b(lock)\b\s*(?=\()
     beginCaptures:
-      '1': { name: keyword.other.lock.cs }
+      '1': { name: keyword.control.context.lock.cs }
     end: (?<=\})|(?=;)
     patterns:
     - begin: \(
@@ -1636,7 +1632,7 @@ repository:
   using-statement:
     begin: (?<!\.)\b(using)\b\s*(?=\()
     beginCaptures:
-      '1': { name: keyword.other.using.cs }
+      '1': { name: keyword.control.context.using.cs }
     end: (?=\;|})
     patterns:
     - begin: \(
@@ -1697,18 +1693,18 @@ repository:
       (?!=>)
       (?=,|;|=|\))
     beginCaptures:
-      '1': { name: keyword.other.using.cs }
-      '2': { name: storage.modifier.cs }
-      '3': { name: storage.modifier.cs }
-      '4': { name: keyword.other.var.cs }
-      '5':
+      1: { name: keyword.control.context.using.cs }
+      2: { name: storage.modifier.$2.cs }
+      3: { name: storage.modifier.$3.cs }
+      4: { name: storage.type.var.cs }
+      5:
         patterns:
         - include: '#type'
       # '6': ?<identifier> is a sub-expression. It's final value is not considered.
       # '7': ?<name_and_type_args> is a sub-expression. It's final value is not considered.
       # '8': ?<type_args> is a sub-expression. It's final value is not considered.
       # '9': ?<tuple> is a sub-expression. It's final value is not considered.
-      '10': { name: entity.name.variable.local.cs }
+      10: { name: entity.name.variable.local.cs }
     end: (?=;|\))
     patterns:
     - name: entity.name.variable.local.cs
@@ -1746,15 +1742,15 @@ repository:
       (\g<identifier>)\s*
       (?=,|;|=)
     beginCaptures:
-      '1': { name: storage.modifier.cs }
-      '2':
+      1: { name: storage.modifier.const.cs }
+      2:
         patterns:
         - include: '#type'
       # '3': ?<identifier> is a sub-expression. It's final value is not considered.
       # '4': ?<name_and_type_args> is a sub-expression. It's final value is not considered.
       # '5': ?<type_args> is a sub-expression. It's final value is not considered.
       # '6': ?<tuple> is a sub-expression. It's final value is not considered.
-      '7': { name: entity.name.variable.local.cs }
+      7: { name: entity.name.variable.local.cs }
     end: (?=;)
     patterns:
     - name: entity.name.variable.local.cs
@@ -1815,7 +1811,7 @@ repository:
       (?<tuple>\((?:[^\(\)]|\g<tuple>)+\))\s*
       (?=;|=|\))
     beginCaptures:
-      '1': { name: keyword.other.var.cs }
+      '1': { name: storage.type.var.cs }
       '2':
         patterns:
         - include: '#tuple-declaration-deconstruction-element-list'
@@ -1903,7 +1899,7 @@ repository:
       (\g<identifier>)\b\s*
       (?=[,)\]])
     captures:
-      '1': { name: keyword.other.var.cs }
+      '1': { name: storage.type.var.cs }
       '2':
         patterns:
         - include: '#type'
@@ -1944,7 +1940,7 @@ repository:
       (\g<identifier>)\b\s*
       (?=[,)])
     captures:
-      '1': { name: keyword.other.var.cs }
+      '1': { name: storage.type.var.cs }
       '2':
         patterns:
         - include: '#type'
@@ -1955,21 +1951,20 @@ repository:
       '7': { name: entity.name.variable.tuple-element.cs }
 
   checked-unchecked-expression:
-    begin: (?<!\.)\b(?:(checked)|(unchecked))\b\s*(\()
+    begin: (?<!\.)\b(checked|unchecked)\b\s*(\()
     beginCaptures:
-      '1': { name: keyword.other.checked.cs }
-      '2': { name: keyword.other.unchecked.cs }
-      '3': { name: punctuation.parenthesis.open.cs }
+      1: { name: keyword.operator.expression.$1.cs }
+      2: { name: punctuation.parenthesis.open.cs }
     end: \)
     endCaptures:
-      '0': { name: punctuation.parenthesis.close.cs }
+      0: { name: punctuation.parenthesis.close.cs }
     patterns:
     - include: '#expression'
 
   typeof-or-default-expression:
     begin: (?<!\.)\b(typeof|default)\b\s*(\()
     beginCaptures:
-      '1': { name: keyword.other.$1.cs }
+      '1': { name: keyword.operator.expression.$1.cs }
       '2': { name: punctuation.parenthesis.open.cs }
     end: \)
     endCaptures:
@@ -1980,7 +1975,7 @@ repository:
   nameof-expression:
     begin: (?<!\.)\b(nameof)\b\s*(\()
     beginCaptures:
-      '1': { name: keyword.other.nameof.cs }
+      '1': { name: keyword.operator.expression.nameof.cs }
       '2': { name: punctuation.parenthesis.open.cs }
     end: \)
     endCaptures:
@@ -1991,7 +1986,7 @@ repository:
   default-literal-expression:
     match: (?<!\.)\b(default)\b
     captures:
-      '1': { name: keyword.other.default.cs }
+      '1': { name: keyword.operator.expression.default.cs }
 
   throw-expression:
     match: (?<!\.)\b(throw)\b
@@ -2398,7 +2393,7 @@ repository:
   with-expression:
     begin: (?<!\.)\b(with)\b\s*(?=\{|//|/\*|$)
     beginCaptures:
-      '1': { name: keyword.other.with.cs }
+      '1': { name: keyword.operator.expression.with.cs }
     end: (?<=\})
     patterns:
     - include: '#comment'
@@ -2415,7 +2410,7 @@ repository:
       match: ':'
 
   await-expression:
-    name: keyword.other.await.cs
+    name: keyword.operator.expression.await.cs
     match: (?<!\.)\b(await)\b
 
   parenthesized-expression:
@@ -2506,7 +2501,7 @@ repository:
         )
       )?
     captures:
-      '1': { name: keyword.other.as.cs }
+      '1': { name: keyword.operator.expression.as.cs }
       '2':
         patterns:
         - include: '#type'
@@ -2650,7 +2645,7 @@ repository:
       ))?\s*
       (?=\()
     beginCaptures:
-      '1': { name: keyword.other.new.cs }
+      '1': { name: keyword.operator.expression.new.cs }
       '2':
         patterns:
         - include: '#type'
@@ -2686,7 +2681,7 @@ repository:
       )\s*
       (?=\{|//|/\*|$)
     captures:
-      '1': { name: keyword.other.new.cs }
+      '1': { name: keyword.operator.expression.new.cs }
       '2':
         patterns:
         - include: '#type'
@@ -2719,7 +2714,7 @@ repository:
       )?\s*
       (?=\[)
     beginCaptures:
-      '1': { name: keyword.other.new.cs }
+      '1': { name: keyword.operator.expression.$1.cs }
       '2':
         patterns:
         - include: '#type'
@@ -2730,7 +2725,7 @@ repository:
   anonymous-object-creation-expression:
     begin: \b(new)\b\s*(?=\{|//|/\*|$)
     beginCaptures:
-      '1': { name: keyword.other.new.cs }
+      '1': { name: keyword.operator.expression.new.cs }
     end: (?<=\})
     patterns:
     - include: '#comment'
@@ -2797,15 +2792,15 @@ repository:
       )\s+
       (\g<identifier>)
     captures:
-      '1': { name: storage.modifier.cs }
-      '2':
+      1: { name: storage.modifier.$1.cs }
+      2:
         patterns:
         - include: '#type'
       # '3': ?<identifier> is a sub-expression. It's final value is not considered.
       # '4': ?<name_and_type_args> is a sub-expression. It's final value is not considered.
       # '5': ?<type_args> is a sub-expression. It's final value is not considered.
       # '6': ?<tuple> is a sub-expression. It's final value is not considered.
-      '7': { name: entity.name.variable.parameter.cs }
+      7: { name: entity.name.variable.parameter.cs }
 
   argument-list:
     begin: \(
@@ -2842,11 +2837,11 @@ repository:
 
   argument:
     patterns:
-    - name: storage.modifier.cs
+    - name: storage.modifier.$1.cs
       match: \b(ref|in)\b
     - begin: \b(out)\b
       beginCaptures:
-        '1': { name: storage.modifier.cs }
+        1: { name: storage.modifier.out.cs }
       end: (?=,|\)|\])
       patterns:
       - include: '#declaration-expression-local'
@@ -2882,7 +2877,7 @@ repository:
       \s+(\g<identifier>)\b\s*
       \b(in)\b\s*
     beginCaptures:
-      '1': { name: keyword.query.from.cs }
+      '1': { name: keyword.operator.expression.query.from.cs }
       '2':
         patterns:
         - include: '#type'
@@ -2891,7 +2886,7 @@ repository:
       # '5': ?<type_args> is a sub-expression. It's final value is not considered.
       # '6': ?<tuple> is a sub-expression. It's final value is not considered.
       '7': { name: entity.name.variable.range-variable.cs }
-      '8': { name: keyword.query.in.cs }
+      '8': { name: keyword.operator.expression.query.in.cs }
     end: (?=;|\))
     patterns:
     - include: '#query-body'
@@ -2913,7 +2908,7 @@ repository:
       (@?[_[:alpha:]][_[:alnum:]]*)\b\s*
       (=)\s*
     beginCaptures:
-      '1': { name: keyword.query.let.cs }
+      '1': { name: keyword.operator.expression.query.let.cs }
       '2': { name: entity.name.variable.range-variable.cs }
       '3': { name: keyword.operator.assignment.cs }
     end: (?=;|\))
@@ -2926,7 +2921,7 @@ repository:
       (?x)
       \b(where)\b\s*
     beginCaptures:
-      '1': { name: keyword.query.where.cs }
+      '1': { name: keyword.operator.expression.query.where.cs }
     end: (?=;|\))
     patterns:
     - include: '#query-body'
@@ -2961,7 +2956,7 @@ repository:
       \s+(\g<identifier>)\b\s*
       \b(in)\b\s*
     beginCaptures:
-      '1': { name: keyword.query.join.cs }
+      '1': { name: keyword.operator.expression.query.join.cs }
       '2':
         patterns:
         - include: '#type'
@@ -2970,7 +2965,7 @@ repository:
       # '5': ?<type_args> is a sub-expression. It's final value is not considered.
       # '6': ?<tuple> is a sub-expression. It's final value is not considered.
       '7': { name: entity.name.variable.range-variable.cs }
-      '8': { name: keyword.query.in.cs }
+      '8': { name: keyword.operator.expression.query.in.cs }
     end: (?=;|\))
     patterns:
     - include: '#join-on'
@@ -2982,12 +2977,12 @@ repository:
   join-on:
     match: \b(on)\b\s*
     captures:
-      '1': { name: keyword.query.on.cs }
+      '1': { name: keyword.operator.expression.query.on.cs }
 
   join-equals:
     match: \b(equals)\b\s*
     captures:
-      '1': { name: keyword.query.equals.cs }
+      '1': { name: keyword.operator.expression.query.equals.cs }
 
   join-into:
     match: |-
@@ -2995,13 +2990,13 @@ repository:
       \b(into)\b\s*
       (@?[_[:alpha:]][_[:alnum:]]*)\b\s*
     captures:
-      '1': { name: keyword.query.into.cs }
+      '1': { name: keyword.operator.expression.query.into.cs }
       '2': { name: entity.name.variable.range-variable.cs }
 
   orderby-clause:
     begin: \b(orderby)\b\s*
     beginCaptures:
-      '1': { name: keyword.query.orderby.cs }
+      '1': { name: keyword.operator.expression.query.orderby.cs }
     end: (?=;|\))
     patterns:
     - include: '#ordering-direction'
@@ -3010,15 +3005,14 @@ repository:
     - include: '#punctuation-comma'
 
   ordering-direction:
-    match: \b(?:(ascending)|(descending))\b
+    match: \b(ascending|descending)\b
     captures:
-      '1': { name: keyword.query.ascending.cs }
-      '2': { name: keyword.query.descending.cs }
+      1: { name: keyword.operator.expression.query.$1.cs }
 
   select-clause:
     begin: \b(select)\b\s*
     beginCaptures:
-      '1': { name: keyword.query.select.cs }
+      '1': { name: keyword.operator.expression.query.select.cs }
     end: (?=;|\))
     patterns:
     - include: '#query-body'
@@ -3027,7 +3021,7 @@ repository:
   group-clause:
     begin: \b(group)\b\s*
     beginCaptures:
-      '1': { name: keyword.query.group.cs }
+      '1': { name: keyword.operator.expression.query.group.cs }
     end: (?=;|\))
     patterns:
     - include: '#group-by'
@@ -3038,7 +3032,7 @@ repository:
   group-by:
     match: \b(by)\b\s*
     captures:
-      '1': { name: keyword.query.by.cs }
+      '1': { name: keyword.operator.expression.query.by.cs }
 
   group-into:
     match: |-
@@ -3046,7 +3040,7 @@ repository:
       \b(into)\b\s*
       (@?[_[:alpha:]][_[:alnum:]]*)\b\s*
     captures:
-      '1': { name: keyword.query.into.cs }
+      '1': { name: keyword.operator.expression.query.into.cs }
       '2': { name: entity.name.variable.range-variable.cs }
 
   anonymous-method-expression:
@@ -3057,7 +3051,7 @@ repository:
         (@?[_[:alpha:]][_[:alnum:]]*)\b\s*
         (=>)
       beginCaptures:
-        '1': { name: storage.modifier.cs }
+        '1': { name: storage.modifier.async.cs }
         '2': { name: entity.name.variable.parameter.cs }
         '3': { name: keyword.operator.arrow.cs }
       end: (?=\)|;|}|,)
@@ -3071,11 +3065,11 @@ repository:
         (\(.*?\))\s*
         (=>)
       beginCaptures:
-        '1': { name: storage.modifier.cs }
-        '2':
+        1: { name: storage.modifier.async.cs }
+        2:
           patterns:
           - include: '#lambda-parameter-list'
-        '3': { name: keyword.operator.arrow.cs }
+        3: { name: keyword.operator.arrow.cs }
       end: (?=\)|;|}|,)
       patterns:
       - include: '#block'
@@ -3086,8 +3080,8 @@ repository:
         (?:\b(async)\b\s*)?
         (?:\b(delegate)\b\s*)
       beginCaptures:
-        '1': { name: storage.modifier.cs }
-        '2': { name: keyword.other.delegate.cs }
+        1: { name: storage.modifier.async.cs }
+        2: { name: storage.type.delegate.cs }
       end: (?=\)|;|}|,)
       patterns:
       - include: '#parenthesized-parameter-list'
@@ -3136,15 +3130,15 @@ repository:
       (\g<identifier>)\b\s*
       (?=[,)])
     captures:
-      '1': { name: storage.modifier.cs }
-      '2':
+      1: { name: storage.modifier.$1.cs }
+      2:
         patterns:
         - include: '#type'
       # '3': ?<identifier> is a sub-expression. It's final value is not considered.
       # '4': ?<name_and_type_args> is a sub-expression. It's final value is not considered.
       # '5': ?<type_args> is a sub-expression. It's final value is not considered.
       # '6': ?<tuple> is a sub-expression. It's final value is not considered.
-      '7': { name: entity.name.variable.parameter.cs }
+      7: { name: entity.name.variable.parameter.cs }
 
   type:
     patterns:
@@ -3159,11 +3153,11 @@ repository:
     - include: '#type-nullable-suffix'
 
   ref-modifier:
-    name: storage.modifier.cs
+    name: storage.modifier.ref.cs
     match: \b(ref)\b
 
   readonly-modifier:
-    name: storage.modifier.cs
+    name: storage.modifier.readonly.cs
     match: \b(readonly)\b
 
   tuple-type:
@@ -3216,7 +3210,7 @@ repository:
   type-builtin:
     match: \b(bool|s?byte|u?short|n?u?int|u?long|float|double|decimal|char|string|object|void|dynamic)\b
     captures:
-      '1': { name: keyword.type.cs }
+      1: { name: keyword.type.$1.cs }
 
   type-name:
     patterns:

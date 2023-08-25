@@ -17,18 +17,18 @@ describe("Interpolated strings", () => {
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
-                Token.Identifiers.FieldName("test"),
-                Token.Operators.Assignment,
+                Token.Identifier.FieldName("test"),
+                Token.Operator.Assignment,
                 Token.Punctuation.InterpolatedString.Begin,
-                Token.Literals.String("hello "),
+                Token.Literal.String("hello "),
                 Token.Punctuation.Interpolation.Begin,
-                Token.Variables.ReadWrite("one"),
+                Token.Variable.ReadWrite("one"),
                 Token.Punctuation.Interpolation.End,
-                Token.Literals.String(" world "),
+                Token.Literal.String(" world "),
                 Token.Punctuation.Interpolation.Begin,
-                Token.Variables.ReadWrite("two"),
+                Token.Variable.ReadWrite("two"),
                 Token.Punctuation.Interpolation.End,
-                Token.Literals.String("!"),
+                Token.Literal.String("!"),
                 Token.Punctuation.InterpolatedString.End,
                 Token.Punctuation.Semicolon]);
         });
@@ -40,10 +40,10 @@ describe("Interpolated strings", () => {
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
-                Token.Identifiers.FieldName("test"),
-                Token.Operators.Assignment,
+                Token.Identifier.FieldName("test"),
+                Token.Operator.Assignment,
                 Token.Punctuation.InterpolatedString.Begin,
-                Token.Literals.String("hello world!"),
+                Token.Literal.String("hello world!"),
                 Token.Punctuation.InterpolatedString.End,
                 Token.Punctuation.Semicolon]);
         });
@@ -55,10 +55,10 @@ describe("Interpolated strings", () => {
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
-                Token.Identifiers.FieldName("test"),
-                Token.Operators.Assignment,
+                Token.Identifier.FieldName("test"),
+                Token.Operator.Assignment,
                 Token.Punctuation.InterpolatedString.Begin,
-                Token.Literals.String("hello {{one}} world {{two}}!"),
+                Token.Literal.String("hello {{one}} world {{two}}!"),
                 Token.Punctuation.InterpolatedString.End,
                 Token.Punctuation.Semicolon]);
         });
@@ -70,20 +70,20 @@ describe("Interpolated strings", () => {
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
-                Token.Identifiers.FieldName("test"),
-                Token.Operators.Assignment,
+                Token.Identifier.FieldName("test"),
+                Token.Operator.Assignment,
                 Token.Punctuation.InterpolatedString.Begin,
-                Token.Literals.String("hello "),
-                Token.Literals.String("{{"),
+                Token.Literal.String("hello "),
+                Token.Literal.String("{{"),
                 Token.Punctuation.Interpolation.Begin,
-                Token.Variables.ReadWrite("one"),
+                Token.Variable.ReadWrite("one"),
                 Token.Punctuation.Interpolation.End,
-                Token.Literals.String("}} world "),
-                Token.Literals.String("{{"),
+                Token.Literal.String("}} world "),
+                Token.Literal.String("{{"),
                 Token.Punctuation.Interpolation.Begin,
-                Token.Variables.ReadWrite("two"),
+                Token.Variable.ReadWrite("two"),
                 Token.Punctuation.Interpolation.End,
-                Token.Literals.String("}}!"),
+                Token.Literal.String("}}!"),
                 Token.Punctuation.InterpolatedString.End,
                 Token.Punctuation.Semicolon]);
         });
@@ -95,10 +95,10 @@ describe("Interpolated strings", () => {
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
-                Token.Identifiers.FieldName("test"),
-                Token.Operators.Assignment,
+                Token.Identifier.FieldName("test"),
+                Token.Operator.Assignment,
                 Token.Punctuation.InterpolatedString.Begin,
-                Token.Literals.String("hello {{{{one}}}} world {{{{two}}}}!"),
+                Token.Literal.String("hello {{{{one}}}} world {{{{two}}}}!"),
                 Token.Punctuation.InterpolatedString.End,
                 Token.Punctuation.Semicolon]);
         });
@@ -112,15 +112,15 @@ world!";`);
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
-                Token.Identifiers.FieldName("test"),
-                Token.Operators.Assignment,
+                Token.Identifier.FieldName("test"),
+                Token.Operator.Assignment,
                 Token.Punctuation.InterpolatedString.Begin,
-                Token.Literals.String("hell"),
+                Token.Literal.String("hell"),
 
                 // Note: Because the string ended prematurely, the rest of this line and the contents of the next are junk.
                 Token.IllegalNewLine("o"),
-                Token.Variables.ReadWrite("world"),
-                Token.Operators.Logical.Not,
+                Token.Variable.ReadWrite("world"),
+                Token.Operator.Logical.Not,
                 Token.Punctuation.String.Begin,
                 Token.IllegalNewLine(";")]);
         });
@@ -132,18 +132,18 @@ world!";`);
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
-                Token.Identifiers.FieldName("test"),
-                Token.Operators.Assignment,
+                Token.Identifier.FieldName("test"),
+                Token.Operator.Assignment,
                 Token.Punctuation.InterpolatedString.VerbatimBegin,
-                Token.Literals.String("hello "),
+                Token.Literal.String("hello "),
                 Token.Punctuation.Interpolation.Begin,
-                Token.Variables.ReadWrite("one"),
+                Token.Variable.ReadWrite("one"),
                 Token.Punctuation.Interpolation.End,
-                Token.Literals.String(" world "),
+                Token.Literal.String(" world "),
                 Token.Punctuation.Interpolation.Begin,
-                Token.Variables.ReadWrite("two"),
+                Token.Variable.ReadWrite("two"),
                 Token.Punctuation.Interpolation.End,
-                Token.Literals.String("!"),
+                Token.Literal.String("!"),
                 Token.Punctuation.InterpolatedString.End,
                 Token.Punctuation.Semicolon]);
         });
@@ -155,18 +155,18 @@ world!";`);
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
-                Token.Identifiers.FieldName("test"),
-                Token.Operators.Assignment,
+                Token.Identifier.FieldName("test"),
+                Token.Operator.Assignment,
                 Token.Punctuation.InterpolatedString.VerbatimBeginReverse,
-                Token.Literals.String("hello "),
+                Token.Literal.String("hello "),
                 Token.Punctuation.Interpolation.Begin,
-                Token.Variables.ReadWrite("one"),
+                Token.Variable.ReadWrite("one"),
                 Token.Punctuation.Interpolation.End,
-                Token.Literals.String(" world "),
+                Token.Literal.String(" world "),
                 Token.Punctuation.Interpolation.Begin,
-                Token.Variables.ReadWrite("two"),
+                Token.Variable.ReadWrite("two"),
                 Token.Punctuation.Interpolation.End,
-                Token.Literals.String("!"),
+                Token.Literal.String("!"),
                 Token.Punctuation.InterpolatedString.End,
                 Token.Punctuation.Semicolon]);
         });
@@ -178,22 +178,22 @@ world!";`);
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
-                Token.Identifiers.FieldName("test"),
-                Token.Operators.Assignment,
+                Token.Identifier.FieldName("test"),
+                Token.Operator.Assignment,
                 Token.Punctuation.InterpolatedString.VerbatimBegin,
-                Token.Literals.String("hello "),
+                Token.Literal.String("hello "),
                 Token.Punctuation.Interpolation.Begin,
-                Token.Variables.ReadWrite("one"),
+                Token.Variable.ReadWrite("one"),
                 Token.Punctuation.Interpolation.End,
-                Token.Literals.String(" "),
-                Token.Literals.CharacterEscape("\"\""),
-                Token.Literals.String("world"),
-                Token.Literals.CharacterEscape("\"\""),
-                Token.Literals.String(" "),
+                Token.Literal.String(" "),
+                Token.Literal.CharacterEscape("\"\""),
+                Token.Literal.String("world"),
+                Token.Literal.CharacterEscape("\"\""),
+                Token.Literal.String(" "),
                 Token.Punctuation.Interpolation.Begin,
-                Token.Variables.ReadWrite("two"),
+                Token.Variable.ReadWrite("two"),
                 Token.Punctuation.Interpolation.End,
-                Token.Literals.String("!"),
+                Token.Literal.String("!"),
                 Token.Punctuation.InterpolatedString.End,
                 Token.Punctuation.Semicolon]);
         });
@@ -205,22 +205,22 @@ world!";`);
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
-                Token.Identifiers.FieldName("test"),
-                Token.Operators.Assignment,
+                Token.Identifier.FieldName("test"),
+                Token.Operator.Assignment,
                 Token.Punctuation.InterpolatedString.VerbatimBeginReverse,
-                Token.Literals.String("hello "),
+                Token.Literal.String("hello "),
                 Token.Punctuation.Interpolation.Begin,
-                Token.Variables.ReadWrite("one"),
+                Token.Variable.ReadWrite("one"),
                 Token.Punctuation.Interpolation.End,
-                Token.Literals.String(" "),
-                Token.Literals.CharacterEscape("\"\""),
-                Token.Literals.String("world"),
-                Token.Literals.CharacterEscape("\"\""),
-                Token.Literals.String(" "),
+                Token.Literal.String(" "),
+                Token.Literal.CharacterEscape("\"\""),
+                Token.Literal.String("world"),
+                Token.Literal.CharacterEscape("\"\""),
+                Token.Literal.String(" "),
                 Token.Punctuation.Interpolation.Begin,
-                Token.Variables.ReadWrite("two"),
+                Token.Variable.ReadWrite("two"),
                 Token.Punctuation.Interpolation.End,
-                Token.Literals.String("!"),
+                Token.Literal.String("!"),
                 Token.Punctuation.InterpolatedString.End,
                 Token.Punctuation.Semicolon]);
         });
@@ -234,18 +234,18 @@ world {two}!";`);
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
-                Token.Identifiers.FieldName("test"),
-                Token.Operators.Assignment,
+                Token.Identifier.FieldName("test"),
+                Token.Operator.Assignment,
                 Token.Punctuation.InterpolatedString.VerbatimBegin,
-                Token.Literals.String("hello "),
+                Token.Literal.String("hello "),
                 Token.Punctuation.Interpolation.Begin,
-                Token.Variables.ReadWrite("one"),
+                Token.Variable.ReadWrite("one"),
                 Token.Punctuation.Interpolation.End,
-                Token.Literals.String("world "),
+                Token.Literal.String("world "),
                 Token.Punctuation.Interpolation.Begin,
-                Token.Variables.ReadWrite("two"),
+                Token.Variable.ReadWrite("two"),
                 Token.Punctuation.Interpolation.End,
-                Token.Literals.String("!"),
+                Token.Literal.String("!"),
                 Token.Punctuation.InterpolatedString.End,
                 Token.Punctuation.Semicolon]);
         });
@@ -259,18 +259,18 @@ world {two}!";`);
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
-                Token.Identifiers.FieldName("test"),
-                Token.Operators.Assignment,
+                Token.Identifier.FieldName("test"),
+                Token.Operator.Assignment,
                 Token.Punctuation.InterpolatedString.VerbatimBeginReverse,
-                Token.Literals.String("hello "),
+                Token.Literal.String("hello "),
                 Token.Punctuation.Interpolation.Begin,
-                Token.Variables.ReadWrite("one"),
+                Token.Variable.ReadWrite("one"),
                 Token.Punctuation.Interpolation.End,
-                Token.Literals.String("world "),
+                Token.Literal.String("world "),
                 Token.Punctuation.Interpolation.Begin,
-                Token.Variables.ReadWrite("two"),
+                Token.Variable.ReadWrite("two"),
                 Token.Punctuation.Interpolation.End,
-                Token.Literals.String("!"),
+                Token.Literal.String("!"),
                 Token.Punctuation.InterpolatedString.End,
                 Token.Punctuation.Semicolon]);
         });
@@ -286,14 +286,14 @@ I am a multiline string with a
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
-                Token.Identifiers.FieldName("test"),
-                Token.Operators.Assignment,
+                Token.Identifier.FieldName("test"),
+                Token.Operator.Assignment,
                 Token.Punctuation.InterpolatedString.VerbatimBegin,
-                Token.Literals.String("I am a multiline string with a"),
+                Token.Literal.String("I am a multiline string with a"),
                 Token.Punctuation.Interpolation.Begin,
-                Token.Variables.ReadWrite("parameter"),
+                Token.Variable.ReadWrite("parameter"),
                 Token.Punctuation.Interpolation.End,
-                Token.Literals.String(" that starts after a newline!"),
+                Token.Literal.String(" that starts after a newline!"),
                 Token.Punctuation.InterpolatedString.End,
                 Token.Punctuation.Semicolon]);
         });
@@ -307,11 +307,11 @@ world!";`);
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
-                Token.Identifiers.FieldName("test"),
-                Token.Operators.Assignment,
+                Token.Identifier.FieldName("test"),
+                Token.Operator.Assignment,
                 Token.Punctuation.InterpolatedString.VerbatimBegin,
-                Token.Literals.String("hello"),
-                Token.Literals.String("world!"),
+                Token.Literal.String("hello"),
+                Token.Literal.String("world!"),
                 Token.Punctuation.InterpolatedString.End,
                 Token.Punctuation.Semicolon]);
         });
@@ -325,11 +325,11 @@ world!";`);
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
-                Token.Identifiers.FieldName("test"),
-                Token.Operators.Assignment,
+                Token.Identifier.FieldName("test"),
+                Token.Operator.Assignment,
                 Token.Punctuation.InterpolatedString.VerbatimBeginReverse,
-                Token.Literals.String("hello"),
-                Token.Literals.String("world!"),
+                Token.Literal.String("hello"),
+                Token.Literal.String("world!"),
                 Token.Punctuation.InterpolatedString.End,
                 Token.Punctuation.Semicolon]);
         });

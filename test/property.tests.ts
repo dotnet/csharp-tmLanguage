@@ -20,24 +20,24 @@ public IBooom Property
             const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
+                Token.Keyword.Modifier.Public,
                 Token.Type("IBooom"),
-                Token.Identifiers.PropertyName("Property"),
+                Token.Identifier.PropertyName("Property"),
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Get,
+                Token.Keyword.Definition.Get,
                 Token.Punctuation.OpenBrace,
                 ...Scope.Accessor.Getter(
-                    Token.Keywords.Control.Return,
-                    Token.Literals.Null,
+                    Token.Keyword.Flow.Return,
+                    Token.Literal.Null,
                     Token.Punctuation.Semicolon,
                 ),
                 Token.Punctuation.CloseBrace,
-                Token.Keywords.Set,
+                Token.Keyword.Definition.Set,
                 Token.Punctuation.OpenBrace,
                 ...Scope.Accessor.Setter(
-                    Token.Variables.ReadWrite("something"),
-                    Token.Operators.Assignment,
-                    Token.Variables.Value,
+                    Token.Variable.ReadWrite("something"),
+                    Token.Operator.Assignment,
+                    Token.Variable.Value,
                     Token.Punctuation.Semicolon,
                 ),
                 Token.Punctuation.CloseBrace,
@@ -49,25 +49,25 @@ public IBooom Property
             const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
+                Token.Keyword.Modifier.Public,
                 Token.Type("IBooom"),
-                Token.Identifiers.PropertyName("Property"),
+                Token.Identifier.PropertyName("Property"),
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Get,
+                Token.Keyword.Definition.Get,
                 Token.Punctuation.OpenBrace,
                 ...Scope.Accessor.Getter(
-                    Token.Keywords.Control.Return,
-                    Token.Literals.Null,
+                    Token.Keyword.Flow.Return,
+                    Token.Literal.Null,
                     Token.Punctuation.Semicolon,
                 ),
                 Token.Punctuation.CloseBrace,
-                Token.Keywords.Modifiers.Private,
-                Token.Keywords.Set,
+                Token.Keyword.Modifier.Private,
+                Token.Keyword.Definition.Set,
                 Token.Punctuation.OpenBrace,
                 ...Scope.Accessor.Setter(
-                    Token.Variables.ReadWrite("something"),
-                    Token.Operators.Assignment,
-                    Token.Variables.Value,
+                    Token.Variable.ReadWrite("something"),
+                    Token.Operator.Assignment,
+                    Token.Variable.Value,
                     Token.Punctuation.Semicolon,
                 ),
                 Token.Punctuation.CloseBrace,
@@ -80,11 +80,11 @@ public IBooom Property
 
             tokens.should.deep.equal([
                 Token.Type("IBooom"),
-                Token.Identifiers.PropertyName("Property"),
+                Token.Identifier.PropertyName("Property"),
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Get,
+                Token.Keyword.Definition.Get,
                 Token.Punctuation.Semicolon,
-                Token.Keywords.Set,
+                Token.Keyword.Definition.Set,
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace]);
         });
@@ -94,13 +94,13 @@ public IBooom Property
             const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
+                Token.Keyword.Modifier.Public,
                 Token.Type("IBooom"),
-                Token.Identifiers.PropertyName("Property"),
+                Token.Identifier.PropertyName("Property"),
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Get,
+                Token.Keyword.Definition.Get,
                 Token.Punctuation.Semicolon,
-                Token.Keywords.Set,
+                Token.Keyword.Definition.Set,
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace]);
         });
@@ -110,14 +110,14 @@ public IBooom Property
             const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Protected,
-                Token.Keywords.Modifiers.Internal,
+                Token.Keyword.Modifier.Protected,
+                Token.Keyword.Modifier.Internal,
                 Token.Type("IBooom"),
-                Token.Identifiers.PropertyName("Property"),
+                Token.Identifier.PropertyName("Property"),
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Get,
+                Token.Keyword.Definition.Get,
                 Token.Punctuation.Semicolon,
-                Token.Keywords.Set,
+                Token.Keyword.Definition.Set,
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace]);
         });
@@ -132,13 +132,13 @@ public IBooom Property
             const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
+                Token.Keyword.Modifier.Public,
                 Token.Type("IBooom"),
-                Token.Identifiers.PropertyName("Property"),
+                Token.Identifier.PropertyName("Property"),
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Get,
+                Token.Keyword.Definition.Get,
                 Token.Punctuation.Semicolon,
-                Token.Keywords.Set,
+                Token.Keyword.Definition.Set,
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace]);
         });
@@ -148,13 +148,13 @@ public IBooom Property
             const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
+                Token.Keyword.Modifier.Public,
                 Token.PrimitiveType.Int,
-                Token.Identifiers.PropertyName("X"),
+                Token.Identifier.PropertyName("X"),
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Get,
+                Token.Keyword.Definition.Get,
                 Token.Punctuation.Semicolon,
-                Token.Keywords.Init,
+                Token.Keyword.Definition.Init,
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace]);
         });
@@ -164,23 +164,23 @@ public IBooom Property
             const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
+                Token.Keyword.Modifier.Public,
                 Token.Type("Dictionary"),
-                Token.Punctuation.TypeParameters.Begin,
+                Token.Punctuation.TypeParameter.Begin,
                 Token.PrimitiveType.String,
                 Token.Punctuation.Comma,
                 Token.Type("List"),
-                Token.Punctuation.TypeParameters.Begin,
+                Token.Punctuation.TypeParameter.Begin,
                 Token.Type("T"),
-                Token.Punctuation.TypeParameters.End,
+                Token.Punctuation.TypeParameter.End,
                 Token.Punctuation.OpenBracket,
                 Token.Punctuation.CloseBracket,
-                Token.Punctuation.TypeParameters.End,
-                Token.Identifiers.PropertyName("Property"),
+                Token.Punctuation.TypeParameter.End,
+                Token.Identifier.PropertyName("Property"),
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Get,
+                Token.Keyword.Definition.Get,
                 Token.Punctuation.Semicolon,
-                Token.Keywords.Set,
+                Token.Keyword.Definition.Set,
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace]);
         });
@@ -190,36 +190,36 @@ public IBooom Property
             const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
+                Token.Keyword.Modifier.Public,
                 Token.Type("Dictionary"),
-                Token.Punctuation.TypeParameters.Begin,
+                Token.Punctuation.TypeParameter.Begin,
                 Token.PrimitiveType.String,
                 Token.Punctuation.Comma,
                 Token.Type("List"),
-                Token.Punctuation.TypeParameters.Begin,
+                Token.Punctuation.TypeParameter.Begin,
                 Token.Type("T"),
-                Token.Punctuation.TypeParameters.End,
+                Token.Punctuation.TypeParameter.End,
                 Token.Punctuation.OpenBracket,
                 Token.Punctuation.CloseBracket,
-                Token.Punctuation.TypeParameters.End,
-                Token.Identifiers.PropertyName("Property"),
+                Token.Punctuation.TypeParameter.End,
+                Token.Identifier.PropertyName("Property"),
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Get,
+                Token.Keyword.Definition.Get,
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace,
-                Token.Operators.Assignment,
-                Token.Keywords.New,
+                Token.Operator.Assignment,
+                Token.Operator.Expression.New,
                 Token.Type("Dictionary"),
-                Token.Punctuation.TypeParameters.Begin,
+                Token.Punctuation.TypeParameter.Begin,
                 Token.PrimitiveType.String,
                 Token.Punctuation.Comma,
                 Token.Type("List"),
-                Token.Punctuation.TypeParameters.Begin,
+                Token.Punctuation.TypeParameter.Begin,
                 Token.Type("T"),
-                Token.Punctuation.TypeParameters.End,
+                Token.Punctuation.TypeParameter.End,
                 Token.Punctuation.OpenBracket,
                 Token.Punctuation.CloseBracket,
-                Token.Punctuation.TypeParameters.End,
+                Token.Punctuation.TypeParameter.End,
                 Token.Punctuation.OpenParen,
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.Semicolon]);
@@ -232,23 +232,23 @@ private bool   prop2 => true;`);
             const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Private,
+                Token.Keyword.Modifier.Private,
                 Token.PrimitiveType.String,
-                Token.Identifiers.PropertyName("prop1"),
-                Token.Operators.Arrow,
+                Token.Identifier.PropertyName("prop1"),
+                Token.Operator.Arrow,
                 ...Scope.Accessor.Getter(
                     Token.Punctuation.String.Begin,
-                    Token.Literals.String("hello"),
+                    Token.Literal.String("hello"),
                     Token.Punctuation.String.End,
                 ),
                 Token.Punctuation.Semicolon,
 
-                Token.Keywords.Modifiers.Private,
+                Token.Keyword.Modifier.Private,
                 Token.PrimitiveType.Bool,
-                Token.Identifiers.PropertyName("prop2"),
-                Token.Operators.Arrow,
+                Token.Identifier.PropertyName("prop2"),
+                Token.Operator.Arrow,
                 ...Scope.Accessor.Getter(
-                    Token.Literals.Boolean.True,
+                    Token.Literal.Boolean.True,
                 ),
                 Token.Punctuation.Semicolon]);
         });
@@ -260,15 +260,15 @@ private bool   prop2 => true;`);
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
                 Token.Type("IFoo"),
-                Token.Punctuation.TypeParameters.Begin,
+                Token.Punctuation.TypeParameter.Begin,
                 Token.PrimitiveType.String,
-                Token.Punctuation.TypeParameters.End,
+                Token.Punctuation.TypeParameter.End,
                 Token.Punctuation.Accessor,
-                Token.Identifiers.PropertyName("Bar"),
+                Token.Identifier.PropertyName("Bar"),
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Get,
+                Token.Keyword.Definition.Get,
                 Token.Punctuation.Semicolon,
-                Token.Keywords.Set,
+                Token.Keyword.Definition.Set,
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace]);
         });
@@ -279,11 +279,11 @@ private bool   prop2 => true;`);
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
-                Token.Identifiers.PropertyName("Bar"),
+                Token.Identifier.PropertyName("Bar"),
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Get,
+                Token.Keyword.Definition.Get,
                 Token.Punctuation.Semicolon,
-                Token.Keywords.Set,
+                Token.Keyword.Definition.Set,
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace]);
         });
@@ -294,9 +294,9 @@ private bool   prop2 => true;`);
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
-                Token.Identifiers.PropertyName("Bar"),
+                Token.Identifier.PropertyName("Bar"),
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Get,
+                Token.Keyword.Definition.Get,
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace]);
         });
@@ -307,9 +307,9 @@ private bool   prop2 => true;`);
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.String,
-                Token.Identifiers.PropertyName("Bar"),
+                Token.Identifier.PropertyName("Bar"),
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Set,
+                Token.Keyword.Definition.Set,
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace]);
         });
@@ -330,20 +330,20 @@ public int P1
                 Token.Punctuation.OpenBracket,
                 Token.Type("Obsolete"),
                 Token.Punctuation.CloseBracket,
-                Token.Keywords.Modifiers.Public,
+                Token.Keyword.Modifier.Public,
                 Token.PrimitiveType.Int,
-                Token.Identifiers.PropertyName("P1"),
+                Token.Identifier.PropertyName("P1"),
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.OpenBracket,
                 Token.Type("Obsolete"),
                 Token.Punctuation.CloseBracket,
-                Token.Keywords.Get,
+                Token.Keyword.Definition.Get,
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace,
                 Token.Punctuation.OpenBracket,
                 Token.Type("Obsolete"),
                 Token.Punctuation.CloseBracket,
-                Token.Keywords.Set,
+                Token.Keyword.Definition.Set,
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace,
                 Token.Punctuation.CloseBrace]);
@@ -359,26 +359,26 @@ public int Timeout
             const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
+                Token.Keyword.Modifier.Public,
                 Token.PrimitiveType.Int,
-                Token.Identifiers.PropertyName("Timeout"),
+                Token.Identifier.PropertyName("Timeout"),
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Get,
-                Token.Operators.Arrow,
+                Token.Keyword.Definition.Get,
+                Token.Operator.Arrow,
                 ...Scope.Accessor.Getter(
-                    Token.Variables.Object("Socket"),
+                    Token.Variable.Object("Socket"),
                     Token.Punctuation.Accessor,
-                    Token.Variables.Property("ReceiveTimeout"),
+                    Token.Variable.Property("ReceiveTimeout"),
                 ),
                 Token.Punctuation.Semicolon,
-                Token.Keywords.Set,
-                Token.Operators.Arrow,
+                Token.Keyword.Definition.Set,
+                Token.Operator.Arrow,
                 ...Scope.Accessor.Setter(
-                    Token.Variables.Object("Socket"),
+                    Token.Variable.Object("Socket"),
                     Token.Punctuation.Accessor,
-                    Token.Variables.Property("ReceiveTimeout"),
-                    Token.Operators.Assignment,
-                    Token.Variables.Value,
+                    Token.Variable.Property("ReceiveTimeout"),
+                    Token.Operator.Assignment,
+                    Token.Variable.Value,
                 ),
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace]);
@@ -389,11 +389,11 @@ public int Timeout
             const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Ref,
+                Token.Keyword.Modifier.Ref,
                 Token.PrimitiveType.Int,
-                Token.Identifiers.PropertyName("P"),
+                Token.Identifier.PropertyName("P"),
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Get,
+                Token.Keyword.Definition.Get,
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace]);
         });
@@ -403,12 +403,12 @@ public int Timeout
             const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Ref,
-                Token.Keywords.Modifiers.ReadOnly,
+                Token.Keyword.Modifier.Ref,
+                Token.Keyword.Modifier.ReadOnly,
                 Token.PrimitiveType.Int,
-                Token.Identifiers.PropertyName("P"),
+                Token.Identifier.PropertyName("P"),
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Get,
+                Token.Keyword.Definition.Get,
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace]);
         });
@@ -418,13 +418,13 @@ public int Timeout
             const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Ref,
+                Token.Keyword.Modifier.Ref,
                 Token.PrimitiveType.Int,
-                Token.Identifiers.PropertyName("P"),
-                Token.Operators.Arrow,
+                Token.Identifier.PropertyName("P"),
+                Token.Operator.Arrow,
                 ...Scope.Accessor.Getter(
-                    Token.Keywords.Modifiers.Ref,
-                    Token.Variables.ReadWrite("x"),
+                    Token.Keyword.Modifier.Ref,
+                    Token.Variable.ReadWrite("x"),
                 ),
                 Token.Punctuation.Semicolon]);
         });
@@ -434,14 +434,14 @@ public int Timeout
             const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Ref,
-                Token.Keywords.Modifiers.ReadOnly,
+                Token.Keyword.Modifier.Ref,
+                Token.Keyword.Modifier.ReadOnly,
                 Token.PrimitiveType.Int,
-                Token.Identifiers.PropertyName("P"),
-                Token.Operators.Arrow,
+                Token.Identifier.PropertyName("P"),
+                Token.Operator.Arrow,
                 ...Scope.Accessor.Getter(
-                    Token.Keywords.Modifiers.Ref,
-                    Token.Variables.ReadWrite("x"),
+                    Token.Keyword.Modifier.Ref,
+                    Token.Variable.ReadWrite("x"),
                 ),
                 Token.Punctuation.Semicolon]);
         });
@@ -451,13 +451,13 @@ public int Timeout
             const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Required,
+                Token.Keyword.Modifier.Required,
                 Token.PrimitiveType.Int,
-                Token.Identifiers.PropertyName("P"),
+                Token.Identifier.PropertyName("P"),
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Get,
+                Token.Keyword.Definition.Get,
                 Token.Punctuation.Semicolon,
-                Token.Keywords.Set,
+                Token.Keyword.Definition.Set,
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace]);
         });
@@ -473,13 +473,13 @@ int Property // comment
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.Int,
-                Token.Identifiers.PropertyName("Property"),
+                Token.Identifier.PropertyName("Property"),
                 Token.Comment.SingleLine.Start,
                 Token.Comment.SingleLine.Text(" comment"),
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Get,
+                Token.Keyword.Definition.Get,
                 Token.Punctuation.Semicolon,
-                Token.Keywords.Set,
+                Token.Keyword.Definition.Set,
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace,
             ]);
@@ -491,14 +491,14 @@ int Property // comment
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.Int,
-                Token.Identifiers.PropertyName("Property"),
+                Token.Identifier.PropertyName("Property"),
                 Token.Comment.MultiLine.Start,
                 Token.Comment.MultiLine.Text(" comment "),
                 Token.Comment.MultiLine.End,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Get,
+                Token.Keyword.Definition.Get,
                 Token.Punctuation.Semicolon,
-                Token.Keywords.Set,
+                Token.Keyword.Definition.Set,
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace,
             ]);

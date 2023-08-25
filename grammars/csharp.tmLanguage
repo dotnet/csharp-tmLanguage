@@ -514,12 +514,12 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.other.extern.cs</string>
+            <string>keyword.other.directive.extern.cs</string>
           </dict>
           <key>2</key>
           <dict>
             <key>name</key>
-            <string>keyword.other.alias.cs</string>
+            <string>keyword.other.directive.alias.cs</string>
           </dict>
           <key>3</key>
           <dict>
@@ -542,22 +542,22 @@
               <key>2</key>
               <dict>
                 <key>name</key>
-                <string>keyword.other.global.cs</string>
+                <string>keyword.other.directive.global.cs</string>
               </dict>
               <key>3</key>
               <dict>
                 <key>name</key>
-                <string>keyword.other.using.cs</string>
+                <string>keyword.other.directive.using.cs</string>
               </dict>
               <key>4</key>
               <dict>
                 <key>name</key>
-                <string>keyword.other.static.cs</string>
+                <string>keyword.other.directive.static.cs</string>
               </dict>
               <key>6</key>
               <dict>
                 <key>name</key>
-                <string>storage.modifier.cs</string>
+                <string>storage.modifier.unsafe.cs</string>
               </dict>
             </dict>
             <key>end</key>
@@ -578,17 +578,17 @@
               <key>2</key>
               <dict>
                 <key>name</key>
-                <string>keyword.other.global.cs</string>
+                <string>keyword.other.directive.global.cs</string>
               </dict>
               <key>3</key>
               <dict>
                 <key>name</key>
-                <string>keyword.other.using.cs</string>
+                <string>keyword.other.directive.using.cs</string>
               </dict>
               <key>5</key>
               <dict>
                 <key>name</key>
-                <string>storage.modifier.cs</string>
+                <string>storage.modifier.unsafe.cs</string>
               </dict>
               <key>6</key>
               <dict>
@@ -622,12 +622,12 @@
               <key>2</key>
               <dict>
                 <key>name</key>
-                <string>keyword.other.global.cs</string>
+                <string>keyword.other.directive.global.cs</string>
               </dict>
               <key>3</key>
               <dict>
                 <key>name</key>
-                <string>keyword.other.using.cs</string>
+                <string>keyword.other.directive.using.cs</string>
               </dict>
             </dict>
             <key>end</key>
@@ -787,7 +787,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.other.namespace.cs</string>
+            <string>storage.type.namespace.cs</string>
           </dict>
         </dict>
         <key>end</key>
@@ -850,7 +850,7 @@
       <key>storage-modifier</key>
       <dict>
         <key>name</key>
-        <string>storage.modifier.cs</string>
+        <string>storage.modifier.$1.cs</string>
         <key>match</key>
         <string>(?&lt;!\.)\b(new|public|protected|internal|private|abstract|virtual|override|sealed|static|partial|readonly|volatile|const|extern|async|unsafe|ref|required|file)\b</string>
       </dict>
@@ -873,12 +873,12 @@
               <key>2</key>
               <dict>
                 <key>name</key>
-                <string>keyword.other.record.cs</string>
+                <string>storage.type.record.cs</string>
               </dict>
               <key>3</key>
               <dict>
                 <key>name</key>
-                <string>keyword.other.class.cs</string>
+                <string>storage.type.class.cs</string>
               </dict>
               <key>4</key>
               <dict>
@@ -987,7 +987,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.other.delegate.cs</string>
+            <string>storage.type.delegate.cs</string>
           </dict>
           <key>2</key>
           <dict>
@@ -1060,7 +1060,7 @@
                   <key>1</key>
                   <dict>
                     <key>name</key>
-                    <string>keyword.other.enum.cs</string>
+                    <string>storage.type.enum.cs</string>
                   </dict>
                   <key>2</key>
                   <dict>
@@ -1186,7 +1186,7 @@
               <key>1</key>
               <dict>
                 <key>name</key>
-                <string>keyword.other.interface.cs</string>
+                <string>storage.type.interface.cs</string>
               </dict>
               <key>2</key>
               <dict>
@@ -1273,7 +1273,7 @@
               <key>1</key>
               <dict>
                 <key>name</key>
-                <string>keyword.other.record.cs</string>
+                <string>storage.type.record.cs</string>
               </dict>
               <key>2</key>
               <dict>
@@ -1365,12 +1365,12 @@
               <key>2</key>
               <dict>
                 <key>name</key>
-                <string>keyword.other.record.cs</string>
+                <string>storage.type.record.cs</string>
               </dict>
               <key>3</key>
               <dict>
                 <key>name</key>
-                <string>keyword.other.struct.cs</string>
+                <string>storage.type.struct.cs</string>
               </dict>
               <key>4</key>
               <dict>
@@ -1470,26 +1470,14 @@
           <dict>
             <key>match</key>
             <string>\b(in|out)\b</string>
-            <key>captures</key>
-            <dict>
-              <key>1</key>
-              <dict>
-                <key>name</key>
-                <string>storage.modifier.cs</string>
-              </dict>
-            </dict>
+            <key>name</key>
+            <string>storage.modifier.$1.cs</string>
           </dict>
           <dict>
             <key>match</key>
             <string>(@?[_[:alpha:]][_[:alnum:]]*)\b</string>
-            <key>captures</key>
-            <dict>
-              <key>1</key>
-              <dict>
-                <key>name</key>
-                <string>entity.name.type.type-parameter.cs</string>
-              </dict>
-            </dict>
+            <key>name</key>
+            <string>entity.name.type.type-parameter.cs</string>
           </dict>
           <dict>
             <key>include</key>
@@ -1544,7 +1532,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.other.where.cs</string>
+            <string>storage.modifier.where.cs</string>
           </dict>
           <key>2</key>
           <dict>
@@ -1563,13 +1551,13 @@
         <array>
           <dict>
             <key>name</key>
-            <string>keyword.other.class.cs</string>
+            <string>storage.type.class.cs</string>
             <key>match</key>
             <string>\bclass\b</string>
           </dict>
           <dict>
             <key>name</key>
-            <string>keyword.other.struct.cs</string>
+            <string>storage.type.struct.cs</string>
             <key>match</key>
             <string>\bstruct\b</string>
           </dict>
@@ -1581,7 +1569,7 @@
               <key>1</key>
               <dict>
                 <key>name</key>
-                <string>keyword.other.new.cs</string>
+                <string>keyword.operator.expression.new.cs</string>
               </dict>
               <key>2</key>
               <dict>
@@ -1905,7 +1893,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.other.event.cs</string>
+            <string>storage.type.event.cs</string>
           </dict>
           <key>2</key>
           <dict>
@@ -2020,7 +2008,7 @@
           </dict>
           <dict>
             <key>name</key>
-            <string>storage.modifier.cs</string>
+            <string>storage.modifier.$1.cs</string>
             <key>match</key>
             <string>\b(private|protected|internal)\b</string>
           </dict>
@@ -2032,7 +2020,7 @@
               <key>1</key>
               <dict>
                 <key>name</key>
-                <string>keyword.other.$1.cs</string>
+                <string>storage.type.accessor.$1.cs</string>
               </dict>
             </dict>
             <key>end</key>
@@ -2053,7 +2041,7 @@
               <key>1</key>
               <dict>
                 <key>name</key>
-                <string>keyword.other.$1.cs</string>
+                <string>storage.type.accessor.$1.cs</string>
               </dict>
             </dict>
             <key>end</key>
@@ -2108,7 +2096,7 @@
               <key>1</key>
               <dict>
                 <key>name</key>
-                <string>keyword.other.$1.cs</string>
+                <string>storage.type.accessor.$1.cs</string>
               </dict>
             </dict>
             <key>end</key>
@@ -2534,7 +2522,7 @@
           <key>6</key>
           <dict>
             <key>name</key>
-            <string>keyword.other.operator-decl.cs</string>
+            <string>storage.type.operator.cs</string>
           </dict>
           <key>7</key>
           <dict>
@@ -2608,7 +2596,7 @@
                   <key>1</key>
                   <dict>
                     <key>name</key>
-                    <string>keyword.other.explicit.cs</string>
+                    <string>storage.modifier.explicit.cs</string>
                   </dict>
                 </dict>
               </dict>
@@ -2620,7 +2608,7 @@
                   <key>1</key>
                   <dict>
                     <key>name</key>
-                    <string>keyword.other.implicit.cs</string>
+                    <string>storage.modifier.implicit.cs</string>
                   </dict>
                 </dict>
               </dict>
@@ -2629,7 +2617,7 @@
           <key>2</key>
           <dict>
             <key>name</key>
-            <string>keyword.other.operator-decl.cs</string>
+            <string>storage.type.operator.cs</string>
           </dict>
           <key>3</key>
           <dict>
@@ -2755,7 +2743,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.control.goto.cs</string>
+            <string>keyword.control.flow.goto.cs</string>
           </dict>
         </dict>
         <key>end</key>
@@ -2770,7 +2758,7 @@
               <key>1</key>
               <dict>
                 <key>name</key>
-                <string>keyword.control.case.cs</string>
+                <string>keyword.control.conditional.case.cs</string>
               </dict>
             </dict>
             <key>end</key>
@@ -2791,7 +2779,7 @@
               <key>1</key>
               <dict>
                 <key>name</key>
-                <string>keyword.control.default.cs</string>
+                <string>keyword.control.conditional.default.cs</string>
               </dict>
             </dict>
           </dict>
@@ -2832,20 +2820,9 @@
       <key>break-or-continue-statement</key>
       <dict>
         <key>match</key>
-        <string>(?&lt;!\.)\b(?:(break)|(continue))\b</string>
-        <key>captures</key>
-        <dict>
-          <key>1</key>
-          <dict>
-            <key>name</key>
-            <string>keyword.control.flow.break.cs</string>
-          </dict>
-          <key>2</key>
-          <dict>
-            <key>name</key>
-            <string>keyword.control.flow.continue.cs</string>
-          </dict>
-        </dict>
+        <string>(?&lt;!\.)\b(break|continue)\b</string>
+        <key>name</key>
+        <string>keyword.control.flow.$1.cs</string>
       </dict>
       <key>throw-statement</key>
       <dict>
@@ -2937,7 +2914,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.other.await.cs</string>
+            <string>keyword.operator.expression.await.cs</string>
           </dict>
         </dict>
         <key>end</key>
@@ -3032,7 +3009,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.control.switch.cs</string>
+            <string>keyword.control.conditional.switch.cs</string>
           </dict>
         </dict>
         <key>end</key>
@@ -3152,7 +3129,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.control.$1.cs</string>
+            <string>keyword.control.conditional.$1.cs</string>
           </dict>
         </dict>
         <key>end</key>
@@ -3175,7 +3152,7 @@
               <key>1</key>
               <dict>
                 <key>name</key>
-                <string>keyword.control.when.cs</string>
+                <string>keyword.control.conditional.when.cs</string>
               </dict>
             </dict>
             <key>end</key>
@@ -3260,7 +3237,7 @@
               <key>1</key>
               <dict>
                 <key>name</key>
-                <string>keyword.control.when.cs</string>
+                <string>keyword.control.conditional.when.cs</string>
               </dict>
             </dict>
             <key>end</key>
@@ -3311,7 +3288,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.operator.wordlike.pattern.is.cs</string>
+            <string>keyword.operator.expression.pattern.is.cs</string>
           </dict>
         </dict>
         <key>end</key>
@@ -3379,7 +3356,7 @@
         <key>match</key>
         <string>\b(and|or|not)\b</string>
         <key>name</key>
-        <string>keyword.operator.wordlike.pattern.combinator.$1.cs</string>
+        <string>keyword.operator.expression.pattern.combinator.$1.cs</string>
       </dict>
       <key>discard-pattern</key>
       <dict>
@@ -3465,7 +3442,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.other.var.cs</string>
+            <string>storage.type.var.cs</string>
           </dict>
         </dict>
         <key>end</key>
@@ -4121,7 +4098,7 @@
                   <key>1</key>
                   <dict>
                     <key>name</key>
-                    <string>keyword.other.var.cs</string>
+                    <string>storage.type.var.cs</string>
                   </dict>
                   <key>2</key>
                   <dict>
@@ -4156,7 +4133,7 @@
                   <key>1</key>
                   <dict>
                     <key>name</key>
-                    <string>keyword.other.var.cs</string>
+                    <string>storage.type.var.cs</string>
                   </dict>
                   <key>2</key>
                   <dict>
@@ -4214,7 +4191,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.control.try.cs</string>
+            <string>keyword.control.exception.try.cs</string>
           </dict>
         </dict>
         <key>end</key>
@@ -4240,7 +4217,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.control.try.finally.cs</string>
+            <string>keyword.control.exception.finally.cs</string>
           </dict>
         </dict>
         <key>end</key>
@@ -4266,7 +4243,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.control.try.catch.cs</string>
+            <string>keyword.control.exception.catch.cs</string>
           </dict>
         </dict>
         <key>end</key>
@@ -4366,7 +4343,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.control.when.cs</string>
+            <string>keyword.control.exception.when.cs</string>
           </dict>
           <key>2</key>
           <dict>
@@ -4405,12 +4382,12 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.other.checked.cs</string>
+            <string>keyword.control.context.checked.cs</string>
           </dict>
           <key>2</key>
           <dict>
             <key>name</key>
-            <string>keyword.other.unchecked.cs</string>
+            <string>keyword.control.context.unchecked.cs</string>
           </dict>
         </dict>
         <key>end</key>
@@ -4436,7 +4413,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.other.lock.cs</string>
+            <string>keyword.control.context.lock.cs</string>
           </dict>
         </dict>
         <key>end</key>
@@ -4487,7 +4464,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.other.using.cs</string>
+            <string>keyword.control.context.using.cs</string>
           </dict>
         </dict>
         <key>end</key>
@@ -4612,22 +4589,22 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.other.using.cs</string>
+            <string>keyword.control.context.using.cs</string>
           </dict>
           <key>2</key>
           <dict>
             <key>name</key>
-            <string>storage.modifier.cs</string>
+            <string>storage.modifier.$2.cs</string>
           </dict>
           <key>3</key>
           <dict>
             <key>name</key>
-            <string>storage.modifier.cs</string>
+            <string>storage.modifier.$3.cs</string>
           </dict>
           <key>4</key>
           <dict>
             <key>name</key>
-            <string>keyword.other.var.cs</string>
+            <string>storage.type.var.cs</string>
           </dict>
           <key>5</key>
           <dict>
@@ -4703,7 +4680,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>storage.modifier.cs</string>
+            <string>storage.modifier.const.cs</string>
           </dict>
           <key>2</key>
           <dict>
@@ -4848,7 +4825,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.other.var.cs</string>
+            <string>storage.type.var.cs</string>
           </dict>
           <key>2</key>
           <dict>
@@ -5043,7 +5020,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.other.var.cs</string>
+            <string>storage.type.var.cs</string>
           </dict>
           <key>2</key>
           <dict>
@@ -5098,7 +5075,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.other.var.cs</string>
+            <string>storage.type.var.cs</string>
           </dict>
           <key>2</key>
           <dict>
@@ -5120,20 +5097,15 @@
       <key>checked-unchecked-expression</key>
       <dict>
         <key>begin</key>
-        <string>(?&lt;!\.)\b(?:(checked)|(unchecked))\b\s*(\()</string>
+        <string>(?&lt;!\.)\b(checked|unchecked)\b\s*(\()</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.other.checked.cs</string>
+            <string>keyword.operator.expression.$1.cs</string>
           </dict>
           <key>2</key>
-          <dict>
-            <key>name</key>
-            <string>keyword.other.unchecked.cs</string>
-          </dict>
-          <key>3</key>
           <dict>
             <key>name</key>
             <string>punctuation.parenthesis.open.cs</string>
@@ -5166,7 +5138,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.other.$1.cs</string>
+            <string>keyword.operator.expression.$1.cs</string>
           </dict>
           <key>2</key>
           <dict>
@@ -5201,7 +5173,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.other.nameof.cs</string>
+            <string>keyword.operator.expression.nameof.cs</string>
           </dict>
           <key>2</key>
           <dict>
@@ -5236,7 +5208,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.other.default.cs</string>
+            <string>keyword.operator.expression.default.cs</string>
           </dict>
         </dict>
       </dict>
@@ -6374,7 +6346,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.other.with.cs</string>
+            <string>keyword.operator.expression.with.cs</string>
           </dict>
         </dict>
         <key>end</key>
@@ -6412,7 +6384,7 @@
       <key>await-expression</key>
       <dict>
         <key>name</key>
-        <string>keyword.other.await.cs</string>
+        <string>keyword.operator.expression.await.cs</string>
         <key>match</key>
         <string>(?&lt;!\.)\b(await)\b</string>
       </dict>
@@ -6569,7 +6541,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.other.as.cs</string>
+            <string>keyword.operator.expression.as.cs</string>
           </dict>
           <key>2</key>
           <dict>
@@ -6852,7 +6824,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.other.new.cs</string>
+            <string>keyword.operator.expression.new.cs</string>
           </dict>
           <key>2</key>
           <dict>
@@ -6908,7 +6880,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.other.new.cs</string>
+            <string>keyword.operator.expression.new.cs</string>
           </dict>
           <key>2</key>
           <dict>
@@ -6955,7 +6927,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.other.new.cs</string>
+            <string>keyword.operator.expression.$1.cs</string>
           </dict>
           <key>2</key>
           <dict>
@@ -6987,7 +6959,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.other.new.cs</string>
+            <string>keyword.operator.expression.new.cs</string>
           </dict>
         </dict>
         <key>end</key>
@@ -7139,7 +7111,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>storage.modifier.cs</string>
+            <string>storage.modifier.$1.cs</string>
           </dict>
           <key>2</key>
           <dict>
@@ -7267,7 +7239,7 @@
         <array>
           <dict>
             <key>name</key>
-            <string>storage.modifier.cs</string>
+            <string>storage.modifier.$1.cs</string>
             <key>match</key>
             <string>\b(ref|in)\b</string>
           </dict>
@@ -7279,7 +7251,7 @@
               <key>1</key>
               <dict>
                 <key>name</key>
-                <string>storage.modifier.cs</string>
+                <string>storage.modifier.out.cs</string>
               </dict>
             </dict>
             <key>end</key>
@@ -7336,7 +7308,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.query.from.cs</string>
+            <string>keyword.operator.expression.query.from.cs</string>
           </dict>
           <key>2</key>
           <dict>
@@ -7356,7 +7328,7 @@
           <key>8</key>
           <dict>
             <key>name</key>
-            <string>keyword.query.in.cs</string>
+            <string>keyword.operator.expression.query.in.cs</string>
           </dict>
         </dict>
         <key>end</key>
@@ -7415,7 +7387,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.query.let.cs</string>
+            <string>keyword.operator.expression.query.let.cs</string>
           </dict>
           <key>2</key>
           <dict>
@@ -7452,7 +7424,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.query.where.cs</string>
+            <string>keyword.operator.expression.query.where.cs</string>
           </dict>
         </dict>
         <key>end</key>
@@ -7503,7 +7475,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.query.join.cs</string>
+            <string>keyword.operator.expression.query.join.cs</string>
           </dict>
           <key>2</key>
           <dict>
@@ -7523,7 +7495,7 @@
           <key>8</key>
           <dict>
             <key>name</key>
-            <string>keyword.query.in.cs</string>
+            <string>keyword.operator.expression.query.in.cs</string>
           </dict>
         </dict>
         <key>end</key>
@@ -7561,7 +7533,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.query.on.cs</string>
+            <string>keyword.operator.expression.query.on.cs</string>
           </dict>
         </dict>
       </dict>
@@ -7574,7 +7546,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.query.equals.cs</string>
+            <string>keyword.operator.expression.query.equals.cs</string>
           </dict>
         </dict>
       </dict>
@@ -7589,7 +7561,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.query.into.cs</string>
+            <string>keyword.operator.expression.query.into.cs</string>
           </dict>
           <key>2</key>
           <dict>
@@ -7607,7 +7579,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.query.orderby.cs</string>
+            <string>keyword.operator.expression.query.orderby.cs</string>
           </dict>
         </dict>
         <key>end</key>
@@ -7635,18 +7607,13 @@
       <key>ordering-direction</key>
       <dict>
         <key>match</key>
-        <string>\b(?:(ascending)|(descending))\b</string>
+        <string>\b(ascending|descending)\b</string>
         <key>captures</key>
         <dict>
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.query.ascending.cs</string>
-          </dict>
-          <key>2</key>
-          <dict>
-            <key>name</key>
-            <string>keyword.query.descending.cs</string>
+            <string>keyword.operator.expression.query.$1.cs</string>
           </dict>
         </dict>
       </dict>
@@ -7659,7 +7626,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.query.select.cs</string>
+            <string>keyword.operator.expression.query.select.cs</string>
           </dict>
         </dict>
         <key>end</key>
@@ -7685,7 +7652,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.query.group.cs</string>
+            <string>keyword.operator.expression.query.group.cs</string>
           </dict>
         </dict>
         <key>end</key>
@@ -7719,7 +7686,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.query.by.cs</string>
+            <string>keyword.operator.expression.query.by.cs</string>
           </dict>
         </dict>
       </dict>
@@ -7734,7 +7701,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.query.into.cs</string>
+            <string>keyword.operator.expression.query.into.cs</string>
           </dict>
           <key>2</key>
           <dict>
@@ -7758,7 +7725,7 @@
               <key>1</key>
               <dict>
                 <key>name</key>
-                <string>storage.modifier.cs</string>
+                <string>storage.modifier.async.cs</string>
               </dict>
               <key>2</key>
               <dict>
@@ -7800,7 +7767,7 @@
               <key>1</key>
               <dict>
                 <key>name</key>
-                <string>storage.modifier.cs</string>
+                <string>storage.modifier.async.cs</string>
               </dict>
               <key>2</key>
               <dict>
@@ -7846,12 +7813,12 @@
               <key>1</key>
               <dict>
                 <key>name</key>
-                <string>storage.modifier.cs</string>
+                <string>storage.modifier.async.cs</string>
               </dict>
               <key>2</key>
               <dict>
                 <key>name</key>
-                <string>keyword.other.delegate.cs</string>
+                <string>storage.type.delegate.cs</string>
               </dict>
             </dict>
             <key>end</key>
@@ -7950,7 +7917,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>storage.modifier.cs</string>
+            <string>storage.modifier.$1.cs</string>
           </dict>
           <key>2</key>
           <dict>
@@ -8014,14 +7981,14 @@
       <key>ref-modifier</key>
       <dict>
         <key>name</key>
-        <string>storage.modifier.cs</string>
+        <string>storage.modifier.ref.cs</string>
         <key>match</key>
         <string>\b(ref)\b</string>
       </dict>
       <key>readonly-modifier</key>
       <dict>
         <key>name</key>
-        <string>storage.modifier.cs</string>
+        <string>storage.modifier.readonly.cs</string>
         <key>match</key>
         <string>\b(readonly)\b</string>
       </dict>
@@ -8114,7 +8081,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.type.cs</string>
+            <string>keyword.type.$1.cs</string>
           </dict>
         </dict>
       </dict>

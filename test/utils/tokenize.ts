@@ -237,7 +237,7 @@ export namespace Token {
         }
     }
 
-    export namespace Identifiers {
+    export namespace Identifier {
         export const AliasName = (text: string) => createToken(text, 'entity.name.type.alias.cs');
         export const ClassName = (text: string) => createToken(text, 'entity.name.type.class.cs');
         export const DelegateName = (text: string) => createToken(text, 'entity.name.type.delegate.cs');
@@ -259,54 +259,102 @@ export namespace Token {
         export const TypeParameterName = (text: string) => createToken(text, 'entity.name.type.type-parameter.cs');
     }
 
-    export namespace Keywords {
-        export namespace Control {
-            export const Break = createToken('break', 'keyword.control.flow.break.cs');
-            export const Case = createToken('case', 'keyword.control.case.cs');
-            export const Catch = createToken('catch', 'keyword.control.try.catch.cs');
-            export const Continue = createToken('continue', 'keyword.control.flow.continue.cs');
-            export const Default = createToken('default', 'keyword.control.default.cs');
-            export const Do = createToken('do', 'keyword.control.loop.do.cs');
+    export namespace Keyword {
+        export namespace Conditional {
+            export const Case = createToken('case', 'keyword.control.conditional.case.cs');
+            export const Default = createToken('default', 'keyword.control.conditional.default.cs');
             export const Else = createToken('else', 'keyword.control.conditional.else.cs');
-            export const Finally = createToken('finally', 'keyword.control.try.finally.cs');
-            export const For = createToken('for', 'keyword.control.loop.for.cs');
-            export const ForEach = createToken('foreach', 'keyword.control.loop.foreach.cs');
-            export const Goto = createToken('goto', 'keyword.control.goto.cs');
             export const If = createToken('if', 'keyword.control.conditional.if.cs');
-            export const In = createToken('in', 'keyword.control.loop.in.cs');
+            export const Switch = createToken('switch', 'keyword.control.conditional.switch.cs');
+            export const When = createToken('when', 'keyword.control.conditional.when.cs');
+        }
+
+        export namespace Context {
+            export const Checked = createToken('checked', 'keyword.control.context.checked.cs');
+            export const Fixed = createToken('using', 'keyword.control.context.fixed.cs');
+            export const Lock = createToken('lock', 'keyword.control.context.lock.cs');
+            export const Unchecked = createToken('unchecked', 'keyword.control.context.unchecked.cs');
+            export const Unsafe = createToken('using', 'keyword.control.context.unsafe.cs');
+            export const Using = createToken('using', 'keyword.control.context.using.cs');
+        }
+
+        export namespace Definition {
+            export const Add = createToken('add', 'storage.type.accessor.add.cs');
+            export const Class = createToken('class', 'storage.type.class.cs');
+            export const Delegate = createToken('delegate', 'storage.type.delegate.cs');
+            export const Enum = createToken('enum', 'storage.type.enum.cs');
+            export const Event = createToken('event', 'storage.type.event.cs');
+            export const Get = createToken('get', 'storage.type.accessor.get.cs');
+            export const Init = createToken('init', 'storage.type.accessor.init.cs');
+            export const Interface = createToken('interface', 'storage.type.interface.cs');
+            export const Namespace = createToken('namespace', 'storage.type.namespace.cs');
+            export const Operator = createToken('operator', 'storage.type.operator.cs');
+            export const Record = createToken('record', 'storage.type.record.cs');
+            export const Remove = createToken('remove', 'storage.type.accessor.remove.cs');
+            export const Set = createToken('set', 'storage.type.accessor.set.cs');
+            export const Struct = createToken('struct', 'storage.type.struct.cs');
+            export const Var = createToken('var', 'storage.type.var.cs');
+        }
+
+        export namespace Directive {
+            export const Alias = createToken('alias', 'keyword.other.directive.alias.cs');
+            export const Extern = createToken('extern', 'keyword.other.directive.extern.cs');
+            export const Global = createToken('global', 'keyword.other.directive.global.cs');
+            export const Static = createToken('static', 'keyword.other.directive.static.cs');
+            export const Using = createToken('using', 'keyword.other.directive.using.cs');
+        }
+
+        export namespace Exception {
+            export const Catch = createToken('catch', 'keyword.control.exception.catch.cs');
+            export const Finally = createToken('finally', 'keyword.control.exception.finally.cs');
+            export const Try = createToken('try', 'keyword.control.exception.try.cs');
+            export const When = createToken('when', 'keyword.control.exception.when.cs');
+        }
+
+        export namespace Flow {
+            export const Break = createToken('break', 'keyword.control.flow.break.cs');
+            export const Continue = createToken('continue', 'keyword.control.flow.continue.cs');
+            export const Goto = createToken('goto', 'keyword.control.flow.goto.cs');
             export const Return = createToken('return', 'keyword.control.flow.return.cs');
-            export const Switch = createToken('switch', 'keyword.control.switch.cs');
             export const Throw = createToken('throw', 'keyword.control.flow.throw.cs');
-            export const Try = createToken('try', 'keyword.control.try.cs');
-            export const When = createToken('when', 'keyword.control.when.cs');
-            export const While = createToken('while', 'keyword.control.loop.while.cs');
             export const Yield = createToken('yield', 'keyword.control.flow.yield.cs');
         }
 
-        export namespace Modifiers {
-            export const Abstract = createToken('abstract', 'storage.modifier.cs');
-            export const Async = createToken('async', 'storage.modifier.cs');
-            export const Const = createToken('const', 'storage.modifier.cs');
-            export const Extern = createToken('extern', 'storage.modifier.cs');
-            export const File = createToken('file', 'storage.modifier.cs');
-            export const In = createToken('in', 'storage.modifier.cs');
-            export const Internal = createToken('internal', 'storage.modifier.cs');
-            export const New = createToken('new', 'storage.modifier.cs');
-            export const Out = createToken('out', 'storage.modifier.cs');
-            export const Override = createToken('override', 'storage.modifier.cs');
-            export const Params = createToken('params', 'storage.modifier.cs');
-            export const Partial = createToken('partial', 'storage.modifier.cs');
-            export const Private = createToken('private', 'storage.modifier.cs');
-            export const Protected = createToken('protected', 'storage.modifier.cs');
-            export const Public = createToken('public', 'storage.modifier.cs');
-            export const ReadOnly = createToken('readonly', 'storage.modifier.cs');
-            export const Required = createToken('required', 'storage.modifier.cs');
-            export const Ref = createToken('ref', 'storage.modifier.cs');
-            export const Sealed = createToken('sealed', 'storage.modifier.cs');
-            export const Static = createToken('static', 'storage.modifier.cs');
-            export const This = createToken('this', 'storage.modifier.cs');
-            export const Unsafe = createToken('unsafe', 'storage.modifier.cs');
-            export const Virtual = createToken('virtual', 'storage.modifier.cs');
+        export namespace Loop {
+            export const Do = createToken('do', 'keyword.control.loop.do.cs');
+            export const For = createToken('for', 'keyword.control.loop.for.cs');
+            export const ForEach = createToken('foreach', 'keyword.control.loop.foreach.cs');
+            export const In = createToken('in', 'keyword.control.loop.in.cs');
+            export const While = createToken('while', 'keyword.control.loop.while.cs');
+        }
+
+        export namespace Modifier {
+            export const Abstract = createToken('abstract', 'storage.modifier.abstract.cs');
+            export const Async = createToken('async', 'storage.modifier.async.cs');
+            export const Const = createToken('const', 'storage.modifier.const.cs');
+            export const Explicit = createToken('explicit', 'storage.modifier.explicit.cs');
+            export const Extern = createToken('extern', 'storage.modifier.extern.cs');
+            export const File = createToken('file', 'storage.modifier.file.cs');
+            export const Implicit = createToken('implicit', 'storage.modifier.implicit.cs');
+            export const In = createToken('in', 'storage.modifier.in.cs');
+            export const Internal = createToken('internal', 'storage.modifier.internal.cs');
+            export const New = createToken('new', 'storage.modifier.new.cs');
+            export const Out = createToken('out', 'storage.modifier.out.cs');
+            export const Override = createToken('override', 'storage.modifier.override.cs');
+            export const Params = createToken('params', 'storage.modifier.params.cs');
+            export const Partial = createToken('partial', 'storage.modifier.partial.cs');
+            export const Private = createToken('private', 'storage.modifier.private.cs');
+            export const Protected = createToken('protected', 'storage.modifier.protected.cs');
+            export const Public = createToken('public', 'storage.modifier.public.cs');
+            export const ReadOnly = createToken('readonly', 'storage.modifier.readonly.cs');
+            export const Ref = createToken('ref', 'storage.modifier.ref.cs');
+            export const Required = createToken('required', 'storage.modifier.required.cs');
+            export const Sealed = createToken('sealed', 'storage.modifier.sealed.cs');
+            export const Static = createToken('static', 'storage.modifier.static.cs');
+            export const This = createToken('this', 'storage.modifier.this.cs');
+            export const Unsafe = createToken('unsafe', 'storage.modifier.unsafe.cs');
+            export const Virtual = createToken('virtual', 'storage.modifier.virtual.cs');
+            export const Where = createToken('where', 'storage.modifier.where.cs');
         }
 
         export namespace Preprocessor {
@@ -331,61 +379,10 @@ export namespace Token {
             export const Load = createToken('load', 'keyword.preprocessor.load.cs');
         }
 
-        export namespace Queries {
-            export const Ascending = createToken('ascending', 'keyword.query.ascending.cs');
-            export const By = createToken('by', 'keyword.query.by.cs');
-            export const Descending = createToken('descending', 'keyword.query.descending.cs');
-            export const Equals = createToken('equals', 'keyword.query.equals.cs');
-            export const From = createToken('from', 'keyword.query.from.cs');
-            export const Group = createToken('group', 'keyword.query.group.cs');
-            export const In = createToken('in', 'keyword.query.in.cs');
-            export const Into = createToken('into', 'keyword.query.into.cs');
-            export const Join = createToken('join', 'keyword.query.join.cs');
-            export const Let = createToken('let', 'keyword.query.let.cs');
-            export const On = createToken('on', 'keyword.query.on.cs');
-            export const OrderBy = createToken('orderby', 'keyword.query.orderby.cs');
-            export const Select = createToken('select', 'keyword.query.select.cs');
-            export const Where = createToken('where', 'keyword.query.where.cs');
-        }
-
-        export const Add = createToken('add', 'keyword.other.add.cs');
-        export const Alias = createToken('alias', 'keyword.other.alias.cs');
         export const AttributeSpecifier = (text: string) => createToken(text, 'keyword.other.attribute-specifier.cs');
-        export const Await = createToken('await', 'keyword.other.await.cs');
-        export const As = createToken('as', 'keyword.other.as.cs');
-        export const Checked = createToken('checked', 'keyword.other.checked.cs');
-        export const Class = createToken('class', 'keyword.other.class.cs');
-        export const Default = createToken('default', 'keyword.other.default.cs');
-        export const Delegate = createToken('delegate', 'keyword.other.delegate.cs');
-        export const Enum = createToken('enum', 'keyword.other.enum.cs');
-        export const Event = createToken('event', 'keyword.other.event.cs');
-        export const Explicit = createToken('explicit', 'keyword.other.explicit.cs');
-        export const Extern = createToken('extern', 'keyword.other.extern.cs');
-        export const Get = createToken('get', 'keyword.other.get.cs');
-        export const Global = createToken('global', 'keyword.other.global.cs');
-        export const Implicit = createToken('implicit', 'keyword.other.implicit.cs');
-        export const Init = createToken('init', 'keyword.other.init.cs');
-        export const Interface = createToken('interface', 'keyword.other.interface.cs');
-        export const Lock = createToken('lock', 'keyword.other.lock.cs');
-        export const NameOf = createToken('nameof', 'keyword.other.nameof.cs');
-        export const Namespace = createToken('namespace', 'keyword.other.namespace.cs');
-        export const New = createToken('new', 'keyword.other.new.cs');
-        export const Stackalloc = createToken('stackalloc', 'keyword.other.new.cs');
-        export const Operator = createToken('operator', 'keyword.other.operator-decl.cs');
-        export const Record = createToken('record', 'keyword.other.record.cs');
-        export const Remove = createToken('remove', 'keyword.other.remove.cs');
-        export const Set = createToken('set', 'keyword.other.set.cs');
-        export const Static = createToken('static', 'keyword.other.static.cs');
-        export const Struct = createToken('struct', 'keyword.other.struct.cs');
-        export const TypeOf = createToken('typeof', 'keyword.other.typeof.cs');
-        export const Unchecked = createToken('unchecked', 'keyword.other.unchecked.cs');
-        export const Using = createToken('using', 'keyword.other.using.cs');
-        export const Var = createToken('var', 'keyword.other.var.cs');
-        export const Where = createToken('where', 'keyword.other.where.cs');
-        export const With = createToken('with', 'keyword.other.with.cs');
     }
 
-    export namespace Literals {
+    export namespace Literal {
         export namespace Boolean {
             export const False = createToken('false', 'constant.language.boolean.false.cs');
             export const True = createToken('true', 'constant.language.boolean.true.cs');
@@ -403,7 +400,7 @@ export namespace Token {
                 export const Exponent = (text: string) => createToken(text, 'constant.numeric.other.exponent.cs');
                 export const Suffix = (text: string) => createToken(text, 'constant.numeric.other.suffix.cs');
 
-                export namespace Preffix {
+                export namespace Prefix {
                     export const Binary = (text: string) => createToken(text, 'constant.numeric.other.preffix.binary.cs');
                     export const Hexadecimal = (text: string) => createToken(text, 'constant.numeric.other.preffix.hex.cs');
                 }
@@ -420,7 +417,7 @@ export namespace Token {
         export const String = (text: string) => createToken(text, 'string.quoted.double.cs');
     }
 
-    export namespace Operators {
+    export namespace Operator {
         export namespace Arithmetic {
             export const Addition = createToken('+', 'keyword.operator.arithmetic.cs');
             export const Division = createToken('/', 'keyword.operator.arithmetic.cs');
@@ -465,6 +462,19 @@ export namespace Token {
             export const Colon = createToken(':', 'keyword.operator.conditional.colon.cs');
         }
 
+        export namespace Expression {
+            export const As = createToken('as', 'keyword.operator.expression.as.cs');
+            export const Await = createToken('await', 'keyword.operator.expression.await.cs');
+            export const Checked = createToken('checked', 'keyword.operator.expression.checked.cs');
+            export const Default = createToken('default', 'keyword.operator.expression.default.cs');
+            export const NameOf = createToken('nameof', 'keyword.operator.expression.nameof.cs');
+            export const New = createToken('new', 'keyword.operator.expression.new.cs');
+            export const StackAlloc = createToken('stackalloc', 'keyword.operator.expression.stackalloc.cs');
+            export const TypeOf = createToken('typeof', 'keyword.operator.expression.typeof.cs');
+            export const Unchecked = createToken('unchecked', 'keyword.operator.expression.unchecked.cs');
+            export const With = createToken('with', 'keyword.operator.expression.with.cs');
+        }
+
         export namespace Logical {
             export const And = createToken('&&', 'keyword.operator.logical.cs');
             export const Not = createToken('!', 'keyword.operator.logical.cs');
@@ -482,10 +492,27 @@ export namespace Token {
         }
 
         export namespace Pattern {
-            export const And = createToken('and', 'keyword.operator.wordlike.pattern.combinator.and.cs');
-            export const Is = createToken('is', 'keyword.operator.wordlike.pattern.is.cs');
-            export const Not = createToken('not', 'keyword.operator.wordlike.pattern.combinator.not.cs');
-            export const Or = createToken('or', 'keyword.operator.wordlike.pattern.combinator.or.cs');
+            export const And = createToken('and', 'keyword.operator.expression.pattern.combinator.and.cs');
+            export const Is = createToken('is', 'keyword.operator.expression.pattern.is.cs');
+            export const Not = createToken('not', 'keyword.operator.expression.pattern.combinator.not.cs');
+            export const Or = createToken('or', 'keyword.operator.expression.pattern.combinator.or.cs');
+        }
+
+        export namespace Query {
+            export const Ascending = createToken('ascending', 'keyword.operator.expression.query.ascending.cs');
+            export const By = createToken('by', 'keyword.operator.expression.query.by.cs');
+            export const Descending = createToken('descending', 'keyword.operator.expression.query.descending.cs');
+            export const Equals = createToken('equals', 'keyword.operator.expression.query.equals.cs');
+            export const From = createToken('from', 'keyword.operator.expression.query.from.cs');
+            export const Group = createToken('group', 'keyword.operator.expression.query.group.cs');
+            export const In = createToken('in', 'keyword.operator.expression.query.in.cs');
+            export const Into = createToken('into', 'keyword.operator.expression.query.into.cs');
+            export const Join = createToken('join', 'keyword.operator.expression.query.join.cs');
+            export const Let = createToken('let', 'keyword.operator.expression.query.let.cs');
+            export const On = createToken('on', 'keyword.operator.expression.query.on.cs');
+            export const OrderBy = createToken('orderby', 'keyword.operator.expression.query.orderby.cs');
+            export const Select = createToken('select', 'keyword.operator.expression.query.select.cs');
+            export const Where = createToken('where', 'keyword.operator.expression.query.where.cs');
         }
 
         export const Arrow = createToken('=>', 'keyword.operator.arrow.cs');
@@ -498,25 +525,25 @@ export namespace Token {
     }
 
     export namespace PrimitiveType {
-        export const Bool = createToken('bool', 'keyword.type.cs');
-        export const Byte = createToken('byte', 'keyword.type.cs');
-        export const Char = createToken('char', 'keyword.type.cs');
-        export const Decimal = createToken('decimal', 'keyword.type.cs');
-        export const Double = createToken('double', 'keyword.type.cs');
-        export const Float = createToken('float', 'keyword.type.cs');
-        export const Int = createToken('int', 'keyword.type.cs');
-        export const Long = createToken('long', 'keyword.type.cs');
-        export const Nint = createToken('nint', 'keyword.type.cs');
-        export const Nuint = createToken('nuint', 'keyword.type.cs');
-        export const Object = createToken('object', 'keyword.type.cs');
-        export const SByte = createToken('sbyte', 'keyword.type.cs');
-        export const Short = createToken('short', 'keyword.type.cs');
-        export const String = createToken('string', 'keyword.type.cs');
-        export const UInt = createToken('uint', 'keyword.type.cs');
-        export const ULong = createToken('ulong', 'keyword.type.cs');
-        export const UShort = createToken('ushort', 'keyword.type.cs');
-        export const Void = createToken('void', 'keyword.type.cs');
-        export const Dynamic = createToken('dynamic', 'keyword.type.cs');
+        export const Bool = createToken('bool', 'keyword.type.bool.cs');
+        export const Byte = createToken('byte', 'keyword.type.byte.cs');
+        export const Char = createToken('char', 'keyword.type.char.cs');
+        export const Decimal = createToken('decimal', 'keyword.type.decimal.cs');
+        export const Double = createToken('double', 'keyword.type.double.cs');
+        export const Float = createToken('float', 'keyword.type.float.cs');
+        export const Int = createToken('int', 'keyword.type.int.cs');
+        export const Long = createToken('long', 'keyword.type.long.cs');
+        export const Nint = createToken('nint', 'keyword.type.nint.cs');
+        export const Nuint = createToken('nuint', 'keyword.type.nuint.cs');
+        export const Object = createToken('object', 'keyword.type.object.cs');
+        export const SByte = createToken('sbyte', 'keyword.type.sbyte.cs');
+        export const Short = createToken('short', 'keyword.type.short.cs');
+        export const String = createToken('string', 'keyword.type.string.cs');
+        export const UInt = createToken('uint', 'keyword.type.uint.cs');
+        export const ULong = createToken('ulong', 'keyword.type.ulong.cs');
+        export const UShort = createToken('ushort', 'keyword.type.ushort.cs');
+        export const Void = createToken('void', 'keyword.type.void.cs');
+        export const Dynamic = createToken('dynamic', 'keyword.type.dynamic.cs');
     }
 
     export namespace Punctuation {
@@ -549,7 +576,7 @@ export namespace Token {
             export function RawStringEnd(numQuotes: number) { return createToken('"'.repeat(numQuotes), 'punctuation.definition.string.end.cs'); }
         }
 
-        export namespace TypeParameters {
+        export namespace TypeParameter {
             export const Begin = createToken('<', 'punctuation.definition.typeparameters.begin.cs');
             export const End = createToken('>', 'punctuation.definition.typeparameters.end.cs');
         }
@@ -571,7 +598,7 @@ export namespace Token {
         export const Tilde = createToken('~', 'punctuation.tilde.cs');
     }
 
-    export namespace Variables {
+    export namespace Variable {
         export const Alias = (text: string) => createToken(text, 'variable.other.alias.cs');
         export const Object = (text: string) => createToken(text, 'variable.other.object.cs');
         export const Property = (text: string) => createToken(text, 'variable.other.object.property.cs');
@@ -582,7 +609,7 @@ export namespace Token {
         export const Value = createToken('value', 'variable.other.value.cs');
     }
 
-    export namespace XmlDocComments {
+    export namespace XmlDocComment {
         export namespace Attribute {
             export const Name = (text: string) => createToken(text, 'entity.other.attribute-name.localname.cs');
         }

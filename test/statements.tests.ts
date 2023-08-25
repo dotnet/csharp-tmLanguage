@@ -19,7 +19,7 @@ checked
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Checked,
+                    Token.Keyword.Context.Checked,
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace
                 ]);
@@ -33,7 +33,7 @@ unchecked
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Unchecked,
+                    Token.Keyword.Context.Unchecked,
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace
                 ]);
@@ -46,12 +46,12 @@ unchecked
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Control.Do,
+                    Token.Keyword.Loop.Do,
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
-                    Token.Keywords.Control.While,
+                    Token.Keyword.Loop.While,
                     Token.Punctuation.OpenParen,
-                    Token.Literals.Boolean.True,
+                    Token.Literal.Boolean.True,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.Semicolon
                 ]);
@@ -64,19 +64,19 @@ unchecked
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Control.For,
+                    Token.Keyword.Loop.For,
                     Token.Punctuation.OpenParen,
                     Token.PrimitiveType.Int,
-                    Token.Identifiers.LocalName("i"),
-                    Token.Operators.Assignment,
-                    Token.Literals.Numeric.Decimal("0"),
+                    Token.Identifier.LocalName("i"),
+                    Token.Operator.Assignment,
+                    Token.Literal.Numeric.Decimal("0"),
                     Token.Punctuation.Semicolon,
-                    Token.Variables.ReadWrite("i"),
-                    Token.Operators.Relational.LessThan,
-                    Token.Literals.Numeric.Decimal("42"),
+                    Token.Variable.ReadWrite("i"),
+                    Token.Operator.Relational.LessThan,
+                    Token.Literal.Numeric.Decimal("42"),
                     Token.Punctuation.Semicolon,
-                    Token.Variables.ReadWrite("i"),
-                    Token.Operators.Increment,
+                    Token.Variable.ReadWrite("i"),
+                    Token.Operator.Increment,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
@@ -92,22 +92,22 @@ for (int i = 0; i < 42; i++)
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Control.For,
+                    Token.Keyword.Loop.For,
                     Token.Punctuation.OpenParen,
                     Token.PrimitiveType.Int,
-                    Token.Identifiers.LocalName("i"),
-                    Token.Operators.Assignment,
-                    Token.Literals.Numeric.Decimal("0"),
+                    Token.Identifier.LocalName("i"),
+                    Token.Operator.Assignment,
+                    Token.Literal.Numeric.Decimal("0"),
                     Token.Punctuation.Semicolon,
-                    Token.Variables.ReadWrite("i"),
-                    Token.Operators.Relational.LessThan,
-                    Token.Literals.Numeric.Decimal("42"),
+                    Token.Variable.ReadWrite("i"),
+                    Token.Operator.Relational.LessThan,
+                    Token.Literal.Numeric.Decimal("42"),
                     Token.Punctuation.Semicolon,
-                    Token.Variables.ReadWrite("i"),
-                    Token.Operators.Increment,
+                    Token.Variable.ReadWrite("i"),
+                    Token.Operator.Increment,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.OpenBrace,
-                    Token.Keywords.Control.Break,
+                    Token.Keyword.Flow.Break,
                     Token.Punctuation.Semicolon,
                     Token.Punctuation.CloseBrace,
                 ]);
@@ -122,22 +122,22 @@ for (int i = 0; i < 42; i++)
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Control.For,
+                    Token.Keyword.Loop.For,
                     Token.Punctuation.OpenParen,
                     Token.PrimitiveType.Int,
-                    Token.Identifiers.LocalName("i"),
-                    Token.Operators.Assignment,
-                    Token.Literals.Numeric.Decimal("0"),
+                    Token.Identifier.LocalName("i"),
+                    Token.Operator.Assignment,
+                    Token.Literal.Numeric.Decimal("0"),
                     Token.Punctuation.Semicolon,
-                    Token.Variables.ReadWrite("i"),
-                    Token.Operators.Relational.LessThan,
-                    Token.Literals.Numeric.Decimal("42"),
+                    Token.Variable.ReadWrite("i"),
+                    Token.Operator.Relational.LessThan,
+                    Token.Literal.Numeric.Decimal("42"),
                     Token.Punctuation.Semicolon,
-                    Token.Variables.ReadWrite("i"),
-                    Token.Operators.Increment,
+                    Token.Variable.ReadWrite("i"),
+                    Token.Operator.Increment,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.OpenBrace,
-                    Token.Keywords.Control.Continue,
+                    Token.Keyword.Flow.Continue,
                     Token.Punctuation.Semicolon,
                     Token.Punctuation.CloseBrace,
                 ]);
@@ -151,21 +151,21 @@ for (int i = 0; i < 42; i++)
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Control.For,
+                    Token.Keyword.Loop.For,
                     Token.Punctuation.OpenParen,
                     Token.PrimitiveType.Int,
-                    Token.Identifiers.LocalName("i"),
-                    Token.Operators.Assignment,
-                    Token.Literals.Numeric.Decimal("0"),
+                    Token.Identifier.LocalName("i"),
+                    Token.Operator.Assignment,
+                    Token.Literal.Numeric.Decimal("0"),
                     Token.Punctuation.Semicolon,
-                    Token.Variables.ReadWrite("i"),
-                    Token.Operators.Relational.LessThan,
-                    Token.Variables.ReadWrite("n1"),
-                    Token.Operators.Arithmetic.Multiplication,
-                    Token.Variables.ReadWrite("n2"),
+                    Token.Variable.ReadWrite("i"),
+                    Token.Operator.Relational.LessThan,
+                    Token.Variable.ReadWrite("n1"),
+                    Token.Operator.Arithmetic.Multiplication,
+                    Token.Variable.ReadWrite("n2"),
                     Token.Punctuation.Semicolon,
-                    Token.Variables.ReadWrite("i"),
-                    Token.Operators.Increment,
+                    Token.Variable.ReadWrite("i"),
+                    Token.Operator.Increment,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
@@ -179,12 +179,12 @@ for (int i = 0; i < 42; i++)
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Control.ForEach,
+                    Token.Keyword.Loop.ForEach,
                     Token.Punctuation.OpenParen,
                     Token.PrimitiveType.Int,
-                    Token.Identifiers.LocalName("i"),
-                    Token.Keywords.Control.In,
-                    Token.Variables.ReadWrite("numbers"),
+                    Token.Identifier.LocalName("i"),
+                    Token.Keyword.Loop.In,
+                    Token.Variable.ReadWrite("numbers"),
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
@@ -200,12 +200,12 @@ foreach (var s in myList)
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Control.ForEach,
+                    Token.Keyword.Loop.ForEach,
                     Token.Punctuation.OpenParen,
-                    Token.Keywords.Var,
-                    Token.Identifiers.LocalName("s"),
-                    Token.Keywords.Control.In,
-                    Token.Variables.ReadWrite("myList"),
+                    Token.Keyword.Definition.Var,
+                    Token.Identifier.LocalName("s"),
+                    Token.Keyword.Loop.In,
+                    Token.Variable.ReadWrite("myList"),
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
@@ -219,9 +219,9 @@ foreach (var s in myList)
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Control.While,
+                    Token.Keyword.Loop.While,
                     Token.Punctuation.OpenParen,
-                    Token.Literals.Boolean.True,
+                    Token.Literal.Boolean.True,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace
@@ -235,11 +235,11 @@ foreach (var s in myList)
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Control.If,
+                    Token.Keyword.Conditional.If,
                     Token.Punctuation.OpenParen,
-                    Token.Literals.Boolean.True,
+                    Token.Literal.Boolean.True,
                     Token.Punctuation.CloseParen,
-                    Token.Keywords.Control.Return,
+                    Token.Keyword.Flow.Return,
                     Token.Punctuation.Semicolon
                 ]);
             });
@@ -249,11 +249,11 @@ foreach (var s in myList)
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Control.If,
+                    Token.Keyword.Conditional.If,
                     Token.Punctuation.OpenParen,
-                    Token.Literals.Boolean.True,
+                    Token.Literal.Boolean.True,
                     Token.Punctuation.CloseParen,
-                    Token.Identifiers.MethodName("Do"),
+                    Token.Identifier.MethodName("Do"),
                     Token.Punctuation.OpenParen,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.Semicolon
@@ -265,12 +265,12 @@ foreach (var s in myList)
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Control.If,
+                    Token.Keyword.Conditional.If,
                     Token.Punctuation.OpenParen,
-                    Token.Literals.Boolean.True,
+                    Token.Literal.Boolean.True,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.OpenBrace,
-                    Token.Identifiers.MethodName("Do"),
+                    Token.Identifier.MethodName("Do"),
                     Token.Punctuation.OpenParen,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.Semicolon,
@@ -286,11 +286,11 @@ if (true)
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Control.If,
+                    Token.Keyword.Conditional.If,
                     Token.Punctuation.OpenParen,
-                    Token.Literals.Boolean.True,
+                    Token.Literal.Boolean.True,
                     Token.Punctuation.CloseParen,
-                    Token.Identifiers.MethodName("Do"),
+                    Token.Identifier.MethodName("Do"),
                     Token.Punctuation.OpenParen,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.Semicolon
@@ -306,12 +306,12 @@ if (true)
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Control.If,
+                    Token.Keyword.Conditional.If,
                     Token.Punctuation.OpenParen,
-                    Token.Literals.Boolean.True,
+                    Token.Literal.Boolean.True,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.OpenBrace,
-                    Token.Identifiers.MethodName("Do"),
+                    Token.Identifier.MethodName("Do"),
                     Token.Punctuation.OpenParen,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.Semicolon,
@@ -329,16 +329,16 @@ else
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Control.If,
+                    Token.Keyword.Conditional.If,
                     Token.Punctuation.OpenParen,
-                    Token.Literals.Boolean.True,
+                    Token.Literal.Boolean.True,
                     Token.Punctuation.CloseParen,
-                    Token.Identifiers.MethodName("Do"),
+                    Token.Identifier.MethodName("Do"),
                     Token.Punctuation.OpenParen,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.Semicolon,
-                    Token.Keywords.Control.Else,
-                    Token.Identifiers.MethodName("Dont"),
+                    Token.Keyword.Conditional.Else,
+                    Token.Identifier.MethodName("Dont"),
                     Token.Punctuation.OpenParen,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.Semicolon
@@ -358,19 +358,19 @@ else
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Control.If,
+                    Token.Keyword.Conditional.If,
                     Token.Punctuation.OpenParen,
-                    Token.Literals.Boolean.True,
+                    Token.Literal.Boolean.True,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.OpenBrace,
-                    Token.Identifiers.MethodName("Do"),
+                    Token.Identifier.MethodName("Do"),
                     Token.Punctuation.OpenParen,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.Semicolon,
                     Token.Punctuation.CloseBrace,
-                    Token.Keywords.Control.Else,
+                    Token.Keyword.Conditional.Else,
                     Token.Punctuation.OpenBrace,
-                    Token.Identifiers.MethodName("Dont"),
+                    Token.Identifier.MethodName("Dont"),
                     Token.Punctuation.OpenParen,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.Semicolon,
@@ -388,20 +388,20 @@ else if (false)
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Control.If,
+                    Token.Keyword.Conditional.If,
                     Token.Punctuation.OpenParen,
-                    Token.Literals.Boolean.True,
+                    Token.Literal.Boolean.True,
                     Token.Punctuation.CloseParen,
-                    Token.Identifiers.MethodName("Do"),
+                    Token.Identifier.MethodName("Do"),
                     Token.Punctuation.OpenParen,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.Semicolon,
-                    Token.Keywords.Control.Else,
-                    Token.Keywords.Control.If,
+                    Token.Keyword.Conditional.Else,
+                    Token.Keyword.Conditional.If,
                     Token.Punctuation.OpenParen,
-                    Token.Literals.Boolean.False,
+                    Token.Literal.Boolean.False,
                     Token.Punctuation.CloseParen,
-                    Token.Identifiers.MethodName("Dont"),
+                    Token.Identifier.MethodName("Dont"),
                     Token.Punctuation.OpenParen,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.Semicolon
@@ -421,23 +421,23 @@ else if (false)
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Control.If,
+                    Token.Keyword.Conditional.If,
                     Token.Punctuation.OpenParen,
-                    Token.Literals.Boolean.True,
+                    Token.Literal.Boolean.True,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.OpenBrace,
-                    Token.Identifiers.MethodName("Do"),
+                    Token.Identifier.MethodName("Do"),
                     Token.Punctuation.OpenParen,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.Semicolon,
                     Token.Punctuation.CloseBrace,
-                    Token.Keywords.Control.Else,
-                    Token.Keywords.Control.If,
+                    Token.Keyword.Conditional.Else,
+                    Token.Keyword.Conditional.If,
                     Token.Punctuation.OpenParen,
-                    Token.Literals.Boolean.False,
+                    Token.Literal.Boolean.False,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.OpenBrace,
-                    Token.Identifiers.MethodName("Dont"),
+                    Token.Identifier.MethodName("Dont"),
                     Token.Punctuation.OpenParen,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.Semicolon,
@@ -456,23 +456,23 @@ while (i < 10)
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Control.While,
+                    Token.Keyword.Loop.While,
                     Token.Punctuation.OpenParen,
-                    Token.Variables.ReadWrite("i"),
-                    Token.Operators.Relational.LessThan,
-                    Token.Literals.Numeric.Decimal("10"),
+                    Token.Variable.ReadWrite("i"),
+                    Token.Operator.Relational.LessThan,
+                    Token.Literal.Numeric.Decimal("10"),
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.OpenBrace,
-                    Token.Operators.Increment,
-                    Token.Variables.ReadWrite("i"),
+                    Token.Operator.Increment,
+                    Token.Variable.ReadWrite("i"),
                     Token.Punctuation.Semicolon,
-                    Token.Keywords.Control.If,
+                    Token.Keyword.Conditional.If,
                     Token.Punctuation.OpenParen,
-                    Token.Literals.Boolean.True,
+                    Token.Literal.Boolean.True,
                     Token.Punctuation.CloseParen,
-                    Token.Keywords.Control.Continue,
+                    Token.Keyword.Flow.Continue,
                     Token.Punctuation.Semicolon,
-                    Token.Keywords.Control.Break,
+                    Token.Keyword.Flow.Break,
                     Token.Punctuation.Semicolon,
                     Token.Punctuation.CloseBrace
                 ]);
@@ -485,14 +485,14 @@ while (i < 10)
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Lock,
+                    Token.Keyword.Context.Lock,
                     Token.Punctuation.OpenParen,
-                    Token.Keywords.New,
+                    Token.Operator.Expression.New,
                     Token.PrimitiveType.Object,
                     Token.Punctuation.OpenParen,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.CloseParen,
-                    Token.Identifiers.MethodName("Do"),
+                    Token.Identifier.MethodName("Do"),
                     Token.Punctuation.OpenParen,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.Semicolon
@@ -504,15 +504,15 @@ while (i < 10)
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Lock,
+                    Token.Keyword.Context.Lock,
                     Token.Punctuation.OpenParen,
-                    Token.Keywords.New,
+                    Token.Operator.Expression.New,
                     Token.PrimitiveType.Object,
                     Token.Punctuation.OpenParen,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.OpenBrace,
-                    Token.Identifiers.MethodName("Do"),
+                    Token.Identifier.MethodName("Do"),
                     Token.Punctuation.OpenParen,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.Semicolon,
@@ -527,14 +527,14 @@ lock (new object())
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Lock,
+                    Token.Keyword.Context.Lock,
                     Token.Punctuation.OpenParen,
-                    Token.Keywords.New,
+                    Token.Operator.Expression.New,
                     Token.PrimitiveType.Object,
                     Token.Punctuation.OpenParen,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.CloseParen,
-                    Token.Identifiers.MethodName("Do"),
+                    Token.Identifier.MethodName("Do"),
                     Token.Punctuation.OpenParen,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.Semicolon
@@ -550,15 +550,15 @@ lock (new object())
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Lock,
+                    Token.Keyword.Context.Lock,
                     Token.Punctuation.OpenParen,
-                    Token.Keywords.New,
+                    Token.Operator.Expression.New,
                     Token.PrimitiveType.Object,
                     Token.Punctuation.OpenParen,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.OpenBrace,
-                    Token.Identifiers.MethodName("Do"),
+                    Token.Identifier.MethodName("Do"),
                     Token.Punctuation.OpenParen,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.Semicolon,
@@ -581,27 +581,27 @@ default:
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Control.Switch,
+                    Token.Keyword.Conditional.Switch,
                     Token.Punctuation.OpenParen,
-                    Token.Variables.ReadWrite("i"),
+                    Token.Variable.ReadWrite("i"),
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.OpenBrace,
-                    Token.Keywords.Control.Case,
-                    Token.Literals.Numeric.Decimal("0"),
+                    Token.Keyword.Conditional.Case,
+                    Token.Literal.Numeric.Decimal("0"),
                     Token.Punctuation.Colon,
-                    Token.Keywords.Control.Goto,
-                    Token.Keywords.Control.Case,
-                    Token.Literals.Numeric.Decimal("1"),
+                    Token.Keyword.Flow.Goto,
+                    Token.Keyword.Conditional.Case,
+                    Token.Literal.Numeric.Decimal("1"),
                     Token.Punctuation.Semicolon,
-                    Token.Keywords.Control.Case,
-                    Token.Literals.Numeric.Decimal("1"),
+                    Token.Keyword.Conditional.Case,
+                    Token.Literal.Numeric.Decimal("1"),
                     Token.Punctuation.Colon,
-                    Token.Keywords.Control.Goto,
-                    Token.Keywords.Control.Default,
+                    Token.Keyword.Flow.Goto,
+                    Token.Keyword.Conditional.Default,
                     Token.Punctuation.Semicolon,
-                    Token.Keywords.Control.Default,
+                    Token.Keyword.Conditional.Default,
                     Token.Punctuation.Colon,
-                    Token.Keywords.Control.Break,
+                    Token.Keyword.Flow.Break,
                     Token.Punctuation.Semicolon,
                     Token.Punctuation.CloseBrace
                 ]);
@@ -626,32 +626,32 @@ switch (i) {
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Control.Switch,
+                    Token.Keyword.Conditional.Switch,
                     Token.Punctuation.OpenParen,
-                    Token.Variables.ReadWrite("i"),
+                    Token.Variable.ReadWrite("i"),
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.OpenBrace,
-                    Token.Keywords.Control.Case,
-                    Token.Literals.Numeric.Decimal("0"),
+                    Token.Keyword.Conditional.Case,
+                    Token.Literal.Numeric.Decimal("0"),
                     Token.Punctuation.Colon,
                     Token.Punctuation.OpenBrace,
-                    Token.Keywords.Control.Goto,
-                    Token.Keywords.Control.Case,
-                    Token.Literals.Numeric.Decimal("1"),
+                    Token.Keyword.Flow.Goto,
+                    Token.Keyword.Conditional.Case,
+                    Token.Literal.Numeric.Decimal("1"),
                     Token.Punctuation.Semicolon,
                     Token.Punctuation.CloseBrace,
-                    Token.Keywords.Control.Case,
-                    Token.Literals.Numeric.Decimal("1"),
+                    Token.Keyword.Conditional.Case,
+                    Token.Literal.Numeric.Decimal("1"),
                     Token.Punctuation.Colon,
                     Token.Punctuation.OpenBrace,
-                    Token.Keywords.Control.Goto,
-                    Token.Keywords.Control.Default,
+                    Token.Keyword.Flow.Goto,
+                    Token.Keyword.Conditional.Default,
                     Token.Punctuation.Semicolon,
                     Token.Punctuation.CloseBrace,
-                    Token.Keywords.Control.Default,
+                    Token.Keyword.Conditional.Default,
                     Token.Punctuation.Colon,
                     Token.Punctuation.OpenBrace,
-                    Token.Keywords.Control.Break,
+                    Token.Keyword.Flow.Break,
                     Token.Punctuation.Semicolon,
                     Token.Punctuation.CloseBrace,
                     Token.Punctuation.CloseBrace
@@ -667,17 +667,17 @@ default:
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Control.Switch,
+                    Token.Keyword.Conditional.Switch,
                     Token.Punctuation.OpenParen,
-                    Token.Variables.ReadWrite("i"),
+                    Token.Variable.ReadWrite("i"),
                     Token.Punctuation.CloseParen,
                     Token.Comment.MultiLine.Start,
                     Token.Comment.MultiLine.Text(" comment "),
                     Token.Comment.MultiLine.End,
                     Token.Punctuation.OpenBrace,
-                    Token.Keywords.Control.Default,
+                    Token.Keyword.Conditional.Default,
                     Token.Punctuation.Colon,
-                    Token.Keywords.Control.Break,
+                    Token.Keyword.Flow.Break,
                     Token.Punctuation.Semicolon,
                     Token.Punctuation.CloseBrace
                 ]);
@@ -696,10 +696,10 @@ finally
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Control.Try,
+                    Token.Keyword.Exception.Try,
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
-                    Token.Keywords.Control.Finally,
+                    Token.Keyword.Exception.Finally,
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace
                 ]);
@@ -716,10 +716,10 @@ catch
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Control.Try,
+                    Token.Keyword.Exception.Try,
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
-                    Token.Keywords.Control.Catch,
+                    Token.Keyword.Exception.Catch,
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace
                 ]);
@@ -739,13 +739,13 @@ finally
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Control.Try,
+                    Token.Keyword.Exception.Try,
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
-                    Token.Keywords.Control.Catch,
+                    Token.Keyword.Exception.Catch,
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
-                    Token.Keywords.Control.Finally,
+                    Token.Keyword.Exception.Finally,
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace
                 ]);
@@ -762,10 +762,10 @@ catch (Exception)
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Control.Try,
+                    Token.Keyword.Exception.Try,
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
-                    Token.Keywords.Control.Catch,
+                    Token.Keyword.Exception.Catch,
                     Token.Punctuation.OpenParen,
                     Token.Type("Exception"),
                     Token.Punctuation.CloseParen,
@@ -785,13 +785,13 @@ catch (Exception ex)
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Control.Try,
+                    Token.Keyword.Exception.Try,
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
-                    Token.Keywords.Control.Catch,
+                    Token.Keyword.Exception.Catch,
                     Token.Punctuation.OpenParen,
                     Token.Type("Exception"),
-                    Token.Identifiers.LocalName("ex"),
+                    Token.Identifier.LocalName("ex"),
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace
@@ -810,19 +810,19 @@ catch when (true)
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Control.Try,
+                    Token.Keyword.Exception.Try,
                     Token.Punctuation.OpenBrace,
-                    Token.Keywords.Control.Throw,
-                    Token.Keywords.New,
+                    Token.Keyword.Flow.Throw,
+                    Token.Operator.Expression.New,
                     Token.Type("Exception"),
                     Token.Punctuation.OpenParen,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.Semicolon,
                     Token.Punctuation.CloseBrace,
-                    Token.Keywords.Control.Catch,
-                    Token.Keywords.Control.When,
+                    Token.Keyword.Exception.Catch,
+                    Token.Keyword.Exception.When,
                     Token.Punctuation.OpenParen,
-                    Token.Literals.Boolean.True,
+                    Token.Literal.Boolean.True,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace
@@ -840,16 +840,16 @@ catch (Exception) when (true)
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Control.Try,
+                    Token.Keyword.Exception.Try,
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
-                    Token.Keywords.Control.Catch,
+                    Token.Keyword.Exception.Catch,
                     Token.Punctuation.OpenParen,
                     Token.Type("Exception"),
                     Token.Punctuation.CloseParen,
-                    Token.Keywords.Control.When,
+                    Token.Keyword.Exception.When,
                     Token.Punctuation.OpenParen,
-                    Token.Literals.Boolean.True,
+                    Token.Literal.Boolean.True,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace
@@ -868,14 +868,14 @@ int x;`);
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Control.Try,
+                    Token.Keyword.Exception.Try,
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
-                    Token.Keywords.Control.Finally,
+                    Token.Keyword.Exception.Finally,
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
                     Token.PrimitiveType.Int,
-                    Token.Identifiers.LocalName("x"),
+                    Token.Identifier.LocalName("x"),
                     Token.Punctuation.Semicolon
                 ]);
             });
@@ -887,14 +887,14 @@ int x;`);
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Using,
+                    Token.Keyword.Context.Using,
                     Token.Punctuation.OpenParen,
-                    Token.Keywords.New,
+                    Token.Operator.Expression.New,
                     Token.PrimitiveType.Object,
                     Token.Punctuation.OpenParen,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.CloseParen,
-                    Token.Identifiers.MethodName("Do"),
+                    Token.Identifier.MethodName("Do"),
                     Token.Punctuation.OpenParen,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.Semicolon
@@ -906,15 +906,15 @@ int x;`);
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Using,
+                    Token.Keyword.Context.Using,
                     Token.Punctuation.OpenParen,
-                    Token.Keywords.New,
+                    Token.Operator.Expression.New,
                     Token.PrimitiveType.Object,
                     Token.Punctuation.OpenParen,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.OpenBrace,
-                    Token.Identifiers.MethodName("Do"),
+                    Token.Identifier.MethodName("Do"),
                     Token.Punctuation.OpenParen,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.Semicolon,
@@ -929,14 +929,14 @@ using (new object())
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Using,
+                    Token.Keyword.Context.Using,
                     Token.Punctuation.OpenParen,
-                    Token.Keywords.New,
+                    Token.Operator.Expression.New,
                     Token.PrimitiveType.Object,
                     Token.Punctuation.OpenParen,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.CloseParen,
-                    Token.Identifiers.MethodName("Do"),
+                    Token.Identifier.MethodName("Do"),
                     Token.Punctuation.OpenParen,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.Semicolon
@@ -952,15 +952,15 @@ using (new object())
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Using,
+                    Token.Keyword.Context.Using,
                     Token.Punctuation.OpenParen,
-                    Token.Keywords.New,
+                    Token.Operator.Expression.New,
                     Token.PrimitiveType.Object,
                     Token.Punctuation.OpenParen,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.OpenBrace,
-                    Token.Identifiers.MethodName("Do"),
+                    Token.Identifier.MethodName("Do"),
                     Token.Punctuation.OpenParen,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.Semicolon,
@@ -975,17 +975,17 @@ using (var o = new object())
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Using,
+                    Token.Keyword.Context.Using,
                     Token.Punctuation.OpenParen,
-                    Token.Keywords.Var,
-                    Token.Identifiers.LocalName("o"),
-                    Token.Operators.Assignment,
-                    Token.Keywords.New,
+                    Token.Keyword.Definition.Var,
+                    Token.Identifier.LocalName("o"),
+                    Token.Operator.Assignment,
+                    Token.Operator.Expression.New,
                     Token.PrimitiveType.Object,
                     Token.Punctuation.OpenParen,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.CloseParen,
-                    Token.Identifiers.MethodName("Do"),
+                    Token.Identifier.MethodName("Do"),
                     Token.Punctuation.OpenParen,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.Semicolon
@@ -1001,18 +1001,18 @@ using (var o = new object())
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Using,
+                    Token.Keyword.Context.Using,
                     Token.Punctuation.OpenParen,
-                    Token.Keywords.Var,
-                    Token.Identifiers.LocalName("o"),
-                    Token.Operators.Assignment,
-                    Token.Keywords.New,
+                    Token.Keyword.Definition.Var,
+                    Token.Identifier.LocalName("o"),
+                    Token.Operator.Assignment,
+                    Token.Operator.Expression.New,
                     Token.PrimitiveType.Object,
                     Token.Punctuation.OpenParen,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.OpenBrace,
-                    Token.Identifiers.MethodName("Do"),
+                    Token.Identifier.MethodName("Do"),
                     Token.Punctuation.OpenParen,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.Semicolon,
@@ -1025,11 +1025,11 @@ using (var o = new object())
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Using,
-                    Token.Keywords.Var,
-                    Token.Identifiers.LocalName("o"),
-                    Token.Operators.Assignment,
-                    Token.Keywords.New,
+                    Token.Keyword.Context.Using,
+                    Token.Keyword.Definition.Var,
+                    Token.Identifier.LocalName("o"),
+                    Token.Operator.Assignment,
+                    Token.Operator.Expression.New,
                     Token.PrimitiveType.Object,
                     Token.Punctuation.OpenParen,
                     Token.Punctuation.CloseParen,
@@ -1044,9 +1044,9 @@ using (var o = new object())
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Control.Yield,
-                    Token.Keywords.Control.Return,
-                    Token.Literals.Numeric.Decimal("42"),
+                    Token.Keyword.Flow.Yield,
+                    Token.Keyword.Flow.Return,
+                    Token.Literal.Numeric.Decimal("42"),
                     Token.Punctuation.Semicolon
                 ]);
             });
@@ -1056,8 +1056,8 @@ using (var o = new object())
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Control.Yield,
-                    Token.Keywords.Control.Break,
+                    Token.Keyword.Flow.Yield,
+                    Token.Keyword.Flow.Break,
                     Token.Punctuation.Semicolon
                 ]);
             });

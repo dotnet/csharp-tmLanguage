@@ -19,8 +19,8 @@ namespace TestNamespace
             let tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Namespace,
-                Token.Identifiers.NamespaceName("TestNamespace"),
+                Token.Keyword.Definition.Namespace,
+                Token.Identifier.NamespaceName("TestNamespace"),
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace]);
         });
@@ -34,10 +34,10 @@ namespace Test.Namespace
             let tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Namespace,
-                Token.Identifiers.NamespaceName("Test"),
+                Token.Keyword.Definition.Namespace,
+                Token.Identifier.NamespaceName("Test"),
                 Token.Punctuation.Accessor,
-                Token.Identifiers.NamespaceName("Namespace"),
+                Token.Identifier.NamespaceName("Namespace"),
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace]);
         });
@@ -54,12 +54,12 @@ namespace TestNamespace
             let tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Namespace,
-                Token.Identifiers.NamespaceName("TestNamespace"),
+                Token.Keyword.Definition.Namespace,
+                Token.Identifier.NamespaceName("TestNamespace"),
                 Token.Punctuation.OpenBrace,
 
-                Token.Keywords.Namespace,
-                Token.Identifiers.NamespaceName("NestedNamespace"),
+                Token.Keyword.Definition.Namespace,
+                Token.Identifier.NamespaceName("NestedNamespace"),
                 Token.Punctuation.OpenBrace,
 
                 Token.Punctuation.CloseBrace,
@@ -86,45 +86,45 @@ namespace TestNamespace
             let tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Using,
-                Token.Identifiers.NamespaceName("UsingOne"),
+                Token.Keyword.Directive.Using,
+                Token.Identifier.NamespaceName("UsingOne"),
                 Token.Punctuation.Semicolon,
 
-                Token.Keywords.Using,
-                Token.Identifiers.AliasName("one"),
-                Token.Operators.Assignment,
+                Token.Keyword.Directive.Using,
+                Token.Identifier.AliasName("one"),
+                Token.Operator.Assignment,
                 Token.Type("UsingOne"),
                 Token.Punctuation.Accessor,
                 Token.Type("Something"),
                 Token.Punctuation.Semicolon,
 
-                Token.Keywords.Namespace,
-                Token.Identifiers.NamespaceName("TestNamespace"),
+                Token.Keyword.Definition.Namespace,
+                Token.Identifier.NamespaceName("TestNamespace"),
                 Token.Punctuation.OpenBrace,
 
-                Token.Keywords.Using,
-                Token.Identifiers.NamespaceName("UsingTwo"),
+                Token.Keyword.Directive.Using,
+                Token.Identifier.NamespaceName("UsingTwo"),
                 Token.Punctuation.Semicolon,
 
-                Token.Keywords.Using,
-                Token.Identifiers.AliasName("two"),
-                Token.Operators.Assignment,
+                Token.Keyword.Directive.Using,
+                Token.Identifier.AliasName("two"),
+                Token.Operator.Assignment,
                 Token.Type("UsingTwo"),
                 Token.Punctuation.Accessor,
                 Token.Type("Something"),
                 Token.Punctuation.Semicolon,
 
-                Token.Keywords.Namespace,
-                Token.Identifiers.NamespaceName("NestedNamespace"),
+                Token.Keyword.Definition.Namespace,
+                Token.Identifier.NamespaceName("NestedNamespace"),
                 Token.Punctuation.OpenBrace,
 
-                Token.Keywords.Using,
-                Token.Identifiers.NamespaceName("UsingThree"),
+                Token.Keyword.Directive.Using,
+                Token.Identifier.NamespaceName("UsingThree"),
                 Token.Punctuation.Semicolon,
 
-                Token.Keywords.Using,
-                Token.Identifiers.AliasName("three"),
-                Token.Operators.Assignment,
+                Token.Keyword.Directive.Using,
+                Token.Identifier.AliasName("three"),
+                Token.Operator.Assignment,
                 Token.Type("UsingThree"),
                 Token.Punctuation.Accessor,
                 Token.Type("Something"),
@@ -143,8 +143,8 @@ namespace TestNamespace;`;
             let tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Namespace,
-                Token.Identifiers.NamespaceName("TestNamespace"),
+                Token.Keyword.Definition.Namespace,
+                Token.Identifier.NamespaceName("TestNamespace"),
                 Token.Punctuation.Semicolon]);
         });
 
@@ -155,10 +155,10 @@ namespace Test.Namespace;`;
             let tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Namespace,
-                Token.Identifiers.NamespaceName("Test"),
+                Token.Keyword.Definition.Namespace,
+                Token.Identifier.NamespaceName("Test"),
                 Token.Punctuation.Accessor,
-                Token.Identifiers.NamespaceName("Namespace"),
+                Token.Identifier.NamespaceName("Namespace"),
                 Token.Punctuation.Semicolon]);
         });
     });

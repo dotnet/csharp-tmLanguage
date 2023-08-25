@@ -15,7 +15,7 @@ describe("Labels", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Identifiers.LabelName("Foo"),
+                Token.Identifier.LabelName("Foo"),
                 Token.Punctuation.Colon
             ]);
         });

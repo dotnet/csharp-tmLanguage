@@ -15,10 +15,10 @@ describe("Events", () => {
             const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Event,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Definition.Event,
                 Token.Type("Type"),
-                Token.Identifiers.EventName("Event"),
+                Token.Identifier.EventName("Event"),
                 Token.Punctuation.Semicolon]);
         });
 
@@ -27,11 +27,11 @@ describe("Events", () => {
             const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Protected,
-                Token.Keywords.Modifiers.Internal,
-                Token.Keywords.Event,
+                Token.Keyword.Modifier.Protected,
+                Token.Keyword.Modifier.Internal,
+                Token.Keyword.Definition.Event,
                 Token.Type("Type"),
-                Token.Identifiers.EventName("Event"),
+                Token.Identifier.EventName("Event"),
                 Token.Punctuation.Semicolon]);
         });
 
@@ -40,12 +40,12 @@ describe("Events", () => {
             const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Event,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Definition.Event,
                 Token.Type("Type"),
-                Token.Identifiers.EventName("Event1"),
+                Token.Identifier.EventName("Event1"),
                 Token.Punctuation.Comma,
-                Token.Identifiers.EventName("Event2"),
+                Token.Identifier.EventName("Event2"),
                 Token.Punctuation.Semicolon]);
         });
 
@@ -54,23 +54,23 @@ describe("Events", () => {
             const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Event,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Definition.Event,
                 Token.Type("EventHandler"),
-                Token.Punctuation.TypeParameters.Begin,
+                Token.Punctuation.TypeParameter.Begin,
                 Token.Type("List"),
-                Token.Punctuation.TypeParameters.Begin,
+                Token.Punctuation.TypeParameter.Begin,
                 Token.Type("T"),
-                Token.Punctuation.TypeParameters.End,
+                Token.Punctuation.TypeParameter.End,
                 Token.Punctuation.Comma,
                 Token.Type("Dictionary"),
-                Token.Punctuation.TypeParameters.Begin,
+                Token.Punctuation.TypeParameter.Begin,
                 Token.Type("T"),
                 Token.Punctuation.Comma,
                 Token.Type("D"),
-                Token.Punctuation.TypeParameters.End,
-                Token.Punctuation.TypeParameters.End,
-                Token.Identifiers.EventName("Event"),
+                Token.Punctuation.TypeParameter.End,
+                Token.Punctuation.TypeParameter.End,
+                Token.Identifier.EventName("Event"),
                 Token.Punctuation.Semicolon]);
         });
 
@@ -85,15 +85,15 @@ public event Type Event
             const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Event,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Definition.Event,
                 Token.Type("Type"),
-                Token.Identifiers.EventName("Event"),
+                Token.Identifier.EventName("Event"),
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Add,
+                Token.Keyword.Definition.Add,
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace,
-                Token.Keywords.Remove,
+                Token.Keyword.Definition.Remove,
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace,
                 Token.Punctuation.CloseBrace]);
@@ -104,18 +104,18 @@ public event Type Event
             const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
-                Token.Keywords.Event,
+                Token.Keyword.Definition.Event,
                 Token.Type("EventHandler"),
                 Token.Type("IFoo"),
-                Token.Punctuation.TypeParameters.Begin,
+                Token.Punctuation.TypeParameter.Begin,
                 Token.PrimitiveType.String,
-                Token.Punctuation.TypeParameters.End,
+                Token.Punctuation.TypeParameter.End,
                 Token.Punctuation.Accessor,
-                Token.Identifiers.EventName("Event"),
+                Token.Identifier.EventName("Event"),
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Add,
+                Token.Keyword.Definition.Add,
                 Token.Punctuation.Semicolon,
-                Token.Keywords.Remove,
+                Token.Keyword.Definition.Remove,
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace]);
         });
@@ -125,9 +125,9 @@ public event Type Event
             const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
-                Token.Keywords.Event,
+                Token.Keyword.Definition.Event,
                 Token.Type("EventHandler"),
-                Token.Identifiers.EventName("Event"),
+                Token.Identifier.EventName("Event"),
                 Token.Punctuation.Semicolon]);
         });
 
@@ -145,23 +145,23 @@ interface IObj
             const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
-                Token.Keywords.Interface,
-                Token.Identifiers.InterfaceName("IObj"),
+                Token.Keyword.Definition.Interface,
+                Token.Identifier.InterfaceName("IObj"),
                 Token.Punctuation.OpenBrace,
                 Token.PrimitiveType.Int,
-                Token.Identifiers.PropertyName("Prop1"),
+                Token.Identifier.PropertyName("Prop1"),
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Get,
+                Token.Keyword.Definition.Get,
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace,
-                Token.Keywords.Event,
+                Token.Keyword.Definition.Event,
                 Token.Type("EventHandler"),
-                Token.Identifiers.EventName("Event"),
+                Token.Identifier.EventName("Event"),
                 Token.Punctuation.Semicolon,
                 Token.PrimitiveType.Int,
-                Token.Identifiers.PropertyName("Prop2"),
+                Token.Identifier.PropertyName("Prop2"),
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Get,
+                Token.Keyword.Definition.Get,
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace,
                 Token.Punctuation.CloseBrace]);
@@ -183,30 +183,30 @@ public event Action E1
 
             tokens.should.deep.equal([
                 Token.Punctuation.OpenBracket,
-                Token.Keywords.AttributeSpecifier("event"),
+                Token.Keyword.AttributeSpecifier("event"),
                 Token.Punctuation.Colon,
                 Token.Type("Test"),
                 Token.Punctuation.CloseBracket,
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Event,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Definition.Event,
                 Token.Type("Action"),
-                Token.Identifiers.EventName("E1"),
+                Token.Identifier.EventName("E1"),
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.OpenBracket,
                 Token.Type("Obsolete"),
                 Token.Punctuation.CloseBracket,
-                Token.Keywords.Add,
+                Token.Keyword.Definition.Add,
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace,
                 Token.Punctuation.OpenBracket,
                 Token.Type("Obsolete"),
                 Token.Punctuation.CloseBracket,
                 Token.Punctuation.OpenBracket,
-                Token.Keywords.AttributeSpecifier("return"),
+                Token.Keyword.AttributeSpecifier("return"),
                 Token.Punctuation.Colon,
                 Token.Type("Obsolete"),
                 Token.Punctuation.CloseBracket,
-                Token.Keywords.Remove,
+                Token.Keyword.Definition.Remove,
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace,
                 Token.Punctuation.CloseBrace
@@ -224,25 +224,25 @@ event EventHandler E
             const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
-                Token.Keywords.Event,
+                Token.Keyword.Definition.Event,
                 Token.Type("EventHandler"),
-                Token.Identifiers.EventName("E"),
+                Token.Identifier.EventName("E"),
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Add,
-                Token.Operators.Arrow,
+                Token.Keyword.Definition.Add,
+                Token.Operator.Arrow,
                 ...Scope.Accessor.Setter(
-                    Token.Identifiers.MethodName("Add"),
+                    Token.Identifier.MethodName("Add"),
                     Token.Punctuation.OpenParen,
-                    Token.Variables.Value,
+                    Token.Variable.Value,
                     Token.Punctuation.CloseParen,
                 ),
                 Token.Punctuation.Semicolon,
-                Token.Keywords.Remove,
-                Token.Operators.Arrow,
+                Token.Keyword.Definition.Remove,
+                Token.Operator.Arrow,
                 ...Scope.Accessor.Setter(
-                    Token.Identifiers.MethodName("Remove"),
+                    Token.Identifier.MethodName("Remove"),
                     Token.Punctuation.OpenParen,
-                    Token.Variables.Value,
+                    Token.Variable.Value,
                     Token.Punctuation.CloseParen,
                 ),
                 Token.Punctuation.Semicolon,
@@ -254,16 +254,16 @@ event EventHandler E
             const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
-                Token.Keywords.Event,
+                Token.Keyword.Definition.Event,
                 Token.Type("EventHandler"),
-                Token.Identifiers.EventName("Event"),
+                Token.Identifier.EventName("Event"),
                 Token.Comment.MultiLine.Start,
                 Token.Comment.MultiLine.Text(" comment "),
                 Token.Comment.MultiLine.End,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Add,
+                Token.Keyword.Definition.Add,
                 Token.Punctuation.Semicolon,
-                Token.Keywords.Remove,
+                Token.Keyword.Definition.Remove,
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace,
             ]);
@@ -279,15 +279,15 @@ event EventHandler Event // comment
             const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
-                Token.Keywords.Event,
+                Token.Keyword.Definition.Event,
                 Token.Type("EventHandler"),
-                Token.Identifiers.EventName("Event"),
+                Token.Identifier.EventName("Event"),
                 Token.Comment.SingleLine.Start,
                 Token.Comment.SingleLine.Text(" comment"),
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Add,
+                Token.Keyword.Definition.Add,
                 Token.Punctuation.Semicolon,
-                Token.Keywords.Remove,
+                Token.Keyword.Definition.Remove,
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace,
             ]);
@@ -298,11 +298,11 @@ event EventHandler Event // comment
             const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
-                Token.Keywords.Event,
+                Token.Keyword.Definition.Event,
                 Token.Type("EventHandler"),
-                Token.Identifiers.EventName("Event"),
-                Token.Operators.Assignment,
-                Token.Literals.Null,
+                Token.Identifier.EventName("Event"),
+                Token.Operator.Assignment,
+                Token.Literal.Null,
                 Token.Punctuation.Semicolon,
             ]);
         });
@@ -315,25 +315,25 @@ event EventHandler Event1 = delegate { },
             const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
-                Token.Keywords.Event,
+                Token.Keyword.Definition.Event,
                 Token.Type("EventHandler"),
-                Token.Identifiers.EventName("Event1"),
-                Token.Operators.Assignment,
-                Token.Keywords.Delegate,
+                Token.Identifier.EventName("Event1"),
+                Token.Operator.Assignment,
+                Token.Keyword.Definition.Delegate,
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace,
                 Token.Punctuation.Comma,
-                Token.Identifiers.EventName("Event2"),
-                Token.Operators.Assignment,
+                Token.Identifier.EventName("Event2"),
+                Token.Operator.Assignment,
                 Token.Punctuation.OpenParen,
                 Token.Punctuation.CloseParen,
-                Token.Operators.Arrow,
+                Token.Operator.Arrow,
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace,
                 Token.Punctuation.Comma,
-                Token.Identifiers.EventName("Event3"),
-                Token.Operators.Assignment,
-                Token.Literals.Null,
+                Token.Identifier.EventName("Event3"),
+                Token.Operator.Assignment,
+                Token.Literal.Null,
                 Token.Punctuation.Semicolon,
             ]);
         });
