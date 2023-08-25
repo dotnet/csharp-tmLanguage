@@ -17,7 +17,7 @@ describe("Enums", () => {
 
             tokens.should.deep.equal([
                 Token.Keyword.Definition.Enum,
-                Token.Identifiers.EnumName("E"),
+                Token.Identifier.EnumName("E"),
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace]);
         });
@@ -29,7 +29,7 @@ describe("Enums", () => {
 
             tokens.should.deep.equal([
                 Token.Keyword.Definition.Enum,
-                Token.Identifiers.EnumName("E"),
+                Token.Identifier.EnumName("E"),
                 Token.Punctuation.Colon,
                 Token.PrimitiveType.Byte,
                 Token.Punctuation.OpenBrace,
@@ -43,9 +43,9 @@ describe("Enums", () => {
 
             tokens.should.deep.equal([
                 Token.Keyword.Definition.Enum,
-                Token.Identifiers.EnumName("E"),
+                Token.Identifier.EnumName("E"),
                 Token.Punctuation.OpenBrace,
-                Token.Identifiers.EnumMemberName("M1"),
+                Token.Identifier.EnumMemberName("M1"),
                 Token.Punctuation.CloseBrace]);
         });
 
@@ -56,13 +56,13 @@ describe("Enums", () => {
 
             tokens.should.deep.equal([
                 Token.Keyword.Definition.Enum,
-                Token.Identifiers.EnumName("Color"),
+                Token.Identifier.EnumName("Color"),
                 Token.Punctuation.OpenBrace,
-                Token.Identifiers.EnumMemberName("Red"),
+                Token.Identifier.EnumMemberName("Red"),
                 Token.Punctuation.Comma,
-                Token.Identifiers.EnumMemberName("Green"),
+                Token.Identifier.EnumMemberName("Green"),
                 Token.Punctuation.Comma,
-                Token.Identifiers.EnumMemberName("Blue"),
+                Token.Identifier.EnumMemberName("Blue"),
                 Token.Punctuation.CloseBrace]);
         });
 
@@ -81,15 +81,15 @@ enum E
 
             tokens.should.deep.equal([
                 Token.Keyword.Definition.Enum,
-                Token.Identifiers.EnumName("E"),
+                Token.Identifier.EnumName("E"),
                 Token.Punctuation.OpenBrace,
-                Token.Identifiers.EnumMemberName("Value1"),
-                Token.Operators.Assignment,
-                Token.Literals.Numeric.Decimal("1"),
+                Token.Identifier.EnumMemberName("Value1"),
+                Token.Operator.Assignment,
+                Token.Literal.Numeric.Decimal("1"),
                 Token.Punctuation.Comma,
-                Token.Identifiers.EnumMemberName("Value2"),
+                Token.Identifier.EnumMemberName("Value2"),
                 Token.Punctuation.Comma,
-                Token.Identifiers.EnumMemberName("Value3"),
+                Token.Identifier.EnumMemberName("Value3"),
                 Token.Punctuation.CloseBrace]);
         });
 
@@ -126,40 +126,40 @@ public class TestClass2
             tokens.should.deep.equal([
                 Token.Keyword.Modifier.Public,
                 Token.Keyword.Definition.Enum,
-                Token.Identifiers.EnumName("TestEnum"),
+                Token.Identifier.EnumName("TestEnum"),
                 Token.Punctuation.OpenBrace,
-                Token.Identifiers.EnumMemberName("enum1"),
+                Token.Identifier.EnumMemberName("enum1"),
                 Token.Punctuation.Comma,
-                Token.Identifiers.EnumMemberName("enum2"),
+                Token.Identifier.EnumMemberName("enum2"),
                 Token.Punctuation.Comma,
-                Token.Identifiers.EnumMemberName("enum3"),
+                Token.Identifier.EnumMemberName("enum3"),
                 Token.Punctuation.Comma,
-                Token.Identifiers.EnumMemberName("enum4"),
+                Token.Identifier.EnumMemberName("enum4"),
                 Token.Punctuation.CloseBrace,
 
                 Token.Keyword.Modifier.Public,
                 Token.Keyword.Definition.Class,
-                Token.Identifiers.ClassName("TestClass"),
+                Token.Identifier.ClassName("TestClass"),
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace,
 
                 Token.Keyword.Modifier.Public,
                 Token.Keyword.Definition.Enum,
-                Token.Identifiers.EnumName("TestEnum2"),
+                Token.Identifier.EnumName("TestEnum2"),
                 Token.Punctuation.OpenBrace,
-                Token.Identifiers.EnumMemberName("enum1"),
-                Token.Operators.Assignment,
-                Token.Literals.Numeric.Decimal("10"),
+                Token.Identifier.EnumMemberName("enum1"),
+                Token.Operator.Assignment,
+                Token.Literal.Numeric.Decimal("10"),
                 Token.Punctuation.Comma,
-                Token.Identifiers.EnumMemberName("enum2"),
-                Token.Operators.Assignment,
-                Token.Literals.Numeric.Decimal("15"),
+                Token.Identifier.EnumMemberName("enum2"),
+                Token.Operator.Assignment,
+                Token.Literal.Numeric.Decimal("15"),
                 Token.Punctuation.Comma,
                 Token.Punctuation.CloseBrace,
 
                 Token.Keyword.Modifier.Public,
                 Token.Keyword.Definition.Class,
-                Token.Identifiers.ClassName("TestClass2"),
+                Token.Identifier.ClassName("TestClass2"),
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace
             ]);

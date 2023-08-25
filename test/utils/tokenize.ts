@@ -237,7 +237,7 @@ export namespace Token {
         }
     }
 
-    export namespace Identifiers {
+    export namespace Identifier {
         export const AliasName = (text: string) => createToken(text, 'entity.name.type.alias.cs');
         export const ClassName = (text: string) => createToken(text, 'entity.name.type.class.cs');
         export const DelegateName = (text: string) => createToken(text, 'entity.name.type.delegate.cs');
@@ -398,7 +398,7 @@ export namespace Token {
         export const AttributeSpecifier = (text: string) => createToken(text, 'keyword.other.attribute-specifier.cs');
     }
 
-    export namespace Literals {
+    export namespace Literal {
         export namespace Boolean {
             export const False = createToken('false', 'constant.language.boolean.false.cs');
             export const True = createToken('true', 'constant.language.boolean.true.cs');
@@ -416,7 +416,7 @@ export namespace Token {
                 export const Exponent = (text: string) => createToken(text, 'constant.numeric.other.exponent.cs');
                 export const Suffix = (text: string) => createToken(text, 'constant.numeric.other.suffix.cs');
 
-                export namespace Preffix {
+                export namespace Prefix {
                     export const Binary = (text: string) => createToken(text, 'constant.numeric.other.preffix.binary.cs');
                     export const Hexadecimal = (text: string) => createToken(text, 'constant.numeric.other.preffix.hex.cs');
                 }
@@ -433,7 +433,7 @@ export namespace Token {
         export const String = (text: string) => createToken(text, 'string.quoted.double.cs');
     }
 
-    export namespace Operators {
+    export namespace Operator {
         export namespace Arithmetic {
             export const Addition = createToken('+', 'keyword.operator.arithmetic.cs');
             export const Division = createToken('/', 'keyword.operator.arithmetic.cs');
@@ -573,7 +573,7 @@ export namespace Token {
             export function RawStringEnd(numQuotes: number) { return createToken('"'.repeat(numQuotes), 'punctuation.definition.string.end.cs'); }
         }
 
-        export namespace TypeParameters {
+        export namespace TypeParameter {
             export const Begin = createToken('<', 'punctuation.definition.typeparameters.begin.cs');
             export const End = createToken('>', 'punctuation.definition.typeparameters.end.cs');
         }
@@ -595,7 +595,7 @@ export namespace Token {
         export const Tilde = createToken('~', 'punctuation.tilde.cs');
     }
 
-    export namespace Variables {
+    export namespace Variable {
         export const Alias = (text: string) => createToken(text, 'variable.other.alias.cs');
         export const Object = (text: string) => createToken(text, 'variable.other.object.cs');
         export const Property = (text: string) => createToken(text, 'variable.other.object.property.cs');
@@ -606,7 +606,7 @@ export namespace Token {
         export const Value = createToken('value', 'variable.other.value.cs');
     }
 
-    export namespace XmlDocComments {
+    export namespace XmlDocComment {
         export namespace Attribute {
             export const Name = (text: string) => createToken(text, 'entity.other.attribute-name.localname.cs');
         }

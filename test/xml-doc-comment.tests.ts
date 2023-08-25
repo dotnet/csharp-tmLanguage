@@ -15,11 +15,11 @@ describe("XML Doc Comments", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.XmlDocComments.Begin,
-                Token.XmlDocComments.Text(" "),
-                Token.XmlDocComments.Tag.StartTagBegin,
-                Token.XmlDocComments.Tag.Name("summary"),
-                Token.XmlDocComments.Tag.StartTagEnd
+                Token.XmlDocComment.Begin,
+                Token.XmlDocComment.Text(" "),
+                Token.XmlDocComment.Tag.StartTagBegin,
+                Token.XmlDocComment.Tag.Name("summary"),
+                Token.XmlDocComment.Tag.StartTagEnd
             ]);
         });
 
@@ -28,11 +28,11 @@ describe("XML Doc Comments", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.XmlDocComments.Begin,
-                Token.XmlDocComments.Text(" "),
-                Token.XmlDocComments.Tag.EndTagBegin,
-                Token.XmlDocComments.Tag.Name("summary"),
-                Token.XmlDocComments.Tag.EndTagEnd
+                Token.XmlDocComment.Begin,
+                Token.XmlDocComment.Text(" "),
+                Token.XmlDocComment.Tag.EndTagBegin,
+                Token.XmlDocComment.Tag.Name("summary"),
+                Token.XmlDocComment.Tag.EndTagEnd
             ]);
         });
 
@@ -41,11 +41,11 @@ describe("XML Doc Comments", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.XmlDocComments.Begin,
-                Token.XmlDocComments.Text(" "),
-                Token.XmlDocComments.Tag.EmptyTagBegin,
-                Token.XmlDocComments.Tag.Name("summary"),
-                Token.XmlDocComments.Tag.EmptyTagEnd
+                Token.XmlDocComment.Begin,
+                Token.XmlDocComment.Text(" "),
+                Token.XmlDocComment.Tag.EmptyTagBegin,
+                Token.XmlDocComment.Tag.Name("summary"),
+                Token.XmlDocComment.Tag.EmptyTagEnd
             ]);
         });
 
@@ -54,16 +54,16 @@ describe("XML Doc Comments", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.XmlDocComments.Begin,
-                Token.XmlDocComments.Text(" "),
-                Token.XmlDocComments.Tag.StartTagBegin,
-                Token.XmlDocComments.Tag.Name("param"),
-                Token.XmlDocComments.Attribute.Name("name"),
-                Token.XmlDocComments.Equals,
-                Token.XmlDocComments.String.SingleQuoted.Begin,
-                Token.XmlDocComments.String.SingleQuoted.Text("x"),
-                Token.XmlDocComments.String.SingleQuoted.End,
-                Token.XmlDocComments.Tag.StartTagEnd
+                Token.XmlDocComment.Begin,
+                Token.XmlDocComment.Text(" "),
+                Token.XmlDocComment.Tag.StartTagBegin,
+                Token.XmlDocComment.Tag.Name("param"),
+                Token.XmlDocComment.Attribute.Name("name"),
+                Token.XmlDocComment.Equals,
+                Token.XmlDocComment.String.SingleQuoted.Begin,
+                Token.XmlDocComment.String.SingleQuoted.Text("x"),
+                Token.XmlDocComment.String.SingleQuoted.End,
+                Token.XmlDocComment.Tag.StartTagEnd
             ]);
         });
 
@@ -72,16 +72,16 @@ describe("XML Doc Comments", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.XmlDocComments.Begin,
-                Token.XmlDocComments.Text(" "),
-                Token.XmlDocComments.Tag.StartTagBegin,
-                Token.XmlDocComments.Tag.Name("param"),
-                Token.XmlDocComments.Attribute.Name("name"),
-                Token.XmlDocComments.Equals,
-                Token.XmlDocComments.String.DoubleQuoted.Begin,
-                Token.XmlDocComments.String.DoubleQuoted.Text("x"),
-                Token.XmlDocComments.String.DoubleQuoted.End,
-                Token.XmlDocComments.Tag.StartTagEnd
+                Token.XmlDocComment.Begin,
+                Token.XmlDocComment.Text(" "),
+                Token.XmlDocComment.Tag.StartTagBegin,
+                Token.XmlDocComment.Tag.Name("param"),
+                Token.XmlDocComment.Attribute.Name("name"),
+                Token.XmlDocComment.Equals,
+                Token.XmlDocComment.String.DoubleQuoted.Begin,
+                Token.XmlDocComment.String.DoubleQuoted.Text("x"),
+                Token.XmlDocComment.String.DoubleQuoted.End,
+                Token.XmlDocComment.Tag.StartTagEnd
             ]);
         });
 
@@ -90,11 +90,11 @@ describe("XML Doc Comments", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.XmlDocComments.Begin,
-                Token.XmlDocComments.Text(" "),
-                Token.XmlDocComments.Comment.Begin,
-                Token.XmlDocComments.Comment.Text(" comment "),
-                Token.XmlDocComments.Comment.End
+                Token.XmlDocComment.Begin,
+                Token.XmlDocComment.Text(" "),
+                Token.XmlDocComment.Comment.Begin,
+                Token.XmlDocComment.Comment.Text(" comment "),
+                Token.XmlDocComment.Comment.End
             ]);
         });
 
@@ -103,11 +103,11 @@ describe("XML Doc Comments", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.XmlDocComments.Begin,
-                Token.XmlDocComments.Text(" "),
-                Token.XmlDocComments.CData.Begin,
-                Token.XmlDocComments.CData.Text("c"),
-                Token.XmlDocComments.CData.End
+                Token.XmlDocComment.Begin,
+                Token.XmlDocComment.Text(" "),
+                Token.XmlDocComment.CData.Begin,
+                Token.XmlDocComment.CData.Text("c"),
+                Token.XmlDocComment.CData.End
             ]);
         });
 
@@ -116,11 +116,11 @@ describe("XML Doc Comments", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.XmlDocComments.Begin,
-                Token.XmlDocComments.Text(" "),
-                Token.XmlDocComments.CharacterEntity.Begin,
-                Token.XmlDocComments.CharacterEntity.Text("amp"),
-                Token.XmlDocComments.CharacterEntity.End
+                Token.XmlDocComment.Begin,
+                Token.XmlDocComment.Text(" "),
+                Token.XmlDocComment.CharacterEntity.Begin,
+                Token.XmlDocComment.CharacterEntity.Text("amp"),
+                Token.XmlDocComment.CharacterEntity.End
             ]);
         });
 
@@ -129,11 +129,11 @@ describe("XML Doc Comments", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.XmlDocComments.Begin,
-                Token.XmlDocComments.Text(" "),
-                Token.XmlDocComments.CharacterEntity.Begin,
-                Token.XmlDocComments.CharacterEntity.Text("#0038"),
-                Token.XmlDocComments.CharacterEntity.End
+                Token.XmlDocComment.Begin,
+                Token.XmlDocComment.Text(" "),
+                Token.XmlDocComment.CharacterEntity.Begin,
+                Token.XmlDocComment.CharacterEntity.Text("#0038"),
+                Token.XmlDocComment.CharacterEntity.End
             ]);
         });
 
@@ -142,11 +142,11 @@ describe("XML Doc Comments", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.XmlDocComments.Begin,
-                Token.XmlDocComments.Text(" "),
-                Token.XmlDocComments.CharacterEntity.Begin,
-                Token.XmlDocComments.CharacterEntity.Text("#x0026"),
-                Token.XmlDocComments.CharacterEntity.End
+                Token.XmlDocComment.Begin,
+                Token.XmlDocComment.Text(" "),
+                Token.XmlDocComment.CharacterEntity.Begin,
+                Token.XmlDocComment.CharacterEntity.Text("#x0026"),
+                Token.XmlDocComment.CharacterEntity.End
             ]);
         });
 
@@ -164,46 +164,46 @@ public enum TestEnum
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.XmlDocComments.Begin,
-                Token.XmlDocComments.Text(" "),
-                Token.XmlDocComments.Tag.StartTagBegin,
-                Token.XmlDocComments.Tag.Name("summary"),
-                Token.XmlDocComments.Tag.StartTagEnd,
-                Token.XmlDocComments.Text(" This is a test Enum "),
-                Token.XmlDocComments.Tag.EndTagBegin,
-                Token.XmlDocComments.Tag.Name("summary"),
-                Token.XmlDocComments.Tag.EndTagEnd,
+                Token.XmlDocComment.Begin,
+                Token.XmlDocComment.Text(" "),
+                Token.XmlDocComment.Tag.StartTagBegin,
+                Token.XmlDocComment.Tag.Name("summary"),
+                Token.XmlDocComment.Tag.StartTagEnd,
+                Token.XmlDocComment.Text(" This is a test Enum "),
+                Token.XmlDocComment.Tag.EndTagBegin,
+                Token.XmlDocComment.Tag.Name("summary"),
+                Token.XmlDocComment.Tag.EndTagEnd,
                 Token.Keyword.Modifier.Public,
                 Token.Keyword.Definition.Enum,
-                Token.Identifiers.EnumName("TestEnum"),
+                Token.Identifier.EnumName("TestEnum"),
                 Token.Punctuation.OpenBrace,
                 Token.Comment.LeadingWhitespace("    "),
-                Token.XmlDocComments.Begin,
-                Token.XmlDocComments.Text(" "),
-                Token.XmlDocComments.Tag.StartTagBegin,
-                Token.XmlDocComments.Tag.Name("summary"),
-                Token.XmlDocComments.Tag.StartTagEnd,
-                Token.XmlDocComments.Text(" Test Value One "),
-                Token.XmlDocComments.Tag.EndTagBegin,
-                Token.XmlDocComments.Tag.Name("summary"),
-                Token.XmlDocComments.Tag.EndTagEnd,
-                Token.Identifiers.EnumMemberName("TestValueOne"),
-                Token.Operators.Assignment,
-                Token.Literals.Numeric.Decimal("0"),
+                Token.XmlDocComment.Begin,
+                Token.XmlDocComment.Text(" "),
+                Token.XmlDocComment.Tag.StartTagBegin,
+                Token.XmlDocComment.Tag.Name("summary"),
+                Token.XmlDocComment.Tag.StartTagEnd,
+                Token.XmlDocComment.Text(" Test Value One "),
+                Token.XmlDocComment.Tag.EndTagBegin,
+                Token.XmlDocComment.Tag.Name("summary"),
+                Token.XmlDocComment.Tag.EndTagEnd,
+                Token.Identifier.EnumMemberName("TestValueOne"),
+                Token.Operator.Assignment,
+                Token.Literal.Numeric.Decimal("0"),
                 Token.Punctuation.Comma,
                 Token.Comment.LeadingWhitespace("    "),
-                Token.XmlDocComments.Begin,
-                Token.XmlDocComments.Text(" "),
-                Token.XmlDocComments.Tag.StartTagBegin,
-                Token.XmlDocComments.Tag.Name("summary"),
-                Token.XmlDocComments.Tag.StartTagEnd,
-                Token.XmlDocComments.Text(" Test Value Two "),
-                Token.XmlDocComments.Tag.EndTagBegin,
-                Token.XmlDocComments.Tag.Name("summary"),
-                Token.XmlDocComments.Tag.EndTagEnd,
-                Token.Identifiers.EnumMemberName("TestValueTwo"),
-                Token.Operators.Assignment,
-                Token.Literals.Numeric.Decimal("1"),
+                Token.XmlDocComment.Begin,
+                Token.XmlDocComment.Text(" "),
+                Token.XmlDocComment.Tag.StartTagBegin,
+                Token.XmlDocComment.Tag.Name("summary"),
+                Token.XmlDocComment.Tag.StartTagEnd,
+                Token.XmlDocComment.Text(" Test Value Two "),
+                Token.XmlDocComment.Tag.EndTagBegin,
+                Token.XmlDocComment.Tag.Name("summary"),
+                Token.XmlDocComment.Tag.EndTagEnd,
+                Token.Identifier.EnumMemberName("TestValueTwo"),
+                Token.Operator.Assignment,
+                Token.Literal.Numeric.Decimal("1"),
                 Token.Punctuation.CloseBrace
             ]);
         });

@@ -17,7 +17,7 @@ describe("Using directives", () => {
 
             tokens.should.deep.equal([
                 Token.Keyword.Directive.Using,
-                Token.Identifiers.NamespaceName("System"),
+                Token.Identifier.NamespaceName("System"),
                 Token.Punctuation.Semicolon]);
         });
 
@@ -42,8 +42,8 @@ describe("Using directives", () => {
 
             tokens.should.deep.equal([
                 Token.Keyword.Directive.Using,
-                Token.Identifiers.AliasName("S"),
-                Token.Operators.Assignment,
+                Token.Identifier.AliasName("S"),
+                Token.Operator.Assignment,
                 Token.Type("System"),
                 Token.Punctuation.Semicolon]);
         });
@@ -55,8 +55,8 @@ describe("Using directives", () => {
 
             tokens.should.deep.equal([
                 Token.Keyword.Directive.Using,
-                Token.Identifiers.AliasName("C"),
-                Token.Operators.Assignment,
+                Token.Identifier.AliasName("C"),
+                Token.Operator.Assignment,
                 Token.Type("System"),
                 Token.Punctuation.Accessor,
                 Token.Type("Console"),
@@ -70,8 +70,8 @@ describe("Using directives", () => {
 
             tokens.should.deep.equal([
                 Token.Keyword.Directive.Using,
-                Token.Identifiers.AliasName("IntList"),
-                Token.Operators.Assignment,
+                Token.Identifier.AliasName("IntList"),
+                Token.Operator.Assignment,
                 Token.Type("System"),
                 Token.Punctuation.Accessor,
                 Token.Type("Collections"),
@@ -79,11 +79,11 @@ describe("Using directives", () => {
                 Token.Type("Generic"),
                 Token.Punctuation.Accessor,
                 Token.Type("List"),
-                Token.Punctuation.TypeParameters.Begin,
+                Token.Punctuation.TypeParameter.Begin,
                 Token.Type("System"),
                 Token.Punctuation.Accessor,
                 Token.Type("Int32"),
-                Token.Punctuation.TypeParameters.End,
+                Token.Punctuation.TypeParameter.End,
                 Token.Punctuation.Semicolon]);
         });
 
@@ -94,8 +94,8 @@ describe("Using directives", () => {
 
             tokens.should.deep.equal([
                 Token.Keyword.Directive.Using,
-                Token.Identifiers.AliasName("X"),
-                Token.Operators.Assignment,
+                Token.Identifier.AliasName("X"),
+                Token.Operator.Assignment,
                 Token.Type("System"),
                 Token.Punctuation.Accessor,
                 Token.Type("Collections"),
@@ -103,7 +103,7 @@ describe("Using directives", () => {
                 Token.Type("Generic"),
                 Token.Punctuation.Accessor,
                 Token.Type("Dictionary"),
-                Token.Punctuation.TypeParameters.Begin,
+                Token.Punctuation.TypeParameter.Begin,
                 Token.Type("System"),
                 Token.Punctuation.Accessor,
                 Token.Type("Int32"),
@@ -115,12 +115,12 @@ describe("Using directives", () => {
                 Token.Type("Generic"),
                 Token.Punctuation.Accessor,
                 Token.Type("List"),
-                Token.Punctuation.TypeParameters.Begin,
+                Token.Punctuation.TypeParameter.Begin,
                 Token.Type("System"),
                 Token.Punctuation.Accessor,
                 Token.Type("String"),
-                Token.Punctuation.TypeParameters.End,
-                Token.Punctuation.TypeParameters.End,
+                Token.Punctuation.TypeParameter.End,
+                Token.Punctuation.TypeParameter.End,
                 Token.Punctuation.Semicolon]);
         });
 
@@ -131,14 +131,14 @@ describe("Using directives", () => {
 
             tokens.should.deep.equal([
                 Token.Keyword.Directive.Using,
-                Token.Identifiers.AliasName("X"),
-                Token.Operators.Assignment,
+                Token.Identifier.AliasName("X"),
+                Token.Operator.Assignment,
                 Token.Comment.MultiLine.Start,
                 Token.Comment.MultiLine.End,
                 Token.Type("Dictionary"),
                 Token.Comment.MultiLine.Start,
                 Token.Comment.MultiLine.End,
-                Token.Punctuation.TypeParameters.Begin,
+                Token.Punctuation.TypeParameter.Begin,
                 Token.Comment.MultiLine.Start,
                 Token.Comment.MultiLine.End,
                 Token.PrimitiveType.Int,
@@ -150,16 +150,16 @@ describe("Using directives", () => {
                 Token.Type("List"),
                 Token.Comment.MultiLine.Start,
                 Token.Comment.MultiLine.End,
-                Token.Punctuation.TypeParameters.Begin,
+                Token.Punctuation.TypeParameter.Begin,
                 Token.Comment.MultiLine.Start,
                 Token.Comment.MultiLine.End,
                 Token.PrimitiveType.String,
                 Token.Comment.MultiLine.Start,
                 Token.Comment.MultiLine.End,
-                Token.Punctuation.TypeParameters.End,
+                Token.Punctuation.TypeParameter.End,
                 Token.Comment.MultiLine.Start,
                 Token.Comment.MultiLine.End,
-                Token.Punctuation.TypeParameters.End,
+                Token.Punctuation.TypeParameter.End,
                 Token.Comment.MultiLine.Start,
                 Token.Comment.MultiLine.End,
                 Token.Punctuation.Semicolon,
@@ -175,7 +175,7 @@ describe("Using directives", () => {
                 tokens.should.deep.equal([
                     Token.Keyword.Directive.Global,
                     Token.Keyword.Directive.Using,
-                    Token.Identifiers.NamespaceName("System"),
+                    Token.Identifier.NamespaceName("System"),
                     Token.Punctuation.Semicolon
                 ]);
             });
@@ -202,8 +202,8 @@ describe("Using directives", () => {
                 tokens.should.deep.equal([
                     Token.Keyword.Directive.Global,
                     Token.Keyword.Directive.Using,
-                    Token.Identifiers.AliasName("blah"),
-                    Token.Operators.Assignment,
+                    Token.Identifier.AliasName("blah"),
+                    Token.Operator.Assignment,
                     Token.Type("System"),
                     Token.Punctuation.Accessor,
                     Token.Type("Console"),
@@ -227,11 +227,11 @@ describe("Using directives", () => {
                     Token.Type("Generic"),
                     Token.Punctuation.Accessor,
                     Token.Type("List"),
-                    Token.Punctuation.TypeParameters.Begin,
+                    Token.Punctuation.TypeParameter.Begin,
                     Token.PrimitiveType.Int,
                     Token.Punctuation.OpenBracket,
                     Token.Punctuation.CloseBracket,
-                    Token.Punctuation.TypeParameters.End,
+                    Token.Punctuation.TypeParameter.End,
                     Token.Punctuation.Semicolon
                 ]);
             });
@@ -244,8 +244,8 @@ describe("Using directives", () => {
                     Token.Keyword.Directive.Global,
                     Token.Keyword.Directive.Using,
                     Token.Keyword.Modifier.Unsafe,
-                    Token.Identifiers.AliasName("blah"),
-                    Token.Operators.Assignment,
+                    Token.Identifier.AliasName("blah"),
+                    Token.Operator.Assignment,
                     Token.Type("System"),
                     Token.Punctuation.Accessor,
                     Token.Type("Collections"),
@@ -253,11 +253,11 @@ describe("Using directives", () => {
                     Token.Type("Generic"),
                     Token.Punctuation.Accessor,
                     Token.Type("List"),
-                    Token.Punctuation.TypeParameters.Begin,
+                    Token.Punctuation.TypeParameter.Begin,
                     Token.PrimitiveType.Int,
                     Token.Punctuation.OpenBracket,
                     Token.Punctuation.CloseBracket,
-                    Token.Punctuation.TypeParameters.End,
+                    Token.Punctuation.TypeParameter.End,
                     Token.Punctuation.Semicolon
                 ]);
             });
@@ -278,11 +278,11 @@ describe("Using directives", () => {
                 Token.Type("Generic"),
                 Token.Punctuation.Accessor,
                 Token.Type("List"),
-                Token.Punctuation.TypeParameters.Begin,
+                Token.Punctuation.TypeParameter.Begin,
                 Token.PrimitiveType.Int,
                 Token.Punctuation.OpenBracket,
                 Token.Punctuation.CloseBracket,
-                Token.Punctuation.TypeParameters.End,
+                Token.Punctuation.TypeParameter.End,
                 Token.Punctuation.Semicolon
             ]);
         });
@@ -294,8 +294,8 @@ describe("Using directives", () => {
             tokens.should.deep.equal([
                 Token.Keyword.Directive.Using,
                 Token.Keyword.Modifier.Unsafe,
-                Token.Identifiers.AliasName("blah"),
-                Token.Operators.Assignment,
+                Token.Identifier.AliasName("blah"),
+                Token.Operator.Assignment,
                 Token.Type("System"),
                 Token.Punctuation.Accessor,
                 Token.Type("Collections"),
@@ -303,11 +303,11 @@ describe("Using directives", () => {
                 Token.Type("Generic"),
                 Token.Punctuation.Accessor,
                 Token.Type("List"),
-                Token.Punctuation.TypeParameters.Begin,
+                Token.Punctuation.TypeParameter.Begin,
                 Token.PrimitiveType.Int,
                 Token.Punctuation.OpenBracket,
                 Token.Punctuation.CloseBracket,
-                Token.Punctuation.TypeParameters.End,
+                Token.Punctuation.TypeParameter.End,
                 Token.Punctuation.Semicolon
             ]);
         });

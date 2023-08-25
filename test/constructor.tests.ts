@@ -15,7 +15,7 @@ describe("Constructors", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Identifiers.MethodName("TestClass"),
+                Token.Identifier.MethodName("TestClass"),
                 Token.Punctuation.OpenParen,
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
@@ -28,7 +28,7 @@ describe("Constructors", () => {
 
             tokens.should.deep.equal([
                 Token.Keyword.Modifier.Public,
-                Token.Identifiers.MethodName("TestClass"),
+                Token.Identifier.MethodName("TestClass"),
                 Token.Punctuation.OpenParen,
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
@@ -41,10 +41,10 @@ describe("Constructors", () => {
 
             tokens.should.deep.equal([
                 Token.Keyword.Modifier.Public,
-                Token.Identifiers.MethodName("TestClass"),
+                Token.Identifier.MethodName("TestClass"),
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Int,
-                Token.Identifiers.ParameterName("x"),
+                Token.Identifier.ParameterName("x"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace]);
@@ -56,11 +56,11 @@ describe("Constructors", () => {
 
             tokens.should.deep.equal([
                 Token.Keyword.Modifier.Public,
-                Token.Identifiers.MethodName("TestClass"),
+                Token.Identifier.MethodName("TestClass"),
                 Token.Punctuation.OpenParen,
                 Token.Keyword.Modifier.Ref,
                 Token.PrimitiveType.Int,
-                Token.Identifiers.ParameterName("x"),
+                Token.Identifier.ParameterName("x"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace]);
@@ -74,13 +74,13 @@ TestClass(int x, int y)
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Identifiers.MethodName("TestClass"),
+                Token.Identifier.MethodName("TestClass"),
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Int,
-                Token.Identifiers.ParameterName("x"),
+                Token.Identifier.ParameterName("x"),
                 Token.Punctuation.Comma,
                 Token.PrimitiveType.Int,
-                Token.Identifiers.ParameterName("y"),
+                Token.Identifier.ParameterName("y"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace]);
@@ -91,16 +91,16 @@ TestClass(int x, int y)
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Identifiers.MethodName("TestClass"),
+                Token.Identifier.MethodName("TestClass"),
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Int,
-                Token.Identifiers.ParameterName("x"),
+                Token.Identifier.ParameterName("x"),
                 Token.Punctuation.Comma,
                 Token.PrimitiveType.Int,
-                Token.Identifiers.ParameterName("y"),
+                Token.Identifier.ParameterName("y"),
                 Token.Punctuation.CloseParen,
-                Token.Operators.Arrow,
-                Token.Identifiers.MethodName("Foo"),
+                Token.Operator.Arrow,
+                Token.Identifier.MethodName("Foo"),
                 Token.Punctuation.OpenParen,
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.Semicolon]);
@@ -111,7 +111,7 @@ TestClass(int x, int y)
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Identifiers.MethodName("TestClass"),
+                Token.Identifier.MethodName("TestClass"),
                 Token.Punctuation.OpenParen,
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
@@ -123,13 +123,13 @@ TestClass(int x, int y)
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Identifiers.MethodName("TestClass"),
+                Token.Identifier.MethodName("TestClass"),
                 Token.Punctuation.OpenParen,
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.Colon,
-                Token.Variables.This,
+                Token.Variable.This,
                 Token.Punctuation.OpenParen,
-                Token.Literals.Numeric.Decimal("42"),
+                Token.Literal.Numeric.Decimal("42"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace]);
@@ -141,13 +141,13 @@ TestClass(int x, int y)
 
             tokens.should.deep.equal([
                 Token.Keyword.Modifier.Public,
-                Token.Identifiers.MethodName("TestClass"),
+                Token.Identifier.MethodName("TestClass"),
                 Token.Punctuation.OpenParen,
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.Colon,
-                Token.Variables.This,
+                Token.Variable.This,
                 Token.Punctuation.OpenParen,
-                Token.Literals.Numeric.Decimal("42"),
+                Token.Literal.Numeric.Decimal("42"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace]);
@@ -158,16 +158,16 @@ TestClass(int x, int y)
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Identifiers.MethodName("TestClass"),
+                Token.Identifier.MethodName("TestClass"),
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Int,
-                Token.Identifiers.ParameterName("x"),
+                Token.Identifier.ParameterName("x"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.Colon,
-                Token.Variables.This,
+                Token.Variable.This,
                 Token.Punctuation.OpenParen,
                 Token.Keyword.Modifier.Ref,
-                Token.Variables.ReadWrite("x"),
+                Token.Variable.ReadWrite("x"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace]);
@@ -178,17 +178,17 @@ TestClass(int x, int y)
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Identifiers.MethodName("TestClass"),
+                Token.Identifier.MethodName("TestClass"),
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Int,
-                Token.Identifiers.ParameterName("x"),
+                Token.Identifier.ParameterName("x"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.Colon,
-                Token.Variables.This,
+                Token.Variable.This,
                 Token.Punctuation.OpenParen,
-                Token.Identifiers.ParameterName("y"),
+                Token.Identifier.ParameterName("y"),
                 Token.Punctuation.Colon,
-                Token.Variables.ReadWrite("x"),
+                Token.Variable.ReadWrite("x"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace]);
@@ -199,13 +199,13 @@ TestClass(int x, int y)
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Identifiers.MethodName("TestClass"),
+                Token.Identifier.MethodName("TestClass"),
                 Token.Punctuation.OpenParen,
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.Colon,
-                Token.Variables.Base,
+                Token.Variable.Base,
                 Token.Punctuation.OpenParen,
-                Token.Literals.Numeric.Decimal("42"),
+                Token.Literal.Numeric.Decimal("42"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace]);
@@ -220,13 +220,13 @@ TestClass() :
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Identifiers.MethodName("TestClass"),
+                Token.Identifier.MethodName("TestClass"),
                 Token.Punctuation.OpenParen,
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.Colon,
-                Token.Variables.Base,
+                Token.Variable.Base,
                 Token.Punctuation.OpenParen,
-                Token.Literals.Numeric.Decimal("42"),
+                Token.Literal.Numeric.Decimal("42"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace]);
@@ -244,10 +244,10 @@ internal WaitHandle(Task self, TT.Task /*task)
 
             tokens.should.deep.equal([
                 Token.Keyword.Modifier.Internal,
-                Token.Identifiers.MethodName("WaitHandle"),
+                Token.Identifier.MethodName("WaitHandle"),
                 Token.Punctuation.OpenParen,
                 Token.Type("Task"),
-                Token.Identifiers.ParameterName("self"),
+                Token.Identifier.ParameterName("self"),
                 Token.Punctuation.Comma,
                 Token.Comment.MultiLine.Start,
                 Token.Comment.MultiLine.Text("task)"),
@@ -280,68 +280,68 @@ public class A
             tokens.should.deep.equal([
                 Token.Keyword.Modifier.Public,
                 Token.Keyword.Definition.Class,
-                Token.Identifiers.ClassName("A"),
+                Token.Identifier.ClassName("A"),
                 Token.Punctuation.OpenBrace,
                 Token.Keyword.Modifier.Public,
-                Token.Identifiers.MethodName("A"),
+                Token.Identifier.MethodName("A"),
                 Token.Punctuation.OpenParen,
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.Colon,
-                Token.Variables.Base,
+                Token.Variable.Base,
                 Token.Punctuation.OpenParen,
-                Token.Literals.Numeric.Decimal("1"),
+                Token.Literal.Numeric.Decimal("1"),
                 Token.Punctuation.Comma,
                 Token.Punctuation.String.Begin,
-                Token.Literals.String("abc"),
+                Token.Literal.String("abc"),
                 Token.Punctuation.String.End,
-                Token.Operators.Expression.New,
+                Token.Operator.Expression.New,
                 Token.Type("B"),
-                Token.Punctuation.TypeParameters.Begin,
+                Token.Punctuation.TypeParameter.Begin,
                 Token.PrimitiveType.Char,
-                Token.Punctuation.TypeParameters.End,
+                Token.Punctuation.TypeParameter.End,
                 Token.Punctuation.OpenParen,
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.Comma,
-                Token.Operators.Expression.New,
+                Token.Operator.Expression.New,
                 Token.Type("B"),
-                Token.Punctuation.TypeParameters.Begin,
+                Token.Punctuation.TypeParameter.Begin,
                 Token.PrimitiveType.String,
-                Token.Punctuation.TypeParameters.End,
+                Token.Punctuation.TypeParameter.End,
                 Token.Punctuation.OpenParen,
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
                 Token.Keyword.Definition.Var,
-                Token.Identifiers.LocalName("a"),
-                Token.Operators.Assignment,
-                Token.Literals.Numeric.Decimal("1"),
+                Token.Identifier.LocalName("a"),
+                Token.Operator.Assignment,
+                Token.Literal.Numeric.Decimal("1"),
                 Token.Punctuation.Semicolon,
                 Token.Keyword.Definition.Var,
-                Token.Identifiers.LocalName("b"),
-                Token.Operators.Assignment,
+                Token.Identifier.LocalName("b"),
+                Token.Operator.Assignment,
                 Token.Punctuation.String.Begin,
-                Token.Literals.String("abc"),
+                Token.Literal.String("abc"),
                 Token.Punctuation.String.End,
                 Token.Punctuation.Semicolon,
                 Token.Keyword.Definition.Var,
-                Token.Identifiers.LocalName("c"),
-                Token.Operators.Assignment,
-                Token.Operators.Expression.New,
+                Token.Identifier.LocalName("c"),
+                Token.Operator.Assignment,
+                Token.Operator.Expression.New,
                 Token.Type("B"),
-                Token.Punctuation.TypeParameters.Begin,
+                Token.Punctuation.TypeParameter.Begin,
                 Token.PrimitiveType.Char,
-                Token.Punctuation.TypeParameters.End,
+                Token.Punctuation.TypeParameter.End,
                 Token.Punctuation.OpenParen,
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.Semicolon,
                 Token.Keyword.Definition.Var,
-                Token.Identifiers.LocalName("c"),
-                Token.Operators.Assignment,
-                Token.Operators.Expression.New,
+                Token.Identifier.LocalName("c"),
+                Token.Operator.Assignment,
+                Token.Operator.Expression.New,
                 Token.Type("B"),
-                Token.Punctuation.TypeParameters.Begin,
+                Token.Punctuation.TypeParameter.Begin,
                 Token.PrimitiveType.String,
-                Token.Punctuation.TypeParameters.End,
+                Token.Punctuation.TypeParameter.End,
                 Token.Punctuation.OpenParen,
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.Semicolon,
@@ -361,11 +361,11 @@ public C(
 
             tokens.should.deep.equal([
                 Token.Keyword.Modifier.Public,
-                Token.Identifiers.MethodName("C"),
+                Token.Identifier.MethodName("C"),
                 Token.Punctuation.OpenParen,
 
                 Token.PrimitiveType.String,
-                Token.Identifiers.ParameterName("s"),
+                Token.Identifier.ParameterName("s"),
 
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
@@ -386,28 +386,28 @@ public AccountController(
 
             tokens.should.deep.equal([
                 Token.Keyword.Modifier.Public,
-                Token.Identifiers.MethodName("AccountController"),
+                Token.Identifier.MethodName("AccountController"),
                 Token.Punctuation.OpenParen,
 
                 Token.Type("UserManager"),
-                Token.Punctuation.TypeParameters.Begin,
+                Token.Punctuation.TypeParameter.Begin,
                 Token.Type("User"),
-                Token.Punctuation.TypeParameters.End,
-                Token.Identifiers.ParameterName("userManager"),
+                Token.Punctuation.TypeParameter.End,
+                Token.Identifier.ParameterName("userManager"),
                 Token.Punctuation.Comma,
 
                 Token.Type("SignInManager"),
-                Token.Punctuation.TypeParameters.Begin,
+                Token.Punctuation.TypeParameter.Begin,
                 Token.Type("User"),
-                Token.Punctuation.TypeParameters.End,
-                Token.Identifiers.ParameterName("signInManager"),
+                Token.Punctuation.TypeParameter.End,
+                Token.Identifier.ParameterName("signInManager"),
                 Token.Punctuation.Comma,
 
                 Token.Type("ILogger"),
-                Token.Punctuation.TypeParameters.Begin,
+                Token.Punctuation.TypeParameter.Begin,
                 Token.Type("AccountController"),
-                Token.Punctuation.TypeParameters.End,
-                Token.Identifiers.ParameterName("logger"),
+                Token.Punctuation.TypeParameter.End,
+                Token.Identifier.ParameterName("logger"),
 
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,

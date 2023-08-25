@@ -16,7 +16,7 @@ describe("Locals", () => {
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.Int,
-                Token.Identifiers.LocalName("x"),
+                Token.Identifier.LocalName("x"),
                 Token.Punctuation.Semicolon
             ]);
         });
@@ -27,9 +27,9 @@ describe("Locals", () => {
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.Int,
-                Token.Identifiers.LocalName("x"),
-                Token.Operators.Assignment,
-                Token.Literals.Numeric.Decimal("42"),
+                Token.Identifier.LocalName("x"),
+                Token.Operator.Assignment,
+                Token.Literal.Numeric.Decimal("42"),
                 Token.Punctuation.Semicolon
             ]);
         });
@@ -40,9 +40,9 @@ describe("Locals", () => {
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.Nint,
-                Token.Identifiers.LocalName("x"),
+                Token.Identifier.LocalName("x"),
                 Token.Punctuation.Comma,
-                Token.Identifiers.LocalName("y"),
+                Token.Identifier.LocalName("y"),
                 Token.Punctuation.Semicolon
             ]);
         });
@@ -53,13 +53,13 @@ describe("Locals", () => {
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.Int,
-                Token.Identifiers.LocalName("x"),
-                Token.Operators.Assignment,
-                Token.Literals.Numeric.Decimal("19"),
+                Token.Identifier.LocalName("x"),
+                Token.Operator.Assignment,
+                Token.Literal.Numeric.Decimal("19"),
                 Token.Punctuation.Comma,
-                Token.Identifiers.LocalName("y"),
-                Token.Operators.Assignment,
-                Token.Literals.Numeric.Decimal("23"),
+                Token.Identifier.LocalName("y"),
+                Token.Operator.Assignment,
+                Token.Literal.Numeric.Decimal("23"),
                 Token.Punctuation.Semicolon
             ]);
         });
@@ -71,9 +71,9 @@ describe("Locals", () => {
             tokens.should.deep.equal([
                 Token.Keyword.Modifier.Const,
                 Token.PrimitiveType.Int,
-                Token.Identifiers.LocalName("x"),
-                Token.Operators.Assignment,
-                Token.Literals.Numeric.Decimal("42"),
+                Token.Identifier.LocalName("x"),
+                Token.Operator.Assignment,
+                Token.Literal.Numeric.Decimal("42"),
                 Token.Punctuation.Semicolon
             ]);
         });
@@ -85,13 +85,13 @@ describe("Locals", () => {
             tokens.should.deep.equal([
                 Token.Keyword.Modifier.Const,
                 Token.PrimitiveType.Int,
-                Token.Identifiers.LocalName("x"),
-                Token.Operators.Assignment,
-                Token.Literals.Numeric.Decimal("19"),
+                Token.Identifier.LocalName("x"),
+                Token.Operator.Assignment,
+                Token.Literal.Numeric.Decimal("19"),
                 Token.Punctuation.Comma,
-                Token.Identifiers.LocalName("y"),
-                Token.Operators.Assignment,
-                Token.Literals.Numeric.Decimal("23"),
+                Token.Identifier.LocalName("y"),
+                Token.Operator.Assignment,
+                Token.Literal.Numeric.Decimal("23"),
                 Token.Punctuation.Semicolon
             ]);
         });
@@ -103,7 +103,7 @@ describe("Locals", () => {
             tokens.should.deep.equal([
                 Token.Keyword.Modifier.Ref,
                 Token.PrimitiveType.Int,
-                Token.Identifiers.LocalName("x"),
+                Token.Identifier.LocalName("x"),
                 Token.Punctuation.Semicolon
             ]);
         });
@@ -116,7 +116,7 @@ describe("Locals", () => {
                 Token.Keyword.Modifier.Ref,
                 Token.Keyword.Modifier.ReadOnly,
                 Token.PrimitiveType.Int,
-                Token.Identifiers.LocalName("x"),
+                Token.Identifier.LocalName("x"),
                 Token.Punctuation.Semicolon
             ]);
         });
@@ -128,10 +128,10 @@ describe("Locals", () => {
             tokens.should.deep.equal([
                 Token.Keyword.Modifier.Ref,
                 Token.PrimitiveType.Int,
-                Token.Identifiers.LocalName("x"),
-                Token.Operators.Assignment,
+                Token.Identifier.LocalName("x"),
+                Token.Operator.Assignment,
                 Token.Keyword.Modifier.Ref,
-                Token.Variables.ReadWrite("y"),
+                Token.Variable.ReadWrite("y"),
                 Token.Punctuation.Semicolon
             ]);
         });
@@ -144,10 +144,10 @@ describe("Locals", () => {
                 Token.Keyword.Modifier.Ref,
                 Token.Keyword.Modifier.ReadOnly,
                 Token.PrimitiveType.Int,
-                Token.Identifiers.LocalName("x"),
-                Token.Operators.Assignment,
+                Token.Identifier.LocalName("x"),
+                Token.Operator.Assignment,
                 Token.Keyword.Modifier.Ref,
-                Token.Variables.ReadWrite("y"),
+                Token.Variable.ReadWrite("y"),
                 Token.Punctuation.Semicolon
             ]);
         });
@@ -160,10 +160,10 @@ describe("Locals", () => {
                 Token.Keyword.Modifier.Ref,
                 Token.Keyword.Modifier.ReadOnly,
                 Token.Keyword.Definition.Var,
-                Token.Identifiers.LocalName("x"),
-                Token.Operators.Assignment,
+                Token.Identifier.LocalName("x"),
+                Token.Operator.Assignment,
                 Token.Keyword.Modifier.Ref,
-                Token.Variables.ReadWrite("y"),
+                Token.Variable.ReadWrite("y"),
                 Token.Punctuation.Semicolon
             ]);
         });
@@ -176,18 +176,18 @@ describe("Locals", () => {
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.Nuint,
-                Token.Identifiers.MethodName("Add"),
+                Token.Identifier.MethodName("Add"),
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Nuint,
-                Token.Identifiers.ParameterName("x"),
+                Token.Identifier.ParameterName("x"),
                 Token.Punctuation.Comma,
                 Token.PrimitiveType.UInt,
-                Token.Identifiers.ParameterName("y"),
+                Token.Identifier.ParameterName("y"),
                 Token.Punctuation.CloseParen,
-                Token.Operators.Arrow,
-                Token.Variables.ReadWrite("x"),
-                Token.Operators.Arithmetic.Addition,
-                Token.Variables.ReadWrite("y"),
+                Token.Operator.Arrow,
+                Token.Variable.ReadWrite("x"),
+                Token.Operator.Arithmetic.Addition,
+                Token.Variable.ReadWrite("y"),
                 Token.Punctuation.Semicolon
             ]);
         });
@@ -202,19 +202,19 @@ int Add(int x, int y)
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.Int,
-                Token.Identifiers.MethodName("Add"),
+                Token.Identifier.MethodName("Add"),
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Int,
-                Token.Identifiers.ParameterName("x"),
+                Token.Identifier.ParameterName("x"),
                 Token.Punctuation.Comma,
                 Token.PrimitiveType.Int,
-                Token.Identifiers.ParameterName("y"),
+                Token.Identifier.ParameterName("y"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
                 Token.Keyword.Flow.Return,
-                Token.Variables.ReadWrite("x"),
-                Token.Operators.Arithmetic.Addition,
-                Token.Variables.ReadWrite("y"),
+                Token.Variable.ReadWrite("x"),
+                Token.Operator.Arithmetic.Addition,
+                Token.Variable.ReadWrite("y"),
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace
             ]);
@@ -227,7 +227,7 @@ int Add(int x, int y)
             tokens.should.deep.equal([
                 Token.Keyword.Modifier.Async,
                 Token.PrimitiveType.Void,
-                Token.Identifiers.MethodName("Foo"),
+                Token.Identifier.MethodName("Foo"),
                 Token.Punctuation.OpenParen,
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
@@ -242,7 +242,7 @@ int Add(int x, int y)
             tokens.should.deep.equal([
                 Token.Keyword.Modifier.Unsafe,
                 Token.PrimitiveType.Void,
-                Token.Identifiers.MethodName("Foo"),
+                Token.Identifier.MethodName("Foo"),
                 Token.Punctuation.OpenParen,
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
@@ -257,7 +257,7 @@ int Add(int x, int y)
             tokens.should.deep.equal([
                 Token.Keyword.Modifier.Static,
                 Token.PrimitiveType.Void,
-                Token.Identifiers.MethodName("Foo"),
+                Token.Identifier.MethodName("Foo"),
                 Token.Punctuation.OpenParen,
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
@@ -273,7 +273,7 @@ int Add(int x, int y)
                 Token.Keyword.Modifier.Extern,
                 Token.Keyword.Modifier.Static,
                 Token.PrimitiveType.Void,
-                Token.Identifiers.MethodName("Foo"),
+                Token.Identifier.MethodName("Foo"),
                 Token.Punctuation.OpenParen,
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,

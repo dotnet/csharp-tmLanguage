@@ -21,11 +21,11 @@ extern alias Y;`;
             tokens.should.deep.equal([
                 Token.Keyword.Directive.Extern,
                 Token.Keyword.Directive.Alias,
-                Token.Variables.Alias("X"),
+                Token.Variable.Alias("X"),
                 Token.Punctuation.Semicolon,
                 Token.Keyword.Directive.Extern,
                 Token.Keyword.Directive.Alias,
-                Token.Variables.Alias("Y"),
+                Token.Variable.Alias("Y"),
                 Token.Punctuation.Semicolon]);
         });
     });

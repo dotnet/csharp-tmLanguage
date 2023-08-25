@@ -16,7 +16,7 @@ describe("Type names", () => {
 
             tokens.should.deep.equal([
                 Token.PrimitiveType.Object,
-                Token.Identifiers.FieldName("x"),
+                Token.Identifier.FieldName("x"),
                 Token.Punctuation.Semicolon]);
         });
 
@@ -28,7 +28,7 @@ describe("Type names", () => {
                 Token.Type("System"),
                 Token.Punctuation.Accessor,
                 Token.Type("Object"),
-                Token.Identifiers.FieldName("x"),
+                Token.Identifier.FieldName("x"),
                 Token.Punctuation.Semicolon]);
         });
 
@@ -37,12 +37,12 @@ describe("Type names", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Identifiers.AliasName("global"),
+                Token.Identifier.AliasName("global"),
                 Token.Punctuation.ColonColon,
                 Token.Type("System"),
                 Token.Punctuation.Accessor,
                 Token.Type("Object"),
-                Token.Identifiers.FieldName("x"),
+                Token.Identifier.FieldName("x"),
                 Token.Punctuation.Semicolon]);
         });
 
@@ -56,7 +56,7 @@ describe("Type names", () => {
                 Token.Punctuation.Comma,
                 Token.PrimitiveType.Int,
                 Token.Punctuation.CloseParen,
-                Token.Identifiers.FieldName("x"),
+                Token.Identifier.FieldName("x"),
                 Token.Punctuation.Semicolon]);
         });
 
@@ -67,12 +67,12 @@ describe("Type names", () => {
             tokens.should.deep.equal([
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Int,
-                Token.Identifiers.TupleElementName("i"),
+                Token.Identifier.TupleElementName("i"),
                 Token.Punctuation.Comma,
                 Token.PrimitiveType.Int,
-                Token.Identifiers.TupleElementName("j"),
+                Token.Identifier.TupleElementName("j"),
                 Token.Punctuation.CloseParen,
-                Token.Identifiers.FieldName("x"),
+                Token.Identifier.FieldName("x"),
                 Token.Punctuation.Semicolon]);
         });
 
@@ -90,7 +90,7 @@ describe("Type names", () => {
                 Token.PrimitiveType.Int,
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.CloseParen,
-                Token.Identifiers.FieldName("x"),
+                Token.Identifier.FieldName("x"),
                 Token.Punctuation.Semicolon]);
         });
 
@@ -101,17 +101,17 @@ describe("Type names", () => {
             tokens.should.deep.equal([
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Int,
-                Token.Identifiers.TupleElementName("i"),
+                Token.Identifier.TupleElementName("i"),
                 Token.Punctuation.Comma,
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Int,
-                Token.Identifiers.TupleElementName("j"),
+                Token.Identifier.TupleElementName("j"),
                 Token.Punctuation.Comma,
                 Token.PrimitiveType.Int,
-                Token.Identifiers.TupleElementName("k"),
+                Token.Identifier.TupleElementName("k"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.CloseParen,
-                Token.Identifiers.FieldName("x"),
+                Token.Identifier.FieldName("x"),
                 Token.Punctuation.Semicolon]);
         });
 
@@ -126,7 +126,7 @@ describe("Type names", () => {
                 Token.PrimitiveType.Int,
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.QuestionMark,
-                Token.Identifiers.FieldName("x"),
+                Token.Identifier.FieldName("x"),
                 Token.Punctuation.Semicolon]);
         });
 
@@ -142,7 +142,7 @@ describe("Type names", () => {
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBracket,
                 Token.Punctuation.CloseBracket,
-                Token.Identifiers.FieldName("x"),
+                Token.Identifier.FieldName("x"),
                 Token.Punctuation.Semicolon]);
         });
 
@@ -152,10 +152,10 @@ describe("Type names", () => {
 
             tokens.should.deep.equal([
                 Token.Type("List"),
-                Token.Punctuation.TypeParameters.Begin,
+                Token.Punctuation.TypeParameter.Begin,
                 Token.PrimitiveType.Int,
-                Token.Punctuation.TypeParameters.End,
-                Token.Identifiers.FieldName("x"),
+                Token.Punctuation.TypeParameter.End,
+                Token.Identifier.FieldName("x"),
                 Token.Punctuation.Semicolon]);
         });
 
@@ -165,14 +165,14 @@ describe("Type names", () => {
 
             tokens.should.deep.equal([
                 Token.Type("List"),
-                Token.Punctuation.TypeParameters.Begin,
+                Token.Punctuation.TypeParameter.Begin,
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Int,
                 Token.Punctuation.Comma,
                 Token.PrimitiveType.Int,
                 Token.Punctuation.CloseParen,
-                Token.Punctuation.TypeParameters.End,
-                Token.Identifiers.FieldName("x"),
+                Token.Punctuation.TypeParameter.End,
+                Token.Identifier.FieldName("x"),
                 Token.Punctuation.Semicolon]);
         });
 
@@ -182,16 +182,16 @@ describe("Type names", () => {
 
             tokens.should.deep.equal([
                 Token.Type("List"),
-                Token.Punctuation.TypeParameters.Begin,
+                Token.Punctuation.TypeParameter.Begin,
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Int,
-                Token.Identifiers.TupleElementName("i"),
+                Token.Identifier.TupleElementName("i"),
                 Token.Punctuation.Comma,
                 Token.PrimitiveType.Int,
-                Token.Identifiers.TupleElementName("j"),
+                Token.Identifier.TupleElementName("j"),
                 Token.Punctuation.CloseParen,
-                Token.Punctuation.TypeParameters.End,
-                Token.Identifiers.FieldName("x"),
+                Token.Punctuation.TypeParameter.End,
+                Token.Identifier.FieldName("x"),
                 Token.Punctuation.Semicolon]);
         });
 
@@ -201,12 +201,12 @@ describe("Type names", () => {
 
             tokens.should.deep.equal([
                 Token.Type("Dictionary"),
-                Token.Punctuation.TypeParameters.Begin,
+                Token.Punctuation.TypeParameter.Begin,
                 Token.PrimitiveType.Int,
                 Token.Punctuation.Comma,
                 Token.PrimitiveType.Int,
-                Token.Punctuation.TypeParameters.End,
-                Token.Identifiers.FieldName("x"),
+                Token.Punctuation.TypeParameter.End,
+                Token.Identifier.FieldName("x"),
                 Token.Punctuation.Semicolon]);
         });
 
@@ -222,10 +222,10 @@ describe("Type names", () => {
                 Token.Type("Generic"),
                 Token.Punctuation.Accessor,
                 Token.Type("List"),
-                Token.Punctuation.TypeParameters.Begin,
+                Token.Punctuation.TypeParameter.Begin,
                 Token.PrimitiveType.Int,
-                Token.Punctuation.TypeParameters.End,
-                Token.Identifiers.FieldName("x"),
+                Token.Punctuation.TypeParameter.End,
+                Token.Identifier.FieldName("x"),
                 Token.Punctuation.Semicolon]);
         });
 
@@ -235,12 +235,12 @@ describe("Type names", () => {
 
             tokens.should.deep.equal([
                 Token.Type("List"),
-                Token.Punctuation.TypeParameters.Begin,
+                Token.Punctuation.TypeParameter.Begin,
                 Token.PrimitiveType.Int,
-                Token.Punctuation.TypeParameters.End,
+                Token.Punctuation.TypeParameter.End,
                 Token.Punctuation.Accessor,
                 Token.Type("Enumerator"),
-                Token.Identifiers.FieldName("x"),
+                Token.Identifier.FieldName("x"),
                 Token.Punctuation.Semicolon]);
         });
 
@@ -251,7 +251,7 @@ describe("Type names", () => {
             tokens.should.deep.equal([
                 Token.PrimitiveType.Int,
                 Token.Punctuation.QuestionMark,
-                Token.Identifiers.FieldName("x"),
+                Token.Identifier.FieldName("x"),
                 Token.Punctuation.Semicolon]);
         });
 
@@ -264,7 +264,7 @@ describe("Type names", () => {
                 Token.Punctuation.OpenBracket,
                 Token.Punctuation.CloseBracket,
                 Token.Punctuation.QuestionMark,
-                Token.Identifiers.FieldName("x"),
+                Token.Identifier.FieldName("x"),
                 Token.Punctuation.Semicolon]);
         });
 
@@ -275,7 +275,7 @@ describe("Type names", () => {
             tokens.should.deep.equal([
                 Token.Keyword.Modifier.Ref,
                 Token.PrimitiveType.Int,
-                Token.Identifiers.LocalName("x"),
+                Token.Identifier.LocalName("x"),
                 Token.Punctuation.Semicolon]);
         });
 
@@ -286,7 +286,7 @@ describe("Type names", () => {
             tokens.should.deep.equal([
                 Token.Keyword.Modifier.Ref,
                 Token.Keyword.Definition.Var,
-                Token.Identifiers.LocalName("x"),
+                Token.Identifier.LocalName("x"),
                 Token.Punctuation.Semicolon]);
         });
 
@@ -295,13 +295,13 @@ describe("Type names", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Variables.ReadWrite("x"),
-                Token.Operators.Assignment,
-                Token.Operators.Expression.New,
+                Token.Variable.ReadWrite("x"),
+                Token.Operator.Assignment,
+                Token.Operator.Expression.New,
                 Token.Type("List"),
-                Token.Punctuation.TypeParameters.Begin,
+                Token.Punctuation.TypeParameter.Begin,
                 Token.PrimitiveType.Int,
-                Token.Punctuation.TypeParameters.End,
+                Token.Punctuation.TypeParameter.End,
                 Token.Punctuation.OpenParen,
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.Semicolon]);
@@ -313,12 +313,12 @@ describe("Type names", () => {
 
             tokens.should.deep.equal([
                 Token.Type("List"),
-                Token.Punctuation.TypeParameters.Begin,
+                Token.Punctuation.TypeParameter.Begin,
                 Token.PrimitiveType.Int,
-                Token.Punctuation.TypeParameters.End,
-                Token.Identifiers.LocalName("x"),
-                Token.Operators.Assignment,
-                Token.Operators.Expression.New,
+                Token.Punctuation.TypeParameter.End,
+                Token.Identifier.LocalName("x"),
+                Token.Operator.Assignment,
+                Token.Operator.Expression.New,
                 Token.Punctuation.OpenParen,
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.Semicolon]);
@@ -329,12 +329,12 @@ describe("Type names", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Variables.ReadWrite("x"),
-                Token.Operators.Assignment,
-                Token.Operators.Expression.New,
+                Token.Variable.ReadWrite("x"),
+                Token.Operator.Assignment,
+                Token.Operator.Expression.New,
                 Token.PrimitiveType.String,
                 Token.Punctuation.OpenBracket,
-                Token.Literals.Numeric.Decimal("4"),
+                Token.Literal.Numeric.Decimal("4"),
                 Token.Punctuation.CloseBracket,
                 Token.Punctuation.Semicolon]);
         });
@@ -344,13 +344,13 @@ describe("Type names", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Variables.ReadWrite("x"),
-                Token.Operators.Assignment,
-                Token.Operators.Expression.New,
+                Token.Variable.ReadWrite("x"),
+                Token.Operator.Assignment,
+                Token.Operator.Expression.New,
                 Token.Punctuation.OpenBrace,
-                Token.Variables.ReadWrite("Length"),
-                Token.Operators.Assignment,
-                Token.Literals.Numeric.Decimal("5"),
+                Token.Variable.ReadWrite("Length"),
+                Token.Operator.Assignment,
+                Token.Literal.Numeric.Decimal("5"),
                 Token.Punctuation.CloseBrace,
                 Token.Punctuation.Semicolon]);
         });

@@ -17,7 +17,7 @@ describe("Interfaces", () => {
 
             tokens.should.deep.equal([
                 Token.Keyword.Definition.Interface,
-                Token.Identifiers.InterfaceName("IFoo"),
+                Token.Identifier.InterfaceName("IFoo"),
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace]);
         });
@@ -33,11 +33,11 @@ interface IBar : IFoo { }
 
             tokens.should.deep.equal([
                 Token.Keyword.Definition.Interface,
-                Token.Identifiers.InterfaceName("IFoo"),
+                Token.Identifier.InterfaceName("IFoo"),
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace,
                 Token.Keyword.Definition.Interface,
-                Token.Identifiers.InterfaceName("IBar"),
+                Token.Identifier.InterfaceName("IBar"),
                 Token.Punctuation.Colon,
                 Token.Type("IFoo"),
                 Token.Punctuation.OpenBrace,
@@ -51,12 +51,12 @@ interface IBar : IFoo { }
 
             tokens.should.deep.equal([
                 Token.Keyword.Definition.Interface,
-                Token.Identifiers.InterfaceName("IFoo"),
-                Token.Punctuation.TypeParameters.Begin,
-                Token.Identifiers.TypeParameterName("T1"),
+                Token.Identifier.InterfaceName("IFoo"),
+                Token.Punctuation.TypeParameter.Begin,
+                Token.Identifier.TypeParameterName("T1"),
                 Token.Punctuation.Comma,
-                Token.Identifiers.TypeParameterName("T2"),
-                Token.Punctuation.TypeParameters.End,
+                Token.Identifier.TypeParameterName("T2"),
+                Token.Punctuation.TypeParameter.End,
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace]);
         });
@@ -68,14 +68,14 @@ interface IBar : IFoo { }
 
             tokens.should.deep.equal([
                 Token.Keyword.Definition.Interface,
-                Token.Identifiers.InterfaceName("IFoo"),
-                Token.Punctuation.TypeParameters.Begin,
+                Token.Identifier.InterfaceName("IFoo"),
+                Token.Punctuation.TypeParameter.Begin,
                 Token.Keyword.Modifier.In,
-                Token.Identifiers.TypeParameterName("T1"),
+                Token.Identifier.TypeParameterName("T1"),
                 Token.Punctuation.Comma,
                 Token.Keyword.Modifier.Out,
-                Token.Identifiers.TypeParameterName("T2"),
-                Token.Punctuation.TypeParameters.End,
+                Token.Identifier.TypeParameterName("T2"),
+                Token.Punctuation.TypeParameter.End,
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace]);
         });
@@ -87,14 +87,14 @@ interface IBar : IFoo { }
 
             tokens.should.deep.equal([
                 Token.Keyword.Definition.Interface,
-                Token.Identifiers.InterfaceName("IFoo"),
-                Token.Punctuation.TypeParameters.Begin,
-                Token.Identifiers.TypeParameterName("T1"),
+                Token.Identifier.InterfaceName("IFoo"),
+                Token.Punctuation.TypeParameter.Begin,
+                Token.Identifier.TypeParameterName("T1"),
                 Token.Punctuation.Comma,
-                Token.Identifiers.TypeParameterName("T2"),
-                Token.Punctuation.TypeParameters.End,
+                Token.Identifier.TypeParameterName("T2"),
+                Token.Punctuation.TypeParameter.End,
                 Token.Keyword.Modifier.Where,
-                Token.Identifiers.TypeParameterName("T1"),
+                Token.Identifier.TypeParameterName("T1"),
                 Token.Punctuation.Colon,
                 Token.Type("T2"),
                 Token.Punctuation.OpenBrace,
