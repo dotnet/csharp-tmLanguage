@@ -16,17 +16,17 @@ describe("Operators", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Modifiers.Static,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Modifier.Static,
                 Token.PrimitiveType.Int,
-                Token.Keywords.Operator,
+                Token.Keyword.Definition.Operator,
                 Token.Identifiers.MethodName("+"),
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Int,
                 Token.Identifiers.ParameterName("value"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Control.Return,
+                Token.Keyword.Flow.Return,
                 Token.Operators.Arithmetic.Addition,
                 Token.Variables.Value,
                 Token.Punctuation.Semicolon,
@@ -39,17 +39,17 @@ describe("Operators", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Modifiers.Static,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Modifier.Static,
                 Token.PrimitiveType.Int,
-                Token.Keywords.Operator,
+                Token.Keyword.Definition.Operator,
                 Token.Identifiers.MethodName("-"),
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Int,
                 Token.Identifiers.ParameterName("value"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Control.Return,
+                Token.Keyword.Flow.Return,
                 Token.Operators.Arithmetic.Subtraction,
                 Token.Variables.Value,
                 Token.Punctuation.Semicolon,
@@ -62,17 +62,17 @@ describe("Operators", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Modifiers.Static,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Modifier.Static,
                 Token.PrimitiveType.Bool,
-                Token.Keywords.Operator,
+                Token.Keyword.Definition.Operator,
                 Token.Identifiers.MethodName("!"),
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Int,
                 Token.Identifiers.ParameterName("value"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Control.Return,
+                Token.Keyword.Flow.Return,
                 Token.Variables.Value,
                 Token.Operators.Relational.Equals,
                 Token.Literals.Numeric.Decimal("0"),
@@ -86,17 +86,17 @@ describe("Operators", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Modifiers.Static,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Modifier.Static,
                 Token.PrimitiveType.Int,
-                Token.Keywords.Operator,
+                Token.Keyword.Definition.Operator,
                 Token.Identifiers.MethodName("~"),
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Int,
                 Token.Identifiers.ParameterName("value"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Control.Return,
+                Token.Keyword.Flow.Return,
                 Token.Operators.Bitwise.BitwiseComplement,
                 Token.Variables.Value,
                 Token.Punctuation.Semicolon,
@@ -109,17 +109,17 @@ describe("Operators", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Modifiers.Static,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Modifier.Static,
                 Token.PrimitiveType.Int,
-                Token.Keywords.Operator,
+                Token.Keyword.Definition.Operator,
                 Token.Identifiers.MethodName("++"),
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Int,
                 Token.Identifiers.ParameterName("value"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Control.Return,
+                Token.Keyword.Flow.Return,
                 Token.Operators.Increment,
                 Token.Variables.Value,
                 Token.Punctuation.Semicolon,
@@ -132,17 +132,17 @@ describe("Operators", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Modifiers.Static,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Modifier.Static,
                 Token.PrimitiveType.Int,
-                Token.Keywords.Operator,
+                Token.Keyword.Definition.Operator,
                 Token.Identifiers.MethodName("--"),
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Int,
                 Token.Identifiers.ParameterName("value"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Control.Return,
+                Token.Keyword.Flow.Return,
                 Token.Operators.Decrement,
                 Token.Variables.Value,
                 Token.Punctuation.Semicolon,
@@ -154,17 +154,17 @@ describe("Operators", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Modifiers.Static,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Modifier.Static,
                 Token.PrimitiveType.Int,
-                Token.Keywords.Operator,
+                Token.Keyword.Definition.Operator,
                 Token.Identifiers.MethodName("true"),
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Int,
                 Token.Identifiers.ParameterName("value"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Control.Return,
+                Token.Keyword.Flow.Return,
                 Token.Variables.Value,
                 Token.Operators.Relational.NotEqual,
                 Token.Literals.Numeric.Decimal("0"),
@@ -178,17 +178,17 @@ describe("Operators", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Modifiers.Static,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Modifier.Static,
                 Token.PrimitiveType.Int,
-                Token.Keywords.Operator,
+                Token.Keyword.Definition.Operator,
                 Token.Identifiers.MethodName("false"),
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Int,
                 Token.Identifiers.ParameterName("value"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Control.Return,
+                Token.Keyword.Flow.Return,
                 Token.Variables.Value,
                 Token.Operators.Relational.Equals,
                 Token.Literals.Numeric.Decimal("0"),
@@ -201,8 +201,8 @@ describe("Operators", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Modifiers.Static,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Modifier.Static,
                 Token.PrimitiveType.Bool,
                 Token.Identifiers.MethodName("operatortrue"),
                 Token.Punctuation.OpenParen,
@@ -210,7 +210,7 @@ describe("Operators", () => {
                 Token.Identifiers.ParameterName("value"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Control.Return,
+                Token.Keyword.Flow.Return,
                 Token.Variables.Value,
                 Token.Operators.Relational.NotEqual,
                 Token.Literals.Numeric.Decimal("0"),
@@ -224,10 +224,10 @@ describe("Operators", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Modifiers.Static,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Modifier.Static,
                 Token.PrimitiveType.Int,
-                Token.Keywords.Operator,
+                Token.Keyword.Definition.Operator,
                 Token.Identifiers.MethodName("+"),
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Int,
@@ -237,7 +237,7 @@ describe("Operators", () => {
                 Token.Identifiers.ParameterName("y"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Control.Return,
+                Token.Keyword.Flow.Return,
                 Token.Variables.ReadWrite("x"),
                 Token.Operators.Arithmetic.Addition,
                 Token.Variables.ReadWrite("y"),
@@ -251,10 +251,10 @@ describe("Operators", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Modifiers.Static,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Modifier.Static,
                 Token.PrimitiveType.Int,
-                Token.Keywords.Operator,
+                Token.Keyword.Definition.Operator,
                 Token.Identifiers.MethodName("-"),
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Int,
@@ -264,7 +264,7 @@ describe("Operators", () => {
                 Token.Identifiers.ParameterName("y"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Control.Return,
+                Token.Keyword.Flow.Return,
                 Token.Variables.ReadWrite("x"),
                 Token.Operators.Arithmetic.Subtraction,
                 Token.Variables.ReadWrite("y"),
@@ -278,10 +278,10 @@ describe("Operators", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Modifiers.Static,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Modifier.Static,
                 Token.PrimitiveType.Int,
-                Token.Keywords.Operator,
+                Token.Keyword.Definition.Operator,
                 Token.Identifiers.MethodName("*"),
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Int,
@@ -291,7 +291,7 @@ describe("Operators", () => {
                 Token.Identifiers.ParameterName("y"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Control.Return,
+                Token.Keyword.Flow.Return,
                 Token.Variables.ReadWrite("x"),
                 Token.Operators.Arithmetic.Multiplication,
                 Token.Variables.ReadWrite("y"),
@@ -305,10 +305,10 @@ describe("Operators", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Modifiers.Static,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Modifier.Static,
                 Token.PrimitiveType.Int,
-                Token.Keywords.Operator,
+                Token.Keyword.Definition.Operator,
                 Token.Identifiers.MethodName("/"),
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Int,
@@ -318,7 +318,7 @@ describe("Operators", () => {
                 Token.Identifiers.ParameterName("y"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Control.Return,
+                Token.Keyword.Flow.Return,
                 Token.Variables.ReadWrite("x"),
                 Token.Operators.Arithmetic.Division,
                 Token.Variables.ReadWrite("y"),
@@ -332,10 +332,10 @@ describe("Operators", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Modifiers.Static,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Modifier.Static,
                 Token.PrimitiveType.Int,
-                Token.Keywords.Operator,
+                Token.Keyword.Definition.Operator,
                 Token.Identifiers.MethodName("%"),
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Int,
@@ -345,7 +345,7 @@ describe("Operators", () => {
                 Token.Identifiers.ParameterName("y"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Control.Return,
+                Token.Keyword.Flow.Return,
                 Token.Variables.ReadWrite("x"),
                 Token.Operators.Arithmetic.Remainder,
                 Token.Variables.ReadWrite("y"),
@@ -359,10 +359,10 @@ describe("Operators", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Modifiers.Static,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Modifier.Static,
                 Token.PrimitiveType.Int,
-                Token.Keywords.Operator,
+                Token.Keyword.Definition.Operator,
                 Token.Identifiers.MethodName("&"),
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Int,
@@ -372,7 +372,7 @@ describe("Operators", () => {
                 Token.Identifiers.ParameterName("y"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Control.Return,
+                Token.Keyword.Flow.Return,
                 Token.Variables.ReadWrite("x"),
                 Token.Operators.Bitwise.And,
                 Token.Variables.ReadWrite("y"),
@@ -386,10 +386,10 @@ describe("Operators", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Modifiers.Static,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Modifier.Static,
                 Token.PrimitiveType.Int,
-                Token.Keywords.Operator,
+                Token.Keyword.Definition.Operator,
                 Token.Identifiers.MethodName("|"),
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Int,
@@ -399,7 +399,7 @@ describe("Operators", () => {
                 Token.Identifiers.ParameterName("y"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Control.Return,
+                Token.Keyword.Flow.Return,
                 Token.Variables.ReadWrite("x"),
                 Token.Operators.Bitwise.Or,
                 Token.Variables.ReadWrite("y"),
@@ -413,10 +413,10 @@ describe("Operators", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Modifiers.Static,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Modifier.Static,
                 Token.PrimitiveType.Int,
-                Token.Keywords.Operator,
+                Token.Keyword.Definition.Operator,
                 Token.Identifiers.MethodName("^"),
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Int,
@@ -426,7 +426,7 @@ describe("Operators", () => {
                 Token.Identifiers.ParameterName("y"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Control.Return,
+                Token.Keyword.Flow.Return,
                 Token.Variables.ReadWrite("x"),
                 Token.Operators.Bitwise.ExclusiveOr,
                 Token.Variables.ReadWrite("y"),
@@ -440,10 +440,10 @@ describe("Operators", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Modifiers.Static,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Modifier.Static,
                 Token.PrimitiveType.Int,
-                Token.Keywords.Operator,
+                Token.Keyword.Definition.Operator,
                 Token.Identifiers.MethodName("<<"),
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Int,
@@ -453,7 +453,7 @@ describe("Operators", () => {
                 Token.Identifiers.ParameterName("y"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Control.Return,
+                Token.Keyword.Flow.Return,
                 Token.Variables.ReadWrite("x"),
                 Token.Operators.Bitwise.ShiftLeft,
                 Token.Variables.ReadWrite("y"),
@@ -467,10 +467,10 @@ describe("Operators", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Modifiers.Static,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Modifier.Static,
                 Token.PrimitiveType.Int,
-                Token.Keywords.Operator,
+                Token.Keyword.Definition.Operator,
                 Token.Identifiers.MethodName(">>"),
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Int,
@@ -480,7 +480,7 @@ describe("Operators", () => {
                 Token.Identifiers.ParameterName("y"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Control.Return,
+                Token.Keyword.Flow.Return,
                 Token.Variables.ReadWrite("x"),
                 Token.Operators.Bitwise.ShiftRight,
                 Token.Variables.ReadWrite("y"),
@@ -493,10 +493,10 @@ describe("Operators", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Modifiers.Static,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Modifier.Static,
                 Token.PrimitiveType.Nuint,
-                Token.Keywords.Operator,
+                Token.Keyword.Definition.Operator,
                 Token.Identifiers.MethodName(">>>"),
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Nuint,
@@ -506,7 +506,7 @@ describe("Operators", () => {
                 Token.Identifiers.ParameterName("y"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Control.Return,
+                Token.Keyword.Flow.Return,
                 Token.Variables.ReadWrite("x"),
                 Token.Operators.Bitwise.ShiftRightUnsigned,
                 Token.Variables.ReadWrite("y"),
@@ -520,10 +520,10 @@ describe("Operators", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Modifiers.Static,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Modifier.Static,
                 Token.PrimitiveType.Bool,
-                Token.Keywords.Operator,
+                Token.Keyword.Definition.Operator,
                 Token.Identifiers.MethodName("=="),
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Int,
@@ -533,7 +533,7 @@ describe("Operators", () => {
                 Token.Identifiers.ParameterName("y"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Control.Return,
+                Token.Keyword.Flow.Return,
                 Token.Variables.ReadWrite("x"),
                 Token.Operators.Relational.Equals,
                 Token.Variables.ReadWrite("y"),
@@ -547,10 +547,10 @@ describe("Operators", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Modifiers.Static,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Modifier.Static,
                 Token.PrimitiveType.Bool,
-                Token.Keywords.Operator,
+                Token.Keyword.Definition.Operator,
                 Token.Identifiers.MethodName("!="),
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Int,
@@ -560,7 +560,7 @@ describe("Operators", () => {
                 Token.Identifiers.ParameterName("y"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Control.Return,
+                Token.Keyword.Flow.Return,
                 Token.Variables.ReadWrite("x"),
                 Token.Operators.Relational.NotEqual,
                 Token.Variables.ReadWrite("y"),
@@ -574,10 +574,10 @@ describe("Operators", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Modifiers.Static,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Modifier.Static,
                 Token.PrimitiveType.Bool,
-                Token.Keywords.Operator,
+                Token.Keyword.Definition.Operator,
                 Token.Identifiers.MethodName(">"),
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Int,
@@ -587,7 +587,7 @@ describe("Operators", () => {
                 Token.Identifiers.ParameterName("y"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Control.Return,
+                Token.Keyword.Flow.Return,
                 Token.Variables.ReadWrite("x"),
                 Token.Operators.Relational.GreaterThan,
                 Token.Variables.ReadWrite("y"),
@@ -601,10 +601,10 @@ describe("Operators", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Modifiers.Static,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Modifier.Static,
                 Token.PrimitiveType.Bool,
-                Token.Keywords.Operator,
+                Token.Keyword.Definition.Operator,
                 Token.Identifiers.MethodName("<"),
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Int,
@@ -614,7 +614,7 @@ describe("Operators", () => {
                 Token.Identifiers.ParameterName("y"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Control.Return,
+                Token.Keyword.Flow.Return,
                 Token.Variables.ReadWrite("x"),
                 Token.Operators.Relational.LessThan,
                 Token.Variables.ReadWrite("y"),
@@ -628,10 +628,10 @@ describe("Operators", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Modifiers.Static,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Modifier.Static,
                 Token.PrimitiveType.Bool,
-                Token.Keywords.Operator,
+                Token.Keyword.Definition.Operator,
                 Token.Identifiers.MethodName(">="),
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Int,
@@ -641,7 +641,7 @@ describe("Operators", () => {
                 Token.Identifiers.ParameterName("y"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Control.Return,
+                Token.Keyword.Flow.Return,
                 Token.Variables.ReadWrite("x"),
                 Token.Operators.Relational.GreaterThanOrEqual,
                 Token.Variables.ReadWrite("y"),
@@ -655,10 +655,10 @@ describe("Operators", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Modifiers.Static,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Modifier.Static,
                 Token.PrimitiveType.Bool,
-                Token.Keywords.Operator,
+                Token.Keyword.Definition.Operator,
                 Token.Identifiers.MethodName("<="),
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Int,
@@ -668,7 +668,7 @@ describe("Operators", () => {
                 Token.Identifiers.ParameterName("y"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Control.Return,
+                Token.Keyword.Flow.Return,
                 Token.Variables.ReadWrite("x"),
                 Token.Operators.Relational.LessThanOrEqual,
                 Token.Variables.ReadWrite("y"),
@@ -682,17 +682,17 @@ describe("Operators", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Modifiers.Static,
-                Token.Keywords.Implicit,
-                Token.Keywords.Operator,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Modifier.Static,
+                Token.Keyword.Modifier.Implicit,
+                Token.Keyword.Definition.Operator,
                 Token.PrimitiveType.Bool,
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Int,
                 Token.Identifiers.ParameterName("x"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Control.Return,
+                Token.Keyword.Flow.Return,
                 Token.Variables.ReadWrite("x"),
                 Token.Operators.Relational.NotEqual,
                 Token.Literals.Numeric.Decimal("0"),
@@ -706,17 +706,17 @@ describe("Operators", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Modifiers.Static,
-                Token.Keywords.Explicit,
-                Token.Keywords.Operator,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Modifier.Static,
+                Token.Keyword.Modifier.Explicit,
+                Token.Keyword.Definition.Operator,
                 Token.PrimitiveType.Bool,
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Int,
                 Token.Identifiers.ParameterName("x"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Control.Return,
+                Token.Keyword.Flow.Return,
                 Token.Variables.ReadWrite("x"),
                 Token.Operators.Relational.NotEqual,
                 Token.Literals.Numeric.Decimal("0"),
@@ -730,10 +730,10 @@ describe("Operators", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Modifiers.Static,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Modifier.Static,
                 Token.PrimitiveType.Int,
-                Token.Keywords.Operator,
+                Token.Keyword.Definition.Operator,
                 Token.Identifiers.MethodName("+"),
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Int,
@@ -750,19 +750,19 @@ describe("Operators", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Modifiers.Static,
-                Token.Keywords.Modifiers.Ref,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Modifier.Static,
+                Token.Keyword.Modifier.Ref,
                 Token.PrimitiveType.Int,
-                Token.Keywords.Operator,
+                Token.Keyword.Definition.Operator,
                 Token.Identifiers.MethodName("+"),
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Int,
                 Token.Identifiers.ParameterName("value"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Control.Return,
-                Token.Keywords.Modifiers.Ref,
+                Token.Keyword.Flow.Return,
+                Token.Keyword.Modifier.Ref,
                 Token.Variables.ReadWrite("x"),
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace]);
@@ -773,20 +773,20 @@ describe("Operators", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Modifiers.Static,
-                Token.Keywords.Modifiers.Ref,
-                Token.Keywords.Modifiers.ReadOnly,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Modifier.Static,
+                Token.Keyword.Modifier.Ref,
+                Token.Keyword.Modifier.ReadOnly,
                 Token.PrimitiveType.Int,
-                Token.Keywords.Operator,
+                Token.Keyword.Definition.Operator,
                 Token.Identifiers.MethodName("+"),
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Int,
                 Token.Identifiers.ParameterName("value"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Control.Return,
-                Token.Keywords.Modifiers.Ref,
+                Token.Keyword.Flow.Return,
+                Token.Keyword.Modifier.Ref,
                 Token.Variables.ReadWrite("x"),
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace]);
@@ -797,18 +797,18 @@ describe("Operators", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Modifiers.Static,
-                Token.Keywords.Modifiers.Ref,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Modifier.Static,
+                Token.Keyword.Modifier.Ref,
                 Token.PrimitiveType.Int,
-                Token.Keywords.Operator,
+                Token.Keyword.Definition.Operator,
                 Token.Identifiers.MethodName("+"),
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Int,
                 Token.Identifiers.ParameterName("value"),
                 Token.Punctuation.CloseParen,
                 Token.Operators.Arrow,
-                Token.Keywords.Modifiers.Ref,
+                Token.Keyword.Modifier.Ref,
                 Token.Variables.ReadWrite("x"),
                 Token.Punctuation.Semicolon]);
         });
@@ -818,19 +818,19 @@ describe("Operators", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Modifiers.Static,
-                Token.Keywords.Modifiers.Ref,
-                Token.Keywords.Modifiers.ReadOnly,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Modifier.Static,
+                Token.Keyword.Modifier.Ref,
+                Token.Keyword.Modifier.ReadOnly,
                 Token.PrimitiveType.Int,
-                Token.Keywords.Operator,
+                Token.Keyword.Definition.Operator,
                 Token.Identifiers.MethodName("+"),
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Int,
                 Token.Identifiers.ParameterName("value"),
                 Token.Punctuation.CloseParen,
                 Token.Operators.Arrow,
-                Token.Keywords.Modifiers.Ref,
+                Token.Keyword.Modifier.Ref,
                 Token.Variables.ReadWrite("x"),
                 Token.Punctuation.Semicolon]);
         });

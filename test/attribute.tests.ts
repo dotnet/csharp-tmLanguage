@@ -28,7 +28,7 @@ describe("Attributes", () => {
 
             tokens.should.deep.equal([
                 Token.Punctuation.OpenBracket,
-                Token.Keywords.AttributeSpecifier("assembly"),
+                Token.Keyword.AttributeSpecifier("assembly"),
                 Token.Punctuation.Colon,
                 Token.Type("Foo"),
                 Token.Punctuation.CloseBracket]);
@@ -41,7 +41,7 @@ describe("Attributes", () => {
 
             tokens.should.deep.equal([
                 Token.Punctuation.OpenBracket,
-                Token.Keywords.AttributeSpecifier("module"),
+                Token.Keyword.AttributeSpecifier("module"),
                 Token.Punctuation.Colon,
                 Token.Type("Foo"),
                 Token.Punctuation.Comma,
@@ -56,7 +56,7 @@ describe("Attributes", () => {
 
             tokens.should.deep.equal([
                 Token.Punctuation.OpenBracket,
-                Token.Keywords.AttributeSpecifier("module"),
+                Token.Keyword.AttributeSpecifier("module"),
                 Token.Punctuation.Colon,
                 Token.Type("Foo"),
                 Token.Punctuation.OpenParen,
@@ -159,7 +159,7 @@ describe("Attributes", () => {
 
             tokens.should.deep.equal([
                 Token.Punctuation.OpenBracket,
-                Token.Keywords.AttributeSpecifier("module"),
+                Token.Keyword.AttributeSpecifier("module"),
                 Token.Punctuation.Colon,
                 Token.Type("Foo"),
                 Token.Punctuation.OpenParen,

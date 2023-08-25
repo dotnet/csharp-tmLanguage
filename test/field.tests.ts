@@ -24,17 +24,17 @@ private List field123;`);
                 Token.Identifiers.FieldName("file"),
                 Token.Punctuation.Semicolon,
 
-                Token.Keywords.Modifiers.Private,
+                Token.Keyword.Modifier.Private,
                 Token.Type("List"),
                 Token.Identifiers.FieldName("_field"),
                 Token.Punctuation.Semicolon,
 
-                Token.Keywords.Modifiers.Private,
+                Token.Keyword.Modifier.Private,
                 Token.Type("List"),
                 Token.Identifiers.FieldName("field"),
                 Token.Punctuation.Semicolon,
 
-                Token.Keywords.Modifiers.Private,
+                Token.Keyword.Modifier.Private,
                 Token.Type("List"),
                 Token.Identifiers.FieldName("field123"),
                 Token.Punctuation.Semicolon]);
@@ -45,7 +45,7 @@ private List field123;`);
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Private,
+                Token.Keyword.Modifier.Private,
                 Token.Type("Dictionary"),
                 Token.Punctuation.TypeParameters.Begin,
                 Token.Type("List"),
@@ -75,14 +75,14 @@ required int _field4;`);
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Private,
-                Token.Keywords.Modifiers.Static,
-                Token.Keywords.Modifiers.ReadOnly,
+                Token.Keyword.Modifier.Private,
+                Token.Keyword.Modifier.Static,
+                Token.Keyword.Modifier.ReadOnly,
                 Token.Type("List"),
                 Token.Identifiers.FieldName("_field"),
                 Token.Punctuation.Semicolon,
 
-                Token.Keywords.Modifiers.ReadOnly,
+                Token.Keyword.Modifier.ReadOnly,
                 Token.PrimitiveType.String,
                 Token.Identifiers.FieldName("_field2"),
                 Token.Punctuation.Semicolon,
@@ -91,7 +91,7 @@ required int _field4;`);
                 Token.Identifiers.FieldName("_field3"),
                 Token.Punctuation.Semicolon,
 
-                Token.Keywords.Modifiers.Required,
+                Token.Keyword.Modifier.Required,
                 Token.PrimitiveType.Int,
                 Token.Identifiers.FieldName("_field4"),
                 Token.Punctuation.Semicolon]);
@@ -124,7 +124,7 @@ const   bool   field = true;`);
             let tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Private,
+                Token.Keyword.Modifier.Private,
                 Token.PrimitiveType.String,
                 Token.Identifiers.FieldName("field"),
                 Token.Operators.Assignment,
@@ -133,7 +133,7 @@ const   bool   field = true;`);
                 Token.Punctuation.String.End,
                 Token.Punctuation.Semicolon,
 
-                Token.Keywords.Modifiers.Const,
+                Token.Keyword.Modifier.Const,
                 Token.PrimitiveType.Bool,
                 Token.Identifiers.FieldName("field"),
                 Token.Operators.Assignment,
@@ -180,7 +180,7 @@ const   bool   field = true;`);
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Private,
+                Token.Keyword.Modifier.Private,
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Int,
                 Token.Punctuation.Comma,
@@ -211,7 +211,7 @@ const   bool   field = true;`);
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Private,
+                Token.Keyword.Modifier.Private,
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Int,
                 Token.Identifiers.TupleElementName("x"),
@@ -231,13 +231,13 @@ private UnityEngine.UI.Image[] selectedImages;
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Private,
+                Token.Keyword.Modifier.Private,
                 Token.Type("CanvasGroup"),
                 Token.Punctuation.OpenBracket,
                 Token.Punctuation.CloseBracket,
                 Token.Identifiers.FieldName("groups"),
                 Token.Punctuation.Semicolon,
-                Token.Keywords.Modifiers.Private,
+                Token.Keyword.Modifier.Private,
                 Token.Type("UnityEngine"),
                 Token.Punctuation.Accessor,
                 Token.Type("UI"),
@@ -263,8 +263,8 @@ private readonly Dictionary<string, int> languageToIndex = new Dictionary<string
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Private,
-                Token.Keywords.Modifiers.ReadOnly,
+                Token.Keyword.Modifier.Private,
+                Token.Keyword.Modifier.ReadOnly,
                 Token.Type("Dictionary"),
                 Token.Punctuation.TypeParameters.Begin,
                 Token.PrimitiveType.String,
@@ -273,7 +273,7 @@ private readonly Dictionary<string, int> languageToIndex = new Dictionary<string
                 Token.Punctuation.TypeParameters.End,
                 Token.Identifiers.FieldName("languageToIndex"),
                 Token.Operators.Assignment,
-                Token.Keywords.New,
+                Token.Operators.Expression.New,
                 Token.Type("Dictionary"),
                 Token.Punctuation.TypeParameters.Begin,
                 Token.PrimitiveType.String,
@@ -327,8 +327,8 @@ private readonly string initSportMessageFormatString = "line1"
             let tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Private,
-                Token.Keywords.Modifiers.ReadOnly,
+                Token.Keyword.Modifier.Private,
+                Token.Keyword.Modifier.ReadOnly,
                 Token.PrimitiveType.String,
                 Token.Identifiers.FieldName("initSportMessageFormatString"),
                 Token.Operators.Assignment,
@@ -358,7 +358,7 @@ class C
             let tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Class,
+                Token.Keyword.Definition.Class,
                 Token.Identifiers.ClassName("C"),
                 Token.Punctuation.OpenBrace,
                 Token.Type("List"),
@@ -367,7 +367,7 @@ class C
                 Token.Punctuation.TypeParameters.End,
                 Token.Identifiers.FieldName("f"),
                 Token.Operators.Assignment,
-                Token.Keywords.New,
+                Token.Operators.Expression.New,
                 Token.Type("List"),
                 Token.Punctuation.TypeParameters.Begin,
                 Token.Type("Action"),
@@ -381,7 +381,7 @@ class C
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.CloseBrace,
                 Token.Punctuation.Semicolon,
-                Token.Keywords.Modifiers.Public,
+                Token.Keyword.Modifier.Public,
                 Token.Identifiers.MethodName("C"),
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Int,

@@ -128,7 +128,7 @@ world */`;
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Var,
+                Token.Keyword.Definition.Var,
                 Token.Identifiers.LocalName("s"),
                 Token.Operators.Assignment,
                 Token.Punctuation.String.Begin,
@@ -142,7 +142,7 @@ world */`;
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Var,
+                Token.Keyword.Definition.Var,
                 Token.Identifiers.LocalName("s"),
                 Token.Operators.Assignment,
                 Token.Punctuation.String.Begin,
@@ -158,7 +158,7 @@ private char GetChar()//Метод возвращающий
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Private,
+                Token.Keyword.Modifier.Private,
                 Token.PrimitiveType.Char,
                 Token.Identifiers.MethodName("GetChar"),
                 Token.Punctuation.OpenParen,
@@ -176,8 +176,8 @@ public class CustomBootstrapper // : DefaultNancyBootstrapper
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Class,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Definition.Class,
                 Token.Identifiers.ClassName("CustomBootstrapper"),
                 Token.Comment.SingleLine.Start,
                 Token.Comment.SingleLine.Text(" : DefaultNancyBootstrapper"),
@@ -194,8 +194,8 @@ public class CustomBootstrapper /* : DefaultNancyBootstrapper */
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Class,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Definition.Class,
                 Token.Identifiers.ClassName("CustomBootstrapper"),
                 Token.Comment.MultiLine.Start,
                 Token.Comment.MultiLine.Text(" : DefaultNancyBootstrapper "),
@@ -213,8 +213,8 @@ public interface CustomBootstrapper // : DefaultNancyBootstrapper
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Interface,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Definition.Interface,
                 Token.Identifiers.InterfaceName("CustomBootstrapper"),
                 Token.Comment.SingleLine.Start,
                 Token.Comment.SingleLine.Text(" : DefaultNancyBootstrapper"),
@@ -231,8 +231,8 @@ public interface CustomBootstrapper /* : DefaultNancyBootstrapper */
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Interface,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Definition.Interface,
                 Token.Identifiers.InterfaceName("CustomBootstrapper"),
                 Token.Comment.MultiLine.Start,
                 Token.Comment.MultiLine.Text(" : DefaultNancyBootstrapper "),
@@ -250,8 +250,8 @@ public struct CustomBootstrapper // : DefaultNancyBootstrapper
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Struct,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Definition.Struct,
                 Token.Identifiers.StructName("CustomBootstrapper"),
                 Token.Comment.SingleLine.Start,
                 Token.Comment.SingleLine.Text(" : DefaultNancyBootstrapper"),
@@ -268,8 +268,8 @@ public struct CustomBootstrapper /* : DefaultNancyBootstrapper */
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Struct,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Definition.Struct,
                 Token.Identifiers.StructName("CustomBootstrapper"),
                 Token.Comment.MultiLine.Start,
                 Token.Comment.MultiLine.Text(" : DefaultNancyBootstrapper "),
@@ -287,8 +287,8 @@ public enum CustomBootstrapper // : byte
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Enum,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Definition.Enum,
                 Token.Identifiers.EnumName("CustomBootstrapper"),
                 Token.Comment.SingleLine.Start,
                 Token.Comment.SingleLine.Text(" : byte"),
@@ -305,8 +305,8 @@ public enum CustomBootstrapper /* : byte */
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Enum,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Definition.Enum,
                 Token.Identifiers.EnumName("CustomBootstrapper"),
                 Token.Comment.MultiLine.Start,
                 Token.Comment.MultiLine.Text(" : byte "),
@@ -327,15 +327,15 @@ int P {
                 Token.PrimitiveType.Int,
                 Token.Identifiers.PropertyName("P"),
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Get,
+                Token.Keyword.Definition.Get,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Control.Return,
+                Token.Keyword.Flow.Return,
                 Token.Literals.Numeric.Decimal("42"),
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace,
                 Token.Comment.SingleLine.Start,
                 Token.Comment.SingleLine.Text(" comment1"),
-                Token.Keywords.Set,
+                Token.Keyword.Definition.Set,
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace,
                 Token.Comment.SingleLine.Start,
@@ -352,16 +352,16 @@ event EventHandler E {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Event,
+                Token.Keyword.Definition.Event,
                 Token.Type("EventHandler"),
                 Token.Identifiers.EventName("E"),
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Add,
+                Token.Keyword.Definition.Add,
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace,
                 Token.Comment.SingleLine.Start,
                 Token.Comment.SingleLine.Text(" comment1"),
-                Token.Keywords.Remove,
+                Token.Keyword.Definition.Remove,
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace,
                 Token.Comment.SingleLine.Start,
@@ -381,12 +381,12 @@ finally
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Control.Try,
+                Token.Keyword.Exception.Try,
                 Token.Comment.SingleLine.Start,
                 Token.Comment.SingleLine.Text("comment"),
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace,
-                Token.Keywords.Control.Finally,
+                Token.Keyword.Exception.Finally,
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace]);
         });
@@ -403,10 +403,10 @@ finally //comment
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Control.Try,
+                Token.Keyword.Exception.Try,
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace,
-                Token.Keywords.Control.Finally,
+                Token.Keyword.Exception.Finally,
                 Token.Comment.SingleLine.Start,
                 Token.Comment.SingleLine.Text("comment"),
                 Token.Punctuation.OpenBrace,
@@ -425,10 +425,10 @@ catch //comment
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Control.Try,
+                Token.Keyword.Exception.Try,
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace,
-                Token.Keywords.Control.Catch,
+                Token.Keyword.Exception.Catch,
                 Token.Comment.SingleLine.Start,
                 Token.Comment.SingleLine.Text("comment"),
                 Token.Punctuation.OpenBrace,
@@ -447,10 +447,10 @@ catch (Exception) //comment
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Control.Try,
+                Token.Keyword.Exception.Try,
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace,
-                Token.Keywords.Control.Catch,
+                Token.Keyword.Exception.Catch,
                 Token.Punctuation.OpenParen,
                 Token.Type("Exception"),
                 Token.Punctuation.CloseParen,
@@ -472,15 +472,15 @@ catch (DataNotFoundException dnfe) when (dnfe.GetType() == typeof(DataNotFoundEx
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Control.Try,
+                Token.Keyword.Exception.Try,
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace,
-                Token.Keywords.Control.Catch,
+                Token.Keyword.Exception.Catch,
                 Token.Punctuation.OpenParen,
                 Token.Type("DataNotFoundException"),
                 Token.Identifiers.LocalName("dnfe"),
                 Token.Punctuation.CloseParen,
-                Token.Keywords.Control.When,
+                Token.Keyword.Conditional.When,
                 Token.Punctuation.OpenParen,
                 Token.Variables.Object("dnfe"),
                 Token.Punctuation.Accessor,
@@ -488,7 +488,7 @@ catch (DataNotFoundException dnfe) when (dnfe.GetType() == typeof(DataNotFoundEx
                 Token.Punctuation.OpenParen,
                 Token.Punctuation.CloseParen,
                 Token.Operators.Relational.Equals,
-                Token.Keywords.TypeOf,
+                Token.Operators.Expression.TypeOf,
                 Token.Punctuation.OpenParen,
                 Token.Type("DataNotFoundException"),
                 Token.Punctuation.CloseParen,
@@ -508,7 +508,7 @@ checked //comment
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Checked,
+                Token.Keyword.Context.Checked,
                 Token.Comment.SingleLine.Start,
                 Token.Comment.SingleLine.Text("comment"),
                 Token.Punctuation.OpenBrace,
@@ -524,7 +524,7 @@ unchecked //comment
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Unchecked,
+                Token.Keyword.Context.Unchecked,
                 Token.Comment.SingleLine.Start,
                 Token.Comment.SingleLine.Text("comment"),
                 Token.Punctuation.OpenBrace,
@@ -539,27 +539,27 @@ public Emotion Feeling { get; set; }
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
+                Token.Keyword.Modifier.Public,
                 Token.Type("List"),
                 Token.Punctuation.TypeParameters.Begin,
                 Token.Type("Guid"),
                 Token.Punctuation.TypeParameters.End,
                 Token.Identifiers.PropertyName("Associations"),
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Get,
+                Token.Keyword.Definition.Get,
                 Token.Punctuation.Semicolon,
-                Token.Keywords.Set,
+                Token.Keyword.Definition.Set,
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace,
                 Token.Comment.SingleLine.Start,
                 Token.Comment.SingleLine.Text("enum"),
-                Token.Keywords.Modifiers.Public,
+                Token.Keyword.Modifier.Public,
                 Token.Type("Emotion"),
                 Token.Identifiers.PropertyName("Feeling"),
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Get,
+                Token.Keyword.Definition.Get,
                 Token.Punctuation.Semicolon,
-                Token.Keywords.Set,
+                Token.Keyword.Definition.Set,
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace]);
         });
@@ -581,24 +581,24 @@ public string Baz { get; set; }
                 Token.Comment.SingleLine.Text(` of the file.  Adding or removing any characters in "event" such that`),
                 Token.Comment.SingleLine.Start,
                 Token.Comment.SingleLine.Text(` it no longer matches \bevent\b will restore highlighting.`),
-                Token.Keywords.Modifiers.Public,
+                Token.Keyword.Modifier.Public,
                 Token.PrimitiveType.String,
                 Token.Identifiers.PropertyName("Bar"),
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Get,
+                Token.Keyword.Definition.Get,
                 Token.Punctuation.Semicolon,
-                Token.Keywords.Set,
+                Token.Keyword.Definition.Set,
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace,
                 Token.Comment.SingleLine.Start,
                 Token.Comment.SingleLine.Text(" comment comment event comment"),
-                Token.Keywords.Modifiers.Public,
+                Token.Keyword.Modifier.Public,
                 Token.PrimitiveType.String,
                 Token.Identifiers.PropertyName("Baz"),
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Get,
+                Token.Keyword.Definition.Get,
                 Token.Punctuation.Semicolon,
-                Token.Keywords.Set,
+                Token.Keyword.Definition.Set,
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace]);
         });
@@ -619,25 +619,25 @@ public string Baz { get; set; }
                 Token.Comment.MultiLine.Text(`   of the file.  Adding or removing any characters in "event" such that`),
                 Token.Comment.MultiLine.Text(`   it no longer matches \bevent\b will restore highlighting. `),
                 Token.Comment.MultiLine.End,
-                Token.Keywords.Modifiers.Public,
+                Token.Keyword.Modifier.Public,
                 Token.PrimitiveType.String,
                 Token.Identifiers.PropertyName("Bar"),
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Get,
+                Token.Keyword.Definition.Get,
                 Token.Punctuation.Semicolon,
-                Token.Keywords.Set,
+                Token.Keyword.Definition.Set,
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace,
                 Token.Comment.MultiLine.Start,
                 Token.Comment.MultiLine.Text(" comment comment event comment "),
                 Token.Comment.MultiLine.End,
-                Token.Keywords.Modifiers.Public,
+                Token.Keyword.Modifier.Public,
                 Token.PrimitiveType.String,
                 Token.Identifiers.PropertyName("Baz"),
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Get,
+                Token.Keyword.Definition.Get,
                 Token.Punctuation.Semicolon,
-                Token.Keywords.Set,
+                Token.Keyword.Definition.Set,
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace]);
         });
@@ -652,15 +652,15 @@ public struct MyPoco
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Struct,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Definition.Struct,
                 Token.Identifiers.StructName("MyPoco"),
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Modifiers.Public,
+                Token.Keyword.Modifier.Public,
                 Token.Type("ETag"),
                 Token.Identifiers.PropertyName("Tag"),
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Get,
+                Token.Keyword.Definition.Get,
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace,
                 Token.Comment.MultiLine.Start,

@@ -40,58 +40,58 @@ public    abstract record PublicAbstractRecord { }
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Modifiers.Public,
-                    Token.Keywords.Record,
+                    Token.Keyword.Modifier.Public,
+                    Token.Keyword.Definition.Record,
                     Token.Identifiers.ClassName("PublicRecord"),
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
 
-                    Token.Keywords.Record,
+                    Token.Keyword.Definition.Record,
                     Token.Identifiers.ClassName("DefaultRecord"),
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
 
-                    Token.Keywords.Modifiers.Internal,
-                    Token.Keywords.Record,
+                    Token.Keyword.Modifier.Internal,
+                    Token.Keyword.Definition.Record,
                     Token.Identifiers.ClassName("InternalRecord"),
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
 
-                    Token.Keywords.Modifiers.Static,
-                    Token.Keywords.Record,
+                    Token.Keyword.Modifier.Static,
+                    Token.Keyword.Definition.Record,
                     Token.Identifiers.ClassName("DefaultStaticRecord"),
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
 
-                    Token.Keywords.Modifiers.Public,
-                    Token.Keywords.Modifiers.Static,
-                    Token.Keywords.Record,
+                    Token.Keyword.Modifier.Public,
+                    Token.Keyword.Modifier.Static,
+                    Token.Keyword.Definition.Record,
                     Token.Identifiers.ClassName("PublicStaticRecord"),
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
 
-                    Token.Keywords.Modifiers.Sealed,
-                    Token.Keywords.Record,
+                    Token.Keyword.Modifier.Sealed,
+                    Token.Keyword.Definition.Record,
                     Token.Identifiers.ClassName("DefaultSealedRecord"),
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
 
-                    Token.Keywords.Modifiers.Public,
-                    Token.Keywords.Modifiers.Sealed,
-                    Token.Keywords.Record,
+                    Token.Keyword.Modifier.Public,
+                    Token.Keyword.Modifier.Sealed,
+                    Token.Keyword.Definition.Record,
                     Token.Identifiers.ClassName("PublicSealedRecord"),
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
 
-                    Token.Keywords.Modifiers.Public,
-                    Token.Keywords.Modifiers.Abstract,
-                    Token.Keywords.Record,
+                    Token.Keyword.Modifier.Public,
+                    Token.Keyword.Modifier.Abstract,
+                    Token.Keyword.Definition.Record,
                     Token.Identifiers.ClassName("PublicAbstractRecord"),
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
 
-                    Token.Keywords.Modifiers.Abstract,
-                    Token.Keywords.Record,
+                    Token.Keyword.Modifier.Abstract,
+                    Token.Keyword.Definition.Record,
                     Token.Identifiers.ClassName("DefaultAbstractRecord"),
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace]);
@@ -103,7 +103,7 @@ public    abstract record PublicAbstractRecord { }
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Record,
+                    Token.Keyword.Definition.Record,
                     Token.Identifiers.ClassName("Dictionary"),
                     Token.Punctuation.TypeParameters.Begin,
                     Token.Identifiers.TypeParameterName("TKey"),
@@ -124,7 +124,7 @@ record PublicRecord<T> : Dictionary<T, Dictionary<string, string>>, IMap<T, Dict
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Record,
+                    Token.Keyword.Definition.Record,
                     Token.Identifiers.ClassName("PublicRecord"),
                     Token.Punctuation.Colon,
                     Token.Type("IInterface"),
@@ -133,7 +133,7 @@ record PublicRecord<T> : Dictionary<T, Dictionary<string, string>>, IMap<T, Dict
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
 
-                    Token.Keywords.Record,
+                    Token.Keyword.Definition.Record,
                     Token.Identifiers.ClassName("PublicRecord"),
                     Token.Punctuation.TypeParameters.Begin,
                     Token.Identifiers.TypeParameterName("T"),
@@ -154,7 +154,7 @@ record PublicRecord<T> : Dictionary<T, Dictionary<string, string>>, IMap<T, Dict
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
 
-                    Token.Keywords.Record,
+                    Token.Keyword.Definition.Record,
                     Token.Identifiers.ClassName("PublicRecord"),
                     Token.Punctuation.TypeParameters.Begin,
                     Token.Identifiers.TypeParameterName("T"),
@@ -199,19 +199,19 @@ record PublicRecord<T, X> : Dictionary<T, List<string>[]>, ISomething
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Record,
+                    Token.Keyword.Definition.Record,
                     Token.Identifiers.ClassName("PublicRecord"),
                     Token.Punctuation.TypeParameters.Begin,
                     Token.Identifiers.TypeParameterName("T"),
                     Token.Punctuation.TypeParameters.End,
-                    Token.Keywords.Where,
+                    Token.Keyword.Modifier.Where,
                     Token.Identifiers.TypeParameterName("T"),
                     Token.Punctuation.Colon,
                     Token.Type("ISomething"),
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
 
-                    Token.Keywords.Record,
+                    Token.Keyword.Definition.Record,
                     Token.Identifiers.ClassName("PublicRecord"),
                     Token.Punctuation.TypeParameters.Begin,
                     Token.Identifiers.TypeParameterName("T"),
@@ -232,18 +232,18 @@ record PublicRecord<T, X> : Dictionary<T, List<string>[]>, ISomething
                     Token.Punctuation.TypeParameters.End,
                     Token.Punctuation.Comma,
                     Token.Type("ISomething"),
-                    Token.Keywords.Where,
+                    Token.Keyword.Modifier.Where,
                     Token.Identifiers.TypeParameterName("T"),
                     Token.Punctuation.Colon,
                     Token.Type("ICar"),
                     Token.Punctuation.Comma,
-                    Token.Keywords.New,
+                    Token.Operators.Expression.New,
                     Token.Punctuation.OpenParen,
                     Token.Punctuation.CloseParen,
-                    Token.Keywords.Where,
+                    Token.Keyword.Modifier.Where,
                     Token.Identifiers.TypeParameterName("X"),
                     Token.Punctuation.Colon,
-                    Token.Keywords.Struct,
+                    Token.Keyword.Definition.Struct,
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace]);
             });
@@ -261,11 +261,11 @@ record Klass
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Record,
+                    Token.Keyword.Definition.Record,
                     Token.Identifiers.ClassName("Klass"),
                     Token.Punctuation.OpenBrace,
 
-                    Token.Keywords.Record,
+                    Token.Keyword.Definition.Record,
                     Token.Identifiers.ClassName("Nested"),
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
@@ -286,12 +286,12 @@ record Klass
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Record,
+                    Token.Keyword.Definition.Record,
                     Token.Identifiers.ClassName("Klass"),
                     Token.Punctuation.OpenBrace,
 
-                    Token.Keywords.Modifiers.Public,
-                    Token.Keywords.Record,
+                    Token.Keyword.Modifier.Public,
+                    Token.Keyword.Definition.Record,
                     Token.Identifiers.ClassName("Nested"),
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
@@ -307,8 +307,8 @@ unsafe record C
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Modifiers.Unsafe,
-                    Token.Keywords.Record,
+                    Token.Keyword.Modifier.Unsafe,
+                    Token.Keyword.Definition.Record,
                     Token.Identifiers.ClassName("C"),
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace]);
@@ -323,7 +323,7 @@ record Person2(string name, int age) { }`
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Record,
+                    Token.Keyword.Definition.Record,
                     Token.Identifiers.ClassName("Person"),
                     Token.Punctuation.OpenParen,
                     Token.PrimitiveType.String,
@@ -333,7 +333,7 @@ record Person2(string name, int age) { }`
                     Token.Identifiers.ParameterName("age"),
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.Semicolon,
-                    Token.Keywords.Record,
+                    Token.Keyword.Definition.Record,
                     Token.Identifiers.ClassName("Person2"),
                     Token.Punctuation.OpenParen,
                     Token.PrimitiveType.String,
@@ -355,8 +355,8 @@ record class Person2(string name, int age) { }`
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Record,
-                    Token.Keywords.Class,
+                    Token.Keyword.Definition.Record,
+                    Token.Keyword.Definition.Class,
                     Token.Identifiers.ClassName("Person"),
                     Token.Punctuation.OpenParen,
                     Token.PrimitiveType.String,
@@ -366,8 +366,8 @@ record class Person2(string name, int age) { }`
                     Token.Identifiers.ParameterName("age"),
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.Semicolon,
-                    Token.Keywords.Record,
-                    Token.Keywords.Class,
+                    Token.Keyword.Definition.Record,
+                    Token.Keyword.Definition.Class,
                     Token.Identifiers.ClassName("Person2"),
                     Token.Punctuation.OpenParen,
                     Token.PrimitiveType.String,
@@ -389,8 +389,8 @@ record struct Person2(string name, int age) { }`
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Record,
-                    Token.Keywords.Struct,
+                    Token.Keyword.Definition.Record,
+                    Token.Keyword.Definition.Struct,
                     Token.Identifiers.StructName("Person"),
                     Token.Punctuation.OpenParen,
                     Token.PrimitiveType.String,
@@ -400,8 +400,8 @@ record struct Person2(string name, int age) { }`
                     Token.Identifiers.ParameterName("age"),
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.Semicolon,
-                    Token.Keywords.Record,
-                    Token.Keywords.Struct,
+                    Token.Keyword.Definition.Record,
+                    Token.Keyword.Definition.Struct,
                     Token.Identifiers.StructName("Person2"),
                     Token.Punctuation.OpenParen,
                     Token.PrimitiveType.String,

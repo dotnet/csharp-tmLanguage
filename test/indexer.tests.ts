@@ -21,7 +21,7 @@ public string this[int index]
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
+                Token.Keyword.Modifier.Public,
                 Token.PrimitiveType.String,
                 Token.Variables.This,
                 Token.Punctuation.OpenBracket,
@@ -29,9 +29,9 @@ public string this[int index]
                 Token.Identifiers.ParameterName("index"),
                 Token.Punctuation.CloseBracket,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Get,
+                Token.Keyword.Definition.Get,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Control.Return,
+                Token.Keyword.Flow.Return,
                 Token.Variables.Object("index"),
                 Token.Punctuation.Accessor,
                 Token.Identifiers.MethodName("ToString"),
@@ -75,9 +75,9 @@ public string this[int index]
                 Token.Identifiers.ParameterName("index"),
                 Token.Punctuation.CloseBracket,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Get,
+                Token.Keyword.Definition.Get,
                 Token.Punctuation.Semicolon,
-                Token.Keywords.Set,
+                Token.Keyword.Definition.Set,
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace]);
         });
@@ -95,7 +95,7 @@ public string this[int index]
                 Token.Identifiers.ParameterName("index"),
                 Token.Punctuation.CloseBracket,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Get,
+                Token.Keyword.Definition.Get,
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace]);
         });
@@ -113,7 +113,7 @@ public string this[int index]
                 Token.Identifiers.ParameterName("index"),
                 Token.Punctuation.CloseBracket,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Set,
+                Token.Keyword.Definition.Set,
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace]);
         });
@@ -143,7 +143,7 @@ int this[string p = null] { }
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Ref,
+                Token.Keyword.Modifier.Ref,
                 Token.PrimitiveType.Int,
                 Token.Variables.This,
                 Token.Punctuation.OpenBracket,
@@ -151,7 +151,7 @@ int this[string p = null] { }
                 Token.Identifiers.ParameterName("index"),
                 Token.Punctuation.CloseBracket,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Get,
+                Token.Keyword.Definition.Get,
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace]);
         });
@@ -161,8 +161,8 @@ int this[string p = null] { }
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Ref,
-                Token.Keywords.Modifiers.ReadOnly,
+                Token.Keyword.Modifier.Ref,
+                Token.Keyword.Modifier.ReadOnly,
                 Token.PrimitiveType.Int,
                 Token.Variables.This,
                 Token.Punctuation.OpenBracket,
@@ -170,7 +170,7 @@ int this[string p = null] { }
                 Token.Identifiers.ParameterName("index"),
                 Token.Punctuation.CloseBracket,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Get,
+                Token.Keyword.Definition.Get,
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace]);
         });

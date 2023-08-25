@@ -19,12 +19,12 @@ extern alias Y;`;
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Extern,
-                Token.Keywords.Alias,
+                Token.Keyword.Directive.Extern,
+                Token.Keyword.Directive.Alias,
                 Token.Variables.Alias("X"),
                 Token.Punctuation.Semicolon,
-                Token.Keywords.Extern,
-                Token.Keywords.Alias,
+                Token.Keyword.Directive.Extern,
+                Token.Keyword.Directive.Alias,
                 Token.Variables.Alias("Y"),
                 Token.Punctuation.Semicolon]);
         });

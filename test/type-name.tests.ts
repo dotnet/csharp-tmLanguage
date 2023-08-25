@@ -273,7 +273,7 @@ describe("Type names", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Ref,
+                Token.Keyword.Modifier.Ref,
                 Token.PrimitiveType.Int,
                 Token.Identifiers.LocalName("x"),
                 Token.Punctuation.Semicolon]);
@@ -284,8 +284,8 @@ describe("Type names", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Ref,
-                Token.Keywords.Var,
+                Token.Keyword.Modifier.Ref,
+                Token.Keyword.Definition.Var,
                 Token.Identifiers.LocalName("x"),
                 Token.Punctuation.Semicolon]);
         });
@@ -297,7 +297,7 @@ describe("Type names", () => {
             tokens.should.deep.equal([
                 Token.Variables.ReadWrite("x"),
                 Token.Operators.Assignment,
-                Token.Keywords.New,
+                Token.Operators.Expression.New,
                 Token.Type("List"),
                 Token.Punctuation.TypeParameters.Begin,
                 Token.PrimitiveType.Int,
@@ -318,7 +318,7 @@ describe("Type names", () => {
                 Token.Punctuation.TypeParameters.End,
                 Token.Identifiers.LocalName("x"),
                 Token.Operators.Assignment,
-                Token.Keywords.New,
+                Token.Operators.Expression.New,
                 Token.Punctuation.OpenParen,
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.Semicolon]);
@@ -331,7 +331,7 @@ describe("Type names", () => {
             tokens.should.deep.equal([
                 Token.Variables.ReadWrite("x"),
                 Token.Operators.Assignment,
-                Token.Keywords.New,
+                Token.Operators.Expression.New,
                 Token.PrimitiveType.String,
                 Token.Punctuation.OpenBracket,
                 Token.Literals.Numeric.Decimal("4"),
@@ -346,7 +346,7 @@ describe("Type names", () => {
             tokens.should.deep.equal([
                 Token.Variables.ReadWrite("x"),
                 Token.Operators.Assignment,
-                Token.Keywords.New,
+                Token.Operators.Expression.New,
                 Token.Punctuation.OpenBrace,
                 Token.Variables.ReadWrite("Length"),
                 Token.Operators.Assignment,

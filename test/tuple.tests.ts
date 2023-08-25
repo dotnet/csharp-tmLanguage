@@ -14,7 +14,7 @@ describe("Tuples", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Var,
+                Token.Keyword.Definition.Var,
                 Token.Identifiers.LocalName("p"),
                 Token.Operators.Assignment,
                 Token.Punctuation.OpenParen,
@@ -33,7 +33,7 @@ describe("Tuples", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Var,
+                Token.Keyword.Definition.Var,
                 Token.Identifiers.LocalName("p"),
                 Token.Operators.Assignment,
                 Token.Punctuation.OpenParen,
@@ -152,7 +152,7 @@ describe("Tuples", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Var,
+                Token.Keyword.Definition.Var,
                 Token.Punctuation.OpenParen,
                 Token.Identifiers.TupleElementName("x"),
                 Token.Punctuation.Comma,
@@ -170,10 +170,10 @@ describe("Tuples", () => {
 
             tokens.should.deep.equal([
                 Token.Punctuation.OpenParen,
-                Token.Keywords.Var,
+                Token.Keyword.Definition.Var,
                 Token.Identifiers.TupleElementName("x"),
                 Token.Punctuation.Comma,
-                Token.Keywords.Var,
+                Token.Keyword.Definition.Var,
                 Token.Identifiers.TupleElementName("y"),
                 Token.Punctuation.CloseParen,
                 Token.Operators.Assignment,
@@ -194,7 +194,7 @@ describe("Tuples", () => {
                 Token.PrimitiveType.Byte,
                 Token.Identifiers.TupleElementName("y"),
                 Token.Punctuation.Comma,
-                Token.Keywords.Var,
+                Token.Keyword.Definition.Var,
                 Token.Identifiers.TupleElementName("z"),
                 Token.Punctuation.CloseParen,
                 Token.Operators.Assignment,
@@ -246,14 +246,14 @@ describe("Tuples", () => {
 
             tokens.should.deep.equal([
                 Token.Punctuation.OpenParen,
-                Token.Keywords.Var,
+                Token.Keyword.Definition.Var,
                 Token.Identifiers.TupleElementName("x"),
                 Token.Punctuation.Comma,
                 Token.Punctuation.OpenParen,
-                Token.Keywords.Var,
+                Token.Keyword.Definition.Var,
                 Token.Identifiers.TupleElementName("y"),
                 Token.Punctuation.Comma,
-                Token.Keywords.Var,
+                Token.Keyword.Definition.Var,
                 Token.Identifiers.TupleElementName("z"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.CloseParen,
@@ -276,7 +276,7 @@ describe("Tuples", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Var,
+                Token.Keyword.Definition.Var,
                 Token.Punctuation.OpenParen,
                 Token.Identifiers.TupleElementName("x"),
                 Token.Punctuation.Comma,
@@ -305,7 +305,7 @@ describe("Tuples", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Control.ForEach,
+                Token.Keyword.Loop.ForEach,
                 Token.Punctuation.OpenParen,
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Int,
@@ -314,7 +314,7 @@ describe("Tuples", () => {
                 Token.PrimitiveType.Int,
                 Token.Identifiers.TupleElementName("y"),
                 Token.Punctuation.CloseParen,
-                Token.Keywords.Control.In,
+                Token.Keyword.Loop.In,
                 Token.Identifiers.MethodName("GetPoints"),
                 Token.Punctuation.OpenParen,
                 Token.Punctuation.CloseParen,
@@ -328,15 +328,15 @@ describe("Tuples", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Control.ForEach,
+                Token.Keyword.Loop.ForEach,
                 Token.Punctuation.OpenParen,
-                Token.Keywords.Var,
+                Token.Keyword.Definition.Var,
                 Token.Punctuation.OpenParen,
                 Token.Identifiers.TupleElementName("x"),
                 Token.Punctuation.Comma,
                 Token.Identifiers.TupleElementName("y"),
                 Token.Punctuation.CloseParen,
-                Token.Keywords.Control.In,
+                Token.Keyword.Loop.In,
                 Token.Identifiers.MethodName("GetPoints"),
                 Token.Punctuation.OpenParen,
                 Token.Punctuation.CloseParen,
@@ -350,7 +350,7 @@ describe("Tuples", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Control.ForEach,
+                Token.Keyword.Loop.ForEach,
                 Token.Punctuation.OpenParen,
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.Int,
@@ -364,7 +364,7 @@ describe("Tuples", () => {
                 Token.Identifiers.TupleElementName("z"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.CloseParen,
-                Token.Keywords.Control.In,
+                Token.Keyword.Loop.In,
                 Token.Variables.ReadWrite("data"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
@@ -377,21 +377,21 @@ describe("Tuples", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Control.ForEach,
+                Token.Keyword.Loop.ForEach,
                 Token.Punctuation.OpenParen,
                 Token.Punctuation.OpenParen,
-                Token.Keywords.Var,
+                Token.Keyword.Definition.Var,
                 Token.Identifiers.TupleElementName("x"),
                 Token.Punctuation.Comma,
                 Token.Punctuation.OpenParen,
-                Token.Keywords.Var,
+                Token.Keyword.Definition.Var,
                 Token.Identifiers.TupleElementName("y"),
                 Token.Punctuation.Comma,
-                Token.Keywords.Var,
+                Token.Keyword.Definition.Var,
                 Token.Identifiers.TupleElementName("z"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.CloseParen,
-                Token.Keywords.Control.In,
+                Token.Keyword.Loop.In,
                 Token.Variables.ReadWrite("data"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
@@ -404,9 +404,9 @@ describe("Tuples", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Control.ForEach,
+                Token.Keyword.Loop.ForEach,
                 Token.Punctuation.OpenParen,
-                Token.Keywords.Var,
+                Token.Keyword.Definition.Var,
                 Token.Punctuation.OpenParen,
                 Token.Identifiers.TupleElementName("x"),
                 Token.Punctuation.Comma,
@@ -416,7 +416,7 @@ describe("Tuples", () => {
                 Token.Identifiers.TupleElementName("z"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.CloseParen,
-                Token.Keywords.Control.In,
+                Token.Keyword.Loop.In,
                 Token.Variables.ReadWrite("data"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,

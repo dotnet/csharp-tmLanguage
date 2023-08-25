@@ -16,7 +16,7 @@ describe("Enums", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Enum,
+                Token.Keyword.Definition.Enum,
                 Token.Identifiers.EnumName("E"),
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace]);
@@ -28,7 +28,7 @@ describe("Enums", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Enum,
+                Token.Keyword.Definition.Enum,
                 Token.Identifiers.EnumName("E"),
                 Token.Punctuation.Colon,
                 Token.PrimitiveType.Byte,
@@ -42,7 +42,7 @@ describe("Enums", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Enum,
+                Token.Keyword.Definition.Enum,
                 Token.Identifiers.EnumName("E"),
                 Token.Punctuation.OpenBrace,
                 Token.Identifiers.EnumMemberName("M1"),
@@ -55,7 +55,7 @@ describe("Enums", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Enum,
+                Token.Keyword.Definition.Enum,
                 Token.Identifiers.EnumName("Color"),
                 Token.Punctuation.OpenBrace,
                 Token.Identifiers.EnumMemberName("Red"),
@@ -80,7 +80,7 @@ enum E
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Enum,
+                Token.Keyword.Definition.Enum,
                 Token.Identifiers.EnumName("E"),
                 Token.Punctuation.OpenBrace,
                 Token.Identifiers.EnumMemberName("Value1"),
@@ -124,8 +124,8 @@ public class TestClass2
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Enum,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Definition.Enum,
                 Token.Identifiers.EnumName("TestEnum"),
                 Token.Punctuation.OpenBrace,
                 Token.Identifiers.EnumMemberName("enum1"),
@@ -137,14 +137,14 @@ public class TestClass2
                 Token.Identifiers.EnumMemberName("enum4"),
                 Token.Punctuation.CloseBrace,
 
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Class,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Definition.Class,
                 Token.Identifiers.ClassName("TestClass"),
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace,
 
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Enum,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Definition.Enum,
                 Token.Identifiers.EnumName("TestEnum2"),
                 Token.Punctuation.OpenBrace,
                 Token.Identifiers.EnumMemberName("enum1"),
@@ -157,8 +157,8 @@ public class TestClass2
                 Token.Punctuation.Comma,
                 Token.Punctuation.CloseBrace,
 
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Class,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Definition.Class,
                 Token.Identifiers.ClassName("TestClass2"),
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace

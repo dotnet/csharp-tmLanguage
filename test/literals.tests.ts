@@ -42,7 +42,7 @@ describe("Literals", () => {
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Var,
+                    Token.Keyword.Definition.Var,
                     Token.Identifiers.LocalName("x"),
                     Token.Operators.Assignment,
                     Token.Punctuation.Char.Begin,
@@ -55,7 +55,7 @@ describe("Literals", () => {
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Var,
+                    Token.Keyword.Definition.Var,
                     Token.Identifiers.LocalName("x"),
                     Token.Operators.Assignment,
                     Token.Punctuation.Char.Begin,
@@ -69,7 +69,7 @@ describe("Literals", () => {
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Var,
+                    Token.Keyword.Definition.Var,
                     Token.Identifiers.LocalName("x"),
                     Token.Operators.Assignment,
                     Token.Punctuation.Char.Begin,
@@ -206,7 +206,7 @@ describe("Literals", () => {
                 const input = Input.InMethod(`var x = .0f;`);
                 const tokens = await tokenize(input);
                 tokens.should.deep.equal([
-                    Token.Keywords.Var,
+                    Token.Keyword.Definition.Var,
                     Token.Identifiers.LocalName("x"),
                     Token.Operators.Assignment,
                     Token.Literals.Numeric.Other.Separator.Decimals,
@@ -225,13 +225,13 @@ describe("Literals", () => {
                 const tokens = await tokenize(input);
                 
                 tokens.should.deep.equal([
-                    Token.Keywords.Var,
+                    Token.Keyword.Definition.Var,
                     Token.Identifiers.LocalName("x"),
                     Token.Operators.Assignment,
                     Token.Literals.Numeric.Decimal("0"),
                     Token.Literals.Numeric.Other.Suffix("f"),
                     Token.Punctuation.Semicolon,
-                    Token.Keywords.Var,
+                    Token.Keyword.Definition.Var,
                     Token.Identifiers.LocalName("y"),
                     Token.Operators.Assignment,
                     Token.Literals.Numeric.Decimal("0"),
@@ -248,13 +248,13 @@ describe("Literals", () => {
                 
                 const tokens = await tokenize(input);
                 tokens.should.deep.equal([
-                    Token.Keywords.Var,
+                    Token.Keyword.Definition.Var,
                     Token.Identifiers.LocalName("x"),
                     Token.Operators.Assignment,
                     Token.Literals.Numeric.Decimal("0"),
                     Token.Literals.Numeric.Other.Suffix("d"),
                     Token.Punctuation.Semicolon,
-                    Token.Keywords.Var,
+                    Token.Keyword.Definition.Var,
                     Token.Identifiers.LocalName("y"),
                     Token.Operators.Assignment,
                     Token.Literals.Numeric.Decimal("0"),
@@ -272,13 +272,13 @@ describe("Literals", () => {
                 const tokens = await tokenize(input);
                 
                 tokens.should.deep.equal([
-                    Token.Keywords.Var,
+                    Token.Keyword.Definition.Var,
                     Token.Identifiers.LocalName("x"),
                     Token.Operators.Assignment,
                     Token.Literals.Numeric.Decimal("0"),
                     Token.Literals.Numeric.Other.Suffix("m"),
                     Token.Punctuation.Semicolon,
-                    Token.Keywords.Var,
+                    Token.Keyword.Definition.Var,
                     Token.Identifiers.LocalName("y"),
                     Token.Operators.Assignment,
                     Token.Literals.Numeric.Decimal("0"),
@@ -296,13 +296,13 @@ describe("Literals", () => {
                 const tokens = await tokenize(input);
                 
                 tokens.should.deep.equal([
-                    Token.Keywords.Var,
+                    Token.Keyword.Definition.Var,
                     Token.Identifiers.LocalName("x"),
                     Token.Operators.Assignment,
                     Token.Literals.Numeric.Decimal("0"),
                     Token.Literals.Numeric.Other.Suffix("u"),
                     Token.Punctuation.Semicolon,
-                    Token.Keywords.Var,
+                    Token.Keyword.Definition.Var,
                     Token.Identifiers.LocalName("y"),
                     Token.Operators.Assignment,
                     Token.Literals.Numeric.Decimal("0"),
@@ -322,25 +322,25 @@ describe("Literals", () => {
                 const tokens = await tokenize(input);
                 
                 tokens.should.deep.equal([
-                    Token.Keywords.Var,
+                    Token.Keyword.Definition.Var,
                     Token.Identifiers.LocalName("x"),
                     Token.Operators.Assignment,
                     Token.Literals.Numeric.Decimal("0"),
                     Token.Literals.Numeric.Other.Suffix("ul"),
                     Token.Punctuation.Semicolon,
-                    Token.Keywords.Var,
+                    Token.Keyword.Definition.Var,
                     Token.Identifiers.LocalName("y"),
                     Token.Operators.Assignment,
                     Token.Literals.Numeric.Decimal("0"),
                     Token.Literals.Numeric.Other.Suffix("UL"),
                     Token.Punctuation.Semicolon,
-                    Token.Keywords.Var,
+                    Token.Keyword.Definition.Var,
                     Token.Identifiers.LocalName("z"),
                     Token.Operators.Assignment,
                     Token.Literals.Numeric.Decimal("0"),
                     Token.Literals.Numeric.Other.Suffix("uL"),
                     Token.Punctuation.Semicolon,
-                    Token.Keywords.Var,
+                    Token.Keyword.Definition.Var,
                     Token.Identifiers.LocalName("w"),
                     Token.Operators.Assignment,
                     Token.Literals.Numeric.Decimal("0"),
@@ -359,13 +359,13 @@ describe("Literals", () => {
                 const tokens = await tokenize(input);
                 
                 tokens.should.deep.equal([
-                    Token.Keywords.Var,
+                    Token.Keyword.Definition.Var,
                     Token.Identifiers.LocalName("x"),
                     Token.Operators.Assignment,
                     Token.Literals.Numeric.Other.Preffix.Hexadecimal("0x"),
                     Token.Literals.Numeric.Hexadecimal("FFFF"),
                     Token.Punctuation.Semicolon,
-                    Token.Keywords.Var,
+                    Token.Keyword.Definition.Var,
                     Token.Identifiers.LocalName("y"),
                     Token.Operators.Assignment,
                     Token.Literals.Numeric.Other.Preffix.Hexadecimal("0X"),
@@ -383,13 +383,13 @@ describe("Literals", () => {
                 const tokens = await tokenize(input);
                 
                 tokens.should.deep.equal([
-                    Token.Keywords.Var,
+                    Token.Keyword.Definition.Var,
                     Token.Identifiers.LocalName("x"),
                     Token.Operators.Assignment,
                     Token.Literals.Numeric.Other.Preffix.Binary("0b"),
                     Token.Literals.Numeric.Binary("0101"),
                     Token.Punctuation.Semicolon,
-                    Token.Keywords.Var,
+                    Token.Keyword.Definition.Var,
                     Token.Identifiers.LocalName("y"),
                     Token.Operators.Assignment,
                     Token.Literals.Numeric.Other.Preffix.Binary("0B"),
@@ -409,7 +409,7 @@ describe("Literals", () => {
                 const tokens = await tokenize(input);
                 
                 tokens.should.deep.equal([
-                    Token.Keywords.Var,
+                    Token.Keyword.Definition.Var,
                     Token.Identifiers.LocalName("x"),
                     Token.Operators.Assignment,
                     Token.Literals.Numeric.Decimal("1"),
@@ -420,7 +420,7 @@ describe("Literals", () => {
                     Token.Literals.Numeric.Decimal("3"),
                     Token.Literals.Numeric.Other.Suffix("f"),
                     Token.Punctuation.Semicolon,
-                    Token.Keywords.Var,
+                    Token.Keyword.Definition.Var,
                     Token.Identifiers.LocalName("y"),
                     Token.Operators.Assignment,
                     Token.Literals.Numeric.Other.Separator.Decimals,
@@ -430,7 +430,7 @@ describe("Literals", () => {
                     Token.Literals.Numeric.Decimal("3"),
                     Token.Literals.Numeric.Other.Suffix("f"),
                     Token.Punctuation.Semicolon,
-                    Token.Keywords.Var,
+                    Token.Keyword.Definition.Var,
                     Token.Identifiers.LocalName("z"),
                     Token.Operators.Assignment,
                     Token.Literals.Numeric.Other.Separator.Decimals,
@@ -438,7 +438,7 @@ describe("Literals", () => {
                     Token.Literals.Numeric.Other.Exponent("e"),
                     Token.Literals.Numeric.Decimal("3"),
                     Token.Punctuation.Semicolon,
-                    Token.Keywords.Var,
+                    Token.Keyword.Definition.Var,
                     Token.Identifiers.LocalName("w"),
                     Token.Operators.Assignment,
                     Token.Literals.Numeric.Decimal("5"),
@@ -454,7 +454,7 @@ describe("Literals", () => {
                 const tokens = await tokenize(input);
                 
                 tokens.should.deep.equal([
-                    Token.Keywords.Var,
+                    Token.Keyword.Definition.Var,
                     Token.Identifiers.LocalName("x"),
                     Token.Operators.Assignment,
                     Token.Literals.Numeric.Decimal("1"),
@@ -471,7 +471,7 @@ describe("Literals", () => {
                 const tokens = await tokenize(input);
                 
                 tokens.should.deep.equal([
-                    Token.Keywords.Var,
+                    Token.Keyword.Definition.Var,
                     Token.Identifiers.LocalName("x"),
                     Token.Operators.Assignment,
                     Token.Literals.Numeric.Other.Preffix.Hexadecimal("0x"),
@@ -487,7 +487,7 @@ describe("Literals", () => {
                 const tokens = await tokenize(input);
                 
                 tokens.should.deep.equal([
-                    Token.Keywords.Var,
+                    Token.Keyword.Definition.Var,
                     Token.Identifiers.LocalName("x"),
                     Token.Operators.Assignment,
                     Token.Literals.Numeric.Other.Preffix.Binary("0b"),
@@ -503,7 +503,7 @@ describe("Literals", () => {
                 const tokens = await tokenize(input);
                 
                 tokens.should.deep.equal([
-                    Token.Keywords.Var,
+                    Token.Keyword.Definition.Var,
                     Token.Identifiers.LocalName("pi"),
                     Token.Operators.Assignment,
                     Token.Literals.Numeric.Invalid("3.14q57"),
@@ -516,7 +516,7 @@ describe("Literals", () => {
                 const tokens = await tokenize(input);
                 
                 tokens.should.deep.equal([
-                    Token.Keywords.Var,
+                    Token.Keyword.Definition.Var,
                     Token.Identifiers.LocalName("x"),
                     Token.Operators.Assignment,
                     Token.Literals.Numeric.Decimal("5"),
@@ -533,7 +533,7 @@ describe("Literals", () => {
                 const tokens = await tokenize(input);
                 
                 tokens.should.deep.equal([
-                    Token.Keywords.Var,
+                    Token.Keyword.Definition.Var,
                     Token.Identifiers.LocalName("pi"),
                     Token.Operators.Assignment,
                     Token.Literals.Numeric.Decimal("3"),                   
@@ -552,7 +552,7 @@ describe("Literals", () => {
                 const tokens = await tokenize(input);
                 
                 tokens.should.deep.equal([
-                    Token.Keywords.Var,
+                    Token.Keyword.Definition.Var,
                     Token.Identifiers.LocalName("x"),
                     Token.Operators.Assignment,
                     Token.Literals.Numeric.Invalid("100h"),
@@ -565,7 +565,7 @@ describe("Literals", () => {
                 const tokens = await tokenize(input);
                 
                 tokens.should.deep.equal([
-                    Token.Keywords.Var,
+                    Token.Keyword.Definition.Var,
                     Token.Identifiers.LocalName("x"),
                     Token.Operators.Assignment,
                     Token.Literals.Numeric.Invalid("0kFFFF"),
@@ -581,7 +581,7 @@ describe("Literals", () => {
                 const tokens = await tokenize(input);
                 
                 tokens.should.deep.equal([
-                    Token.Keywords.Var,
+                    Token.Keyword.Definition.Var,
                     Token.Identifiers.LocalName("x"),
                     Token.Operators.Assignment,
                     Token.Literals.Numeric.Invalid("5e3.5f"),
@@ -598,12 +598,12 @@ describe("Literals", () => {
                 const tokens = await tokenize(input);
                 
                 tokens.should.deep.equal([
-                    Token.Keywords.Var,
+                    Token.Keyword.Definition.Var,
                     Token.Identifiers.LocalName("x"),
                     Token.Operators.Assignment,
                     Token.Literals.Numeric.Invalid("5.0u"),
                     Token.Punctuation.Semicolon,
-                    Token.Keywords.Var,
+                    Token.Keyword.Definition.Var,
                     Token.Identifiers.LocalName("y"),
                     Token.Operators.Assignment,
                     Token.Literals.Numeric.Invalid(".5L"),
@@ -625,37 +625,37 @@ describe("Literals", () => {
                 const tokens = await tokenize(input);
                 
                 tokens.should.deep.equal([
-                    Token.Keywords.Var,
+                    Token.Keyword.Definition.Var,
                     Token.Identifiers.LocalName("a"),
                     Token.Operators.Assignment,
                     Token.Literals.Numeric.Invalid("1uu"),
                     Token.Punctuation.Semicolon,
-                    Token.Keywords.Var,
+                    Token.Keyword.Definition.Var,
                     Token.Identifiers.LocalName("b"),
                     Token.Operators.Assignment,
                     Token.Literals.Numeric.Invalid("1ll"),
                     Token.Punctuation.Semicolon,
-                    Token.Keywords.Var,
+                    Token.Keyword.Definition.Var,
                     Token.Identifiers.LocalName("c"),
                     Token.Operators.Assignment,
                     Token.Literals.Numeric.Invalid("1Ll"),
                     Token.Punctuation.Semicolon,
-                    Token.Keywords.Var,
+                    Token.Keyword.Definition.Var,
                     Token.Identifiers.LocalName("d"),
                     Token.Operators.Assignment,
                     Token.Literals.Numeric.Invalid("1ull"),
                     Token.Punctuation.Semicolon,
-                    Token.Keywords.Var,
+                    Token.Keyword.Definition.Var,
                     Token.Identifiers.LocalName("e"),
                     Token.Operators.Assignment,
                     Token.Literals.Numeric.Invalid("1ff"),
                     Token.Punctuation.Semicolon,
-                    Token.Keywords.Var,
+                    Token.Keyword.Definition.Var,
                     Token.Identifiers.LocalName("f"),
                     Token.Operators.Assignment,
                     Token.Literals.Numeric.Invalid("1mm"),
                     Token.Punctuation.Semicolon,
-                    Token.Keywords.Var,
+                    Token.Keyword.Definition.Var,
                     Token.Identifiers.LocalName("g"),
                     Token.Operators.Assignment,
                     Token.Literals.Numeric.Invalid("1Ff"),
@@ -906,8 +906,8 @@ throw new InvalidCastException(
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Control.Throw,
-                    Token.Keywords.New,
+                    Token.Keyword.Flow.Throw,
+                    Token.Operators.Expression.New,
                     Token.Type("InvalidCastException"),
                     Token.Punctuation.OpenParen,
                     Token.Punctuation.InterpolatedString.Begin,
@@ -929,7 +929,7 @@ throw new InvalidCastException(
                     Token.Literals.String(". You asked for "),
                     Token.Literals.CharacterEscape("\\\""),
                     Token.Punctuation.Interpolation.Begin,
-                    Token.Keywords.TypeOf,
+                    Token.Operators.Expression.TypeOf,
                     Token.Punctuation.OpenParen,
                     Token.Type("T"),
                     Token.Punctuation.CloseParen,
@@ -958,13 +958,13 @@ namespace X
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Namespace,
+                    Token.Keyword.Definition.Namespace,
                     Token.Identifiers.NamespaceName("X"),
                     Token.Punctuation.OpenBrace,
-                    Token.Keywords.Class,
+                    Token.Keyword.Definition.Class,
                     Token.Identifiers.ClassName("Y"),
                     Token.Punctuation.OpenBrace,
-                    Token.Keywords.Modifiers.Public,
+                    Token.Keyword.Modifier.Public,
                     Token.Identifiers.MethodName("MethodZ"),
                     Token.Punctuation.OpenParen,
                     Token.Punctuation.CloseParen,

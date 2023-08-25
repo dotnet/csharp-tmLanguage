@@ -43,71 +43,71 @@ public    abstract class PublicAbstractClass { }
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Modifiers.Public,
-                    Token.Keywords.Class,
+                    Token.Keyword.Modifier.Public,
+                    Token.Keyword.Definition.Class,
                     Token.Identifiers.ClassName("PublicClass"),
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
 
-                    Token.Keywords.Class,
+                    Token.Keyword.Definition.Class,
                     Token.Identifiers.ClassName("DefaultClass"),
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
 
-                    Token.Keywords.Modifiers.Internal,
-                    Token.Keywords.Class,
+                    Token.Keyword.Modifier.Internal,
+                    Token.Keyword.Definition.Class,
                     Token.Identifiers.ClassName("InternalClass"),
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
 
-                    Token.Keywords.Modifiers.File,
-                    Token.Keywords.Class,
+                    Token.Keyword.Modifier.File,
+                    Token.Keyword.Definition.Class,
                     Token.Identifiers.ClassName("DefaultFileLocalClass"),
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
 
-                    Token.Keywords.Modifiers.Public,
-                    Token.Keywords.Modifiers.File,
-                    Token.Keywords.Class,
+                    Token.Keyword.Modifier.Public,
+                    Token.Keyword.Modifier.File,
+                    Token.Keyword.Definition.Class,
                     Token.Identifiers.ClassName("PublicFileLocalClass"),
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
 
-                    Token.Keywords.Modifiers.Static,
-                    Token.Keywords.Class,
+                    Token.Keyword.Modifier.Static,
+                    Token.Keyword.Definition.Class,
                     Token.Identifiers.ClassName("DefaultStaticClass"),
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
 
-                    Token.Keywords.Modifiers.Public,
-                    Token.Keywords.Modifiers.Static,
-                    Token.Keywords.Class,
+                    Token.Keyword.Modifier.Public,
+                    Token.Keyword.Modifier.Static,
+                    Token.Keyword.Definition.Class,
                     Token.Identifiers.ClassName("PublicStaticClass"),
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
 
-                    Token.Keywords.Modifiers.Sealed,
-                    Token.Keywords.Class,
+                    Token.Keyword.Modifier.Sealed,
+                    Token.Keyword.Definition.Class,
                     Token.Identifiers.ClassName("DefaultSealedClass"),
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
 
-                    Token.Keywords.Modifiers.Public,
-                    Token.Keywords.Modifiers.Sealed,
-                    Token.Keywords.Class,
+                    Token.Keyword.Modifier.Public,
+                    Token.Keyword.Modifier.Sealed,
+                    Token.Keyword.Definition.Class,
                     Token.Identifiers.ClassName("PublicSealedClass"),
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
 
-                    Token.Keywords.Modifiers.Public,
-                    Token.Keywords.Modifiers.Abstract,
-                    Token.Keywords.Class,
+                    Token.Keyword.Modifier.Public,
+                    Token.Keyword.Modifier.Abstract,
+                    Token.Keyword.Definition.Class,
                     Token.Identifiers.ClassName("PublicAbstractClass"),
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
 
-                    Token.Keywords.Modifiers.Abstract,
-                    Token.Keywords.Class,
+                    Token.Keyword.Modifier.Abstract,
+                    Token.Keyword.Definition.Class,
                     Token.Identifiers.ClassName("DefaultAbstractClass"),
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace]);
@@ -119,7 +119,7 @@ public    abstract class PublicAbstractClass { }
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Class,
+                    Token.Keyword.Definition.Class,
                     Token.Identifiers.ClassName("Dictionary"),
                     Token.Punctuation.TypeParameters.Begin,
                     Token.Identifiers.TypeParameterName("TKey"),
@@ -140,7 +140,7 @@ class PublicClass<T> : Dictionary<T, Dictionary<string, string>>, IMap<T, Dictio
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Class,
+                    Token.Keyword.Definition.Class,
                     Token.Identifiers.ClassName("PublicClass"),
                     Token.Punctuation.Colon,
                     Token.Type("IInterface"),
@@ -149,7 +149,7 @@ class PublicClass<T> : Dictionary<T, Dictionary<string, string>>, IMap<T, Dictio
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
 
-                    Token.Keywords.Class,
+                    Token.Keyword.Definition.Class,
                     Token.Identifiers.ClassName("PublicClass"),
                     Token.Punctuation.TypeParameters.Begin,
                     Token.Identifiers.TypeParameterName("T"),
@@ -170,7 +170,7 @@ class PublicClass<T> : Dictionary<T, Dictionary<string, string>>, IMap<T, Dictio
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
 
-                    Token.Keywords.Class,
+                    Token.Keyword.Definition.Class,
                     Token.Identifiers.ClassName("PublicClass"),
                     Token.Punctuation.TypeParameters.Begin,
                     Token.Identifiers.TypeParameterName("T"),
@@ -215,19 +215,19 @@ class PublicClass<T, X> : Dictionary<T, List<string>[]>, ISomething
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Class,
+                    Token.Keyword.Definition.Class,
                     Token.Identifiers.ClassName("PublicClass"),
                     Token.Punctuation.TypeParameters.Begin,
                     Token.Identifiers.TypeParameterName("T"),
                     Token.Punctuation.TypeParameters.End,
-                    Token.Keywords.Where,
+                    Token.Keyword.Modifier.Where,
                     Token.Identifiers.TypeParameterName("T"),
                     Token.Punctuation.Colon,
                     Token.Type("ISomething"),
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
 
-                    Token.Keywords.Class,
+                    Token.Keyword.Definition.Class,
                     Token.Identifiers.ClassName("PublicClass"),
                     Token.Punctuation.TypeParameters.Begin,
                     Token.Identifiers.TypeParameterName("T"),
@@ -248,18 +248,18 @@ class PublicClass<T, X> : Dictionary<T, List<string>[]>, ISomething
                     Token.Punctuation.TypeParameters.End,
                     Token.Punctuation.Comma,
                     Token.Type("ISomething"),
-                    Token.Keywords.Where,
+                    Token.Keyword.Modifier.Where,
                     Token.Identifiers.TypeParameterName("T"),
                     Token.Punctuation.Colon,
                     Token.Type("ICar"),
                     Token.Punctuation.Comma,
-                    Token.Keywords.New,
+                    Token.Operators.Expression.New,
                     Token.Punctuation.OpenParen,
                     Token.Punctuation.CloseParen,
-                    Token.Keywords.Where,
+                    Token.Keyword.Modifier.Where,
                     Token.Identifiers.TypeParameterName("X"),
                     Token.Punctuation.Colon,
-                    Token.Keywords.Struct,
+                    Token.Keyword.Definition.Struct,
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace]);
             });
@@ -277,11 +277,11 @@ class Klass
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Class,
+                    Token.Keyword.Definition.Class,
                     Token.Identifiers.ClassName("Klass"),
                     Token.Punctuation.OpenBrace,
 
-                    Token.Keywords.Class,
+                    Token.Keyword.Definition.Class,
                     Token.Identifiers.ClassName("Nested"),
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
@@ -302,12 +302,12 @@ class Klass
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Class,
+                    Token.Keyword.Definition.Class,
                     Token.Identifiers.ClassName("Klass"),
                     Token.Punctuation.OpenBrace,
 
-                    Token.Keywords.Modifiers.Public,
-                    Token.Keywords.Class,
+                    Token.Keyword.Modifier.Public,
+                    Token.Keyword.Definition.Class,
                     Token.Identifiers.ClassName("Nested"),
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
@@ -323,8 +323,8 @@ unsafe class C
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Modifiers.Unsafe,
-                    Token.Keywords.Class,
+                    Token.Keyword.Modifier.Unsafe,
+                    Token.Keyword.Definition.Class,
                     Token.Identifiers.ClassName("C"),
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace]);
@@ -339,7 +339,7 @@ class Person2(string name, int age) { }`
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Class,
+                    Token.Keyword.Definition.Class,
                     Token.Identifiers.ClassName("Person"),
                     Token.Punctuation.OpenParen,
                     Token.PrimitiveType.String,
@@ -349,7 +349,7 @@ class Person2(string name, int age) { }`
                     Token.Identifiers.ParameterName("age"),
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.Semicolon,
-                    Token.Keywords.Class,
+                    Token.Keyword.Definition.Class,
                     Token.Identifiers.ClassName("Person2"),
                     Token.Punctuation.OpenParen,
                     Token.PrimitiveType.String,
@@ -371,7 +371,7 @@ class Person2(string name, int age) : IPerson { }`
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Class,
+                    Token.Keyword.Definition.Class,
                     Token.Identifiers.ClassName("Person"),
                     Token.Punctuation.OpenParen,
                     Token.PrimitiveType.String,
@@ -383,7 +383,7 @@ class Person2(string name, int age) : IPerson { }`
                     Token.Punctuation.Colon,
                     Token.Type("IPerson"),
                     Token.Punctuation.Semicolon,
-                    Token.Keywords.Class,
+                    Token.Keyword.Definition.Class,
                     Token.Identifiers.ClassName("Person2"),
                     Token.Punctuation.OpenParen,
                     Token.PrimitiveType.String,
@@ -409,7 +409,7 @@ class Person2<T>(string name, int age, T tag) : IPerson
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Class,
+                    Token.Keyword.Definition.Class,
                     Token.Identifiers.ClassName("Person"),
                     Token.Punctuation.TypeParameters.Begin,
                     Token.Identifiers.TypeParameterName("T"),
@@ -426,14 +426,14 @@ class Person2<T>(string name, int age, T tag) : IPerson
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.Colon,
                     Token.Type("IPerson"),
-                    Token.Keywords.Where,
+                    Token.Keyword.Modifier.Where,
                     Token.Identifiers.TypeParameterName("T"),
                     Token.Punctuation.Colon,
-                    Token.Keywords.New,
+                    Token.Operators.Expression.New,
                     Token.Punctuation.OpenParen,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.Semicolon,
-                    Token.Keywords.Class,
+                    Token.Keyword.Definition.Class,
                     Token.Identifiers.ClassName("Person2"),
                     Token.Punctuation.TypeParameters.Begin,
                     Token.Identifiers.TypeParameterName("T"),
@@ -450,10 +450,10 @@ class Person2<T>(string name, int age, T tag) : IPerson
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.Colon,
                     Token.Type("IPerson"),
-                    Token.Keywords.Where,
+                    Token.Keyword.Modifier.Where,
                     Token.Identifiers.TypeParameterName("T"),
                     Token.Punctuation.Colon,
-                    Token.Keywords.New,
+                    Token.Operators.Expression.New,
                     Token.Punctuation.OpenParen,
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.OpenBrace,

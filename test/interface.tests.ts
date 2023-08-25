@@ -16,7 +16,7 @@ describe("Interfaces", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Interface,
+                Token.Keyword.Definition.Interface,
                 Token.Identifiers.InterfaceName("IFoo"),
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace]);
@@ -32,11 +32,11 @@ interface IBar : IFoo { }
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Interface,
+                Token.Keyword.Definition.Interface,
                 Token.Identifiers.InterfaceName("IFoo"),
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace,
-                Token.Keywords.Interface,
+                Token.Keyword.Definition.Interface,
                 Token.Identifiers.InterfaceName("IBar"),
                 Token.Punctuation.Colon,
                 Token.Type("IFoo"),
@@ -50,7 +50,7 @@ interface IBar : IFoo { }
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Interface,
+                Token.Keyword.Definition.Interface,
                 Token.Identifiers.InterfaceName("IFoo"),
                 Token.Punctuation.TypeParameters.Begin,
                 Token.Identifiers.TypeParameterName("T1"),
@@ -67,13 +67,13 @@ interface IBar : IFoo { }
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Interface,
+                Token.Keyword.Definition.Interface,
                 Token.Identifiers.InterfaceName("IFoo"),
                 Token.Punctuation.TypeParameters.Begin,
-                Token.Keywords.Modifiers.In,
+                Token.Keyword.Modifier.In,
                 Token.Identifiers.TypeParameterName("T1"),
                 Token.Punctuation.Comma,
-                Token.Keywords.Modifiers.Out,
+                Token.Keyword.Modifier.Out,
                 Token.Identifiers.TypeParameterName("T2"),
                 Token.Punctuation.TypeParameters.End,
                 Token.Punctuation.OpenBrace,
@@ -86,14 +86,14 @@ interface IBar : IFoo { }
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Interface,
+                Token.Keyword.Definition.Interface,
                 Token.Identifiers.InterfaceName("IFoo"),
                 Token.Punctuation.TypeParameters.Begin,
                 Token.Identifiers.TypeParameterName("T1"),
                 Token.Punctuation.Comma,
                 Token.Identifiers.TypeParameterName("T2"),
                 Token.Punctuation.TypeParameters.End,
-                Token.Keywords.Where,
+                Token.Keyword.Modifier.Where,
                 Token.Identifiers.TypeParameterName("T1"),
                 Token.Punctuation.Colon,
                 Token.Type("T2"),

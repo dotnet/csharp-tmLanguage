@@ -21,7 +21,7 @@ describe("Structs", () => {
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Struct,
+                    Token.Keyword.Definition.Struct,
                     Token.Identifiers.StructName("S"),
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace]);
@@ -36,11 +36,11 @@ struct S : IFoo { }
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Interface,
+                    Token.Keyword.Definition.Interface,
                     Token.Identifiers.InterfaceName("IFoo"),
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
-                    Token.Keywords.Struct,
+                    Token.Keyword.Definition.Struct,
                     Token.Identifiers.StructName("S"),
                     Token.Punctuation.Colon,
                     Token.Type("IFoo"),
@@ -61,11 +61,11 @@ class Klass
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Class,
+                    Token.Keyword.Definition.Class,
                     Token.Identifiers.ClassName("Klass"),
                     Token.Punctuation.OpenBrace,
 
-                    Token.Keywords.Struct,
+                    Token.Keyword.Definition.Struct,
                     Token.Identifiers.StructName("Nested"),
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
@@ -86,12 +86,12 @@ class Klass
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Class,
+                    Token.Keyword.Definition.Class,
                     Token.Identifiers.ClassName("Klass"),
                     Token.Punctuation.OpenBrace,
 
-                    Token.Keywords.Modifiers.Public,
-                    Token.Keywords.Struct,
+                    Token.Keyword.Modifier.Public,
+                    Token.Keyword.Definition.Struct,
                     Token.Identifiers.StructName("Nested"),
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace,
@@ -107,7 +107,7 @@ struct S<T1, T2> { }
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Struct,
+                    Token.Keyword.Definition.Struct,
                     Token.Identifiers.StructName("S"),
                     Token.Punctuation.TypeParameters.Begin,
                     Token.Identifiers.TypeParameterName("T1"),
@@ -126,14 +126,14 @@ struct S<T1, T2> where T1 : T2 { }
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Struct,
+                    Token.Keyword.Definition.Struct,
                     Token.Identifiers.StructName("S"),
                     Token.Punctuation.TypeParameters.Begin,
                     Token.Identifiers.TypeParameterName("T1"),
                     Token.Punctuation.Comma,
                     Token.Identifiers.TypeParameterName("T2"),
                     Token.Punctuation.TypeParameters.End,
-                    Token.Keywords.Where,
+                    Token.Keyword.Modifier.Where,
                     Token.Identifiers.TypeParameterName("T1"),
                     Token.Punctuation.Colon,
                     Token.Type("T2"),
@@ -146,8 +146,8 @@ struct S<T1, T2> where T1 : T2 { }
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Modifiers.Ref,
-                    Token.Keywords.Struct,
+                    Token.Keyword.Modifier.Ref,
+                    Token.Keyword.Definition.Struct,
                     Token.Identifiers.StructName("S"),
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace]);
@@ -158,9 +158,9 @@ struct S<T1, T2> where T1 : T2 { }
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Modifiers.ReadOnly,
-                    Token.Keywords.Modifiers.Ref,
-                    Token.Keywords.Struct,
+                    Token.Keyword.Modifier.ReadOnly,
+                    Token.Keyword.Modifier.Ref,
+                    Token.Keyword.Definition.Struct,
                     Token.Identifiers.StructName("S"),
                     Token.Punctuation.OpenBrace,
                     Token.Punctuation.CloseBrace]);
@@ -174,7 +174,7 @@ struct Person2(string name, int age) { } `;
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Struct,
+                    Token.Keyword.Definition.Struct,
                     Token.Identifiers.StructName("Person"),
                     Token.Punctuation.OpenParen,
                     Token.PrimitiveType.String,
@@ -184,7 +184,7 @@ struct Person2(string name, int age) { } `;
                     Token.Identifiers.ParameterName("age"),
                     Token.Punctuation.CloseParen,
                     Token.Punctuation.Semicolon,
-                    Token.Keywords.Struct,
+                    Token.Keyword.Definition.Struct,
                     Token.Identifiers.StructName("Person2"),
                     Token.Punctuation.OpenParen,
                     Token.PrimitiveType.String,

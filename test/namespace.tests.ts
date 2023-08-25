@@ -19,7 +19,7 @@ namespace TestNamespace
             let tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Namespace,
+                Token.Keyword.Definition.Namespace,
                 Token.Identifiers.NamespaceName("TestNamespace"),
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace]);
@@ -34,7 +34,7 @@ namespace Test.Namespace
             let tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Namespace,
+                Token.Keyword.Definition.Namespace,
                 Token.Identifiers.NamespaceName("Test"),
                 Token.Punctuation.Accessor,
                 Token.Identifiers.NamespaceName("Namespace"),
@@ -54,11 +54,11 @@ namespace TestNamespace
             let tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Namespace,
+                Token.Keyword.Definition.Namespace,
                 Token.Identifiers.NamespaceName("TestNamespace"),
                 Token.Punctuation.OpenBrace,
 
-                Token.Keywords.Namespace,
+                Token.Keyword.Definition.Namespace,
                 Token.Identifiers.NamespaceName("NestedNamespace"),
                 Token.Punctuation.OpenBrace,
 
@@ -86,11 +86,11 @@ namespace TestNamespace
             let tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Using,
+                Token.Keyword.Directive.Using,
                 Token.Identifiers.NamespaceName("UsingOne"),
                 Token.Punctuation.Semicolon,
 
-                Token.Keywords.Using,
+                Token.Keyword.Directive.Using,
                 Token.Identifiers.AliasName("one"),
                 Token.Operators.Assignment,
                 Token.Type("UsingOne"),
@@ -98,15 +98,15 @@ namespace TestNamespace
                 Token.Type("Something"),
                 Token.Punctuation.Semicolon,
 
-                Token.Keywords.Namespace,
+                Token.Keyword.Definition.Namespace,
                 Token.Identifiers.NamespaceName("TestNamespace"),
                 Token.Punctuation.OpenBrace,
 
-                Token.Keywords.Using,
+                Token.Keyword.Directive.Using,
                 Token.Identifiers.NamespaceName("UsingTwo"),
                 Token.Punctuation.Semicolon,
 
-                Token.Keywords.Using,
+                Token.Keyword.Directive.Using,
                 Token.Identifiers.AliasName("two"),
                 Token.Operators.Assignment,
                 Token.Type("UsingTwo"),
@@ -114,15 +114,15 @@ namespace TestNamespace
                 Token.Type("Something"),
                 Token.Punctuation.Semicolon,
 
-                Token.Keywords.Namespace,
+                Token.Keyword.Definition.Namespace,
                 Token.Identifiers.NamespaceName("NestedNamespace"),
                 Token.Punctuation.OpenBrace,
 
-                Token.Keywords.Using,
+                Token.Keyword.Directive.Using,
                 Token.Identifiers.NamespaceName("UsingThree"),
                 Token.Punctuation.Semicolon,
 
-                Token.Keywords.Using,
+                Token.Keyword.Directive.Using,
                 Token.Identifiers.AliasName("three"),
                 Token.Operators.Assignment,
                 Token.Type("UsingThree"),
@@ -143,7 +143,7 @@ namespace TestNamespace;`;
             let tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Namespace,
+                Token.Keyword.Definition.Namespace,
                 Token.Identifiers.NamespaceName("TestNamespace"),
                 Token.Punctuation.Semicolon]);
         });
@@ -155,7 +155,7 @@ namespace Test.Namespace;`;
             let tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Namespace,
+                Token.Keyword.Definition.Namespace,
                 Token.Identifiers.NamespaceName("Test"),
                 Token.Punctuation.Accessor,
                 Token.Identifiers.NamespaceName("Namespace"),

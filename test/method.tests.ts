@@ -42,7 +42,7 @@ int Add(int x, int y)
                 Token.Identifiers.ParameterName("y"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Control.Return,
+                Token.Keyword.Flow.Return,
                 Token.Variables.ReadWrite("x"),
                 Token.Operators.Arithmetic.Addition,
                 Token.Variables.ReadWrite("y"),
@@ -66,7 +66,7 @@ int Add(int x, int y)
                 Token.Type("T"),
                 Token.Identifiers.ParameterName("arg"),
                 Token.Punctuation.CloseParen,
-                Token.Keywords.Where,
+                Token.Keyword.Modifier.Where,
                 Token.Identifiers.TypeParameterName("T"),
                 Token.Punctuation.Colon,
                 Token.Type("TResult"),
@@ -135,7 +135,7 @@ int Add(int x, int y)
                 Token.PrimitiveType.String,
                 Token.Identifiers.ParameterName("format"),
                 Token.Punctuation.Comma,
-                Token.Keywords.Modifiers.Params,
+                Token.Keyword.Modifier.Params,
                 Token.PrimitiveType.Object,
                 Token.Punctuation.OpenBracket,
                 Token.Punctuation.CloseBracket,
@@ -160,7 +160,7 @@ int Add(int x, int y)
                 Token.Type("T"),
                 Token.Identifiers.ParameterName("arg"),
                 Token.Punctuation.CloseParen,
-                Token.Keywords.Where,
+                Token.Keyword.Modifier.Where,
                 Token.Identifiers.TypeParameterName("T"),
                 Token.Punctuation.Colon,
                 Token.Type("TResult"),
@@ -186,7 +186,7 @@ int Add(int x, int y)
                 Token.Identifiers.ParameterName("y"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Control.Return,
+                Token.Keyword.Flow.Return,
                 Token.Variables.ReadWrite("x"),
                 Token.Operators.Arithmetic.Addition,
                 Token.Variables.ReadWrite("y"),
@@ -199,8 +199,8 @@ int Add(int x, int y)
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Modifiers.Override,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Modifier.Override,
                 Token.Identifiers.MethodName("M"),
                 Token.Punctuation.OpenParen,
                 Token.Punctuation.CloseParen,
@@ -214,8 +214,8 @@ int Add(int x, int y)
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Modifiers.Virtual,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Modifier.Virtual,
                 Token.Identifiers.MethodName("M"),
                 Token.Punctuation.OpenParen,
                 Token.Punctuation.CloseParen,
@@ -229,11 +229,11 @@ int Add(int x, int y)
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
+                Token.Keyword.Modifier.Public,
                 Token.PrimitiveType.Void,
                 Token.Identifiers.MethodName("M"),
                 Token.Punctuation.OpenParen,
-                Token.Keywords.Modifiers.This,
+                Token.Keyword.Modifier.This,
                 Token.PrimitiveType.Object,
                 Token.Identifiers.ParameterName("o"),
                 Token.Punctuation.CloseParen,
@@ -247,7 +247,7 @@ int Add(int x, int y)
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
+                Token.Keyword.Modifier.Public,
                 Token.PrimitiveType.Void,
                 Token.Identifiers.MethodName("methodWithParametersCommented"),
                 Token.Punctuation.OpenParen,
@@ -276,8 +276,8 @@ public interface test
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Interface,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Definition.Interface,
                 Token.Identifiers.InterfaceName("test"),
                 Token.Punctuation.OpenBrace,
                 Token.Type("Task"),
@@ -329,11 +329,11 @@ namespace Test
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Namespace,
+                Token.Keyword.Definition.Namespace,
                 Token.Identifiers.NamespaceName("Test"),
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Class,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Definition.Class,
                 Token.Identifiers.ClassName("TestClass"),
                 Token.Punctuation.OpenBrace,
 
@@ -351,7 +351,7 @@ namespace Test
                 Token.Punctuation.String.End,
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.CloseBracket,
-                Token.Keywords.Modifiers.Public,
+                Token.Keyword.Modifier.Public,
                 Token.PrimitiveType.Void,
                 Token.Identifiers.MethodName("AddToGoingUsers"),
                 Token.Punctuation.OpenParen,
@@ -366,7 +366,7 @@ namespace Test
                 Token.Punctuation.Accessor,
                 Token.Identifiers.MethodName("Send"),
                 Token.Punctuation.OpenParen,
-                Token.Keywords.New,
+                Token.Operators.Expression.New,
                 Token.Type("MarkUserAsGoing"),
                 Token.Punctuation.OpenParen,
                 Token.Variables.ReadWrite("id"),
@@ -392,7 +392,7 @@ namespace Test
                 Token.Punctuation.String.End,
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.CloseBracket,
-                Token.Keywords.Modifiers.Public,
+                Token.Keyword.Modifier.Public,
                 Token.PrimitiveType.Void,
                 Token.Identifiers.MethodName("AddToNotGoingUsers"),
                 Token.Punctuation.OpenParen,
@@ -407,7 +407,7 @@ namespace Test
                 Token.Punctuation.Accessor,
                 Token.Identifiers.MethodName("Send"),
                 Token.Punctuation.OpenParen,
-                Token.Keywords.New,
+                Token.Operators.Expression.New,
                 Token.Type("MarkUserAsNotGoing"),
                 Token.Punctuation.OpenParen,
                 Token.Variables.ReadWrite("id"),
@@ -433,7 +433,7 @@ namespace Test
                 Token.Punctuation.String.End,
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.CloseBracket,
-                Token.Keywords.Modifiers.Public,
+                Token.Keyword.Modifier.Public,
                 Token.PrimitiveType.Void,
                 Token.Identifiers.MethodName("AddToNotSureIfGoingUsers"),
                 Token.Punctuation.OpenParen,
@@ -448,7 +448,7 @@ namespace Test
                 Token.Punctuation.Accessor,
                 Token.Identifiers.MethodName("Send"),
                 Token.Punctuation.OpenParen,
-                Token.Keywords.New,
+                Token.Operators.Expression.New,
                 Token.Type("MarkUserAsNotSureIfGoing"),
                 Token.Punctuation.OpenParen,
                 Token.Variables.ReadWrite("id"),
@@ -478,8 +478,8 @@ new void foo2() //Function name not highlighted
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Private,
-                Token.Keywords.Modifiers.New,
+                Token.Keyword.Modifier.Private,
+                Token.Keyword.Modifier.New,
                 Token.PrimitiveType.Void,
                 Token.Identifiers.MethodName("foo1"),
                 Token.Punctuation.OpenParen,
@@ -488,7 +488,7 @@ new void foo2() //Function name not highlighted
                 Token.Comment.SingleLine.Text("Correct highlight"),
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace,
-                Token.Keywords.Modifiers.New,
+                Token.Keyword.Modifier.New,
                 Token.PrimitiveType.Void,
                 Token.Identifiers.MethodName("foo2"),
                 Token.Punctuation.OpenParen,
@@ -507,8 +507,8 @@ public abstract void Notify(PlayerId playerId, ISessionResponse response); //the
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Modifiers.Abstract,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Modifier.Abstract,
                 Token.PrimitiveType.Void,
                 Token.Identifiers.MethodName("Notify"),
                 Token.Punctuation.OpenParen,
@@ -531,8 +531,8 @@ public abstract void Notify(PlayerId playerId, ISessionResponse response); //the
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Modifiers.Abstract,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Modifier.Abstract,
                 Token.PrimitiveType.Void,
                 Token.Identifiers.MethodName("Notify"),
                 Token.Punctuation.OpenParen,
@@ -555,8 +555,8 @@ public abstract void Notify(PlayerId playerId, ISessionResponse response); //the
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Modifiers.Abstract,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Modifier.Abstract,
                 Token.PrimitiveType.Void,
                 Token.Identifiers.MethodName("Notify"),
                 Token.Punctuation.OpenParen,
@@ -590,24 +590,24 @@ public class ClassA<T>
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Namespace,
+                Token.Keyword.Definition.Namespace,
                 Token.Identifiers.NamespaceName("x"),
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Class,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Definition.Class,
                 Token.Identifiers.ClassName("ClassA"),
                 Token.Punctuation.TypeParameters.Begin,
                 Token.Identifiers.TypeParameterName("T"),
                 Token.Punctuation.TypeParameters.End,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Class,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Definition.Class,
                 Token.Identifiers.ClassName("ClassAa"),
                 Token.Punctuation.TypeParameters.Begin,
                 Token.Identifiers.TypeParameterName("TT"),
                 Token.Punctuation.TypeParameters.End,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Modifiers.Public,
+                Token.Keyword.Modifier.Public,
                 Token.PrimitiveType.Bool,
                 Token.Identifiers.MethodName("MyMethod"),
                 Token.Punctuation.OpenParen,
@@ -618,7 +618,7 @@ public class ClassA<T>
                 Token.Identifiers.ParameterName("value"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Control.Return,
+                Token.Keyword.Flow.Return,
                 Token.Variables.Object("someObject"),
                 Token.Punctuation.Accessor,
                 Token.Identifiers.MethodName("SomeCall"),
@@ -662,14 +662,14 @@ void M(string p = null) { }
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Ref,
+                Token.Keyword.Modifier.Ref,
                 Token.PrimitiveType.Int,
                 Token.Identifiers.MethodName("M"),
                 Token.Punctuation.OpenParen,
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Control.Return,
-                Token.Keywords.Modifiers.Ref,
+                Token.Keyword.Flow.Return,
+                Token.Keyword.Modifier.Ref,
                 Token.Variables.ReadWrite("x"),
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace
@@ -681,15 +681,15 @@ void M(string p = null) { }
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Ref,
-                Token.Keywords.Modifiers.ReadOnly,
+                Token.Keyword.Modifier.Ref,
+                Token.Keyword.Modifier.ReadOnly,
                 Token.PrimitiveType.Int,
                 Token.Identifiers.MethodName("M"),
                 Token.Punctuation.OpenParen,
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Control.Return,
-                Token.Keywords.Modifiers.Ref,
+                Token.Keyword.Flow.Return,
+                Token.Keyword.Modifier.Ref,
                 Token.Variables.ReadWrite("x"),
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace
@@ -701,13 +701,13 @@ void M(string p = null) { }
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Ref,
+                Token.Keyword.Modifier.Ref,
                 Token.PrimitiveType.Int,
                 Token.Identifiers.MethodName("M"),
                 Token.Punctuation.OpenParen,
                 Token.Punctuation.CloseParen,
                 Token.Operators.Arrow,
-                Token.Keywords.Modifiers.Ref,
+                Token.Keyword.Modifier.Ref,
                 Token.Variables.ReadWrite("x"),
                 Token.Punctuation.Semicolon]);
         });
@@ -717,14 +717,14 @@ void M(string p = null) { }
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Ref,
-                Token.Keywords.Modifiers.ReadOnly,
+                Token.Keyword.Modifier.Ref,
+                Token.Keyword.Modifier.ReadOnly,
                 Token.PrimitiveType.Int,
                 Token.Identifiers.MethodName("M"),
                 Token.Punctuation.OpenParen,
                 Token.Punctuation.CloseParen,
                 Token.Operators.Arrow,
-                Token.Keywords.Modifiers.Ref,
+                Token.Keyword.Modifier.Ref,
                 Token.Variables.ReadWrite("x"),
                 Token.Punctuation.Semicolon]);
         });
@@ -761,7 +761,7 @@ public void LinearRegression(double[,] samples, double[] standardDeviations, int
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
+                Token.Keyword.Modifier.Public,
                 Token.PrimitiveType.Void,
                 Token.Identifiers.MethodName("LinearRegression"),
                 Token.Punctuation.OpenParen,
@@ -825,10 +825,10 @@ T id2<T>(T a) where T : class => a;`);
                 Token.Type("T"),
                 Token.Identifiers.ParameterName("a"),
                 Token.Punctuation.CloseParen,
-                Token.Keywords.Where,
+                Token.Keyword.Modifier.Where,
                 Token.Identifiers.TypeParameterName("T"),
                 Token.Punctuation.Colon,
-                Token.Keywords.Class,
+                Token.Keyword.Definition.Class,
                 Token.Operators.Arrow,
                 Token.Variables.ReadWrite("a"),
                 Token.Punctuation.Semicolon
@@ -840,13 +840,13 @@ T id2<T>(T a) where T : class => a;`);
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.ReadOnly,
+                Token.Keyword.Modifier.ReadOnly,
                 Token.PrimitiveType.Int,
                 Token.Identifiers.MethodName("M"),
                 Token.Punctuation.OpenParen,
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Control.Return,
+                Token.Keyword.Flow.Return,
                 Token.Variables.ReadWrite("x"),
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace

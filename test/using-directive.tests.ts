@@ -16,7 +16,7 @@ describe("Using directives", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Using,
+                Token.Keyword.Directive.Using,
                 Token.Identifiers.NamespaceName("System"),
                 Token.Punctuation.Semicolon]);
         });
@@ -27,8 +27,8 @@ describe("Using directives", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Using,
-                Token.Keywords.Static,
+                Token.Keyword.Directive.Using,
+                Token.Keyword.Directive.Static,
                 Token.Type("System"),
                 Token.Punctuation.Accessor,
                 Token.Type("Console"),
@@ -41,7 +41,7 @@ describe("Using directives", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Using,
+                Token.Keyword.Directive.Using,
                 Token.Identifiers.AliasName("S"),
                 Token.Operators.Assignment,
                 Token.Type("System"),
@@ -54,7 +54,7 @@ describe("Using directives", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Using,
+                Token.Keyword.Directive.Using,
                 Token.Identifiers.AliasName("C"),
                 Token.Operators.Assignment,
                 Token.Type("System"),
@@ -69,7 +69,7 @@ describe("Using directives", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Using,
+                Token.Keyword.Directive.Using,
                 Token.Identifiers.AliasName("IntList"),
                 Token.Operators.Assignment,
                 Token.Type("System"),
@@ -93,7 +93,7 @@ describe("Using directives", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Using,
+                Token.Keyword.Directive.Using,
                 Token.Identifiers.AliasName("X"),
                 Token.Operators.Assignment,
                 Token.Type("System"),
@@ -130,7 +130,7 @@ describe("Using directives", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Using,
+                Token.Keyword.Directive.Using,
                 Token.Identifiers.AliasName("X"),
                 Token.Operators.Assignment,
                 Token.Comment.MultiLine.Start,
@@ -173,8 +173,8 @@ describe("Using directives", () => {
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Global,
-                    Token.Keywords.Using,
+                    Token.Keyword.Directive.Global,
+                    Token.Keyword.Directive.Using,
                     Token.Identifiers.NamespaceName("System"),
                     Token.Punctuation.Semicolon
                 ]);
@@ -185,9 +185,9 @@ describe("Using directives", () => {
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Global,
-                    Token.Keywords.Using,
-                    Token.Keywords.Static,
+                    Token.Keyword.Directive.Global,
+                    Token.Keyword.Directive.Using,
+                    Token.Keyword.Directive.Static,
                     Token.Type("System"),
                     Token.Punctuation.Accessor,
                     Token.Type("Console"),
@@ -200,8 +200,8 @@ describe("Using directives", () => {
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Global,
-                    Token.Keywords.Using,
+                    Token.Keyword.Directive.Global,
+                    Token.Keyword.Directive.Using,
                     Token.Identifiers.AliasName("blah"),
                     Token.Operators.Assignment,
                     Token.Type("System"),
@@ -216,10 +216,10 @@ describe("Using directives", () => {
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Global,
-                    Token.Keywords.Using,
-                    Token.Keywords.Static,
-                    Token.Keywords.Modifiers.Unsafe,
+                    Token.Keyword.Directive.Global,
+                    Token.Keyword.Directive.Using,
+                    Token.Keyword.Directive.Static,
+                    Token.Keyword.Modifier.Unsafe,
                     Token.Type("System"),
                     Token.Punctuation.Accessor,
                     Token.Type("Collections"),
@@ -241,9 +241,9 @@ describe("Using directives", () => {
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
-                    Token.Keywords.Global,
-                    Token.Keywords.Using,
-                    Token.Keywords.Modifiers.Unsafe,
+                    Token.Keyword.Directive.Global,
+                    Token.Keyword.Directive.Using,
+                    Token.Keyword.Modifier.Unsafe,
                     Token.Identifiers.AliasName("blah"),
                     Token.Operators.Assignment,
                     Token.Type("System"),
@@ -268,9 +268,9 @@ describe("Using directives", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Using,
-                Token.Keywords.Static,
-                Token.Keywords.Modifiers.Unsafe,
+                Token.Keyword.Directive.Using,
+                Token.Keyword.Directive.Static,
+                Token.Keyword.Modifier.Unsafe,
                 Token.Type("System"),
                 Token.Punctuation.Accessor,
                 Token.Type("Collections"),
@@ -292,8 +292,8 @@ describe("Using directives", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Using,
-                Token.Keywords.Modifiers.Unsafe,
+                Token.Keyword.Directive.Using,
+                Token.Keyword.Modifier.Unsafe,
                 Token.Identifiers.AliasName("blah"),
                 Token.Operators.Assignment,
                 Token.Type("System"),

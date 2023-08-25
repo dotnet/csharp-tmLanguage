@@ -16,7 +16,7 @@ describe("Preprocessor", () => {
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
-                Token.Keywords.Preprocessor.Define,
+                Token.Keyword.Preprocessor.Define,
                 Token.Identifiers.PreprocessorSymbol("Foo")
             ]);
         });
@@ -27,7 +27,7 @@ describe("Preprocessor", () => {
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
-                Token.Keywords.Preprocessor.Define,
+                Token.Keyword.Preprocessor.Define,
                 Token.Identifiers.PreprocessorSymbol("Foo"),
                 Token.Comment.SingleLine.Start,
                 Token.Comment.SingleLine.Text("Foo")
@@ -40,7 +40,7 @@ describe("Preprocessor", () => {
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
-                Token.Keywords.Preprocessor.Define,
+                Token.Keyword.Preprocessor.Define,
                 Token.Identifiers.PreprocessorSymbol("Foo"),
                 Token.Comment.SingleLine.Start,
                 Token.Comment.SingleLine.Text("Foo")
@@ -53,7 +53,7 @@ describe("Preprocessor", () => {
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
-                Token.Keywords.Preprocessor.Undef,
+                Token.Keyword.Preprocessor.Undef,
                 Token.Identifiers.PreprocessorSymbol("Foo")
             ]);
         });
@@ -64,7 +64,7 @@ describe("Preprocessor", () => {
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
-                Token.Keywords.Preprocessor.Undef,
+                Token.Keyword.Preprocessor.Undef,
                 Token.Identifiers.PreprocessorSymbol("Foo"),
                 Token.Comment.SingleLine.Start,
                 Token.Comment.SingleLine.Text("Foo")
@@ -77,7 +77,7 @@ describe("Preprocessor", () => {
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
-                Token.Keywords.Preprocessor.Undef,
+                Token.Keyword.Preprocessor.Undef,
                 Token.Identifiers.PreprocessorSymbol("Foo"),
                 Token.Comment.SingleLine.Start,
                 Token.Comment.SingleLine.Text("Foo")
@@ -90,7 +90,7 @@ describe("Preprocessor", () => {
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
-                Token.Keywords.Preprocessor.If,
+                Token.Keyword.Preprocessor.If,
                 Token.Literals.Boolean.True
             ]);
         });
@@ -101,7 +101,7 @@ describe("Preprocessor", () => {
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
-                Token.Keywords.Preprocessor.If,
+                Token.Keyword.Preprocessor.If,
                 Token.Literals.Boolean.False
             ]);
         });
@@ -112,7 +112,7 @@ describe("Preprocessor", () => {
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
-                Token.Keywords.Preprocessor.If,
+                Token.Keyword.Preprocessor.If,
                 Token.Identifiers.PreprocessorSymbol("Foo")
             ]);
         });
@@ -123,7 +123,7 @@ describe("Preprocessor", () => {
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
-                Token.Keywords.Preprocessor.If,
+                Token.Keyword.Preprocessor.If,
                 Token.Identifiers.PreprocessorSymbol("Foo"),
                 Token.Operators.Logical.Or,
                 Token.Literals.Boolean.True
@@ -136,7 +136,7 @@ describe("Preprocessor", () => {
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
-                Token.Keywords.Preprocessor.If,
+                Token.Keyword.Preprocessor.If,
                 Token.Identifiers.PreprocessorSymbol("Foo"),
                 Token.Operators.Logical.And,
                 Token.Literals.Boolean.True
@@ -149,7 +149,7 @@ describe("Preprocessor", () => {
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
-                Token.Keywords.Preprocessor.If,
+                Token.Keyword.Preprocessor.If,
                 Token.Identifiers.PreprocessorSymbol("Foo"),
                 Token.Operators.Relational.Equals,
                 Token.Literals.Boolean.True
@@ -162,7 +162,7 @@ describe("Preprocessor", () => {
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
-                Token.Keywords.Preprocessor.If,
+                Token.Keyword.Preprocessor.If,
                 Token.Identifiers.PreprocessorSymbol("Foo"),
                 Token.Operators.Relational.NotEqual,
                 Token.Literals.Boolean.True
@@ -175,7 +175,7 @@ describe("Preprocessor", () => {
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
-                Token.Keywords.Preprocessor.If,
+                Token.Keyword.Preprocessor.If,
                 Token.Operators.Logical.Not,
                 Token.Identifiers.PreprocessorSymbol("Foo")
             ]);
@@ -187,7 +187,7 @@ describe("Preprocessor", () => {
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
-                Token.Keywords.Preprocessor.If,
+                Token.Keyword.Preprocessor.If,
                 Token.Punctuation.OpenParen,
                 Token.Identifiers.PreprocessorSymbol("Foo"),
                 Token.Operators.Relational.NotEqual,
@@ -204,7 +204,7 @@ describe("Preprocessor", () => {
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
-                Token.Keywords.Preprocessor.If,
+                Token.Keyword.Preprocessor.If,
                 Token.Punctuation.OpenParen,
                 Token.Identifiers.PreprocessorSymbol("Foo"),
                 Token.Operators.Relational.NotEqual,
@@ -223,7 +223,7 @@ describe("Preprocessor", () => {
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
-                Token.Keywords.Preprocessor.If,
+                Token.Keyword.Preprocessor.If,
                 Token.Punctuation.OpenParen,
                 Token.Identifiers.PreprocessorSymbol("Foo"),
                 Token.Operators.Relational.NotEqual,
@@ -242,7 +242,7 @@ describe("Preprocessor", () => {
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
-                Token.Keywords.Preprocessor.ElIf,
+                Token.Keyword.Preprocessor.ElIf,
                 Token.Literals.Boolean.True
             ]);
         });
@@ -253,7 +253,7 @@ describe("Preprocessor", () => {
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
-                Token.Keywords.Preprocessor.ElIf,
+                Token.Keyword.Preprocessor.ElIf,
                 Token.Literals.Boolean.False
             ]);
         });
@@ -264,7 +264,7 @@ describe("Preprocessor", () => {
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
-                Token.Keywords.Preprocessor.ElIf,
+                Token.Keyword.Preprocessor.ElIf,
                 Token.Identifiers.PreprocessorSymbol("Foo")
             ]);
         });
@@ -275,7 +275,7 @@ describe("Preprocessor", () => {
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
-                Token.Keywords.Preprocessor.ElIf,
+                Token.Keyword.Preprocessor.ElIf,
                 Token.Identifiers.PreprocessorSymbol("Foo"),
                 Token.Operators.Logical.Or,
                 Token.Literals.Boolean.True
@@ -288,7 +288,7 @@ describe("Preprocessor", () => {
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
-                Token.Keywords.Preprocessor.ElIf,
+                Token.Keyword.Preprocessor.ElIf,
                 Token.Identifiers.PreprocessorSymbol("Foo"),
                 Token.Operators.Logical.And,
                 Token.Literals.Boolean.True
@@ -301,7 +301,7 @@ describe("Preprocessor", () => {
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
-                Token.Keywords.Preprocessor.ElIf,
+                Token.Keyword.Preprocessor.ElIf,
                 Token.Identifiers.PreprocessorSymbol("Foo"),
                 Token.Operators.Relational.Equals,
                 Token.Literals.Boolean.True
@@ -314,7 +314,7 @@ describe("Preprocessor", () => {
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
-                Token.Keywords.Preprocessor.ElIf,
+                Token.Keyword.Preprocessor.ElIf,
                 Token.Identifiers.PreprocessorSymbol("Foo"),
                 Token.Operators.Relational.NotEqual,
                 Token.Literals.Boolean.True
@@ -327,7 +327,7 @@ describe("Preprocessor", () => {
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
-                Token.Keywords.Preprocessor.ElIf,
+                Token.Keyword.Preprocessor.ElIf,
                 Token.Operators.Logical.Not,
                 Token.Identifiers.PreprocessorSymbol("Foo")
             ]);
@@ -339,7 +339,7 @@ describe("Preprocessor", () => {
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
-                Token.Keywords.Preprocessor.ElIf,
+                Token.Keyword.Preprocessor.ElIf,
                 Token.Punctuation.OpenParen,
                 Token.Identifiers.PreprocessorSymbol("Foo"),
                 Token.Operators.Relational.NotEqual,
@@ -356,7 +356,7 @@ describe("Preprocessor", () => {
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
-                Token.Keywords.Preprocessor.ElIf,
+                Token.Keyword.Preprocessor.ElIf,
                 Token.Punctuation.OpenParen,
                 Token.Identifiers.PreprocessorSymbol("Foo"),
                 Token.Operators.Relational.NotEqual,
@@ -375,7 +375,7 @@ describe("Preprocessor", () => {
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
-                Token.Keywords.Preprocessor.ElIf,
+                Token.Keyword.Preprocessor.ElIf,
                 Token.Punctuation.OpenParen,
                 Token.Identifiers.PreprocessorSymbol("Foo"),
                 Token.Operators.Relational.NotEqual,
@@ -394,7 +394,7 @@ describe("Preprocessor", () => {
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
-                Token.Keywords.Preprocessor.Else,
+                Token.Keyword.Preprocessor.Else,
             ]);
         });
 
@@ -404,7 +404,7 @@ describe("Preprocessor", () => {
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
-                Token.Keywords.Preprocessor.Else,
+                Token.Keyword.Preprocessor.Else,
                 Token.Comment.SingleLine.Start,
                 Token.Comment.SingleLine.Text("Foo")
             ]);
@@ -416,7 +416,7 @@ describe("Preprocessor", () => {
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
-                Token.Keywords.Preprocessor.Else,
+                Token.Keyword.Preprocessor.Else,
                 Token.Comment.SingleLine.Start,
                 Token.Comment.SingleLine.Text("Foo")
             ]);
@@ -428,7 +428,7 @@ describe("Preprocessor", () => {
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
-                Token.Keywords.Preprocessor.EndIf,
+                Token.Keyword.Preprocessor.EndIf,
             ]);
         });
 
@@ -438,7 +438,7 @@ describe("Preprocessor", () => {
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
-                Token.Keywords.Preprocessor.EndIf,
+                Token.Keyword.Preprocessor.EndIf,
                 Token.Comment.SingleLine.Start,
                 Token.Comment.SingleLine.Text("Foo")
             ]);
@@ -450,7 +450,7 @@ describe("Preprocessor", () => {
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
-                Token.Keywords.Preprocessor.EndIf,
+                Token.Keyword.Preprocessor.EndIf,
                 Token.Comment.SingleLine.Start,
                 Token.Comment.SingleLine.Text("Foo")
             ]);
@@ -462,7 +462,7 @@ describe("Preprocessor", () => {
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
-                Token.Keywords.Preprocessor.Warning,
+                Token.Keyword.Preprocessor.Warning,
                 Token.PreprocessorMessage("This is a warning")
             ]);
         });
@@ -473,7 +473,7 @@ describe("Preprocessor", () => {
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
-                Token.Keywords.Preprocessor.Error,
+                Token.Keyword.Preprocessor.Error,
                 Token.PreprocessorMessage("This is an error")
             ]);
         });
@@ -484,7 +484,7 @@ describe("Preprocessor", () => {
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
-                Token.Keywords.Preprocessor.Region,
+                Token.Keyword.Preprocessor.Region,
                 Token.PreprocessorMessage("My Region")
             ]);
         });
@@ -495,7 +495,7 @@ describe("Preprocessor", () => {
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
-                Token.Keywords.Preprocessor.Region,
+                Token.Keyword.Preprocessor.Region,
                 Token.PreprocessorMessage("\"My Region\"")
             ]);
         });
@@ -506,7 +506,7 @@ describe("Preprocessor", () => {
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
-                Token.Keywords.Preprocessor.EndRegion
+                Token.Keyword.Preprocessor.EndRegion
             ]);
         });
 
@@ -516,7 +516,7 @@ describe("Preprocessor", () => {
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
-                Token.Keywords.Preprocessor.EndRegion,
+                Token.Keyword.Preprocessor.EndRegion,
                 Token.Comment.SingleLine.Start,
                 Token.Comment.SingleLine.Text("Foo")
             ]);
@@ -528,7 +528,7 @@ describe("Preprocessor", () => {
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
-                Token.Keywords.Preprocessor.EndRegion,
+                Token.Keyword.Preprocessor.EndRegion,
                 Token.Comment.SingleLine.Start,
                 Token.Comment.SingleLine.Text("Foo")
             ]);
@@ -550,8 +550,8 @@ public enum E
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Enum,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Definition.Enum,
                 Token.Identifiers.EnumName("E"),
                 Token.Punctuation.OpenBrace,
                 Token.Identifiers.EnumMemberName("A"),
@@ -568,12 +568,12 @@ public enum E
                 Token.Punctuation.Comma,
 
                 Token.Punctuation.Hash,
-                Token.Keywords.Preprocessor.If,
+                Token.Keyword.Preprocessor.If,
                 Token.Identifiers.PreprocessorSymbol("DEBUG"),
                 Token.Identifiers.EnumMemberName("D"),
                 Token.Punctuation.Comma,
                 Token.Punctuation.Hash,
-                Token.Keywords.Preprocessor.EndIf,
+                Token.Keyword.Preprocessor.EndIf,
 
                 Token.Punctuation.CloseBrace
             ]);
@@ -594,7 +594,7 @@ public ActionResult Register()
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
-                Token.Keywords.Preprocessor.Region,
+                Token.Keyword.Preprocessor.Region,
                 Token.PreprocessorMessage("\" Register / Create New  \""),
                 Token.Comment.SingleLine.Start,
                 Token.Comment.SingleLine.Text(" GET: /Account/Register"),
@@ -608,7 +608,7 @@ public ActionResult Register()
                 Token.Variables.Property("SuperUser"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.CloseBracket,
-                Token.Keywords.Modifiers.Public,
+                Token.Keyword.Modifier.Public,
                 Token.Type("ActionResult"),
                 Token.Identifiers.MethodName("Register"),
                 Token.Punctuation.OpenParen,
@@ -621,7 +621,7 @@ public ActionResult Register()
                 Token.Punctuation.String.End,
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.Semicolon,
-                Token.Keywords.Control.Return,
+                Token.Keyword.Flow.Return,
                 Token.Identifiers.MethodName("View"),
                 Token.Punctuation.OpenParen,
                 Token.Punctuation.CloseParen,
@@ -644,16 +644,16 @@ public ActionResult Register()
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
-                Token.Keywords.Preprocessor.If,
+                Token.Keyword.Preprocessor.If,
                 Token.Operators.Logical.Not,
                 Token.Identifiers.PreprocessorSymbol("PCL"),
                 Token.Punctuation.OpenBracket,
                 Token.Type("Serializable"),
                 Token.Punctuation.CloseBracket,
                 Token.Punctuation.Hash,
-                Token.Keywords.Preprocessor.EndIf,
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Struct,
+                Token.Keyword.Preprocessor.EndIf,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Definition.Struct,
                 Token.Identifiers.StructName("Interval"),
                 Token.Punctuation.Colon,
                 Token.Type("IEquatable"),
@@ -663,13 +663,13 @@ public ActionResult Register()
                 Token.Punctuation.Comma,
                 Token.Type("IXmlSerializable"),
                 Token.Punctuation.Hash,
-                Token.Keywords.Preprocessor.If,
+                Token.Keyword.Preprocessor.If,
                 Token.Operators.Logical.Not,
                 Token.Identifiers.PreprocessorSymbol("PCL"),
                 Token.Punctuation.Comma,
                 Token.Type("ISerializable"),
                 Token.Punctuation.Hash,
-                Token.Keywords.Preprocessor.EndIf,
+                Token.Keyword.Preprocessor.EndIf,
             ]);
         });
 
@@ -679,7 +679,7 @@ public ActionResult Register()
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
-                Token.Keywords.Preprocessor.Load
+                Token.Keyword.Preprocessor.Load
             ]);
         });
 
@@ -689,7 +689,7 @@ public ActionResult Register()
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
-                Token.Keywords.Preprocessor.Load,
+                Token.Keyword.Preprocessor.Load,
                 Token.Literals.String(`"foo.csx"`)
             ]);
         });
@@ -700,7 +700,7 @@ public ActionResult Register()
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
-                Token.Keywords.Preprocessor.R
+                Token.Keyword.Preprocessor.R
             ]);
         });
 
@@ -710,7 +710,7 @@ public ActionResult Register()
 
             tokens.should.deep.equal([
                 Token.Punctuation.Hash,
-                Token.Keywords.Preprocessor.R,
+                Token.Keyword.Preprocessor.R,
                 Token.Literals.String(`"System.Net.dll"`)
             ]);
         });

@@ -69,7 +69,7 @@ describe("Locals", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Const,
+                Token.Keyword.Modifier.Const,
                 Token.PrimitiveType.Int,
                 Token.Identifiers.LocalName("x"),
                 Token.Operators.Assignment,
@@ -83,7 +83,7 @@ describe("Locals", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Const,
+                Token.Keyword.Modifier.Const,
                 Token.PrimitiveType.Int,
                 Token.Identifiers.LocalName("x"),
                 Token.Operators.Assignment,
@@ -101,7 +101,7 @@ describe("Locals", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Ref,
+                Token.Keyword.Modifier.Ref,
                 Token.PrimitiveType.Int,
                 Token.Identifiers.LocalName("x"),
                 Token.Punctuation.Semicolon
@@ -113,8 +113,8 @@ describe("Locals", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Ref,
-                Token.Keywords.Modifiers.ReadOnly,
+                Token.Keyword.Modifier.Ref,
+                Token.Keyword.Modifier.ReadOnly,
                 Token.PrimitiveType.Int,
                 Token.Identifiers.LocalName("x"),
                 Token.Punctuation.Semicolon
@@ -126,11 +126,11 @@ describe("Locals", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Ref,
+                Token.Keyword.Modifier.Ref,
                 Token.PrimitiveType.Int,
                 Token.Identifiers.LocalName("x"),
                 Token.Operators.Assignment,
-                Token.Keywords.Modifiers.Ref,
+                Token.Keyword.Modifier.Ref,
                 Token.Variables.ReadWrite("y"),
                 Token.Punctuation.Semicolon
             ]);
@@ -141,12 +141,12 @@ describe("Locals", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Ref,
-                Token.Keywords.Modifiers.ReadOnly,
+                Token.Keyword.Modifier.Ref,
+                Token.Keyword.Modifier.ReadOnly,
                 Token.PrimitiveType.Int,
                 Token.Identifiers.LocalName("x"),
                 Token.Operators.Assignment,
-                Token.Keywords.Modifiers.Ref,
+                Token.Keyword.Modifier.Ref,
                 Token.Variables.ReadWrite("y"),
                 Token.Punctuation.Semicolon
             ]);
@@ -157,12 +157,12 @@ describe("Locals", () => {
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Ref,
-                Token.Keywords.Modifiers.ReadOnly,
-                Token.Keywords.Var,
+                Token.Keyword.Modifier.Ref,
+                Token.Keyword.Modifier.ReadOnly,
+                Token.Keyword.Definition.Var,
                 Token.Identifiers.LocalName("x"),
                 Token.Operators.Assignment,
-                Token.Keywords.Modifiers.Ref,
+                Token.Keyword.Modifier.Ref,
                 Token.Variables.ReadWrite("y"),
                 Token.Punctuation.Semicolon
             ]);
@@ -211,7 +211,7 @@ int Add(int x, int y)
                 Token.Identifiers.ParameterName("y"),
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Control.Return,
+                Token.Keyword.Flow.Return,
                 Token.Variables.ReadWrite("x"),
                 Token.Operators.Arithmetic.Addition,
                 Token.Variables.ReadWrite("y"),
@@ -225,7 +225,7 @@ int Add(int x, int y)
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Async,
+                Token.Keyword.Modifier.Async,
                 Token.PrimitiveType.Void,
                 Token.Identifiers.MethodName("Foo"),
                 Token.Punctuation.OpenParen,
@@ -240,7 +240,7 @@ int Add(int x, int y)
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Unsafe,
+                Token.Keyword.Modifier.Unsafe,
                 Token.PrimitiveType.Void,
                 Token.Identifiers.MethodName("Foo"),
                 Token.Punctuation.OpenParen,
@@ -255,7 +255,7 @@ int Add(int x, int y)
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Static,
+                Token.Keyword.Modifier.Static,
                 Token.PrimitiveType.Void,
                 Token.Identifiers.MethodName("Foo"),
                 Token.Punctuation.OpenParen,
@@ -270,8 +270,8 @@ int Add(int x, int y)
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Extern,
-                Token.Keywords.Modifiers.Static,
+                Token.Keyword.Modifier.Extern,
+                Token.Keyword.Modifier.Static,
                 Token.PrimitiveType.Void,
                 Token.Identifiers.MethodName("Foo"),
                 Token.Punctuation.OpenParen,

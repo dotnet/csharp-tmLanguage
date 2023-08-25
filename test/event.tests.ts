@@ -15,8 +15,8 @@ describe("Events", () => {
             const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Event,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Definition.Event,
                 Token.Type("Type"),
                 Token.Identifiers.EventName("Event"),
                 Token.Punctuation.Semicolon]);
@@ -27,9 +27,9 @@ describe("Events", () => {
             const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Protected,
-                Token.Keywords.Modifiers.Internal,
-                Token.Keywords.Event,
+                Token.Keyword.Modifier.Protected,
+                Token.Keyword.Modifier.Internal,
+                Token.Keyword.Definition.Event,
                 Token.Type("Type"),
                 Token.Identifiers.EventName("Event"),
                 Token.Punctuation.Semicolon]);
@@ -40,8 +40,8 @@ describe("Events", () => {
             const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Event,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Definition.Event,
                 Token.Type("Type"),
                 Token.Identifiers.EventName("Event1"),
                 Token.Punctuation.Comma,
@@ -54,8 +54,8 @@ describe("Events", () => {
             const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Event,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Definition.Event,
                 Token.Type("EventHandler"),
                 Token.Punctuation.TypeParameters.Begin,
                 Token.Type("List"),
@@ -85,15 +85,15 @@ public event Type Event
             const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Event,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Definition.Event,
                 Token.Type("Type"),
                 Token.Identifiers.EventName("Event"),
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Add,
+                Token.Keyword.Definition.Add,
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace,
-                Token.Keywords.Remove,
+                Token.Keyword.Definition.Remove,
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace,
                 Token.Punctuation.CloseBrace]);
@@ -104,7 +104,7 @@ public event Type Event
             const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
-                Token.Keywords.Event,
+                Token.Keyword.Definition.Event,
                 Token.Type("EventHandler"),
                 Token.Type("IFoo"),
                 Token.Punctuation.TypeParameters.Begin,
@@ -113,9 +113,9 @@ public event Type Event
                 Token.Punctuation.Accessor,
                 Token.Identifiers.EventName("Event"),
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Add,
+                Token.Keyword.Definition.Add,
                 Token.Punctuation.Semicolon,
-                Token.Keywords.Remove,
+                Token.Keyword.Definition.Remove,
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace]);
         });
@@ -125,7 +125,7 @@ public event Type Event
             const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
-                Token.Keywords.Event,
+                Token.Keyword.Definition.Event,
                 Token.Type("EventHandler"),
                 Token.Identifiers.EventName("Event"),
                 Token.Punctuation.Semicolon]);
@@ -145,23 +145,23 @@ interface IObj
             const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
-                Token.Keywords.Interface,
+                Token.Keyword.Definition.Interface,
                 Token.Identifiers.InterfaceName("IObj"),
                 Token.Punctuation.OpenBrace,
                 Token.PrimitiveType.Int,
                 Token.Identifiers.PropertyName("Prop1"),
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Get,
+                Token.Keyword.Definition.Get,
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace,
-                Token.Keywords.Event,
+                Token.Keyword.Definition.Event,
                 Token.Type("EventHandler"),
                 Token.Identifiers.EventName("Event"),
                 Token.Punctuation.Semicolon,
                 Token.PrimitiveType.Int,
                 Token.Identifiers.PropertyName("Prop2"),
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Get,
+                Token.Keyword.Definition.Get,
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace,
                 Token.Punctuation.CloseBrace]);
@@ -183,30 +183,30 @@ public event Action E1
 
             tokens.should.deep.equal([
                 Token.Punctuation.OpenBracket,
-                Token.Keywords.AttributeSpecifier("event"),
+                Token.Keyword.AttributeSpecifier("event"),
                 Token.Punctuation.Colon,
                 Token.Type("Test"),
                 Token.Punctuation.CloseBracket,
-                Token.Keywords.Modifiers.Public,
-                Token.Keywords.Event,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Definition.Event,
                 Token.Type("Action"),
                 Token.Identifiers.EventName("E1"),
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.OpenBracket,
                 Token.Type("Obsolete"),
                 Token.Punctuation.CloseBracket,
-                Token.Keywords.Add,
+                Token.Keyword.Definition.Add,
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace,
                 Token.Punctuation.OpenBracket,
                 Token.Type("Obsolete"),
                 Token.Punctuation.CloseBracket,
                 Token.Punctuation.OpenBracket,
-                Token.Keywords.AttributeSpecifier("return"),
+                Token.Keyword.AttributeSpecifier("return"),
                 Token.Punctuation.Colon,
                 Token.Type("Obsolete"),
                 Token.Punctuation.CloseBracket,
-                Token.Keywords.Remove,
+                Token.Keyword.Definition.Remove,
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace,
                 Token.Punctuation.CloseBrace
@@ -224,11 +224,11 @@ event EventHandler E
             const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
-                Token.Keywords.Event,
+                Token.Keyword.Definition.Event,
                 Token.Type("EventHandler"),
                 Token.Identifiers.EventName("E"),
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Add,
+                Token.Keyword.Definition.Add,
                 Token.Operators.Arrow,
                 ...Scope.Accessor.Setter(
                     Token.Identifiers.MethodName("Add"),
@@ -237,7 +237,7 @@ event EventHandler E
                     Token.Punctuation.CloseParen,
                 ),
                 Token.Punctuation.Semicolon,
-                Token.Keywords.Remove,
+                Token.Keyword.Definition.Remove,
                 Token.Operators.Arrow,
                 ...Scope.Accessor.Setter(
                     Token.Identifiers.MethodName("Remove"),
@@ -254,16 +254,16 @@ event EventHandler E
             const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
-                Token.Keywords.Event,
+                Token.Keyword.Definition.Event,
                 Token.Type("EventHandler"),
                 Token.Identifiers.EventName("Event"),
                 Token.Comment.MultiLine.Start,
                 Token.Comment.MultiLine.Text(" comment "),
                 Token.Comment.MultiLine.End,
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Add,
+                Token.Keyword.Definition.Add,
                 Token.Punctuation.Semicolon,
-                Token.Keywords.Remove,
+                Token.Keyword.Definition.Remove,
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace,
             ]);
@@ -279,15 +279,15 @@ event EventHandler Event // comment
             const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
-                Token.Keywords.Event,
+                Token.Keyword.Definition.Event,
                 Token.Type("EventHandler"),
                 Token.Identifiers.EventName("Event"),
                 Token.Comment.SingleLine.Start,
                 Token.Comment.SingleLine.Text(" comment"),
                 Token.Punctuation.OpenBrace,
-                Token.Keywords.Add,
+                Token.Keyword.Definition.Add,
                 Token.Punctuation.Semicolon,
-                Token.Keywords.Remove,
+                Token.Keyword.Definition.Remove,
                 Token.Punctuation.Semicolon,
                 Token.Punctuation.CloseBrace,
             ]);
@@ -298,7 +298,7 @@ event EventHandler Event // comment
             const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
-                Token.Keywords.Event,
+                Token.Keyword.Definition.Event,
                 Token.Type("EventHandler"),
                 Token.Identifiers.EventName("Event"),
                 Token.Operators.Assignment,
@@ -315,11 +315,11 @@ event EventHandler Event1 = delegate { },
             const tokens = await tokenize(input, "meta.accessor.");
 
             tokens.should.deep.equal([
-                Token.Keywords.Event,
+                Token.Keyword.Definition.Event,
                 Token.Type("EventHandler"),
                 Token.Identifiers.EventName("Event1"),
                 Token.Operators.Assignment,
-                Token.Keywords.Delegate,
+                Token.Keyword.Definition.Delegate,
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace,
                 Token.Punctuation.Comma,

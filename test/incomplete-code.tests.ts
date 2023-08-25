@@ -22,11 +22,11 @@ public ColorTest(string white)
             let tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keywords.Modifiers.Private,
-                Token.Keywords.Modifiers.ReadOnly,
+                Token.Keyword.Modifier.Private,
+                Token.Keyword.Modifier.ReadOnly,
                 Token.PrimitiveType.String,
                 Token.Identifiers.PropertyName("_color"),
-                Token.Keywords.Modifiers.Public,
+                Token.Keyword.Modifier.Public,
                 Token.Identifiers.MethodName("ColorTest"),
                 Token.Punctuation.OpenParen,
                 Token.PrimitiveType.String,
