@@ -2122,6 +2122,9 @@ repository:
       {
         include: "#nameof-expression"
       }
+      {
+        include: "#expression-operators"
+      }
     ]
   "relational-pattern":
     begin: "<=?|>=?"
@@ -3713,12 +3716,12 @@ repository:
       "0":
         name: "punctuation.separator.colon.cs"
   "assignment-expression":
-    begin: "(\\*=|/=|%=|\\+=|-=|\\?\\?=|\\&=|\\^=|<<=|>>>?=|\\|=|=)(?!=|>)"
+    begin: "(?:\\*|/|%|\\+|-|\\?\\?|\\&|\\^|<<|>>>?|\\|)?=(?!=|>)"
     beginCaptures:
-      "1":
+      "0":
         patterns: [
           {
-            include: "#expression-operators"
+            include: "#assignment-operators"
           }
         ]
     end: "(?=[,\\)\\];}])"
@@ -3730,7 +3733,7 @@ repository:
         include: "#expression"
       }
     ]
-  "expression-operators":
+  "assignment-operators":
     patterns: [
       {
         name: "keyword.operator.assignment.compound.cs"
@@ -3740,6 +3743,13 @@ repository:
         name: "keyword.operator.assignment.compound.bitwise.cs"
         match: "\\&=|\\^=|<<=|>>>?=|\\|="
       }
+      {
+        name: "keyword.operator.assignment.cs"
+        match: "\\="
+      }
+    ]
+  "expression-operators":
+    patterns: [
       {
         name: "keyword.operator.bitwise.shift.cs"
         match: "<<|>>>?"
@@ -3759,10 +3769,6 @@ repository:
       {
         name: "keyword.operator.bitwise.cs"
         match: "\\&|~|\\^|\\|"
-      }
-      {
-        name: "keyword.operator.assignment.cs"
-        match: "\\="
       }
       {
         name: "keyword.operator.decrement.cs"

@@ -3428,6 +3428,10 @@
             <key>include</key>
             <string>#nameof-expression</string>
           </dict>
+          <dict>
+            <key>include</key>
+            <string>#expression-operators</string>
+          </dict>
         </array>
       </dict>
       <key>relational-pattern</key>
@@ -6243,16 +6247,16 @@
       <key>assignment-expression</key>
       <dict>
         <key>begin</key>
-        <string>(\*=|/=|%=|\+=|-=|\?\?=|\&amp;=|\^=|&lt;&lt;=|&gt;&gt;&gt;?=|\|=|=)(?!=|&gt;)</string>
+        <string>(?:\*|/|%|\+|-|\?\?|\&amp;|\^|&lt;&lt;|&gt;&gt;&gt;?|\|)?=(?!=|&gt;)</string>
         <key>beginCaptures</key>
         <dict>
-          <key>1</key>
+          <key>0</key>
           <dict>
             <key>patterns</key>
             <array>
               <dict>
                 <key>include</key>
-                <string>#expression-operators</string>
+                <string>#assignment-operators</string>
               </dict>
             </array>
           </dict>
@@ -6271,7 +6275,7 @@
           </dict>
         </array>
       </dict>
-      <key>expression-operators</key>
+      <key>assignment-operators</key>
       <dict>
         <key>patterns</key>
         <array>
@@ -6287,6 +6291,18 @@
             <key>match</key>
             <string>\&amp;=|\^=|&lt;&lt;=|&gt;&gt;&gt;?=|\|=</string>
           </dict>
+          <dict>
+            <key>name</key>
+            <string>keyword.operator.assignment.cs</string>
+            <key>match</key>
+            <string>\=</string>
+          </dict>
+        </array>
+      </dict>
+      <key>expression-operators</key>
+      <dict>
+        <key>patterns</key>
+        <array>
           <dict>
             <key>name</key>
             <string>keyword.operator.bitwise.shift.cs</string>
@@ -6316,12 +6332,6 @@
             <string>keyword.operator.bitwise.cs</string>
             <key>match</key>
             <string>\&amp;|~|\^|\|</string>
-          </dict>
-          <dict>
-            <key>name</key>
-            <string>keyword.operator.assignment.cs</string>
-            <key>match</key>
-            <string>\=</string>
           </dict>
           <dict>
             <key>name</key>
