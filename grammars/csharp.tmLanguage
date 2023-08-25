@@ -514,12 +514,12 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.directive.extern.cs</string>
+            <string>keyword.other.directive.extern.cs</string>
           </dict>
           <key>2</key>
           <dict>
             <key>name</key>
-            <string>keyword.directive.alias.cs</string>
+            <string>keyword.other.directive.alias.cs</string>
           </dict>
           <key>3</key>
           <dict>
@@ -542,17 +542,17 @@
               <key>2</key>
               <dict>
                 <key>name</key>
-                <string>keyword.directive.global.cs</string>
+                <string>keyword.other.directive.global.cs</string>
               </dict>
               <key>3</key>
               <dict>
                 <key>name</key>
-                <string>keyword.directive.using.cs</string>
+                <string>keyword.other.directive.using.cs</string>
               </dict>
               <key>4</key>
               <dict>
                 <key>name</key>
-                <string>keyword.directive.static.cs</string>
+                <string>keyword.other.directive.static.cs</string>
               </dict>
               <key>6</key>
               <dict>
@@ -578,12 +578,12 @@
               <key>2</key>
               <dict>
                 <key>name</key>
-                <string>keyword.directive.global.cs</string>
+                <string>keyword.other.directive.global.cs</string>
               </dict>
               <key>3</key>
               <dict>
                 <key>name</key>
-                <string>keyword.directive.using.cs</string>
+                <string>keyword.other.directive.using.cs</string>
               </dict>
               <key>5</key>
               <dict>
@@ -622,12 +622,12 @@
               <key>2</key>
               <dict>
                 <key>name</key>
-                <string>keyword.directive.global.cs</string>
+                <string>keyword.other.directive.global.cs</string>
               </dict>
               <key>3</key>
               <dict>
                 <key>name</key>
-                <string>keyword.directive.using.cs</string>
+                <string>keyword.other.directive.using.cs</string>
               </dict>
             </dict>
             <key>end</key>
@@ -7298,7 +7298,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.query.from.cs</string>
+            <string>keyword.operator.expression.query.from.cs</string>
           </dict>
           <key>2</key>
           <dict>
@@ -7318,7 +7318,7 @@
           <key>8</key>
           <dict>
             <key>name</key>
-            <string>keyword.query.in.cs</string>
+            <string>keyword.operator.expression.query.in.cs</string>
           </dict>
         </dict>
         <key>end</key>
@@ -7377,7 +7377,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.query.let.cs</string>
+            <string>keyword.operator.expression.query.let.cs</string>
           </dict>
           <key>2</key>
           <dict>
@@ -7414,7 +7414,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.query.where.cs</string>
+            <string>keyword.operator.expression.query.where.cs</string>
           </dict>
         </dict>
         <key>end</key>
@@ -7465,7 +7465,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.query.join.cs</string>
+            <string>keyword.operator.expression.query.join.cs</string>
           </dict>
           <key>2</key>
           <dict>
@@ -7485,7 +7485,7 @@
           <key>8</key>
           <dict>
             <key>name</key>
-            <string>keyword.query.in.cs</string>
+            <string>keyword.operator.expression.query.in.cs</string>
           </dict>
         </dict>
         <key>end</key>
@@ -7523,7 +7523,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.query.on.cs</string>
+            <string>keyword.operator.expression.query.on.cs</string>
           </dict>
         </dict>
       </dict>
@@ -7536,7 +7536,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.query.equals.cs</string>
+            <string>keyword.operator.expression.query.equals.cs</string>
           </dict>
         </dict>
       </dict>
@@ -7551,7 +7551,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.query.into.cs</string>
+            <string>keyword.operator.expression.query.into.cs</string>
           </dict>
           <key>2</key>
           <dict>
@@ -7569,7 +7569,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.query.orderby.cs</string>
+            <string>keyword.operator.expression.query.orderby.cs</string>
           </dict>
         </dict>
         <key>end</key>
@@ -7597,18 +7597,13 @@
       <key>ordering-direction</key>
       <dict>
         <key>match</key>
-        <string>\b(?:(ascending)|(descending))\b</string>
+        <string>\b(ascending|descending)\b</string>
         <key>captures</key>
         <dict>
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.query.ascending.cs</string>
-          </dict>
-          <key>2</key>
-          <dict>
-            <key>name</key>
-            <string>keyword.query.descending.cs</string>
+            <string>keyword.operator.expression.query.$1.cs</string>
           </dict>
         </dict>
       </dict>
@@ -7621,7 +7616,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.query.select.cs</string>
+            <string>keyword.operator.expression.query.select.cs</string>
           </dict>
         </dict>
         <key>end</key>
@@ -7647,7 +7642,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.query.group.cs</string>
+            <string>keyword.operator.expression.query.group.cs</string>
           </dict>
         </dict>
         <key>end</key>
@@ -7681,7 +7676,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.query.by.cs</string>
+            <string>keyword.operator.expression.query.by.cs</string>
           </dict>
         </dict>
       </dict>
@@ -7696,7 +7691,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.query.into.cs</string>
+            <string>keyword.operator.expression.query.into.cs</string>
           </dict>
           <key>2</key>
           <dict>

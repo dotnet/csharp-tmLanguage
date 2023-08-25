@@ -365,9 +365,9 @@ repository:
     begin: "\\s*(extern)\\b\\s*(alias)\\b\\s*(@?[_[:alpha:]][_[:alnum:]]*)"
     beginCaptures:
       "1":
-        name: "keyword.directive.extern.cs"
+        name: "keyword.other.directive.extern.cs"
       "2":
-        name: "keyword.directive.alias.cs"
+        name: "keyword.other.directive.alias.cs"
       "3":
         name: "variable.other.alias.cs"
     end: "(?=;)"
@@ -377,11 +377,11 @@ repository:
         begin: "(\\b(global)\\b\\s+)?\\b(using)\\b\\s+(static)\\b\\s+(\\b(unsafe)\\b\\s+)?"
         beginCaptures:
           "2":
-            name: "keyword.directive.global.cs"
+            name: "keyword.other.directive.global.cs"
           "3":
-            name: "keyword.directive.using.cs"
+            name: "keyword.other.directive.using.cs"
           "4":
-            name: "keyword.directive.static.cs"
+            name: "keyword.other.directive.static.cs"
           "6":
             name: "storage.modifier.unsafe.cs"
         end: "(?=;)"
@@ -395,9 +395,9 @@ repository:
         begin: "(\\b(global)\\b\\s+)?\\b(using)\\b\\s+(\\b(unsafe)\\b\\s+)?(?=(@?[_[:alpha:]][_[:alnum:]]*)\\s*=)"
         beginCaptures:
           "2":
-            name: "keyword.directive.global.cs"
+            name: "keyword.other.directive.global.cs"
           "3":
-            name: "keyword.directive.using.cs"
+            name: "keyword.other.directive.using.cs"
           "5":
             name: "storage.modifier.unsafe.cs"
           "6":
@@ -419,9 +419,9 @@ repository:
         begin: "(\\b(global)\\b\\s+)?\\b(using)\\s*(?!\\(|\\s|var)"
         beginCaptures:
           "2":
-            name: "keyword.directive.global.cs"
+            name: "keyword.other.directive.global.cs"
           "3":
-            name: "keyword.directive.using.cs"
+            name: "keyword.other.directive.using.cs"
         end: "(?=;)"
         patterns: [
           {
@@ -4404,7 +4404,7 @@ repository:
     '''
     beginCaptures:
       "1":
-        name: "keyword.query.from.cs"
+        name: "keyword.operator.expression.query.from.cs"
       "2":
         patterns: [
           {
@@ -4414,7 +4414,7 @@ repository:
       "7":
         name: "entity.name.variable.range-variable.cs"
       "8":
-        name: "keyword.query.in.cs"
+        name: "keyword.operator.expression.query.in.cs"
     end: "(?=;|\\))"
     patterns: [
       {
@@ -4454,7 +4454,7 @@ repository:
     '''
     beginCaptures:
       "1":
-        name: "keyword.query.let.cs"
+        name: "keyword.operator.expression.query.let.cs"
       "2":
         name: "entity.name.variable.range-variable.cs"
       "3":
@@ -4475,7 +4475,7 @@ repository:
     '''
     beginCaptures:
       "1":
-        name: "keyword.query.where.cs"
+        name: "keyword.operator.expression.query.where.cs"
     end: "(?=;|\\))"
     patterns: [
       {
@@ -4516,7 +4516,7 @@ repository:
     '''
     beginCaptures:
       "1":
-        name: "keyword.query.join.cs"
+        name: "keyword.operator.expression.query.join.cs"
       "2":
         patterns: [
           {
@@ -4526,7 +4526,7 @@ repository:
       "7":
         name: "entity.name.variable.range-variable.cs"
       "8":
-        name: "keyword.query.in.cs"
+        name: "keyword.operator.expression.query.in.cs"
     end: "(?=;|\\))"
     patterns: [
       {
@@ -4549,12 +4549,12 @@ repository:
     match: "\\b(on)\\b\\s*"
     captures:
       "1":
-        name: "keyword.query.on.cs"
+        name: "keyword.operator.expression.query.on.cs"
   "join-equals":
     match: "\\b(equals)\\b\\s*"
     captures:
       "1":
-        name: "keyword.query.equals.cs"
+        name: "keyword.operator.expression.query.equals.cs"
   "join-into":
     match: '''
       (?x)
@@ -4563,14 +4563,14 @@ repository:
     '''
     captures:
       "1":
-        name: "keyword.query.into.cs"
+        name: "keyword.operator.expression.query.into.cs"
       "2":
         name: "entity.name.variable.range-variable.cs"
   "orderby-clause":
     begin: "\\b(orderby)\\b\\s*"
     beginCaptures:
       "1":
-        name: "keyword.query.orderby.cs"
+        name: "keyword.operator.expression.query.orderby.cs"
     end: "(?=;|\\))"
     patterns: [
       {
@@ -4587,17 +4587,15 @@ repository:
       }
     ]
   "ordering-direction":
-    match: "\\b(?:(ascending)|(descending))\\b"
+    match: "\\b(ascending|descending)\\b"
     captures:
       "1":
-        name: "keyword.query.ascending.cs"
-      "2":
-        name: "keyword.query.descending.cs"
+        name: "keyword.operator.expression.query.$1.cs"
   "select-clause":
     begin: "\\b(select)\\b\\s*"
     beginCaptures:
       "1":
-        name: "keyword.query.select.cs"
+        name: "keyword.operator.expression.query.select.cs"
     end: "(?=;|\\))"
     patterns: [
       {
@@ -4611,7 +4609,7 @@ repository:
     begin: "\\b(group)\\b\\s*"
     beginCaptures:
       "1":
-        name: "keyword.query.group.cs"
+        name: "keyword.operator.expression.query.group.cs"
     end: "(?=;|\\))"
     patterns: [
       {
@@ -4631,7 +4629,7 @@ repository:
     match: "\\b(by)\\b\\s*"
     captures:
       "1":
-        name: "keyword.query.by.cs"
+        name: "keyword.operator.expression.query.by.cs"
   "group-into":
     match: '''
       (?x)
@@ -4640,7 +4638,7 @@ repository:
     '''
     captures:
       "1":
-        name: "keyword.query.into.cs"
+        name: "keyword.operator.expression.query.into.cs"
       "2":
         name: "entity.name.variable.range-variable.cs"
   "anonymous-method-expression":

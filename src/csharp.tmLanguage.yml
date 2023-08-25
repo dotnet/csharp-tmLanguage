@@ -146,8 +146,8 @@ repository:
   extern-alias-directive:
     begin: \s*(extern)\b\s*(alias)\b\s*(@?[_[:alpha:]][_[:alnum:]]*)
     beginCaptures:
-      '1': { name: keyword.directive.extern.cs }
-      '2': { name: keyword.directive.alias.cs }
+      '1': { name: keyword.other.directive.extern.cs }
+      '2': { name: keyword.other.directive.alias.cs }
       '3': { name: variable.other.alias.cs }
     end: (?=;)
 
@@ -155,17 +155,17 @@ repository:
     patterns:
     - begin: (\b(global)\b\s+)?\b(using)\b\s+(static)\b\s+(\b(unsafe)\b\s+)?
       beginCaptures:
-        '2': { name: keyword.directive.global.cs }
-        '3': { name: keyword.directive.using.cs }
-        '4': { name: keyword.directive.static.cs }
+        '2': { name: keyword.other.directive.global.cs }
+        '3': { name: keyword.other.directive.using.cs }
+        '4': { name: keyword.other.directive.static.cs }
         '6': { name: storage.modifier.unsafe.cs }
       end: (?=;)
       patterns:
       - include: '#type'
     - begin: (\b(global)\b\s+)?\b(using)\b\s+(\b(unsafe)\b\s+)?(?=(@?[_[:alpha:]][_[:alnum:]]*)\s*=)
       beginCaptures:
-        '2': { name: keyword.directive.global.cs }
-        '3': { name: keyword.directive.using.cs }
+        '2': { name: keyword.other.directive.global.cs }
+        '3': { name: keyword.other.directive.using.cs }
         '5': { name: storage.modifier.unsafe.cs }
         '6': { name: entity.name.type.alias.cs }
       end: (?=;)
@@ -175,8 +175,8 @@ repository:
       - include: '#operator-assignment'
     - begin: (\b(global)\b\s+)?\b(using)\s*(?!\(|\s|var) # Use negative lookahead to exclude using statement forms.
       beginCaptures:
-        '2': { name: keyword.directive.global.cs }
-        '3': { name: keyword.directive.using.cs }
+        '2': { name: keyword.other.directive.global.cs }
+        '3': { name: keyword.other.directive.using.cs }
       end: (?=;)
       patterns:
       - include: '#comment'
@@ -2873,7 +2873,7 @@ repository:
       \s+(\g<identifier>)\b\s*
       \b(in)\b\s*
     beginCaptures:
-      '1': { name: keyword.query.from.cs }
+      '1': { name: keyword.operator.expression.query.from.cs }
       '2':
         patterns:
         - include: '#type'
@@ -2882,7 +2882,7 @@ repository:
       # '5': ?<type_args> is a sub-expression. It's final value is not considered.
       # '6': ?<tuple> is a sub-expression. It's final value is not considered.
       '7': { name: entity.name.variable.range-variable.cs }
-      '8': { name: keyword.query.in.cs }
+      '8': { name: keyword.operator.expression.query.in.cs }
     end: (?=;|\))
     patterns:
     - include: '#query-body'
@@ -2904,7 +2904,7 @@ repository:
       (@?[_[:alpha:]][_[:alnum:]]*)\b\s*
       (=)\s*
     beginCaptures:
-      '1': { name: keyword.query.let.cs }
+      '1': { name: keyword.operator.expression.query.let.cs }
       '2': { name: entity.name.variable.range-variable.cs }
       '3': { name: keyword.operator.assignment.cs }
     end: (?=;|\))
@@ -2917,7 +2917,7 @@ repository:
       (?x)
       \b(where)\b\s*
     beginCaptures:
-      '1': { name: keyword.query.where.cs }
+      '1': { name: keyword.operator.expression.query.where.cs }
     end: (?=;|\))
     patterns:
     - include: '#query-body'
@@ -2952,7 +2952,7 @@ repository:
       \s+(\g<identifier>)\b\s*
       \b(in)\b\s*
     beginCaptures:
-      '1': { name: keyword.query.join.cs }
+      '1': { name: keyword.operator.expression.query.join.cs }
       '2':
         patterns:
         - include: '#type'
@@ -2961,7 +2961,7 @@ repository:
       # '5': ?<type_args> is a sub-expression. It's final value is not considered.
       # '6': ?<tuple> is a sub-expression. It's final value is not considered.
       '7': { name: entity.name.variable.range-variable.cs }
-      '8': { name: keyword.query.in.cs }
+      '8': { name: keyword.operator.expression.query.in.cs }
     end: (?=;|\))
     patterns:
     - include: '#join-on'
@@ -2973,12 +2973,12 @@ repository:
   join-on:
     match: \b(on)\b\s*
     captures:
-      '1': { name: keyword.query.on.cs }
+      '1': { name: keyword.operator.expression.query.on.cs }
 
   join-equals:
     match: \b(equals)\b\s*
     captures:
-      '1': { name: keyword.query.equals.cs }
+      '1': { name: keyword.operator.expression.query.equals.cs }
 
   join-into:
     match: |-
@@ -2986,13 +2986,13 @@ repository:
       \b(into)\b\s*
       (@?[_[:alpha:]][_[:alnum:]]*)\b\s*
     captures:
-      '1': { name: keyword.query.into.cs }
+      '1': { name: keyword.operator.expression.query.into.cs }
       '2': { name: entity.name.variable.range-variable.cs }
 
   orderby-clause:
     begin: \b(orderby)\b\s*
     beginCaptures:
-      '1': { name: keyword.query.orderby.cs }
+      '1': { name: keyword.operator.expression.query.orderby.cs }
     end: (?=;|\))
     patterns:
     - include: '#ordering-direction'
@@ -3001,15 +3001,14 @@ repository:
     - include: '#punctuation-comma'
 
   ordering-direction:
-    match: \b(?:(ascending)|(descending))\b
+    match: \b(ascending|descending)\b
     captures:
-      '1': { name: keyword.query.ascending.cs }
-      '2': { name: keyword.query.descending.cs }
+      1: { name: keyword.operator.expression.query.$1.cs }
 
   select-clause:
     begin: \b(select)\b\s*
     beginCaptures:
-      '1': { name: keyword.query.select.cs }
+      '1': { name: keyword.operator.expression.query.select.cs }
     end: (?=;|\))
     patterns:
     - include: '#query-body'
@@ -3018,7 +3017,7 @@ repository:
   group-clause:
     begin: \b(group)\b\s*
     beginCaptures:
-      '1': { name: keyword.query.group.cs }
+      '1': { name: keyword.operator.expression.query.group.cs }
     end: (?=;|\))
     patterns:
     - include: '#group-by'
@@ -3029,7 +3028,7 @@ repository:
   group-by:
     match: \b(by)\b\s*
     captures:
-      '1': { name: keyword.query.by.cs }
+      '1': { name: keyword.operator.expression.query.by.cs }
 
   group-into:
     match: |-
@@ -3037,7 +3036,7 @@ repository:
       \b(into)\b\s*
       (@?[_[:alpha:]][_[:alnum:]]*)\b\s*
     captures:
-      '1': { name: keyword.query.into.cs }
+      '1': { name: keyword.operator.expression.query.into.cs }
       '2': { name: entity.name.variable.range-variable.cs }
 
   anonymous-method-expression:

@@ -297,11 +297,11 @@ export namespace Token {
         }
 
         export namespace Directive {
-            export const Alias = createToken('alias', 'keyword.directive.alias.cs');
-            export const Extern = createToken('extern', 'keyword.directive.extern.cs');
-            export const Global = createToken('global', 'keyword.directive.global.cs');
-            export const Static = createToken('static', 'keyword.directive.static.cs');
-            export const Using = createToken('using', 'keyword.directive.using.cs');
+            export const Alias = createToken('alias', 'keyword.other.directive.alias.cs');
+            export const Extern = createToken('extern', 'keyword.other.directive.extern.cs');
+            export const Global = createToken('global', 'keyword.other.directive.global.cs');
+            export const Static = createToken('static', 'keyword.other.directive.static.cs');
+            export const Using = createToken('using', 'keyword.other.directive.using.cs');
         }
 
         export namespace Exception {
@@ -376,23 +376,6 @@ export namespace Token {
             export const Warning = createToken('warning', 'keyword.preprocessor.warning.cs');
             export const R = createToken('r', 'keyword.preprocessor.r.cs');
             export const Load = createToken('load', 'keyword.preprocessor.load.cs');
-        }
-
-        export namespace Query {
-            export const Ascending = createToken('ascending', 'keyword.query.ascending.cs');
-            export const By = createToken('by', 'keyword.query.by.cs');
-            export const Descending = createToken('descending', 'keyword.query.descending.cs');
-            export const Equals = createToken('equals', 'keyword.query.equals.cs');
-            export const From = createToken('from', 'keyword.query.from.cs');
-            export const Group = createToken('group', 'keyword.query.group.cs');
-            export const In = createToken('in', 'keyword.query.in.cs');
-            export const Into = createToken('into', 'keyword.query.into.cs');
-            export const Join = createToken('join', 'keyword.query.join.cs');
-            export const Let = createToken('let', 'keyword.query.let.cs');
-            export const On = createToken('on', 'keyword.query.on.cs');
-            export const OrderBy = createToken('orderby', 'keyword.query.orderby.cs');
-            export const Select = createToken('select', 'keyword.query.select.cs');
-            export const Where = createToken('where', 'keyword.query.where.cs');
         }
 
         export const AttributeSpecifier = (text: string) => createToken(text, 'keyword.other.attribute-specifier.cs');
@@ -485,7 +468,7 @@ export namespace Token {
             export const Default = createToken('default', 'keyword.operator.expression.default.cs');
             export const NameOf = createToken('nameof', 'keyword.operator.expression.nameof.cs');
             export const New = createToken('new', 'keyword.operator.expression.new.cs');
-            export const Stackalloc = createToken('stackalloc', 'keyword.operator.expression.stackalloc.cs');
+            export const StackAlloc = createToken('stackalloc', 'keyword.operator.expression.stackalloc.cs');
             export const TypeOf = createToken('typeof', 'keyword.operator.expression.typeof.cs');
             export const Unchecked = createToken('unchecked', 'keyword.operator.expression.unchecked.cs');
             export const With = createToken('with', 'keyword.operator.expression.with.cs');
@@ -512,6 +495,23 @@ export namespace Token {
             export const Is = createToken('is', 'keyword.operator.expression.pattern.is.cs');
             export const Not = createToken('not', 'keyword.operator.expression.pattern.combinator.not.cs');
             export const Or = createToken('or', 'keyword.operator.expression.pattern.combinator.or.cs');
+        }
+
+        export namespace Query {
+            export const Ascending = createToken('ascending', 'keyword.operator.expression.query.ascending.cs');
+            export const By = createToken('by', 'keyword.operator.expression.query.by.cs');
+            export const Descending = createToken('descending', 'keyword.operator.expression.query.descending.cs');
+            export const Equals = createToken('equals', 'keyword.operator.expression.query.equals.cs');
+            export const From = createToken('from', 'keyword.operator.expression.query.from.cs');
+            export const Group = createToken('group', 'keyword.operator.expression.query.group.cs');
+            export const In = createToken('in', 'keyword.operator.expression.query.in.cs');
+            export const Into = createToken('into', 'keyword.operator.expression.query.into.cs');
+            export const Join = createToken('join', 'keyword.operator.expression.query.join.cs');
+            export const Let = createToken('let', 'keyword.operator.expression.query.let.cs');
+            export const On = createToken('on', 'keyword.operator.expression.query.on.cs');
+            export const OrderBy = createToken('orderby', 'keyword.operator.expression.query.orderby.cs');
+            export const Select = createToken('select', 'keyword.operator.expression.query.select.cs');
+            export const Where = createToken('where', 'keyword.operator.expression.query.where.cs');
         }
 
         export const Arrow = createToken('=>', 'keyword.operator.arrow.cs');
