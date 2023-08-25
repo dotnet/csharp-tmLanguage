@@ -279,19 +279,19 @@ export namespace Token {
         }
 
         export namespace Definition {
-            export const Add = createToken('add', 'storage.type.add.cs');
+            export const Add = createToken('add', 'storage.type.accessor.add.cs');
             export const Class = createToken('class', 'storage.type.class.cs');
             export const Delegate = createToken('delegate', 'storage.type.delegate.cs');
             export const Enum = createToken('enum', 'storage.type.enum.cs');
             export const Event = createToken('event', 'storage.type.event.cs');
-            export const Get = createToken('get', 'storage.type.get.cs');
-            export const Init = createToken('init', 'storage.type.init.cs');
+            export const Get = createToken('get', 'storage.type.accessor.get.cs');
+            export const Init = createToken('init', 'storage.type.accessor.init.cs');
             export const Interface = createToken('interface', 'storage.type.interface.cs');
             export const Namespace = createToken('namespace', 'storage.type.namespace.cs');
             export const Operator = createToken('operator', 'storage.type.operator.cs');
             export const Record = createToken('record', 'storage.type.record.cs');
-            export const Remove = createToken('remove', 'storage.type.remove.cs');
-            export const Set = createToken('set', 'storage.type.set.cs');
+            export const Remove = createToken('remove', 'storage.type.accessor.remove.cs');
+            export const Set = createToken('set', 'storage.type.accessor.set.cs');
             export const Struct = createToken('struct', 'storage.type.struct.cs');
             export const Var = createToken('var', 'storage.type.var.cs');
         }
@@ -481,11 +481,13 @@ export namespace Token {
         export namespace Expression {
             export const As = createToken('as', 'keyword.operator.expression.as.cs');
             export const Await = createToken('await', 'keyword.operator.expression.await.cs');
+            export const Checked = createToken('checked', 'keyword.operator.expression.checked.cs');
             export const Default = createToken('default', 'keyword.operator.expression.default.cs');
             export const NameOf = createToken('nameof', 'keyword.operator.expression.nameof.cs');
             export const New = createToken('new', 'keyword.operator.expression.new.cs');
             export const Stackalloc = createToken('stackalloc', 'keyword.operator.expression.stackalloc.cs');
             export const TypeOf = createToken('typeof', 'keyword.operator.expression.typeof.cs');
+            export const Unchecked = createToken('unchecked', 'keyword.operator.expression.unchecked.cs');
             export const With = createToken('with', 'keyword.operator.expression.with.cs');
         }
 

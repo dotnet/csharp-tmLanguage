@@ -365,9 +365,9 @@ repository:
     begin: "\\s*(extern)\\b\\s*(alias)\\b\\s*(@?[_[:alpha:]][_[:alnum:]]*)"
     beginCaptures:
       "1":
-        name: "keyword.other.extern.cs"
+        name: "keyword.directive.extern.cs"
       "2":
-        name: "keyword.other.alias.cs"
+        name: "keyword.directive.alias.cs"
       "3":
         name: "variable.other.alias.cs"
     end: "(?=;)"
@@ -377,13 +377,13 @@ repository:
         begin: "(\\b(global)\\b\\s+)?\\b(using)\\b\\s+(static)\\b\\s+(\\b(unsafe)\\b\\s+)?"
         beginCaptures:
           "2":
-            name: "keyword.other.global.cs"
+            name: "keyword.directive.global.cs"
           "3":
-            name: "keyword.other.using.cs"
+            name: "keyword.directive.using.cs"
           "4":
-            name: "keyword.other.static.cs"
+            name: "keyword.directive.static.cs"
           "6":
-            name: "storage.modifier.cs"
+            name: "storage.modifier.unsafe.cs"
         end: "(?=;)"
         patterns: [
           {
@@ -395,11 +395,11 @@ repository:
         begin: "(\\b(global)\\b\\s+)?\\b(using)\\b\\s+(\\b(unsafe)\\b\\s+)?(?=(@?[_[:alpha:]][_[:alnum:]]*)\\s*=)"
         beginCaptures:
           "2":
-            name: "keyword.other.global.cs"
+            name: "keyword.directive.global.cs"
           "3":
-            name: "keyword.other.using.cs"
+            name: "keyword.directive.using.cs"
           "5":
-            name: "storage.modifier.cs"
+            name: "storage.modifier.unsafe.cs"
           "6":
             name: "entity.name.type.alias.cs"
         end: "(?=;)"
@@ -419,9 +419,9 @@ repository:
         begin: "(\\b(global)\\b\\s+)?\\b(using)\\s*(?!\\(|\\s|var)"
         beginCaptures:
           "2":
-            name: "keyword.other.global.cs"
+            name: "keyword.directive.global.cs"
           "3":
-            name: "keyword.other.using.cs"
+            name: "keyword.directive.using.cs"
         end: "(?=;)"
         patterns: [
           {
@@ -508,7 +508,7 @@ repository:
     begin: "\\b(namespace)\\s+"
     beginCaptures:
       "1":
-        name: "keyword.other.namespace.cs"
+        name: "storage.type.namespace.cs"
     end: "(?<=\\})|(?=;)"
     patterns: [
       {
@@ -544,7 +544,7 @@ repository:
       }
     ]
   "storage-modifier":
-    name: "storage.modifier.cs"
+    name: "storage.modifier.$1.cs"
     match: "(?<!\\.)\\b(new|public|protected|internal|private|abstract|virtual|override|sealed|static|partial|readonly|volatile|const|extern|async|unsafe|ref|required|file)\\b"
   "class-declaration":
     begin: "(?=(\\brecord\\b\\s+)?\\bclass\\b)"
@@ -559,9 +559,9 @@ repository:
         '''
         beginCaptures:
           "2":
-            name: "keyword.other.record.cs"
+            name: "storage.type.record.cs"
           "3":
-            name: "keyword.other.class.cs"
+            name: "storage.type.class.cs"
           "4":
             name: "entity.name.type.class.cs"
         end: "(?=\\{)|(?=;)"
@@ -638,7 +638,7 @@ repository:
     '''
     beginCaptures:
       "1":
-        name: "keyword.other.delegate.cs"
+        name: "storage.type.delegate.cs"
       "2":
         patterns: [
           {
@@ -680,7 +680,7 @@ repository:
             match: "(enum)\\s+(@?[_[:alpha:]][_[:alnum:]]*)"
             captures:
               "1":
-                name: "keyword.other.enum.cs"
+                name: "storage.type.enum.cs"
               "2":
                 name: "entity.name.type.enum.cs"
           }
@@ -756,7 +756,7 @@ repository:
         '''
         beginCaptures:
           "1":
-            name: "keyword.other.interface.cs"
+            name: "storage.type.interface.cs"
           "2":
             name: "entity.name.type.interface.cs"
         end: "(?=\\{)"
@@ -809,7 +809,7 @@ repository:
         '''
         beginCaptures:
           "1":
-            name: "keyword.other.record.cs"
+            name: "storage.type.record.cs"
           "2":
             name: "entity.name.type.class.cs"
         end: "(?=\\{)|(?=;)"
@@ -866,9 +866,9 @@ repository:
         '''
         beginCaptures:
           "2":
-            name: "keyword.other.record.cs"
+            name: "storage.type.record.cs"
           "3":
-            name: "keyword.other.struct.cs"
+            name: "storage.type.struct.cs"
           "4":
             name: "entity.name.type.struct.cs"
         end: "(?=\\{)|(?=;)"
@@ -924,15 +924,11 @@ repository:
     patterns: [
       {
         match: "\\b(in|out)\\b"
-        captures:
-          "1":
-            name: "storage.modifier.cs"
+        name: "storage.modifier.$1.cs"
       }
       {
         match: "(@?[_[:alpha:]][_[:alnum:]]*)\\b"
-        captures:
-          "1":
-            name: "entity.name.type.type-parameter.cs"
+        name: "entity.name.type.type-parameter.cs"
       }
       {
         include: "#comment"
@@ -965,7 +961,7 @@ repository:
     begin: "(where)\\s+(@?[_[:alpha:]][_[:alnum:]]*)\\s*(:)"
     beginCaptures:
       "1":
-        name: "keyword.other.where.cs"
+        name: "storage.modifier.where.cs"
       "2":
         name: "entity.name.type.type-parameter.cs"
       "3":
@@ -973,18 +969,18 @@ repository:
     end: "(?=\\{|where|;|=>)"
     patterns: [
       {
-        name: "keyword.other.class.cs"
+        name: "storage.type.class.cs"
         match: "\\bclass\\b"
       }
       {
-        name: "keyword.other.struct.cs"
+        name: "storage.type.struct.cs"
         match: "\\bstruct\\b"
       }
       {
         match: "(new)\\s*(\\()\\s*(\\))"
         captures:
           "1":
-            name: "keyword.other.new.cs"
+            name: "keyword.operator.expression.new.cs"
           "2":
             name: "punctuation.parenthesis.open.cs"
           "3":
@@ -1231,7 +1227,7 @@ repository:
     '''
     beginCaptures:
       "1":
-        name: "keyword.other.event.cs"
+        name: "storage.type.event.cs"
       "2":
         patterns: [
           {
@@ -1297,14 +1293,14 @@ repository:
         include: "#attribute-section"
       }
       {
-        name: "storage.modifier.cs"
+        name: "storage.modifier.$1.cs"
         match: "\\b(private|protected|internal)\\b"
       }
       {
         begin: "\\b(get)\\b\\s*(?=\\{|;|=>|//|/\\*|$)"
         beginCaptures:
           "1":
-            name: "keyword.other.$1.cs"
+            name: "storage.type.accessor.$1.cs"
         end: "(?<=\\}|;)|(?=\\})"
         patterns: [
           {
@@ -1316,7 +1312,7 @@ repository:
         begin: "\\b(set|init)\\b\\s*(?=\\{|;|=>|//|/\\*|$)"
         beginCaptures:
           "1":
-            name: "keyword.other.$1.cs"
+            name: "storage.type.accessor.$1.cs"
         end: "(?<=\\}|;)|(?=\\})"
         patterns: [
           {
@@ -1345,7 +1341,7 @@ repository:
         begin: "\\b(add|remove)\\b\\s*(?=\\{|;|=>|//|/\\*|$)"
         beginCaptures:
           "1":
-            name: "keyword.other.$1.cs"
+            name: "storage.type.accessor.$1.cs"
         end: "(?<=\\}|;)|(?=\\})"
         patterns: [
           {
@@ -1616,7 +1612,7 @@ repository:
           }
         ]
       "6":
-        name: "keyword.other.operator-decl.cs"
+        name: "storage.type.operator.cs"
       "7":
         name: "entity.name.function.cs"
     end: "(?<=\\})|(?=;)"
@@ -1671,17 +1667,17 @@ repository:
             match: "\\b(explicit)\\b"
             captures:
               "1":
-                name: "keyword.other.explicit.cs"
+                name: "storage.modifier.explicit.cs"
           }
           {
             match: "\\b(implicit)\\b"
             captures:
               "1":
-                name: "keyword.other.implicit.cs"
+                name: "storage.modifier.implicit.cs"
           }
         ]
       "2":
-        name: "keyword.other.operator-decl.cs"
+        name: "storage.type.operator.cs"
       "3":
         patterns: [
           {
@@ -1749,14 +1745,14 @@ repository:
     begin: "(?<!\\.)\\b(goto)\\b"
     beginCaptures:
       "1":
-        name: "keyword.control.goto.cs"
+        name: "keyword.control.flow.goto.cs"
     end: "(?=[;}])"
     patterns: [
       {
         begin: "\\b(case)\\b"
         beginCaptures:
           "1":
-            name: "keyword.control.case.cs"
+            name: "keyword.control.conditional.case.cs"
         end: "(?=[;}])"
         patterns: [
           {
@@ -1768,7 +1764,7 @@ repository:
         match: "\\b(default)\\b"
         captures:
           "1":
-            name: "keyword.control.default.cs"
+            name: "keyword.control.conditional.default.cs"
       }
       {
         name: "entity.name.label.cs"
@@ -1790,12 +1786,8 @@ repository:
       }
     ]
   "break-or-continue-statement":
-    match: "(?<!\\.)\\b(?:(break)|(continue))\\b"
-    captures:
-      "1":
-        name: "keyword.control.flow.break.cs"
-      "2":
-        name: "keyword.control.flow.continue.cs"
+    match: "(?<!\\.)\\b(break|continue)\\b"
+    name: "keyword.control.flow.$1.cs"
   "throw-statement":
     begin: "(?<!\\.)\\b(throw)\\b"
     beginCaptures:
@@ -1840,7 +1832,7 @@ repository:
     begin: "(?<!\\.)\\b(await)\\b"
     beginCaptures:
       "1":
-        name: "keyword.other.await.cs"
+        name: "keyword.operator.expression.await.cs"
     end: "(?=[;}])"
     patterns: [
       {
@@ -1888,7 +1880,7 @@ repository:
     begin: "(?<!\\.)\\b(switch)\\b"
     beginCaptures:
       "1":
-        name: "keyword.control.switch.cs"
+        name: "keyword.control.conditional.switch.cs"
     end: "(?<=})|(?=})"
     patterns: [
       {
@@ -1956,7 +1948,7 @@ repository:
     begin: "\\b(case|default)\\b"
     beginCaptures:
       "1":
-        name: "keyword.control.$1.cs"
+        name: "keyword.control.conditional.$1.cs"
     end: "(:)|(?=})"
     endCaptures:
       "1":
@@ -1966,7 +1958,7 @@ repository:
         begin: "\\b(when)\\b"
         beginCaptures:
           "1":
-            name: "keyword.control.when.cs"
+            name: "keyword.control.conditional.when.cs"
         end: "(?=:|})"
         patterns: [
           {
@@ -2013,7 +2005,7 @@ repository:
         begin: "\\b(when)\\b"
         beginCaptures:
           "1":
-            name: "keyword.control.when.cs"
+            name: "keyword.control.conditional.when.cs"
         end: "(?==>|,|})"
         patterns: [
           {
@@ -2044,7 +2036,7 @@ repository:
     begin: "(?<!\\.)\\b(is)\\b"
     beginCaptures:
       "1":
-        name: "keyword.operator.wordlike.pattern.is.cs"
+        name: "keyword.operator.expression.pattern.is.cs"
     end: "(?=[)}\\],;:?=&|^]|!=)"
     patterns: [
       {
@@ -2089,7 +2081,7 @@ repository:
     ]
   "combinator-pattern":
     match: "\\b(and|or|not)\\b"
-    name: "keyword.operator.wordlike.pattern.combinator.$1.cs"
+    name: "keyword.operator.expression.pattern.combinator.$1.cs"
   "discard-pattern":
     match: "_(?![_[:alnum:]])"
     name: "variable.language.discard.cs"
@@ -2138,7 +2130,7 @@ repository:
     begin: "\\b(var)\\b"
     beginCaptures:
       "1":
-        name: "keyword.other.var.cs"
+        name: "storage.type.var.cs"
     end: "(?=[)}\\],;:?=&|^]|!=|\\b(and|or|when)\\b)"
     patterns: [
       {
@@ -2526,7 +2518,7 @@ repository:
             '''
             captures:
               "1":
-                name: "keyword.other.var.cs"
+                name: "storage.type.var.cs"
               "2":
                 patterns: [
                   {
@@ -2547,7 +2539,7 @@ repository:
             '''
             captures:
               "1":
-                name: "keyword.other.var.cs"
+                name: "storage.type.var.cs"
               "2":
                 patterns: [
                   {
@@ -2582,7 +2574,7 @@ repository:
     begin: "(?<!\\.)\\b(try)\\b"
     beginCaptures:
       "1":
-        name: "keyword.control.try.cs"
+        name: "keyword.control.exception.try.cs"
     end: "(?<=\\})"
     patterns: [
       {
@@ -2596,7 +2588,7 @@ repository:
     begin: "(?<!\\.)\\b(finally)\\b"
     beginCaptures:
       "1":
-        name: "keyword.control.try.finally.cs"
+        name: "keyword.control.exception.finally.cs"
     end: "(?<=\\})"
     patterns: [
       {
@@ -2610,7 +2602,7 @@ repository:
     begin: "(?<!\\.)\\b(catch)\\b"
     beginCaptures:
       "1":
-        name: "keyword.control.try.catch.cs"
+        name: "keyword.control.exception.catch.cs"
     end: "(?<=\\})"
     patterns: [
       {
@@ -2676,7 +2668,7 @@ repository:
     begin: "(?<!\\.)\\b(when)\\b\\s*(\\()"
     beginCaptures:
       "1":
-        name: "keyword.control.when.cs"
+        name: "keyword.control.conditional.when.cs"
       "2":
         name: "punctuation.parenthesis.open.cs"
     end: "\\)"
@@ -2695,9 +2687,9 @@ repository:
     begin: "(?<!\\.)\\b(?:(checked)|(unchecked))\\b\\s*(?!\\()"
     beginCaptures:
       "1":
-        name: "keyword.other.checked.cs"
+        name: "keyword.control.context.checked.cs"
       "2":
-        name: "keyword.other.unchecked.cs"
+        name: "keyword.control.context.unchecked.cs"
     end: "(?<=\\})"
     patterns: [
       {
@@ -2711,7 +2703,7 @@ repository:
     begin: "(?<!\\.)\\b(lock)\\b\\s*(?=\\()"
     beginCaptures:
       "1":
-        name: "keyword.other.lock.cs"
+        name: "keyword.control.context.lock.cs"
     end: "(?<=\\})|(?=;)"
     patterns: [
       {
@@ -2737,7 +2729,7 @@ repository:
     begin: "(?<!\\.)\\b(using)\\b\\s*(?=\\()"
     beginCaptures:
       "1":
-        name: "keyword.other.using.cs"
+        name: "keyword.control.context.using.cs"
     end: "(?=\\;|})"
     patterns: [
       {
@@ -2820,13 +2812,13 @@ repository:
     '''
     beginCaptures:
       "1":
-        name: "keyword.other.using.cs"
+        name: "keyword.control.context.using.cs"
       "2":
-        name: "storage.modifier.cs"
+        name: "storage.modifier.$2.cs"
       "3":
-        name: "storage.modifier.cs"
+        name: "storage.modifier.$3.cs"
       "4":
-        name: "keyword.other.var.cs"
+        name: "storage.type.var.cs"
       "5":
         patterns: [
           {
@@ -2882,7 +2874,7 @@ repository:
     '''
     beginCaptures:
       "1":
-        name: "storage.modifier.cs"
+        name: "storage.modifier.const.cs"
       "2":
         patterns: [
           {
@@ -2982,7 +2974,7 @@ repository:
     '''
     beginCaptures:
       "1":
-        name: "keyword.other.var.cs"
+        name: "storage.type.var.cs"
       "2":
         patterns: [
           {
@@ -3110,7 +3102,7 @@ repository:
     '''
     captures:
       "1":
-        name: "keyword.other.var.cs"
+        name: "storage.type.var.cs"
       "2":
         patterns: [
           {
@@ -3152,7 +3144,7 @@ repository:
     '''
     captures:
       "1":
-        name: "keyword.other.var.cs"
+        name: "storage.type.var.cs"
       "2":
         patterns: [
           {
@@ -3162,13 +3154,11 @@ repository:
       "7":
         name: "entity.name.variable.tuple-element.cs"
   "checked-unchecked-expression":
-    begin: "(?<!\\.)\\b(?:(checked)|(unchecked))\\b\\s*(\\()"
+    begin: "(?<!\\.)\\b(checked|unchecked)\\b\\s*(\\()"
     beginCaptures:
       "1":
-        name: "keyword.other.checked.cs"
+        name: "keyword.operator.expression.$1.cs"
       "2":
-        name: "keyword.other.unchecked.cs"
-      "3":
         name: "punctuation.parenthesis.open.cs"
     end: "\\)"
     endCaptures:
@@ -3183,7 +3173,7 @@ repository:
     begin: "(?<!\\.)\\b(typeof|default)\\b\\s*(\\()"
     beginCaptures:
       "1":
-        name: "keyword.other.$1.cs"
+        name: "keyword.operator.expression.$1.cs"
       "2":
         name: "punctuation.parenthesis.open.cs"
     end: "\\)"
@@ -3199,7 +3189,7 @@ repository:
     begin: "(?<!\\.)\\b(nameof)\\b\\s*(\\()"
     beginCaptures:
       "1":
-        name: "keyword.other.nameof.cs"
+        name: "keyword.operator.expression.nameof.cs"
       "2":
         name: "punctuation.parenthesis.open.cs"
     end: "\\)"
@@ -3215,7 +3205,7 @@ repository:
     match: "(?<!\\.)\\b(default)\\b"
     captures:
       "1":
-        name: "keyword.other.default.cs"
+        name: "keyword.operator.expression.default.cs"
   "throw-expression":
     match: "(?<!\\.)\\b(throw)\\b"
     captures:
@@ -3789,7 +3779,7 @@ repository:
     begin: "(?<!\\.)\\b(with)\\b\\s*(?=\\{|//|/\\*|$)"
     beginCaptures:
       "1":
-        name: "keyword.other.with.cs"
+        name: "keyword.operator.expression.with.cs"
     end: "(?<=\\})"
     patterns: [
       {
@@ -3811,7 +3801,7 @@ repository:
       }
     ]
   "await-expression":
-    name: "keyword.other.await.cs"
+    name: "keyword.operator.expression.await.cs"
     match: "(?<!\\.)\\b(await)\\b"
   "parenthesized-expression":
     begin: "\\("
@@ -3913,7 +3903,7 @@ repository:
     '''
     captures:
       "1":
-        name: "keyword.other.as.cs"
+        name: "keyword.operator.expression.as.cs"
       "2":
         patterns: [
           {
@@ -4100,7 +4090,7 @@ repository:
     '''
     beginCaptures:
       "1":
-        name: "keyword.other.new.cs"
+        name: "keyword.operator.expression.new.cs"
       "2":
         patterns: [
           {
@@ -4143,7 +4133,7 @@ repository:
     '''
     captures:
       "1":
-        name: "keyword.other.new.cs"
+        name: "keyword.operator.expression.new.cs"
       "2":
         patterns: [
           {
@@ -4180,7 +4170,7 @@ repository:
     '''
     beginCaptures:
       "1":
-        name: "keyword.other.new.cs"
+        name: "keyword.operator.expression.$1.cs"
       "2":
         patterns: [
           {
@@ -4197,7 +4187,7 @@ repository:
     begin: "\\b(new)\\b\\s*(?=\\{|//|/\\*|$)"
     beginCaptures:
       "1":
-        name: "keyword.other.new.cs"
+        name: "keyword.operator.expression.new.cs"
     end: "(?<=\\})"
     patterns: [
       {
@@ -4296,7 +4286,7 @@ repository:
     '''
     captures:
       "1":
-        name: "storage.modifier.cs"
+        name: "storage.modifier.$1.cs"
       "2":
         patterns: [
           {
@@ -4361,14 +4351,14 @@ repository:
   argument:
     patterns: [
       {
-        name: "storage.modifier.cs"
+        name: "storage.modifier.$1.cs"
         match: "\\b(ref|in)\\b"
       }
       {
         begin: "\\b(out)\\b"
         beginCaptures:
           "1":
-            name: "storage.modifier.cs"
+            name: "storage.modifier.out.cs"
         end: "(?=,|\\)|\\])"
         patterns: [
           {
@@ -4664,7 +4654,7 @@ repository:
         '''
         beginCaptures:
           "1":
-            name: "storage.modifier.cs"
+            name: "storage.modifier.async.cs"
           "2":
             name: "entity.name.variable.parameter.cs"
           "3":
@@ -4691,7 +4681,7 @@ repository:
         '''
         beginCaptures:
           "1":
-            name: "storage.modifier.cs"
+            name: "storage.modifier.async.cs"
           "2":
             patterns: [
               {
@@ -4721,9 +4711,9 @@ repository:
         '''
         beginCaptures:
           "1":
-            name: "storage.modifier.cs"
+            name: "storage.modifier.async.cs"
           "2":
-            name: "keyword.other.delegate.cs"
+            name: "storage.type.delegate.cs"
         end: "(?=\\)|;|}|,)"
         patterns: [
           {
@@ -4792,7 +4782,7 @@ repository:
     '''
     captures:
       "1":
-        name: "storage.modifier.cs"
+        name: "storage.modifier.$1.cs"
       "2":
         patterns: [
           {
@@ -4832,10 +4822,10 @@ repository:
       }
     ]
   "ref-modifier":
-    name: "storage.modifier.cs"
+    name: "storage.modifier.ref.cs"
     match: "\\b(ref)\\b"
   "readonly-modifier":
-    name: "storage.modifier.cs"
+    name: "storage.modifier.readonly.cs"
     match: "\\b(readonly)\\b"
   "tuple-type":
     begin: "\\("
@@ -4894,7 +4884,7 @@ repository:
     match: "\\b(bool|s?byte|u?short|n?u?int|u?long|float|double|decimal|char|string|object|void|dynamic)\\b"
     captures:
       "1":
-        name: "keyword.type.cs"
+        name: "keyword.type.$1.cs"
   "type-name":
     patterns: [
       {

@@ -861,7 +861,7 @@ int x;`, NamespaceStyle.FileScoped);
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keyword.Directive.Using,
+                Token.Keyword.Context.Using,
                 Token.Punctuation.OpenParen,
                 Token.Operator.Expression.New,
                 Token.PrimitiveType.Object,
@@ -880,7 +880,7 @@ int x;`, NamespaceStyle.FileScoped);
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keyword.Directive.Using,
+                Token.Keyword.Context.Using,
                 Token.Punctuation.OpenParen,
                 Token.Operator.Expression.New,
                 Token.PrimitiveType.Object,
@@ -903,7 +903,7 @@ using (new object())
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keyword.Directive.Using,
+                Token.Keyword.Context.Using,
                 Token.Punctuation.OpenParen,
                 Token.Operator.Expression.New,
                 Token.PrimitiveType.Object,
@@ -926,7 +926,7 @@ using (new object())
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keyword.Directive.Using,
+                Token.Keyword.Context.Using,
                 Token.Punctuation.OpenParen,
                 Token.Operator.Expression.New,
                 Token.PrimitiveType.Object,
@@ -949,7 +949,7 @@ using (var o = new object())
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keyword.Directive.Using,
+                Token.Keyword.Context.Using,
                 Token.Punctuation.OpenParen,
                 Token.Keyword.Definition.Var,
                 Token.Identifier.LocalName("o"),
@@ -975,7 +975,7 @@ using (var o = new object())
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keyword.Directive.Using,
+                Token.Keyword.Context.Using,
                 Token.Punctuation.OpenParen,
                 Token.Keyword.Definition.Var,
                 Token.Identifier.LocalName("o"),
@@ -999,7 +999,7 @@ using (var o = new object())
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
-                Token.Keyword.Directive.Using,
+                Token.Keyword.Context.Using,
                 Token.Keyword.Definition.Var,
                 Token.Identifier.LocalName("o"),
                 Token.Operator.Assignment,
