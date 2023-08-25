@@ -4339,7 +4339,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.control.conditional.when.cs</string>
+            <string>keyword.control.exception.when.cs</string>
           </dict>
           <key>2</key>
           <dict>

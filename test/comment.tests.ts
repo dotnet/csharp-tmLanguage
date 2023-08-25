@@ -480,7 +480,7 @@ catch (DataNotFoundException dnfe) when (dnfe.GetType() == typeof(DataNotFoundEx
                 Token.Type("DataNotFoundException"),
                 Token.Identifier.LocalName("dnfe"),
                 Token.Punctuation.CloseParen,
-                Token.Keyword.Conditional.When,
+                Token.Keyword.Exception.When,
                 Token.Punctuation.OpenParen,
                 Token.Variable.Object("dnfe"),
                 Token.Punctuation.Accessor,

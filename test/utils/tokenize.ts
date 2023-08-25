@@ -308,6 +308,7 @@ export namespace Token {
             export const Catch = createToken('catch', 'keyword.control.exception.catch.cs');
             export const Finally = createToken('finally', 'keyword.control.exception.finally.cs');
             export const Try = createToken('try', 'keyword.control.exception.try.cs');
+            export const When = createToken('when', 'keyword.control.exception.when.cs');
         }
 
         export namespace Flow {

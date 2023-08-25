@@ -2668,7 +2668,7 @@ repository:
     begin: "(?<!\\.)\\b(when)\\b\\s*(\\()"
     beginCaptures:
       "1":
-        name: "keyword.control.conditional.when.cs"
+        name: "keyword.control.exception.when.cs"
       "2":
         name: "punctuation.parenthesis.open.cs"
     end: "\\)"
