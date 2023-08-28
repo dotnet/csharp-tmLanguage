@@ -416,7 +416,7 @@ repository:
         ]
       }
       {
-        begin: "(\\b(global)\\b\\s+)?\\b(using)\\s*(?!\\(|\\s|var)"
+        begin: "(\\b(global)\\b\\s+)?\\b(using)\\b\\s+(?!\\(|var)"
         beginCaptures:
           "2":
             name: "keyword.other.directive.global.cs"

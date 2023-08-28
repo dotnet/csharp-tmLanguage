@@ -508,7 +508,7 @@
       <key>extern-alias-directive</key>
       <dict>
         <key>begin</key>
-        <string>\s*(extern)\b\s*(alias)\b\s*(@?[_[:alpha:]][_[:alnum:]]*)</string>
+        <string>\b(extern)\s+(alias)\b</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
@@ -521,14 +521,18 @@
             <key>name</key>
             <string>keyword.other.directive.alias.cs</string>
           </dict>
-          <key>3</key>
-          <dict>
-            <key>name</key>
-            <string>variable.other.alias.cs</string>
-          </dict>
         </dict>
         <key>end</key>
         <string>(?=;)</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>match</key>
+            <string>\@?[_[:alpha:]][_[:alnum:]]*</string>
+            <key>name</key>
+            <string>variable.other.alias.cs</string>
+          </dict>
+        </array>
       </dict>
       <key>using-directive</key>
       <dict>
@@ -536,25 +540,25 @@
         <array>
           <dict>
             <key>begin</key>
-            <string>(\b(global)\b\s+)?\b(using)\b\s+(static)\b\s+(\b(unsafe)\b\s+)?</string>
+            <string>\b(?:(global)\s+)?(using)\s+(static)\b\s*(?:(unsafe)\b\s*)?</string>
             <key>beginCaptures</key>
             <dict>
-              <key>2</key>
+              <key>1</key>
               <dict>
                 <key>name</key>
                 <string>keyword.other.directive.global.cs</string>
               </dict>
-              <key>3</key>
+              <key>2</key>
               <dict>
                 <key>name</key>
                 <string>keyword.other.directive.using.cs</string>
               </dict>
-              <key>4</key>
+              <key>3</key>
               <dict>
                 <key>name</key>
                 <string>keyword.other.directive.static.cs</string>
               </dict>
-              <key>6</key>
+              <key>4</key>
               <dict>
                 <key>name</key>
                 <string>storage.modifier.unsafe.cs</string>
@@ -572,28 +576,33 @@
           </dict>
           <dict>
             <key>begin</key>
-            <string>(\b(global)\b\s+)?\b(using)\b\s+(\b(unsafe)\b\s+)?(?=(@?[_[:alpha:]][_[:alnum:]]*)\s*=)</string>
+            <string>\b(?:(global)\s+)?(using)\b\s*(?:(unsafe)\b\s*)?(@?[_[:alpha:]][_[:alnum:]]*)\s*(=)</string>
             <key>beginCaptures</key>
             <dict>
-              <key>2</key>
+              <key>1</key>
               <dict>
                 <key>name</key>
                 <string>keyword.other.directive.global.cs</string>
               </dict>
-              <key>3</key>
+              <key>2</key>
               <dict>
                 <key>name</key>
                 <string>keyword.other.directive.using.cs</string>
               </dict>
-              <key>5</key>
+              <key>3</key>
               <dict>
                 <key>name</key>
                 <string>storage.modifier.unsafe.cs</string>
               </dict>
-              <key>6</key>
+              <key>4</key>
               <dict>
                 <key>name</key>
                 <string>entity.name.type.alias.cs</string>
+              </dict>
+              <key>5</key>
+              <dict>
+                <key>name</key>
+                <string>keyword.operator.assignment.cs</string>
               </dict>
             </dict>
             <key>end</key>
@@ -608,23 +617,19 @@
                 <key>include</key>
                 <string>#type</string>
               </dict>
-              <dict>
-                <key>include</key>
-                <string>#operator-assignment</string>
-              </dict>
             </array>
           </dict>
           <dict>
             <key>begin</key>
-            <string>(\b(global)\b\s+)?\b(using)\s*(?!\(|\s|var)</string>
+            <string>\b(?:(global)\s+)?(using)\b\s*(?!\(|var)</string>
             <key>beginCaptures</key>
             <dict>
-              <key>2</key>
+              <key>1</key>
               <dict>
                 <key>name</key>
                 <string>keyword.other.directive.global.cs</string>
               </dict>
-              <key>3</key>
+              <key>2</key>
               <dict>
                 <key>name</key>
                 <string>keyword.other.directive.using.cs</string>
@@ -642,7 +647,11 @@
                 <key>name</key>
                 <string>entity.name.type.namespace.cs</string>
                 <key>match</key>
-                <string>@?[_[:alpha:]][_[:alnum:]]*</string>
+                <string>\@?[_[:alpha:]][_[:alnum:]]*</string>
+              </dict>
+              <dict>
+                <key>include</key>
+                <string>#punctuation-accessor</string>
               </dict>
               <dict>
                 <key>include</key>

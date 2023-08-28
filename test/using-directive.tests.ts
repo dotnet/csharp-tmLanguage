@@ -12,13 +12,23 @@ describe("Using directives", () => {
     describe("Using directives", () => {
         it("using namespace", async () => {
 
-            const input = `using System;`;
+            const input = `
+using System;
+using System.Collections.Generic;`;
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
                 Token.Keyword.Directive.Using,
                 Token.Identifier.NamespaceName("System"),
-                Token.Punctuation.Semicolon]);
+                Token.Punctuation.Semicolon,
+                Token.Keyword.Directive.Using,
+                Token.Identifier.NamespaceName("System"),
+                Token.Punctuation.Accessor,
+                Token.Identifier.NamespaceName("Collections"),
+                Token.Punctuation.Accessor,
+                Token.Identifier.NamespaceName("Generic"),
+                Token.Punctuation.Semicolon,
+            ]);
         });
 
         it("using static type", async () => {
@@ -169,14 +179,24 @@ describe("Using directives", () => {
 
         describe("global using directives", () => {
             it("regular using", async () => {
-                const input = `global using System;`;
+                const input = `
+global using System;
+global using System.Collections.Generic;`;
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keyword.Directive.Global,
                     Token.Keyword.Directive.Using,
                     Token.Identifier.NamespaceName("System"),
-                    Token.Punctuation.Semicolon
+                    Token.Punctuation.Semicolon,
+                    Token.Keyword.Directive.Global,
+                    Token.Keyword.Directive.Using,
+                    Token.Identifier.NamespaceName("System"),
+                    Token.Punctuation.Accessor,
+                    Token.Identifier.NamespaceName("Collections"),
+                    Token.Punctuation.Accessor,
+                    Token.Identifier.NamespaceName("Generic"),
+                    Token.Punctuation.Semicolon,
                 ]);
             });
 
