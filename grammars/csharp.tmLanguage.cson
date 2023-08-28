@@ -362,27 +362,31 @@ repository:
       }
     ]
   "extern-alias-directive":
-    begin: "\\s*(extern)\\b\\s*(alias)\\b\\s*(@?[_[:alpha:]][_[:alnum:]]*)"
+    begin: "\\b(extern)\\s+(alias)\\b"
     beginCaptures:
       "1":
         name: "keyword.other.directive.extern.cs"
       "2":
         name: "keyword.other.directive.alias.cs"
-      "3":
-        name: "variable.other.alias.cs"
     end: "(?=;)"
+    patterns: [
+      {
+        match: "\\@?[_[:alpha:]][_[:alnum:]]*"
+        name: "variable.other.alias.cs"
+      }
+    ]
   "using-directive":
     patterns: [
       {
-        begin: "(\\b(global)\\b\\s+)?\\b(using)\\b\\s+(static)\\b\\s+(\\b(unsafe)\\b\\s+)?"
+        begin: "\\b(?:(global)\\s+)?(using)\\s+(static)\\b\\s*(?:(unsafe)\\b\\s*)?"
         beginCaptures:
-          "2":
+          "1":
             name: "keyword.other.directive.global.cs"
-          "3":
+          "2":
             name: "keyword.other.directive.using.cs"
-          "4":
+          "3":
             name: "keyword.other.directive.static.cs"
-          "6":
+          "4":
             name: "storage.modifier.unsafe.cs"
         end: "(?=;)"
         patterns: [
@@ -392,16 +396,18 @@ repository:
         ]
       }
       {
-        begin: "(\\b(global)\\b\\s+)?\\b(using)\\b\\s+(\\b(unsafe)\\b\\s+)?(?=(@?[_[:alpha:]][_[:alnum:]]*)\\s*=)"
+        begin: "\\b(?:(global)\\s+)?(using)\\b\\s*(?:(unsafe)\\b\\s*)?(@?[_[:alpha:]][_[:alnum:]]*)\\s*(=)"
         beginCaptures:
-          "2":
+          "1":
             name: "keyword.other.directive.global.cs"
-          "3":
+          "2":
             name: "keyword.other.directive.using.cs"
-          "5":
+          "3":
             name: "storage.modifier.unsafe.cs"
-          "6":
+          "4":
             name: "entity.name.type.alias.cs"
+          "5":
+            name: "keyword.operator.assignment.cs"
         end: "(?=;)"
         patterns: [
           {
@@ -410,17 +416,14 @@ repository:
           {
             include: "#type"
           }
-          {
-            include: "#operator-assignment"
-          }
         ]
       }
       {
-        begin: "(\\b(global)\\b\\s+)?\\b(using)\\b\\s+(?!\\(|var)"
+        begin: "\\b(?:(global)\\s+)?(using)\\b\\s*+(?!\\(|var)"
         beginCaptures:
-          "2":
+          "1":
             name: "keyword.other.directive.global.cs"
-          "3":
+          "2":
             name: "keyword.other.directive.using.cs"
         end: "(?=;)"
         patterns: [
@@ -429,7 +432,10 @@ repository:
           }
           {
             name: "entity.name.type.namespace.cs"
-            match: "@?[_[:alpha:]][_[:alnum:]]*"
+            match: "\\@?[_[:alpha:]][_[:alnum:]]*"
+          }
+          {
+            include: "#punctuation-accessor"
           }
           {
             include: "#operator-assignment"

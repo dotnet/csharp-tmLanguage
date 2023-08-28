@@ -175,7 +175,7 @@ repository:
       patterns:
       - include: '#comment'
       - include: '#type'
-    - begin: \b(?:(global)\s+)?(using)\b\s*(?!\(|var) # Use negative lookahead to exclude using statement forms.
+    - begin: \b(?:(global)\s+)?(using)\b\s*+(?!\(|var) # Use negative lookahead to exclude using statement forms.
       beginCaptures:
         1: { name: keyword.other.directive.global.cs }
         2: { name: keyword.other.directive.using.cs }

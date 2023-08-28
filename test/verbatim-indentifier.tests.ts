@@ -39,9 +39,7 @@ extern alias @namespace;
 using @if;
 using @class;
 using @Foo.Bar;
-using@Foo.Baz;
-`;
-
+using@Foo.Baz;`;
             const tokens = await tokenize(input);
 
             tokens.should.deep.equal([
@@ -53,12 +51,15 @@ using@Foo.Baz;
                 Token.Punctuation.Semicolon,
                 Token.Keyword.Directive.Using,
                 Token.Identifier.NamespaceName("@Foo"),
+                Token.Punctuation.Accessor,
                 Token.Identifier.NamespaceName("Bar"),
                 Token.Punctuation.Semicolon,
                 Token.Keyword.Directive.Using,
                 Token.Identifier.NamespaceName("@Foo"),
+                Token.Punctuation.Accessor,
                 Token.Identifier.NamespaceName("Baz"),
-                Token.Punctuation.Semicolon]);
+                Token.Punctuation.Semicolon,
+            ]);
         });
 
         it("in attribute's named argument", async () => {

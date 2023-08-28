@@ -621,7 +621,7 @@
           </dict>
           <dict>
             <key>begin</key>
-            <string>\b(?:(global)\s+)?(using)\b\s*(?!\(|var)</string>
+            <string>\b(?:(global)\s+)?(using)\b\s*+(?!\(|var)</string>
             <key>beginCaptures</key>
             <dict>
               <key>1</key>
