@@ -98,6 +98,282 @@ if (var is default(int)) { }
       ]);
     });
 
+    describe("Casted constant pattern", () => {
+      it("Boolean literal", async () => {
+        const input = Input.InMethod(`
+if (var is (System.Boolean) true) { }
+`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Keyword.Conditional.If,
+          Token.Punctuation.OpenParen,
+          Token.Variable.ReadWrite("var"),
+          Token.Operator.Pattern.Is,
+          Token.Punctuation.OpenParen,
+          Token.Type("System"),
+          Token.Punctuation.Accessor,
+          Token.Type("Boolean"),
+          Token.Punctuation.CloseParen,
+          Token.Literal.Boolean.True,
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.OpenBrace,
+          Token.Punctuation.CloseBrace,
+        ]);
+      });
+
+      it("null literal", async () => {
+        const input = Input.InMethod(`
+if (var is (string) null) { }
+`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Keyword.Conditional.If,
+          Token.Punctuation.OpenParen,
+          Token.Variable.ReadWrite("var"),
+          Token.Operator.Pattern.Is,
+          Token.Punctuation.OpenParen,
+          Token.PrimitiveType.String,
+          Token.Punctuation.CloseParen,
+          Token.Literal.Null,
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.OpenBrace,
+          Token.Punctuation.CloseBrace,
+        ]);
+      });
+
+      it("Numeric literal", async () => {
+        const input = Input.InMethod(`
+if (var is (char) 0) { }
+`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Keyword.Conditional.If,
+          Token.Punctuation.OpenParen,
+          Token.Variable.ReadWrite("var"),
+          Token.Operator.Pattern.Is,
+          Token.Punctuation.OpenParen,
+          Token.PrimitiveType.Char,
+          Token.Punctuation.CloseParen,
+          Token.Literal.Numeric.Decimal("0"),
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.OpenBrace,
+          Token.Punctuation.CloseBrace,
+        ]);
+      });
+
+      it("Char literal", async () => {
+        const input = Input.InMethod(`
+if (var is (int) 'a') { }
+`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Keyword.Conditional.If,
+          Token.Punctuation.OpenParen,
+          Token.Variable.ReadWrite("var"),
+          Token.Operator.Pattern.Is,
+          Token.Punctuation.OpenParen,
+          Token.PrimitiveType.Int,
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.Char.Begin,
+          Token.Literal.Char("a"),
+          Token.Punctuation.Char.End,
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.OpenBrace,
+          Token.Punctuation.CloseBrace,
+        ]);
+      });
+
+      it("String literal", async () => {
+        const input = Input.InMethod(`
+if (var is (string) "") { }
+if (var is (string) @"") { }
+`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Keyword.Conditional.If,
+          Token.Punctuation.OpenParen,
+          Token.Variable.ReadWrite("var"),
+          Token.Operator.Pattern.Is,
+          Token.Punctuation.OpenParen,
+          Token.PrimitiveType.String,
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.String.Begin,
+          Token.Punctuation.String.End,
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.OpenBrace,
+          Token.Punctuation.CloseBrace,
+
+          Token.Keyword.Conditional.If,
+          Token.Punctuation.OpenParen,
+          Token.Variable.ReadWrite("var"),
+          Token.Operator.Pattern.Is,
+          Token.Punctuation.OpenParen,
+          Token.PrimitiveType.String,
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.String.VerbatimBegin,
+          Token.Punctuation.String.End,
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.OpenBrace,
+          Token.Punctuation.CloseBrace,
+        ]);
+      });
+
+      it("typeof or default expression", async () => {
+        const input = Input.InMethod(`
+if (var is (char) default(int)) { }
+`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Keyword.Conditional.If,
+          Token.Punctuation.OpenParen,
+          Token.Variable.ReadWrite("var"),
+          Token.Operator.Pattern.Is,
+          Token.Punctuation.OpenParen,
+          Token.PrimitiveType.Char,
+          Token.Punctuation.CloseParen,
+          Token.Operator.Expression.Default,
+          Token.Punctuation.OpenParen,
+          Token.PrimitiveType.Int,
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.OpenBrace,
+          Token.Punctuation.CloseBrace,
+        ]);
+      });
+
+      it("nameof expression", async () => {
+        const input = Input.InMethod(`
+if (var is (string) nameof(Foo)) { }
+`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Keyword.Conditional.If,
+          Token.Punctuation.OpenParen,
+          Token.Variable.ReadWrite("var"),
+          Token.Operator.Pattern.Is,
+          Token.Punctuation.OpenParen,
+          Token.PrimitiveType.String,
+          Token.Punctuation.CloseParen,
+          Token.Operator.Expression.NameOf,
+          Token.Punctuation.OpenParen,
+          Token.Variable.ReadWrite("Foo"),
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.OpenBrace,
+          Token.Punctuation.CloseBrace,
+        ]);
+      });
+
+      it("Expression operators", async () => {
+        const input = Input.InMethod(`
+if (var is (long) -5) { }
+if (var is (bool) !true) { }
+if (var is (ulong) (3 + 6)) { }
+`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Keyword.Conditional.If,
+          Token.Punctuation.OpenParen,
+          Token.Variable.ReadWrite("var"),
+          Token.Operator.Pattern.Is,
+          Token.Punctuation.OpenParen,
+          Token.PrimitiveType.Long,
+          Token.Punctuation.CloseParen,
+          Token.Operator.Arithmetic.Subtraction,
+          Token.Literal.Numeric.Decimal("5"),
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.OpenBrace,
+          Token.Punctuation.CloseBrace,
+
+          Token.Keyword.Conditional.If,
+          Token.Punctuation.OpenParen,
+          Token.Variable.ReadWrite("var"),
+          Token.Operator.Pattern.Is,
+          Token.Punctuation.OpenParen,
+          Token.PrimitiveType.Bool,
+          Token.Punctuation.CloseParen,
+          Token.Operator.Logical.Not,
+          Token.Literal.Boolean.True,
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.OpenBrace,
+          Token.Punctuation.CloseBrace,
+
+          Token.Keyword.Conditional.If,
+          Token.Punctuation.OpenParen,
+          Token.Variable.ReadWrite("var"),
+          Token.Operator.Pattern.Is,
+          Token.Punctuation.OpenParen,
+          Token.PrimitiveType.ULong,
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.OpenParen,
+          Token.Literal.Numeric.Decimal("3"),
+          Token.Operator.Arithmetic.Addition,
+          Token.Literal.Numeric.Decimal("6"),
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.OpenBrace,
+          Token.Punctuation.CloseBrace,
+        ]);
+      });
+
+      it("Nested cast operators", async () => {
+        const input = Input.InMethod(`
+if (var is (long) (int) 'a') { }
+`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Keyword.Conditional.If,
+          Token.Punctuation.OpenParen,
+          Token.Variable.ReadWrite("var"),
+          Token.Operator.Pattern.Is,
+          Token.Punctuation.OpenParen,
+          Token.PrimitiveType.Long,
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.OpenParen,
+          Token.PrimitiveType.Int,
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.Char.Begin,
+          Token.Literal.Char("a"),
+          Token.Punctuation.Char.End,
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.OpenBrace,
+          Token.Punctuation.CloseBrace,
+        ]);
+      });
+
+      it("Constant variable", async () => {
+        const input = Input.InMethod(`
+if (var is (int) Keys.Return) { }
+`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Keyword.Conditional.If,
+          Token.Punctuation.OpenParen,
+          Token.Variable.ReadWrite("var"),
+          Token.Operator.Pattern.Is,
+          Token.Punctuation.OpenParen,
+          Token.PrimitiveType.Int,
+          Token.Punctuation.CloseParen,
+          Token.Type("Keys"),
+          Token.Punctuation.Accessor,
+          Token.Variable.Constant("Return"),
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.OpenBrace,
+          Token.Punctuation.CloseBrace,
+        ]);
+      });
+    });
+
     it("Relational pattern", async () => {
       const input = Input.InMethod(`
 if (var is > 0) { }

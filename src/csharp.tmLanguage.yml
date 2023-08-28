@@ -1251,6 +1251,45 @@ repository:
     - include: '#typeof-or-default-expression'
     - include: '#nameof-expression'
     - include: '#expression-operators'
+    - include: '#casted-constant-pattern'
+
+  casted-constant-pattern:
+    # cannot support line breaks within parentheses without clashing with positional pattern
+    begin: |-
+      (?x)
+      (\()
+        ([\s.:@_[:alnum:]]+)
+      (\))
+      (?=[\s+\-!~]*@?[_[:alnum:]('"]+)
+    beginCaptures:
+      1: { name: punctuation.parenthesis.open.cs }
+      2:
+        patterns:
+        - include: '#type-builtin'
+        - include: '#type-name'
+      3: { name: punctuation.parenthesis.close.cs }
+    end: (?=[)}\],;:?=&|^]|!=|\b(and|or|when)\b)
+    patterns:
+    - include: '#casted-constant-pattern'
+    - begin: \(
+      beginCaptures:
+        0: { name: punctuation.parenthesis.open.cs }
+      end: \)
+      endCaptures:
+        0: { name: punctuation.parenthesis.close.cs }
+      patterns:
+      - include: '#constant-pattern'
+    - include: '#constant-pattern'
+    - match: (@?[_[:alpha:]][_[:alnum:]]*)\s*(\:\:)
+      captures:
+        1: { name: entity.name.type.alias.cs }
+        2: { name: punctuation.separator.coloncolon.cs }
+    - match: (@?[_[:alpha:]][_[:alnum:]]*)\s*(\.)
+      captures:
+        1: { name: entity.name.type.cs }
+        2: { name: punctuation.accessor.cs }
+    - match: \@?[_[:alpha:]][_[:alnum:]]*
+      name: variable.other.constant.cs
 
   relational-pattern:
     begin: <=?|>=?

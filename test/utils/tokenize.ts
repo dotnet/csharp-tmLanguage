@@ -600,6 +600,7 @@ export namespace Token {
 
     export namespace Variable {
         export const Alias = (text: string) => createToken(text, 'variable.other.alias.cs');
+        export const Constant = (text: string) => createToken(text, 'variable.other.constant.cs');
         export const Object = (text: string) => createToken(text, 'variable.other.object.cs');
         export const Property = (text: string) => createToken(text, 'variable.other.object.property.cs');
         export const ReadWrite = (text: string) => createToken(text, 'variable.other.readwrite.cs');
