@@ -4594,12 +4594,12 @@
           <key>2</key>
           <dict>
             <key>name</key>
-            <string>storage.modifier.$2.cs</string>
+            <string>storage.modifier.ref.cs</string>
           </dict>
           <key>3</key>
           <dict>
             <key>name</key>
-            <string>storage.modifier.$3.cs</string>
+            <string>storage.modifier.readonly.cs</string>
           </dict>
           <key>4</key>
           <dict>
@@ -7717,15 +7717,22 @@
           <dict>
             <key>begin</key>
             <string>(?x)
-(?:\b(async)\b\s*)?
+((?:\b(?:async|static)\b\s*)*)
 (@?[_[:alpha:]][_[:alnum:]]*)\b\s*
 (=&gt;)</string>
             <key>beginCaptures</key>
             <dict>
               <key>1</key>
               <dict>
-                <key>name</key>
-                <string>storage.modifier.async.cs</string>
+                <key>patterns</key>
+                <array>
+                  <dict>
+                    <key>match</key>
+                    <string>async|static</string>
+                    <key>name</key>
+                    <string>storage.modifier.$0.cs</string>
+                  </dict>
+                </array>
               </dict>
               <key>2</key>
               <dict>
@@ -7759,15 +7766,26 @@
           <dict>
             <key>begin</key>
             <string>(?x)
-(?:\b(async)\b\s*)?
-(\(.*?\))\s*
+((?:\b(?:async|static)\b\s*)*)
+(?&lt;tuple&gt;
+  \(
+    (?:[^()]|\g&lt;tuple&gt;)*
+  \)
+)\s*
 (=&gt;)</string>
             <key>beginCaptures</key>
             <dict>
               <key>1</key>
               <dict>
-                <key>name</key>
-                <string>storage.modifier.async.cs</string>
+                <key>patterns</key>
+                <array>
+                  <dict>
+                    <key>match</key>
+                    <string>async|static</string>
+                    <key>name</key>
+                    <string>storage.modifier.$0.cs</string>
+                  </dict>
+                </array>
               </dict>
               <key>2</key>
               <dict>
@@ -7806,14 +7824,21 @@
           <dict>
             <key>begin</key>
             <string>(?x)
-(?:\b(async)\b\s*)?
+((?:\b(?:async|static)\b\s*)*)
 (?:\b(delegate)\b\s*)</string>
             <key>beginCaptures</key>
             <dict>
               <key>1</key>
               <dict>
-                <key>name</key>
-                <string>storage.modifier.async.cs</string>
+                <key>patterns</key>
+                <array>
+                  <dict>
+                    <key>match</key>
+                    <string>async|static</string>
+                    <key>name</key>
+                    <string>storage.modifier.$0.cs</string>
+                  </dict>
+                </array>
               </dict>
               <key>2</key>
               <dict>
@@ -7832,10 +7857,6 @@
               <dict>
                 <key>include</key>
                 <string>#block</string>
-              </dict>
-              <dict>
-                <key>include</key>
-                <string>#expression</string>
               </dict>
             </array>
           </dict>
@@ -7983,14 +8004,14 @@
         <key>name</key>
         <string>storage.modifier.ref.cs</string>
         <key>match</key>
-        <string>\b(ref)\b</string>
+        <string>\bref\b</string>
       </dict>
       <key>readonly-modifier</key>
       <dict>
         <key>name</key>
         <string>storage.modifier.readonly.cs</string>
         <key>match</key>
-        <string>\b(readonly)\b</string>
+        <string>\breadonly\b</string>
       </dict>
       <key>tuple-type</key>
       <dict>
