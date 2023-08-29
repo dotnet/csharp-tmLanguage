@@ -5226,7 +5226,7 @@ repository:
       {
         name: "comment.block.documentation.cs"
         begin: "(^\\s*)(/\\*\\*)(?!/)"
-        end: "(^\\s*)(\\*/)"
+        end: "(^\\s*)?(\\*/)"
         captures:
           "1":
             name: "punctuation.whitespace.comment.leading.cs"
@@ -5234,12 +5234,18 @@ repository:
             name: "punctuation.definition.comment.cs"
         patterns: [
           {
-            match: "(^\\s*)(\\*)(?!/)"
+            begin: "(^\\s*+)(?!\\*/)(\\*)"
+            while: "(^\\s*+)(?!\\*/)(\\*)"
             captures:
               "1":
                 name: "punctuation.whitespace.comment.leading.cs"
               "2":
                 name: "punctuation.definition.comment.cs"
+            patterns: [
+              {
+                include: "#xml-doc-comment"
+              }
+            ]
           }
           {
             include: "#xml-doc-comment"

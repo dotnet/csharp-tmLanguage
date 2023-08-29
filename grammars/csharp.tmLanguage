@@ -8779,7 +8779,7 @@
             <key>begin</key>
             <string>(^\s*)(/\*\*)(?!/)</string>
             <key>end</key>
-            <string>(^\s*)(\*/)</string>
+            <string>(^\s*)?(\*/)</string>
             <key>captures</key>
             <dict>
               <key>1</key>
@@ -8796,8 +8796,10 @@
             <key>patterns</key>
             <array>
               <dict>
-                <key>match</key>
-                <string>(^\s*)(\*)(?!/)</string>
+                <key>begin</key>
+                <string>(^\s*+)(?!\*/)(\*)</string>
+                <key>while</key>
+                <string>(^\s*+)(?!\*/)(\*)</string>
                 <key>captures</key>
                 <dict>
                   <key>1</key>
@@ -8811,6 +8813,13 @@
                     <string>punctuation.definition.comment.cs</string>
                   </dict>
                 </dict>
+                <key>patterns</key>
+                <array>
+                  <dict>
+                    <key>include</key>
+                    <string>#xml-doc-comment</string>
+                  </dict>
+                </array>
               </dict>
               <dict>
                 <key>include</key>
