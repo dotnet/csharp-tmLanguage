@@ -3420,30 +3420,47 @@ repository:
 
   comment:
     patterns:
+    - name: comment.block.documentation.cs
+      begin: (^\s+)?(///)(?!/)(.*)$
+      beginCaptures:
+        1: { name: punctuation.whitespace.comment.leading.cs }
+        2: { name: punctuation.definition.comment.cs }
+        3:
+          patterns:
+          - include: '#xml-doc-comment'
+      # while forces search to move onto the next line,
+      # so the last character in the line comment cannot be detected with a lookbehind
+      while: \A(?!x)x
+    - name: comment.block.documentation.cs
+      begin: (^\s+)?(/\*\*)(?!/)
+      beginCaptures:
+        1: { name: punctuation.whitespace.comment.leading.cs }
+        2: { name: punctuation.definition.comment.cs }
+      end: (^\s+)?(\*/)
+      endCaptures:
+        1: { name: punctuation.whitespace.comment.leading.cs }
+        2: { name: punctuation.definition.comment.cs }
+      patterns:
+      - match: (^\s+)?(\*)(?!/)
+        captures:
+         1: { name: punctuation.whitespace.comment.leading.cs }
+         2: { name: punctuation.definition.comment.cs }
+      - include: '#xml-doc-comment'
+    - name: comment.line.double-slash.cs
+      begin: (^\s+)?(//).*$
+      beginCaptures:
+        1: { name: punctuation.whitespace.comment.leading.cs }
+        2: { name: punctuation.definition.comment.cs }
+      # while forces the entire begin line to be consumed,
+      # so the last character in the line comment cannot be detected with a lookbehind
+      while: \A(?!x)x
     - name: comment.block.cs
       begin: /\*
       beginCaptures:
-        '0': { name: punctuation.definition.comment.cs }
+        0: { name: punctuation.definition.comment.cs }
       end: \*/
       endCaptures:
-        '0': { name: punctuation.definition.comment.cs }
-    - begin: (^\s+)?(?=//)
-      beginCaptures:
-        '1': { name: punctuation.whitespace.comment.leading.cs }
-      end: (?=$)
-      patterns:
-      - name: comment.block.documentation.cs
-        begin: (?<!/)///(?!/)
-        beginCaptures:
-          '0': { name: punctuation.definition.comment.cs }
-        end: (?=$)
-        patterns:
-        - include: '#xml-doc-comment'
-      - name: comment.line.double-slash.cs
-        begin: (?<!/)//(?:(?!/)|(?=//))
-        beginCaptures:
-          '0': { name: punctuation.definition.comment.cs }
-        end: (?=$)
+        0: { name: punctuation.definition.comment.cs }
 
   xml-doc-comment:
     patterns:

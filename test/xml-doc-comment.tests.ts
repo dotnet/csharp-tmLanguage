@@ -207,5 +207,26 @@ public enum TestEnum
                 Token.Punctuation.CloseBrace
             ]);
         });
+
+        it("multiline (issue #151)", async () => {
+            const input = `
+    /**
+     * <summary />
+     */`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Comment.LeadingWhitespace("    "),
+                Token.XmlDocComment.BeginDelim,
+                Token.Comment.LeadingWhitespace("     "),
+                Token.XmlDocComment.Delim,
+                Token.XmlDocComment.Text(" "),
+                Token.XmlDocComment.Tag.EmptyTagBegin,
+                Token.XmlDocComment.Tag.Name("summary"),
+                Token.XmlDocComment.Tag.EmptyTagEnd,
+                Token.Comment.LeadingWhitespace("     "),
+                Token.XmlDocComment.End,
+            ]);
+        });
     });
 });
