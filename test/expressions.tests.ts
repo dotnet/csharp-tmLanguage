@@ -1123,8 +1123,8 @@ var outObjectsToKeep = allOutObjects.Where(outObject => outObject.ShouldKeep);`)
         ]);
       });
 
-      it("lambda expression with tuple to the left (issue #77)", async () => {
-        const input = Input.InMethod(`M((0, 1)).Select((item, i) => item);`);
+      it("lambda expression with tuple to the left and nested parens (issue #77)", async () => {
+        const input = Input.InMethod(`M((0, 1)).Select(((int, int) item, int i) => item);`);
         const tokens = await tokenize(input);
 
         tokens.should.deep.equal([
@@ -1140,8 +1140,14 @@ var outObjectsToKeep = allOutObjects.Where(outObject => outObject.ShouldKeep);`)
           Token.Identifier.MethodName("Select"),
           Token.Punctuation.OpenParen,
           Token.Punctuation.OpenParen,
+          Token.Punctuation.OpenParen,
+          Token.PrimitiveType.Int,
+          Token.Punctuation.Comma,
+          Token.PrimitiveType.Int,
+          Token.Punctuation.CloseParen,
           Token.Identifier.ParameterName("item"),
           Token.Punctuation.Comma,
+          Token.PrimitiveType.Int,
           Token.Identifier.ParameterName("i"),
           Token.Punctuation.CloseParen,
           Token.Operator.Arrow,
