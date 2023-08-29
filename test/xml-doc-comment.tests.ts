@@ -36,6 +36,29 @@ describe("XML Doc Comments", () => {
             ]);
         });
 
+        it("start & end tag with content", async () => {
+            const input = `
+/// <summary>
+/// Text
+/// </summary>`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.XmlDocComment.Begin,
+                Token.XmlDocComment.Text(" "),
+                Token.XmlDocComment.Tag.StartTagBegin,
+                Token.XmlDocComment.Tag.Name("summary"),
+                Token.XmlDocComment.Tag.StartTagEnd,
+                Token.XmlDocComment.Begin,
+                Token.XmlDocComment.Text(" Text"),
+                Token.XmlDocComment.Begin,
+                Token.XmlDocComment.Text(" "),
+                Token.XmlDocComment.Tag.EndTagBegin,
+                Token.XmlDocComment.Tag.Name("summary"),
+                Token.XmlDocComment.Tag.EndTagEnd
+            ]);
+        });
+
         it("empty tag", async () => {
             const input = `/// <summary />`;
             const tokens = await tokenize(input);

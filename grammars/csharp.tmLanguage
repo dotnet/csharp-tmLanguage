@@ -8749,8 +8749,10 @@
             <key>name</key>
             <string>comment.block.documentation.cs</string>
             <key>begin</key>
-            <string>(^\s+)?(///)(?!/)(.*)$</string>
-            <key>beginCaptures</key>
+            <string>(^\s*)(///)(?!/)</string>
+            <key>while</key>
+            <string>(^\s*)(///)(?!/)</string>
+            <key>captures</key>
             <dict>
               <key>1</key>
               <dict>
@@ -8762,41 +8764,23 @@
                 <key>name</key>
                 <string>punctuation.definition.comment.cs</string>
               </dict>
-              <key>3</key>
-              <dict>
-                <key>patterns</key>
-                <array>
-                  <dict>
-                    <key>include</key>
-                    <string>#xml-doc-comment</string>
-                  </dict>
-                </array>
-              </dict>
             </dict>
-            <key>while</key>
-            <string>\A(?!x)x</string>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#xml-doc-comment</string>
+              </dict>
+            </array>
           </dict>
           <dict>
             <key>name</key>
             <string>comment.block.documentation.cs</string>
             <key>begin</key>
-            <string>(^\s+)?(/\*\*)(?!/)</string>
-            <key>beginCaptures</key>
-            <dict>
-              <key>1</key>
-              <dict>
-                <key>name</key>
-                <string>punctuation.whitespace.comment.leading.cs</string>
-              </dict>
-              <key>2</key>
-              <dict>
-                <key>name</key>
-                <string>punctuation.definition.comment.cs</string>
-              </dict>
-            </dict>
+            <string>(^\s*)(/\*\*)(?!/)</string>
             <key>end</key>
-            <string>(^\s+)?(\*/)</string>
-            <key>endCaptures</key>
+            <string>(^\s*)(\*/)</string>
+            <key>captures</key>
             <dict>
               <key>1</key>
               <dict>
@@ -8813,7 +8797,7 @@
             <array>
               <dict>
                 <key>match</key>
-                <string>(^\s+)?(\*)(?!/)</string>
+                <string>(^\s*)(\*)(?!/)</string>
                 <key>captures</key>
                 <dict>
                   <key>1</key>
@@ -8860,17 +8844,9 @@
             <string>comment.block.cs</string>
             <key>begin</key>
             <string>/\*</string>
-            <key>beginCaptures</key>
-            <dict>
-              <key>0</key>
-              <dict>
-                <key>name</key>
-                <string>punctuation.definition.comment.cs</string>
-              </dict>
-            </dict>
             <key>end</key>
             <string>\*/</string>
-            <key>endCaptures</key>
+            <key>captures</key>
             <dict>
               <key>0</key>
               <dict>
