@@ -231,7 +231,7 @@ public enum TestEnum
             ]);
         });
 
-        it("multiline (issue #151)", async () => {
+        it("Delimited XML Doc (issue #151)", async () => {
             const input = `
     /**
      * <summary />
@@ -247,6 +247,64 @@ public enum TestEnum
                 Token.XmlDocComment.Tag.EmptyTagBegin,
                 Token.XmlDocComment.Tag.Name("summary"),
                 Token.XmlDocComment.Tag.EmptyTagEnd,
+                Token.Comment.LeadingWhitespace("     "),
+                Token.XmlDocComment.End,
+            ]);
+        });
+
+        it("Single line across multiple lines", async () => {
+            const input = `
+    /// <param
+    ///     name="value"
+    /// >`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Comment.LeadingWhitespace("    "),
+                Token.XmlDocComment.Begin,
+                Token.XmlDocComment.Text(" "),
+                Token.XmlDocComment.Tag.StartTagBegin,
+                Token.XmlDocComment.Tag.Name("param"),
+                Token.Comment.LeadingWhitespace("    "),
+                Token.XmlDocComment.Begin,
+                Token.XmlDocComment.Attribute.Name("name"),
+                Token.XmlDocComment.Equals,
+                Token.XmlDocComment.String.DoubleQuoted.Begin,
+                Token.XmlDocComment.String.DoubleQuoted.Text("value"),
+                Token.XmlDocComment.String.DoubleQuoted.End,
+                Token.Comment.LeadingWhitespace("    "),
+                Token.XmlDocComment.Begin,
+                Token.XmlDocComment.Tag.StartTagEnd
+            ]);
+        });
+
+        it("Delimited across multiple lines", async () => {
+            const input = `
+    /**
+     * <param
+     *     name="value"
+     * >
+     */`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Comment.LeadingWhitespace("    "),
+                Token.XmlDocComment.BeginDelim,
+                Token.Comment.LeadingWhitespace("     "),
+                Token.XmlDocComment.Delim,
+                Token.XmlDocComment.Text(" "),
+                Token.XmlDocComment.Tag.StartTagBegin,
+                Token.XmlDocComment.Tag.Name("param"),
+                Token.Comment.LeadingWhitespace("     "),
+                Token.XmlDocComment.Delim,
+                Token.XmlDocComment.Attribute.Name("name"),
+                Token.XmlDocComment.Equals,
+                Token.XmlDocComment.String.DoubleQuoted.Begin,
+                Token.XmlDocComment.String.DoubleQuoted.Text("value"),
+                Token.XmlDocComment.String.DoubleQuoted.End,
+                Token.Comment.LeadingWhitespace("     "),
+                Token.XmlDocComment.Delim,
+                Token.XmlDocComment.Tag.StartTagEnd,
                 Token.Comment.LeadingWhitespace("     "),
                 Token.XmlDocComment.End,
             ]);
