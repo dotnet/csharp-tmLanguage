@@ -144,44 +144,47 @@ repository:
     - include: '#identifier'
 
   extern-alias-directive:
-    begin: \s*(extern)\b\s*(alias)\b\s*(@?[_[:alpha:]][_[:alnum:]]*)
+    begin: \b(extern)\s+(alias)\b
     beginCaptures:
-      '1': { name: keyword.other.directive.extern.cs }
-      '2': { name: keyword.other.directive.alias.cs }
-      '3': { name: variable.other.alias.cs }
+      1: { name: keyword.other.directive.extern.cs }
+      2: { name: keyword.other.directive.alias.cs }
     end: (?=;)
+    patterns:
+    - match: \@?[_[:alpha:]][_[:alnum:]]*
+      name: variable.other.alias.cs
 
   using-directive:
     patterns:
-    - begin: (\b(global)\b\s+)?\b(using)\b\s+(static)\b\s+(\b(unsafe)\b\s+)?
+    - begin: \b(?:(global)\s+)?(using)\s+(static)\b\s*(?:(unsafe)\b\s*)?
       beginCaptures:
-        '2': { name: keyword.other.directive.global.cs }
-        '3': { name: keyword.other.directive.using.cs }
-        '4': { name: keyword.other.directive.static.cs }
-        '6': { name: storage.modifier.unsafe.cs }
+        1: { name: keyword.other.directive.global.cs }
+        2: { name: keyword.other.directive.using.cs }
+        3: { name: keyword.other.directive.static.cs }
+        4: { name: storage.modifier.unsafe.cs }
       end: (?=;)
       patterns:
       - include: '#type'
-    - begin: (\b(global)\b\s+)?\b(using)\b\s+(\b(unsafe)\b\s+)?(?=(@?[_[:alpha:]][_[:alnum:]]*)\s*=)
+    - begin: \b(?:(global)\s+)?(using)\b\s*(?:(unsafe)\b\s*)?(@?[_[:alpha:]][_[:alnum:]]*)\s*(=)
       beginCaptures:
-        '2': { name: keyword.other.directive.global.cs }
-        '3': { name: keyword.other.directive.using.cs }
-        '5': { name: storage.modifier.unsafe.cs }
-        '6': { name: entity.name.type.alias.cs }
+        1: { name: keyword.other.directive.global.cs }
+        2: { name: keyword.other.directive.using.cs }
+        3: { name: storage.modifier.unsafe.cs }
+        4: { name: entity.name.type.alias.cs }
+        5: { name: keyword.operator.assignment.cs }
       end: (?=;)
       patterns:
       - include: '#comment'
       - include: '#type'
-      - include: '#operator-assignment'
-    - begin: (\b(global)\b\s+)?\b(using)\s*(?!\(|\s|var) # Use negative lookahead to exclude using statement forms.
+    - begin: \b(?:(global)\s+)?(using)\b\s*+(?!\(|var) # Use negative lookahead to exclude using statement forms.
       beginCaptures:
-        '2': { name: keyword.other.directive.global.cs }
-        '3': { name: keyword.other.directive.using.cs }
+        1: { name: keyword.other.directive.global.cs }
+        2: { name: keyword.other.directive.using.cs }
       end: (?=;)
       patterns:
       - include: '#comment'
       - name: entity.name.type.namespace.cs
-        match: '@?[_[:alpha:]][_[:alnum:]]*'
+        match: \@?[_[:alpha:]][_[:alnum:]]*
+      - include: '#punctuation-accessor'
       - include: '#operator-assignment'
 
   attribute-section:
@@ -1251,6 +1254,45 @@ repository:
     - include: '#typeof-or-default-expression'
     - include: '#nameof-expression'
     - include: '#expression-operators'
+    - include: '#casted-constant-pattern'
+
+  casted-constant-pattern:
+    # cannot support line breaks within parentheses without clashing with positional pattern
+    begin: |-
+      (?x)
+      (\()
+        ([\s.:@_[:alnum:]]+)
+      (\))
+      (?=[\s+\-!~]*@?[_[:alnum:]('"]+)
+    beginCaptures:
+      1: { name: punctuation.parenthesis.open.cs }
+      2:
+        patterns:
+        - include: '#type-builtin'
+        - include: '#type-name'
+      3: { name: punctuation.parenthesis.close.cs }
+    end: (?=[)}\],;:?=&|^]|!=|\b(and|or|when)\b)
+    patterns:
+    - include: '#casted-constant-pattern'
+    - begin: \(
+      beginCaptures:
+        0: { name: punctuation.parenthesis.open.cs }
+      end: \)
+      endCaptures:
+        0: { name: punctuation.parenthesis.close.cs }
+      patterns:
+      - include: '#constant-pattern'
+    - include: '#constant-pattern'
+    - match: (@?[_[:alpha:]][_[:alnum:]]*)\s*(\:\:)
+      captures:
+        1: { name: entity.name.type.alias.cs }
+        2: { name: punctuation.separator.coloncolon.cs }
+    - match: (@?[_[:alpha:]][_[:alnum:]]*)\s*(\.)
+      captures:
+        1: { name: entity.name.type.cs }
+        2: { name: punctuation.accessor.cs }
+    - match: \@?[_[:alpha:]][_[:alnum:]]*
+      name: variable.other.constant.cs
 
   relational-pattern:
     begin: <=?|>=?
@@ -1694,8 +1736,8 @@ repository:
       (?=,|;|=|\))
     beginCaptures:
       1: { name: keyword.control.context.using.cs }
-      2: { name: storage.modifier.$2.cs }
-      3: { name: storage.modifier.$3.cs }
+      2: { name: storage.modifier.ref.cs }
+      3: { name: storage.modifier.readonly.cs }
       4: { name: storage.type.var.cs }
       5:
         patterns:
@@ -3047,13 +3089,16 @@ repository:
     patterns:
     - begin: |-
         (?x)
-        (?:\b(async)\b\s*)?
+        ((?:\b(?:async|static)\b\s*)*)
         (@?[_[:alpha:]][_[:alnum:]]*)\b\s*
         (=>)
       beginCaptures:
-        '1': { name: storage.modifier.async.cs }
-        '2': { name: entity.name.variable.parameter.cs }
-        '3': { name: keyword.operator.arrow.cs }
+        1:
+          patterns:
+          - match: async|static
+            name: storage.modifier.$0.cs
+        2: { name: entity.name.variable.parameter.cs }
+        3: { name: keyword.operator.arrow.cs }
       end: (?=\)|;|}|,)
       patterns:
       - include: '#block'
@@ -3061,11 +3106,18 @@ repository:
       - include: '#expression'
     - begin: |-
         (?x)
-        (?:\b(async)\b\s*)?
-        (\(.*?\))\s*
+        ((?:\b(?:async|static)\b\s*)*)
+        (?<tuple>
+          \(
+            (?:[^()]|\g<tuple>)*
+          \)
+        )\s*
         (=>)
       beginCaptures:
-        1: { name: storage.modifier.async.cs }
+        1:
+          patterns:
+          - match: async|static
+            name: storage.modifier.$0.cs
         2:
           patterns:
           - include: '#lambda-parameter-list'
@@ -3077,16 +3129,18 @@ repository:
       - include: '#expression'
     - begin: |-
         (?x)
-        (?:\b(async)\b\s*)?
+        ((?:\b(?:async|static)\b\s*)*)
         (?:\b(delegate)\b\s*)
       beginCaptures:
-        1: { name: storage.modifier.async.cs }
+        1:
+          patterns:
+          - match: async|static
+            name: storage.modifier.$0.cs
         2: { name: storage.type.delegate.cs }
       end: (?=\)|;|}|,)
       patterns:
       - include: '#parenthesized-parameter-list'
       - include: '#block'
-      - include: '#expression'
 
   lambda-parameter-list:
     begin: \(
@@ -3154,11 +3208,11 @@ repository:
 
   ref-modifier:
     name: storage.modifier.ref.cs
-    match: \b(ref)\b
+    match: \bref\b
 
   readonly-modifier:
     name: storage.modifier.readonly.cs
-    match: \b(readonly)\b
+    match: \breadonly\b
 
   tuple-type:
     begin: \(

@@ -1079,6 +1079,83 @@ var outObjectsToKeep = allOutObjects.Where(outObject => outObject.ShouldKeep);`)
           Token.Punctuation.Semicolon
         ]);
       });
+
+      it("static lambda expression with multiple parameters (passed as argument)", async () => {
+        const input = Input.InMethod(`M(static (x, y) => { });`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Identifier.MethodName("M"),
+          Token.Punctuation.OpenParen,
+          Token.Keyword.Modifier.Static,
+          Token.Punctuation.OpenParen,
+          Token.Identifier.ParameterName("x"),
+          Token.Punctuation.Comma,
+          Token.Identifier.ParameterName("y"),
+          Token.Punctuation.CloseParen,
+          Token.Operator.Arrow,
+          Token.Punctuation.OpenBrace,
+          Token.Punctuation.CloseBrace,
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.Semicolon
+        ]);
+      });
+
+      it("static async lambda expression with multiple parameters (passed as argument)", async () => {
+        const input = Input.InMethod(`M(static async (x, y) => { });`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Identifier.MethodName("M"),
+          Token.Punctuation.OpenParen,
+          Token.Keyword.Modifier.Static,
+          Token.Keyword.Modifier.Async,
+          Token.Punctuation.OpenParen,
+          Token.Identifier.ParameterName("x"),
+          Token.Punctuation.Comma,
+          Token.Identifier.ParameterName("y"),
+          Token.Punctuation.CloseParen,
+          Token.Operator.Arrow,
+          Token.Punctuation.OpenBrace,
+          Token.Punctuation.CloseBrace,
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.Semicolon
+        ]);
+      });
+
+      it("lambda expression with tuple to the left and nested parens (issue #77)", async () => {
+        const input = Input.InMethod(`M((0, 1)).Select(((int, int) item, int i) => item);`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Identifier.MethodName("M"),
+          Token.Punctuation.OpenParen,
+          Token.Punctuation.OpenParen,
+          Token.Literal.Numeric.Decimal("0"),
+          Token.Punctuation.Comma,
+          Token.Literal.Numeric.Decimal("1"),
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.Accessor,
+          Token.Identifier.MethodName("Select"),
+          Token.Punctuation.OpenParen,
+          Token.Punctuation.OpenParen,
+          Token.Punctuation.OpenParen,
+          Token.PrimitiveType.Int,
+          Token.Punctuation.Comma,
+          Token.PrimitiveType.Int,
+          Token.Punctuation.CloseParen,
+          Token.Identifier.ParameterName("item"),
+          Token.Punctuation.Comma,
+          Token.PrimitiveType.Int,
+          Token.Identifier.ParameterName("i"),
+          Token.Punctuation.CloseParen,
+          Token.Operator.Arrow,
+          Token.Variable.ReadWrite("item"),
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.Semicolon,
+        ]);
+      });
     });
 
     describe("Anonymous Objects", () => {
