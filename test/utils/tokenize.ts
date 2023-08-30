@@ -660,7 +660,10 @@ export namespace Token {
         }
 
         export const Begin = createToken('///', 'punctuation.definition.comment.cs');
+        export const BeginDelim = createToken('/**', 'punctuation.definition.comment.cs');
         export const Colon = createToken(':', 'punctuation.separator.colon.cs');
+        export const Delim = createToken('*', 'punctuation.definition.comment.cs');
+        export const End = createToken('*/', 'punctuation.definition.comment.cs');
         export const Equals = createToken('=', 'punctuation.separator.equals.cs');
         export const Text = (text: string) => createToken(text, 'comment.block.documentation.cs');
     }

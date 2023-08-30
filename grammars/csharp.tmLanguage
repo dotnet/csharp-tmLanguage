@@ -8899,58 +8899,72 @@
         <array>
           <dict>
             <key>name</key>
-            <string>comment.block.cs</string>
+            <string>comment.block.documentation.cs</string>
             <key>begin</key>
-            <string>/\*</string>
-            <key>beginCaptures</key>
-            <dict>
-              <key>0</key>
-              <dict>
-                <key>name</key>
-                <string>punctuation.definition.comment.cs</string>
-              </dict>
-            </dict>
-            <key>end</key>
-            <string>\*/</string>
-            <key>endCaptures</key>
-            <dict>
-              <key>0</key>
-              <dict>
-                <key>name</key>
-                <string>punctuation.definition.comment.cs</string>
-              </dict>
-            </dict>
-          </dict>
-          <dict>
-            <key>begin</key>
-            <string>(^\s+)?(?=//)</string>
-            <key>beginCaptures</key>
+            <string>(^\s+)?(///)(?!/)</string>
+            <key>while</key>
+            <string>^(\s*)(///)(?!/)</string>
+            <key>captures</key>
             <dict>
               <key>1</key>
               <dict>
                 <key>name</key>
                 <string>punctuation.whitespace.comment.leading.cs</string>
               </dict>
+              <key>2</key>
+              <dict>
+                <key>name</key>
+                <string>punctuation.definition.comment.cs</string>
+              </dict>
             </dict>
-            <key>end</key>
-            <string>(?=$)</string>
             <key>patterns</key>
             <array>
               <dict>
+                <key>include</key>
+                <string>#xml-doc-comment</string>
+              </dict>
+            </array>
+          </dict>
+          <dict>
+            <key>name</key>
+            <string>comment.block.documentation.cs</string>
+            <key>begin</key>
+            <string>(^\s+)?(/\*\*)(?!/)</string>
+            <key>end</key>
+            <string>(^\s+)?(\*/)</string>
+            <key>captures</key>
+            <dict>
+              <key>1</key>
+              <dict>
                 <key>name</key>
-                <string>comment.block.documentation.cs</string>
+                <string>punctuation.whitespace.comment.leading.cs</string>
+              </dict>
+              <key>2</key>
+              <dict>
+                <key>name</key>
+                <string>punctuation.definition.comment.cs</string>
+              </dict>
+            </dict>
+            <key>patterns</key>
+            <array>
+              <dict>
                 <key>begin</key>
-                <string>(?&lt;!/)///(?!/)</string>
-                <key>beginCaptures</key>
+                <string>\G(?=(?~\*/)$)</string>
+                <key>while</key>
+                <string>^(\s*+)(\*(?!/))?(?=(?~\*/)$)</string>
+                <key>whileCaptures</key>
                 <dict>
-                  <key>0</key>
+                  <key>1</key>
+                  <dict>
+                    <key>name</key>
+                    <string>punctuation.whitespace.comment.leading.cs</string>
+                  </dict>
+                  <key>2</key>
                   <dict>
                     <key>name</key>
                     <string>punctuation.definition.comment.cs</string>
                   </dict>
                 </dict>
-                <key>end</key>
-                <string>(?=$)</string>
                 <key>patterns</key>
                 <array>
                   <dict>
@@ -8960,22 +8974,47 @@
                 </array>
               </dict>
               <dict>
-                <key>name</key>
-                <string>comment.line.double-slash.cs</string>
-                <key>begin</key>
-                <string>(?&lt;!/)//(?:(?!/)|(?=//))</string>
-                <key>beginCaptures</key>
-                <dict>
-                  <key>0</key>
-                  <dict>
-                    <key>name</key>
-                    <string>punctuation.definition.comment.cs</string>
-                  </dict>
-                </dict>
-                <key>end</key>
-                <string>(?=$)</string>
+                <key>include</key>
+                <string>#xml-doc-comment</string>
               </dict>
             </array>
+          </dict>
+          <dict>
+            <key>name</key>
+            <string>comment.line.double-slash.cs</string>
+            <key>begin</key>
+            <string>(^\s+)?(//).*$</string>
+            <key>while</key>
+            <string>^(\s*)(//).*$</string>
+            <key>captures</key>
+            <dict>
+              <key>1</key>
+              <dict>
+                <key>name</key>
+                <string>punctuation.whitespace.comment.leading.cs</string>
+              </dict>
+              <key>2</key>
+              <dict>
+                <key>name</key>
+                <string>punctuation.definition.comment.cs</string>
+              </dict>
+            </dict>
+          </dict>
+          <dict>
+            <key>name</key>
+            <string>comment.block.cs</string>
+            <key>begin</key>
+            <string>/\*</string>
+            <key>end</key>
+            <string>\*/</string>
+            <key>captures</key>
+            <dict>
+              <key>0</key>
+              <dict>
+                <key>name</key>
+                <string>punctuation.definition.comment.cs</string>
+              </dict>
+            </dict>
           </dict>
         </array>
       </dict>

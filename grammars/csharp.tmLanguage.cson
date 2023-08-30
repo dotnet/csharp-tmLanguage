@@ -5300,30 +5300,38 @@ repository:
   comment:
     patterns: [
       {
-        name: "comment.block.cs"
-        begin: "/\\*"
-        beginCaptures:
-          "0":
-            name: "punctuation.definition.comment.cs"
-        end: "\\*/"
-        endCaptures:
-          "0":
-            name: "punctuation.definition.comment.cs"
-      }
-      {
-        begin: "(^\\s+)?(?=//)"
-        beginCaptures:
+        name: "comment.block.documentation.cs"
+        begin: "(^\\s+)?(///)(?!/)"
+        while: "^(\\s*)(///)(?!/)"
+        captures:
           "1":
             name: "punctuation.whitespace.comment.leading.cs"
-        end: "(?=$)"
+          "2":
+            name: "punctuation.definition.comment.cs"
         patterns: [
           {
-            name: "comment.block.documentation.cs"
-            begin: "(?<!/)///(?!/)"
-            beginCaptures:
-              "0":
+            include: "#xml-doc-comment"
+          }
+        ]
+      }
+      {
+        name: "comment.block.documentation.cs"
+        begin: "(^\\s+)?(/\\*\\*)(?!/)"
+        end: "(^\\s+)?(\\*/)"
+        captures:
+          "1":
+            name: "punctuation.whitespace.comment.leading.cs"
+          "2":
+            name: "punctuation.definition.comment.cs"
+        patterns: [
+          {
+            begin: "\\G(?=(?~\\*/)$)"
+            while: "^(\\s*+)(\\*(?!/))?(?=(?~\\*/)$)"
+            whileCaptures:
+              "1":
+                name: "punctuation.whitespace.comment.leading.cs"
+              "2":
                 name: "punctuation.definition.comment.cs"
-            end: "(?=$)"
             patterns: [
               {
                 include: "#xml-doc-comment"
@@ -5331,14 +5339,27 @@ repository:
             ]
           }
           {
-            name: "comment.line.double-slash.cs"
-            begin: "(?<!/)//(?:(?!/)|(?=//))"
-            beginCaptures:
-              "0":
-                name: "punctuation.definition.comment.cs"
-            end: "(?=$)"
+            include: "#xml-doc-comment"
           }
         ]
+      }
+      {
+        name: "comment.line.double-slash.cs"
+        begin: "(^\\s+)?(//).*$"
+        while: "^(\\s*)(//).*$"
+        captures:
+          "1":
+            name: "punctuation.whitespace.comment.leading.cs"
+          "2":
+            name: "punctuation.definition.comment.cs"
+      }
+      {
+        name: "comment.block.cs"
+        begin: "/\\*"
+        end: "\\*/"
+        captures:
+          "0":
+            name: "punctuation.definition.comment.cs"
       }
     ]
   "xml-doc-comment":

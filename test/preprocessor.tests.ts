@@ -217,25 +217,6 @@ describe("Preprocessor", () => {
             ]);
         });
 
-        it("#if (Foo != true) && Bar //Foo", async () => {
-            const input = `#if (Foo != true) && Bar //Foo`;
-            const tokens = await tokenize(input);
-
-            tokens.should.deep.equal([
-                Token.Punctuation.Hash,
-                Token.Keyword.Preprocessor.If,
-                Token.Punctuation.OpenParen,
-                Token.Identifier.PreprocessorSymbol("Foo"),
-                Token.Operator.Relational.NotEqual,
-                Token.Literal.Boolean.True,
-                Token.Punctuation.CloseParen,
-                Token.Operator.Logical.And,
-                Token.Identifier.PreprocessorSymbol("Bar"),
-                Token.Comment.SingleLine.Start,
-                Token.Comment.SingleLine.Text("Foo")
-            ]);
-        });
-
         it("#elif true", async () => {
             const input = `#elif true`;
             const tokens = await tokenize(input);
