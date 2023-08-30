@@ -8901,9 +8901,9 @@
             <key>name</key>
             <string>comment.block.documentation.cs</string>
             <key>begin</key>
-            <string>(^\s*)(///)(?!/)</string>
+            <string>(^\s+)?(///)(?!/)</string>
             <key>while</key>
-            <string>(^\s*)(///)(?!/)</string>
+            <string>^(\s*)(///)(?!/)</string>
             <key>captures</key>
             <dict>
               <key>1</key>
@@ -8929,9 +8929,9 @@
             <key>name</key>
             <string>comment.block.documentation.cs</string>
             <key>begin</key>
-            <string>(^\s*)(/\*\*)(?!/)</string>
+            <string>(^\s+)?(/\*\*)(?!/)</string>
             <key>end</key>
-            <string>(^\s*)?(\*/)</string>
+            <string>(^\s+)?(\*/)</string>
             <key>captures</key>
             <dict>
               <key>1</key>
@@ -8949,9 +8949,9 @@
             <array>
               <dict>
                 <key>begin</key>
-                <string>(^\s*+)(?!\*/)(\*)</string>
+                <string>^(\s*)(?!\*/)(\*)</string>
                 <key>while</key>
-                <string>(^\s*+)(?!\*/)(\*)</string>
+                <string>^(\s*)(?!\*/)(\*)</string>
                 <key>captures</key>
                 <dict>
                   <key>1</key>
@@ -8984,7 +8984,9 @@
             <string>comment.line.double-slash.cs</string>
             <key>begin</key>
             <string>(^\s+)?(//).*$</string>
-            <key>beginCaptures</key>
+            <key>while</key>
+            <string>^(\s*)(//).*$</string>
+            <key>captures</key>
             <dict>
               <key>1</key>
               <dict>
@@ -8997,8 +8999,6 @@
                 <string>punctuation.definition.comment.cs</string>
               </dict>
             </dict>
-            <key>while</key>
-            <string>\A(?!x)x</string>
           </dict>
           <dict>
             <key>name</key>

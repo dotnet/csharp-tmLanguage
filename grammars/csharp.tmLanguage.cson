@@ -5301,8 +5301,8 @@ repository:
     patterns: [
       {
         name: "comment.block.documentation.cs"
-        begin: "(^\\s*)(///)(?!/)"
-        while: "(^\\s*)(///)(?!/)"
+        begin: "(^\\s+)?(///)(?!/)"
+        while: "^(\\s*)(///)(?!/)"
         captures:
           "1":
             name: "punctuation.whitespace.comment.leading.cs"
@@ -5316,8 +5316,8 @@ repository:
       }
       {
         name: "comment.block.documentation.cs"
-        begin: "(^\\s*)(/\\*\\*)(?!/)"
-        end: "(^\\s*)?(\\*/)"
+        begin: "(^\\s+)?(/\\*\\*)(?!/)"
+        end: "(^\\s+)?(\\*/)"
         captures:
           "1":
             name: "punctuation.whitespace.comment.leading.cs"
@@ -5325,8 +5325,8 @@ repository:
             name: "punctuation.definition.comment.cs"
         patterns: [
           {
-            begin: "(^\\s*+)(?!\\*/)(\\*)"
-            while: "(^\\s*+)(?!\\*/)(\\*)"
+            begin: "^(\\s*)(?!\\*/)(\\*)"
+            while: "^(\\s*)(?!\\*/)(\\*)"
             captures:
               "1":
                 name: "punctuation.whitespace.comment.leading.cs"
@@ -5346,12 +5346,12 @@ repository:
       {
         name: "comment.line.double-slash.cs"
         begin: "(^\\s+)?(//).*$"
-        beginCaptures:
+        while: "^(\\s*)(//).*$"
+        captures:
           "1":
             name: "punctuation.whitespace.comment.leading.cs"
           "2":
             name: "punctuation.definition.comment.cs"
-        while: "\\A(?!x)x"
       }
       {
         name: "comment.block.cs"
