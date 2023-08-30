@@ -3489,9 +3489,9 @@ repository:
         1: { name: punctuation.whitespace.comment.leading.cs }
         2: { name: punctuation.definition.comment.cs }
       patterns:
-      - begin: ^(\s*)(?!\*/)(\*)
-        while: ^(\s*)(?!\*/)(\*)
-        captures:
+      - begin: \G(?=(?~\*/)$)
+        while: ^(\s*+)(\*(?!/))?(?=(?~\*/)$)
+        whileCaptures:
           1: { name: punctuation.whitespace.comment.leading.cs }
           2: { name: punctuation.definition.comment.cs }
         patterns:

@@ -8949,10 +8949,10 @@
             <array>
               <dict>
                 <key>begin</key>
-                <string>^(\s*)(?!\*/)(\*)</string>
+                <string>\G(?=(?~\*/)$)</string>
                 <key>while</key>
-                <string>^(\s*)(?!\*/)(\*)</string>
-                <key>captures</key>
+                <string>^(\s*+)(\*(?!/))?(?=(?~\*/)$)</string>
+                <key>whileCaptures</key>
                 <dict>
                   <key>1</key>
                   <dict>
