@@ -2913,7 +2913,7 @@
       <key>await-statement</key>
       <dict>
         <key>begin</key>
-        <string>(?&lt;!\.)\b(await)\b</string>
+        <string>(?&lt;!\.\s*)\b(await)\b</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
@@ -2923,12 +2923,20 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=[;}])</string>
+        <string>(?&lt;=})|(?=;|})</string>
         <key>patterns</key>
         <array>
           <dict>
             <key>include</key>
-            <string>#statement</string>
+            <string>#foreach-statement</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#using-statement</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#expression</string>
           </dict>
         </array>
       </dict>
@@ -4176,7 +4184,7 @@
       <key>foreach-statement</key>
       <dict>
         <key>begin</key>
-        <string>(?&lt;!\.)\b(foreach)\b\s*(?=\()</string>
+        <string>\b(foreach)\b</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
@@ -4186,9 +4194,13 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?&lt;=\})|(?=;)</string>
+        <string>(?&lt;=\))|(?=;|})</string>
         <key>patterns</key>
         <array>
+          <dict>
+            <key>include</key>
+            <string>#intrusive</string>
+          </dict>
           <dict>
             <key>begin</key>
             <string>\(</string>
@@ -4212,6 +4224,10 @@
             </dict>
             <key>patterns</key>
             <array>
+              <dict>
+                <key>include</key>
+                <string>#intrusive</string>
+              </dict>
               <dict>
                 <key>match</key>
                 <string>(?x)
@@ -4306,10 +4322,6 @@
                 <string>#expression</string>
               </dict>
             </array>
-          </dict>
-          <dict>
-            <key>include</key>
-            <string>#statement</string>
           </dict>
         </array>
       </dict>
@@ -4531,14 +4543,32 @@
       </dict>
       <key>context-control-paren-statement</key>
       <dict>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#fixed-statement</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#lock-statement</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#using-statement</string>
+          </dict>
+        </array>
+      </dict>
+      <key>fixed-statement</key>
+      <dict>
         <key>begin</key>
-        <string>\b(fixed|lock|using)\b</string>
+        <string>\b(fixed)\b</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.control.context.$1.cs</string>
+            <string>keyword.control.context.fixed.cs</string>
           </dict>
         </dict>
         <key>end</key>
@@ -4575,6 +4605,120 @@
               <dict>
                 <key>include</key>
                 <string>#intrusive</string>
+              </dict>
+              <dict>
+                <key>include</key>
+                <string>#local-variable-declaration</string>
+              </dict>
+            </array>
+          </dict>
+        </array>
+      </dict>
+      <key>lock-statement</key>
+      <dict>
+        <key>begin</key>
+        <string>\b(lock)\b</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.control.context.lock.cs</string>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>(?&lt;=\))|(?=;|})</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#intrusive</string>
+          </dict>
+          <dict>
+            <key>begin</key>
+            <string>\(</string>
+            <key>beginCaptures</key>
+            <dict>
+              <key>0</key>
+              <dict>
+                <key>name</key>
+                <string>punctuation.parenthesis.open.cs</string>
+              </dict>
+            </dict>
+            <key>end</key>
+            <string>\)</string>
+            <key>endCaptures</key>
+            <dict>
+              <key>0</key>
+              <dict>
+                <key>name</key>
+                <string>punctuation.parenthesis.close.cs</string>
+              </dict>
+            </dict>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#intrusive</string>
+              </dict>
+              <dict>
+                <key>include</key>
+                <string>#expression</string>
+              </dict>
+            </array>
+          </dict>
+        </array>
+      </dict>
+      <key>using-statement</key>
+      <dict>
+        <key>begin</key>
+        <string>\b(using)\b</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.control.context.using.cs</string>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>(?&lt;=\))|(?=;|})</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#intrusive</string>
+          </dict>
+          <dict>
+            <key>begin</key>
+            <string>\(</string>
+            <key>beginCaptures</key>
+            <dict>
+              <key>0</key>
+              <dict>
+                <key>name</key>
+                <string>punctuation.parenthesis.open.cs</string>
+              </dict>
+            </dict>
+            <key>end</key>
+            <string>\)</string>
+            <key>endCaptures</key>
+            <dict>
+              <key>0</key>
+              <dict>
+                <key>name</key>
+                <string>punctuation.parenthesis.close.cs</string>
+              </dict>
+            </dict>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#intrusive</string>
+              </dict>
+              <dict>
+                <key>include</key>
+                <string>#await-expression</string>
               </dict>
               <dict>
                 <key>include</key>
@@ -6427,7 +6571,7 @@
         <key>name</key>
         <string>keyword.operator.expression.await.cs</string>
         <key>match</key>
-        <string>(?&lt;!\.)\b(await)\b</string>
+        <string>(?&lt;!\.\s*)\b(await)\b</string>
       </dict>
       <key>parenthesized-expression</key>
       <dict>

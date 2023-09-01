@@ -1832,14 +1832,20 @@ repository:
       "2":
         name: "keyword.control.flow.break.cs"
   "await-statement":
-    begin: "(?<!\\.)\\b(await)\\b"
+    begin: "(?<!\\.\\s*)\\b(await)\\b"
     beginCaptures:
       "1":
         name: "keyword.operator.expression.await.cs"
-    end: "(?=[;}])"
+    end: "(?<=})|(?=;|})"
     patterns: [
       {
-        include: "#statement"
+        include: "#foreach-statement"
+      }
+      {
+        include: "#using-statement"
+      }
+      {
+        include: "#expression"
       }
     ]
   "if-statement":
@@ -2559,12 +2565,15 @@ repository:
       }
     ]
   "foreach-statement":
-    begin: "(?<!\\.)\\b(foreach)\\b\\s*(?=\\()"
+    begin: "\\b(foreach)\\b"
     beginCaptures:
       "1":
         name: "keyword.control.loop.foreach.cs"
-    end: "(?<=\\})|(?=;)"
+    end: "(?<=\\))|(?=;|})"
     patterns: [
+      {
+        include: "#intrusive"
+      }
       {
         begin: "\\("
         beginCaptures:
@@ -2575,6 +2584,9 @@ repository:
           "0":
             name: "punctuation.parenthesis.close.cs"
         patterns: [
+          {
+            include: "#intrusive"
+          }
           {
             match: '''
               (?x)
@@ -2643,9 +2655,6 @@ repository:
             include: "#expression"
           }
         ]
-      }
-      {
-        include: "#statement"
       }
     ]
   "try-statement":
@@ -2777,10 +2786,22 @@ repository:
     match: "\\b(checked|unchecked|unsafe)\\b(?!\\s*[@_[:alpha:](])"
     name: "keyword.control.context.$1.cs"
   "context-control-paren-statement":
-    begin: "\\b(fixed|lock|using)\\b"
+    patterns: [
+      {
+        include: "#fixed-statement"
+      }
+      {
+        include: "#lock-statement"
+      }
+      {
+        include: "#using-statement"
+      }
+    ]
+  "fixed-statement":
+    begin: "\\b(fixed)\\b"
     beginCaptures:
       "1":
-        name: "keyword.control.context.$1.cs"
+        name: "keyword.control.context.fixed.cs"
     end: "(?<=\\))|(?=;|})"
     patterns: [
       {
@@ -2798,6 +2819,67 @@ repository:
         patterns: [
           {
             include: "#intrusive"
+          }
+          {
+            include: "#local-variable-declaration"
+          }
+        ]
+      }
+    ]
+  "lock-statement":
+    begin: "\\b(lock)\\b"
+    beginCaptures:
+      "1":
+        name: "keyword.control.context.lock.cs"
+    end: "(?<=\\))|(?=;|})"
+    patterns: [
+      {
+        include: "#intrusive"
+      }
+      {
+        begin: "\\("
+        beginCaptures:
+          "0":
+            name: "punctuation.parenthesis.open.cs"
+        end: "\\)"
+        endCaptures:
+          "0":
+            name: "punctuation.parenthesis.close.cs"
+        patterns: [
+          {
+            include: "#intrusive"
+          }
+          {
+            include: "#expression"
+          }
+        ]
+      }
+    ]
+  "using-statement":
+    begin: "\\b(using)\\b"
+    beginCaptures:
+      "1":
+        name: "keyword.control.context.using.cs"
+    end: "(?<=\\))|(?=;|})"
+    patterns: [
+      {
+        include: "#intrusive"
+      }
+      {
+        begin: "\\("
+        beginCaptures:
+          "0":
+            name: "punctuation.parenthesis.open.cs"
+        end: "\\)"
+        endCaptures:
+          "0":
+            name: "punctuation.parenthesis.close.cs"
+        patterns: [
+          {
+            include: "#intrusive"
+          }
+          {
+            include: "#await-expression"
           }
           {
             include: "#local-variable-declaration"
@@ -3843,7 +3925,7 @@ repository:
     ]
   "await-expression":
     name: "keyword.operator.expression.await.cs"
-    match: "(?<!\\.)\\b(await)\\b"
+    match: "(?<!\\.\\s*)\\b(await)\\b"
   "parenthesized-expression":
     begin: "\\("
     beginCaptures:

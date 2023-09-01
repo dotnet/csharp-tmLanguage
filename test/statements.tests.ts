@@ -1088,6 +1088,24 @@ using (var o = new object())
                     Token.Punctuation.Semicolon
                 ])
             });
+
+            it("using with await (issue #123)", async () => {
+                const input = Input.InMethod(`
+using (await foo()) { }`);
+                const tokens = await tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Keyword.Context.Using,
+                    Token.Punctuation.OpenParen,
+                    Token.Operator.Expression.Await,
+                    Token.Identifier.MethodName("foo"),
+                    Token.Punctuation.OpenParen,
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.OpenBrace,
+                    Token.Punctuation.CloseBrace,
+                ]);
+            });
         });
 
         describe("Yield", () => {
