@@ -1669,6 +1669,35 @@ var x = new // comment
         ]);
       });
 
+      it("cast of invocation", async () => {
+        const input = Input.InMethod(`
+  (int)y.M();
+  (int) y.M();
+  `);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Punctuation.OpenParen,
+          Token.PrimitiveType.Int,
+          Token.Punctuation.CloseParen,
+          Token.Variables.Object("y"),
+          Token.Punctuation.Accessor,
+          Token.Identifiers.MethodName("M"),
+          Token.Punctuation.OpenParen,
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.Semicolon,
+          Token.Punctuation.OpenParen,
+          Token.PrimitiveType.Int,
+          Token.Punctuation.CloseParen,
+          Token.Variables.Object("y"),
+          Token.Punctuation.Accessor,
+          Token.Identifiers.MethodName("M"),
+          Token.Punctuation.OpenParen,
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.Semicolon,
+        ]);
+      });
+
       it("as cast of identifier", async () => {
         const input = Input.InMethod(`var x = o as List<Lazy<string>>;`);
         const tokens = await tokenize(input);
