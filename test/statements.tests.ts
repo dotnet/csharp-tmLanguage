@@ -58,6 +58,27 @@ unchecked
             });
         });
 
+        describe("Fixed", () => {
+            it("fixed with block", async () => {
+                const input = Input.InMethod(`
+fixed (byte* p = bytes) { }`);
+                const tokens = await tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Keyword.Context.Fixed,
+                    Token.Punctuation.OpenParen,
+                    Token.PrimitiveType.Byte,
+                    Token.Punctuation.Asterisk,
+                    Token.Identifier.LocalName("p"),
+                    Token.Operator.Assignment,
+                    Token.Variable.ReadWrite("bytes"),
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.OpenBrace,
+                    Token.Punctuation.CloseBrace
+                ]);
+            });
+        });
+
         describe("For", () => {
             it("single-line for loop", async () => {
                 const input = Input.InMethod(`for (int i = 0; i < 42; i++) { }`);
@@ -881,6 +902,20 @@ int x;`);
             });
         });
 
+        describe("Unsafe", () => {
+            it("Unsafe with block", async () => {
+                const input = Input.InMethod(`
+unsafe { }`);
+                const tokens = await tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Keyword.Context.Unsafe,
+                    Token.Punctuation.OpenBrace,
+                    Token.Punctuation.CloseBrace
+                ]);
+            });
+        });
+
         describe("Using", () => {
             it("single-line using with expression and embedded statement", async () => {
                 const input = Input.InMethod(`using (new object()) Do();`);
@@ -1020,13 +1055,30 @@ using (var o = new object())
                 ]);
             });
 
-            it("using declaration", async () => {
+            it("using declaration var", async () => {
                 const input = Input.InMethod(`using var o = new object();`);
                 const tokens = await tokenize(input);
 
                 tokens.should.deep.equal([
                     Token.Keyword.Context.Using,
                     Token.Keyword.Definition.Var,
+                    Token.Identifier.LocalName("o"),
+                    Token.Operator.Assignment,
+                    Token.Operator.Expression.New,
+                    Token.PrimitiveType.Object,
+                    Token.Punctuation.OpenParen,
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Semicolon
+                ])
+            });
+
+            it("using declaration type", async () => {
+                const input = Input.InMethod(`using object o = new object();`);
+                const tokens = await tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Keyword.Context.Using,
+                    Token.PrimitiveType.Object,
                     Token.Identifier.LocalName("o"),
                     Token.Operator.Assignment,
                     Token.Operator.Expression.New,

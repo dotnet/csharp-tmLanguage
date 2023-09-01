@@ -226,10 +226,10 @@ repository:
         include: "#checked-unchecked-statement"
       }
       {
-        include: "#lock-statement"
+        include: "#context-control-statement"
       }
       {
-        include: "#using-statement"
+        include: "#context-control-paren-statement"
       }
       {
         include: "#labeled-statement"
@@ -265,13 +265,10 @@ repository:
         include: "#comment"
       }
       {
-        include: "#checked-unchecked-expression"
+        include: "#expression-operator-expression"
       }
       {
-        include: "#typeof-or-default-expression"
-      }
-      {
-        include: "#nameof-expression"
+        include: "#type-operator-expression"
       }
       {
         include: "#default-literal-expression"
@@ -419,7 +416,7 @@ repository:
         ]
       }
       {
-        begin: "\\b(?:(global)\\s+)?(using)\\b\\s*+(?!\\(|var)"
+        begin: "\\b(?:(global)\\s+)?(using)\\b\\s*+(?!\\(|var\\b)"
         beginCaptures:
           "1":
             name: "keyword.other.directive.global.cs"
@@ -2115,10 +2112,10 @@ repository:
         include: "#verbatim-string-literal"
       }
       {
-        include: "#typeof-or-default-expression"
+        include: "#type-operator-expression"
       }
       {
-        include: "#nameof-expression"
+        include: "#expression-operator-expression"
       }
       {
         include: "#expression-operators"
@@ -2512,11 +2509,11 @@ repository:
       }
     ]
   "for-statement":
-    begin: "(?<!\\.)\\b(for)\\b\\s*(?=\\()"
+    begin: "\\b(for)\\b"
     beginCaptures:
       "1":
         name: "keyword.control.loop.for.cs"
-    end: "(?<=\\})|(?=;)"
+    end: "(?<=\\))|(?=;|})"
     patterns: [
       {
         begin: "\\("
@@ -2529,21 +2526,36 @@ repository:
             name: "punctuation.parenthesis.close.cs"
         patterns: [
           {
-            include: "#local-variable-declaration"
+            begin: "\\G"
+            end: "(?=;|\\))"
+            patterns: [
+              {
+                include: "#intrusive"
+              }
+              {
+                include: "#local-variable-declaration"
+              }
+            ]
           }
           {
-            include: "#expression"
-          }
-          {
-            include: "#punctuation-comma"
-          }
-          {
-            include: "#punctuation-semicolon"
+            begin: "(?=;)"
+            end: "(?=\\))"
+            patterns: [
+              {
+                include: "#intrusive"
+              }
+              {
+                include: "#expression"
+              }
+              {
+                include: "#punctuation-comma"
+              }
+              {
+                include: "#punctuation-semicolon"
+              }
+            ]
           }
         ]
-      }
-      {
-        include: "#statement"
       }
     ]
   "foreach-statement":
@@ -2761,29 +2773,19 @@ repository:
         include: "#comment"
       }
     ]
-  "checked-unchecked-statement":
-    begin: "(?<!\\.)\\b(?:(checked)|(unchecked))\\b\\s*(?!\\()"
+  "context-control-statement":
+    match: "\\b(checked|unchecked|unsafe)\\b(?!\\s*[@_[:alpha:](])"
+    name: "keyword.control.context.$1.cs"
+  "context-control-paren-statement":
+    begin: "\\b(fixed|lock|using)\\b"
     beginCaptures:
       "1":
-        name: "keyword.control.context.checked.cs"
-      "2":
-        name: "keyword.control.context.unchecked.cs"
-    end: "(?<=\\})"
+        name: "keyword.control.context.$1.cs"
+    end: "(?<=\\))|(?=;|})"
     patterns: [
       {
-        include: "#block"
+        include: "#intrusive"
       }
-      {
-        include: "#comment"
-      }
-    ]
-  "lock-statement":
-    begin: "(?<!\\.)\\b(lock)\\b\\s*(?=\\()"
-    beginCaptures:
-      "1":
-        name: "keyword.control.context.lock.cs"
-    end: "(?<=\\})|(?=;)"
-    patterns: [
       {
         begin: "\\("
         beginCaptures:
@@ -2795,31 +2797,8 @@ repository:
             name: "punctuation.parenthesis.close.cs"
         patterns: [
           {
-            include: "#expression"
+            include: "#intrusive"
           }
-        ]
-      }
-      {
-        include: "#statement"
-      }
-    ]
-  "using-statement":
-    begin: "(?<!\\.)\\b(using)\\b\\s*(?=\\()"
-    beginCaptures:
-      "1":
-        name: "keyword.control.context.using.cs"
-    end: "(?=\\;|})"
-    patterns: [
-      {
-        begin: "\\("
-        beginCaptures:
-          "0":
-            name: "punctuation.parenthesis.open.cs"
-        end: "\\)"
-        endCaptures:
-          "0":
-            name: "punctuation.parenthesis.close.cs"
-        patterns: [
           {
             include: "#local-variable-declaration"
           }
@@ -2829,7 +2808,7 @@ repository:
         ]
       }
       {
-        include: "#statement"
+        include: "#local-variable-declaration"
       }
     ]
   "labeled-statement":
@@ -2858,7 +2837,6 @@ repository:
     begin: '''
       (?x)
       (?:
-        (?:(\\busing)\\s+)?
         (?:(\\bref)\\s+(?:(\\breadonly)\\s+)?)?(\\bvar\\b)| # ref local
         (?<type_name>
           (?:
@@ -2872,7 +2850,7 @@ repository:
               (?:\\s*\\.\\s*\\g<name_and_type_args>)* | # Are there any more names being dotted into?
               (?<tuple>\\s*\\((?:[^\\(\\)]|\\g<tuple>)+\\))
             )
-            (?:\\s*\\?\\s*)? # nullable suffix?
+            (?:\\s*[?*]\\s*)? # nullable or pointer suffix?
             (?:\\s* # array suffix?
               \\[
                 (?:\\s*,\\s*)* # commata for multi-dimensional arrays
@@ -2890,22 +2868,20 @@ repository:
     '''
     beginCaptures:
       "1":
-        name: "keyword.control.context.using.cs"
-      "2":
         name: "storage.modifier.ref.cs"
-      "3":
+      "2":
         name: "storage.modifier.readonly.cs"
-      "4":
+      "3":
         name: "storage.type.var.cs"
-      "5":
+      "4":
         patterns: [
           {
             include: "#type"
           }
         ]
-      "10":
+      "9":
         name: "entity.name.variable.local.cs"
-    end: "(?=;|\\))"
+    end: "(?=[;)}])"
     patterns: [
       {
         name: "entity.name.variable.local.cs"
@@ -3231,8 +3207,8 @@ repository:
         ]
       "7":
         name: "entity.name.variable.tuple-element.cs"
-  "checked-unchecked-expression":
-    begin: "(?<!\\.)\\b(checked|unchecked)\\b\\s*(\\()"
+  "expression-operator-expression":
+    begin: "\\b(checked|unchecked|nameof)\\s*(\\()"
     beginCaptures:
       "1":
         name: "keyword.operator.expression.$1.cs"
@@ -3247,8 +3223,8 @@ repository:
         include: "#expression"
       }
     ]
-  "typeof-or-default-expression":
-    begin: "(?<!\\.)\\b(typeof|default)\\b\\s*(\\()"
+  "type-operator-expression":
+    begin: "\\b(default|sizeof|typeof)\\s*(\\()"
     beginCaptures:
       "1":
         name: "keyword.operator.expression.$1.cs"
@@ -3263,29 +3239,13 @@ repository:
         include: "#type"
       }
     ]
-  "nameof-expression":
-    begin: "(?<!\\.)\\b(nameof)\\b\\s*(\\()"
-    beginCaptures:
-      "1":
-        name: "keyword.operator.expression.nameof.cs"
-      "2":
-        name: "punctuation.parenthesis.open.cs"
-    end: "\\)"
-    endCaptures:
-      "0":
-        name: "punctuation.parenthesis.close.cs"
-    patterns: [
-      {
-        include: "#expression"
-      }
-    ]
   "default-literal-expression":
-    match: "(?<!\\.)\\b(default)\\b"
+    match: "\\b(default)\\b"
     captures:
       "1":
         name: "keyword.operator.expression.default.cs"
   "throw-expression":
-    match: "(?<!\\.)\\b(throw)\\b"
+    match: "\\b(throw)\\b"
     captures:
       "1":
         name: "keyword.control.flow.throw.cs"
@@ -4915,6 +4875,9 @@ repository:
       {
         include: "#type-nullable-suffix"
       }
+      {
+        include: "#type-pointer-suffix"
+      }
     ]
   "ref-modifier":
     name: "storage.modifier.ref.cs"
@@ -5047,9 +5010,10 @@ repository:
     ]
   "type-nullable-suffix":
     match: "\\?"
-    captures:
-      "0":
-        name: "punctuation.separator.question-mark.cs"
+    name: "punctuation.separator.question-mark.cs"
+  "type-pointer-suffix":
+    match: "\\*"
+    name: "punctuation.separator.asterisk.cs"
   "operator-assignment":
     name: "keyword.operator.assignment.cs"
     match: "(?<!=|!)(=)(?!=)"

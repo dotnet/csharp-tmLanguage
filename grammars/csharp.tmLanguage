@@ -323,11 +323,11 @@
           </dict>
           <dict>
             <key>include</key>
-            <string>#lock-statement</string>
+            <string>#context-control-statement</string>
           </dict>
           <dict>
             <key>include</key>
-            <string>#using-statement</string>
+            <string>#context-control-paren-statement</string>
           </dict>
           <dict>
             <key>include</key>
@@ -377,15 +377,11 @@
           </dict>
           <dict>
             <key>include</key>
-            <string>#checked-unchecked-expression</string>
+            <string>#expression-operator-expression</string>
           </dict>
           <dict>
             <key>include</key>
-            <string>#typeof-or-default-expression</string>
-          </dict>
-          <dict>
-            <key>include</key>
-            <string>#nameof-expression</string>
+            <string>#type-operator-expression</string>
           </dict>
           <dict>
             <key>include</key>
@@ -621,7 +617,7 @@
           </dict>
           <dict>
             <key>begin</key>
-            <string>\b(?:(global)\s+)?(using)\b\s*+(?!\(|var)</string>
+            <string>\b(?:(global)\s+)?(using)\b\s*+(?!\(|var\b)</string>
             <key>beginCaptures</key>
             <dict>
               <key>1</key>
@@ -3408,11 +3404,11 @@
           </dict>
           <dict>
             <key>include</key>
-            <string>#typeof-or-default-expression</string>
+            <string>#type-operator-expression</string>
           </dict>
           <dict>
             <key>include</key>
-            <string>#nameof-expression</string>
+            <string>#expression-operator-expression</string>
           </dict>
           <dict>
             <key>include</key>
@@ -4095,7 +4091,7 @@
       <key>for-statement</key>
       <dict>
         <key>begin</key>
-        <string>(?&lt;!\.)\b(for)\b\s*(?=\()</string>
+        <string>\b(for)\b</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
@@ -4105,7 +4101,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(?&lt;=\})|(?=;)</string>
+        <string>(?&lt;=\))|(?=;|})</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -4132,26 +4128,48 @@
             <key>patterns</key>
             <array>
               <dict>
-                <key>include</key>
-                <string>#local-variable-declaration</string>
+                <key>begin</key>
+                <string>\G</string>
+                <key>end</key>
+                <string>(?=;|\))</string>
+                <key>patterns</key>
+                <array>
+                  <dict>
+                    <key>include</key>
+                    <string>#intrusive</string>
+                  </dict>
+                  <dict>
+                    <key>include</key>
+                    <string>#local-variable-declaration</string>
+                  </dict>
+                </array>
               </dict>
               <dict>
-                <key>include</key>
-                <string>#expression</string>
-              </dict>
-              <dict>
-                <key>include</key>
-                <string>#punctuation-comma</string>
-              </dict>
-              <dict>
-                <key>include</key>
-                <string>#punctuation-semicolon</string>
+                <key>begin</key>
+                <string>(?=;)</string>
+                <key>end</key>
+                <string>(?=\))</string>
+                <key>patterns</key>
+                <array>
+                  <dict>
+                    <key>include</key>
+                    <string>#intrusive</string>
+                  </dict>
+                  <dict>
+                    <key>include</key>
+                    <string>#expression</string>
+                  </dict>
+                  <dict>
+                    <key>include</key>
+                    <string>#punctuation-comma</string>
+                  </dict>
+                  <dict>
+                    <key>include</key>
+                    <string>#punctuation-semicolon</string>
+                  </dict>
+                </array>
               </dict>
             </array>
-          </dict>
-          <dict>
-            <key>include</key>
-            <string>#statement</string>
           </dict>
         </array>
       </dict>
@@ -4504,53 +4522,33 @@
           </dict>
         </array>
       </dict>
-      <key>checked-unchecked-statement</key>
+      <key>context-control-statement</key>
       <dict>
-        <key>begin</key>
-        <string>(?&lt;!\.)\b(?:(checked)|(unchecked))\b\s*(?!\()</string>
-        <key>beginCaptures</key>
-        <dict>
-          <key>1</key>
-          <dict>
-            <key>name</key>
-            <string>keyword.control.context.checked.cs</string>
-          </dict>
-          <key>2</key>
-          <dict>
-            <key>name</key>
-            <string>keyword.control.context.unchecked.cs</string>
-          </dict>
-        </dict>
-        <key>end</key>
-        <string>(?&lt;=\})</string>
-        <key>patterns</key>
-        <array>
-          <dict>
-            <key>include</key>
-            <string>#block</string>
-          </dict>
-          <dict>
-            <key>include</key>
-            <string>#comment</string>
-          </dict>
-        </array>
+        <key>match</key>
+        <string>\b(checked|unchecked|unsafe)\b(?!\s*[@_[:alpha:](])</string>
+        <key>name</key>
+        <string>keyword.control.context.$1.cs</string>
       </dict>
-      <key>lock-statement</key>
+      <key>context-control-paren-statement</key>
       <dict>
         <key>begin</key>
-        <string>(?&lt;!\.)\b(lock)\b\s*(?=\()</string>
+        <string>\b(fixed|lock|using)\b</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.control.context.lock.cs</string>
+            <string>keyword.control.context.$1.cs</string>
           </dict>
         </dict>
         <key>end</key>
-        <string>(?&lt;=\})|(?=;)</string>
+        <string>(?&lt;=\))|(?=;|})</string>
         <key>patterns</key>
         <array>
+          <dict>
+            <key>include</key>
+            <string>#intrusive</string>
+          </dict>
           <dict>
             <key>begin</key>
             <string>\(</string>
@@ -4576,55 +4574,8 @@
             <array>
               <dict>
                 <key>include</key>
-                <string>#expression</string>
+                <string>#intrusive</string>
               </dict>
-            </array>
-          </dict>
-          <dict>
-            <key>include</key>
-            <string>#statement</string>
-          </dict>
-        </array>
-      </dict>
-      <key>using-statement</key>
-      <dict>
-        <key>begin</key>
-        <string>(?&lt;!\.)\b(using)\b\s*(?=\()</string>
-        <key>beginCaptures</key>
-        <dict>
-          <key>1</key>
-          <dict>
-            <key>name</key>
-            <string>keyword.control.context.using.cs</string>
-          </dict>
-        </dict>
-        <key>end</key>
-        <string>(?=\;|})</string>
-        <key>patterns</key>
-        <array>
-          <dict>
-            <key>begin</key>
-            <string>\(</string>
-            <key>beginCaptures</key>
-            <dict>
-              <key>0</key>
-              <dict>
-                <key>name</key>
-                <string>punctuation.parenthesis.open.cs</string>
-              </dict>
-            </dict>
-            <key>end</key>
-            <string>\)</string>
-            <key>endCaptures</key>
-            <dict>
-              <key>0</key>
-              <dict>
-                <key>name</key>
-                <string>punctuation.parenthesis.close.cs</string>
-              </dict>
-            </dict>
-            <key>patterns</key>
-            <array>
               <dict>
                 <key>include</key>
                 <string>#local-variable-declaration</string>
@@ -4637,7 +4588,7 @@
           </dict>
           <dict>
             <key>include</key>
-            <string>#statement</string>
+            <string>#local-variable-declaration</string>
           </dict>
         </array>
       </dict>
@@ -4686,7 +4637,6 @@
         <key>begin</key>
         <string>(?x)
 (?:
-  (?:(\busing)\s+)?
   (?:(\bref)\s+(?:(\breadonly)\s+)?)?(\bvar\b)| # ref local
   (?&lt;type_name&gt;
     (?:
@@ -4700,7 +4650,7 @@
         (?:\s*\.\s*\g&lt;name_and_type_args&gt;)* | # Are there any more names being dotted into?
         (?&lt;tuple&gt;\s*\((?:[^\(\)]|\g&lt;tuple&gt;)+\))
       )
-      (?:\s*\?\s*)? # nullable suffix?
+      (?:\s*[?*]\s*)? # nullable or pointer suffix?
       (?:\s* # array suffix?
         \[
           (?:\s*,\s*)* # commata for multi-dimensional arrays
@@ -4720,24 +4670,19 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.control.context.using.cs</string>
+            <string>storage.modifier.ref.cs</string>
           </dict>
           <key>2</key>
           <dict>
             <key>name</key>
-            <string>storage.modifier.ref.cs</string>
+            <string>storage.modifier.readonly.cs</string>
           </dict>
           <key>3</key>
           <dict>
             <key>name</key>
-            <string>storage.modifier.readonly.cs</string>
-          </dict>
-          <key>4</key>
-          <dict>
-            <key>name</key>
             <string>storage.type.var.cs</string>
           </dict>
-          <key>5</key>
+          <key>4</key>
           <dict>
             <key>patterns</key>
             <array>
@@ -4747,14 +4692,14 @@
               </dict>
             </array>
           </dict>
-          <key>10</key>
+          <key>9</key>
           <dict>
             <key>name</key>
             <string>entity.name.variable.local.cs</string>
           </dict>
         </dict>
         <key>end</key>
-        <string>(?=;|\))</string>
+        <string>(?=[;)}])</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -5225,10 +5170,10 @@
           </dict>
         </dict>
       </dict>
-      <key>checked-unchecked-expression</key>
+      <key>expression-operator-expression</key>
       <dict>
         <key>begin</key>
-        <string>(?&lt;!\.)\b(checked|unchecked)\b\s*(\()</string>
+        <string>\b(checked|unchecked|nameof)\s*(\()</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
@@ -5260,10 +5205,10 @@
           </dict>
         </array>
       </dict>
-      <key>typeof-or-default-expression</key>
+      <key>type-operator-expression</key>
       <dict>
         <key>begin</key>
-        <string>(?&lt;!\.)\b(typeof|default)\b\s*(\()</string>
+        <string>\b(default|sizeof|typeof)\s*(\()</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
@@ -5295,45 +5240,10 @@
           </dict>
         </array>
       </dict>
-      <key>nameof-expression</key>
-      <dict>
-        <key>begin</key>
-        <string>(?&lt;!\.)\b(nameof)\b\s*(\()</string>
-        <key>beginCaptures</key>
-        <dict>
-          <key>1</key>
-          <dict>
-            <key>name</key>
-            <string>keyword.operator.expression.nameof.cs</string>
-          </dict>
-          <key>2</key>
-          <dict>
-            <key>name</key>
-            <string>punctuation.parenthesis.open.cs</string>
-          </dict>
-        </dict>
-        <key>end</key>
-        <string>\)</string>
-        <key>endCaptures</key>
-        <dict>
-          <key>0</key>
-          <dict>
-            <key>name</key>
-            <string>punctuation.parenthesis.close.cs</string>
-          </dict>
-        </dict>
-        <key>patterns</key>
-        <array>
-          <dict>
-            <key>include</key>
-            <string>#expression</string>
-          </dict>
-        </array>
-      </dict>
       <key>default-literal-expression</key>
       <dict>
         <key>match</key>
-        <string>(?&lt;!\.)\b(default)\b</string>
+        <string>\b(default)\b</string>
         <key>captures</key>
         <dict>
           <key>1</key>
@@ -5346,7 +5256,7 @@
       <key>throw-expression</key>
       <dict>
         <key>match</key>
-        <string>(?&lt;!\.)\b(throw)\b</string>
+        <string>\b(throw)\b</string>
         <key>captures</key>
         <dict>
           <key>1</key>
@@ -8128,6 +8038,10 @@
             <key>include</key>
             <string>#type-nullable-suffix</string>
           </dict>
+          <dict>
+            <key>include</key>
+            <string>#type-pointer-suffix</string>
+          </dict>
         </array>
       </dict>
       <key>ref-modifier</key>
@@ -8372,14 +8286,15 @@
       <dict>
         <key>match</key>
         <string>\?</string>
-        <key>captures</key>
-        <dict>
-          <key>0</key>
-          <dict>
-            <key>name</key>
-            <string>punctuation.separator.question-mark.cs</string>
-          </dict>
-        </dict>
+        <key>name</key>
+        <string>punctuation.separator.question-mark.cs</string>
+      </dict>
+      <key>type-pointer-suffix</key>
+      <dict>
+        <key>match</key>
+        <string>\*</string>
+        <key>name</key>
+        <string>punctuation.separator.asterisk.cs</string>
       </dict>
       <key>operator-assignment</key>
       <dict>

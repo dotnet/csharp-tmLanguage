@@ -271,10 +271,10 @@ export namespace Token {
 
         export namespace Context {
             export const Checked = createToken('checked', 'keyword.control.context.checked.cs');
-            export const Fixed = createToken('using', 'keyword.control.context.fixed.cs');
+            export const Fixed = createToken('fixed', 'keyword.control.context.fixed.cs');
             export const Lock = createToken('lock', 'keyword.control.context.lock.cs');
             export const Unchecked = createToken('unchecked', 'keyword.control.context.unchecked.cs');
-            export const Unsafe = createToken('using', 'keyword.control.context.unsafe.cs');
+            export const Unsafe = createToken('unsafe', 'keyword.control.context.unsafe.cs');
             export const Using = createToken('using', 'keyword.control.context.using.cs');
         }
 
@@ -470,6 +470,7 @@ export namespace Token {
             export const NameOf = createToken('nameof', 'keyword.operator.expression.nameof.cs');
             export const New = createToken('new', 'keyword.operator.expression.new.cs');
             export const StackAlloc = createToken('stackalloc', 'keyword.operator.expression.stackalloc.cs');
+            export const SizeOf = createToken('sizeof', 'keyword.operator.expression.sizeof.cs');
             export const TypeOf = createToken('typeof', 'keyword.operator.expression.typeof.cs');
             export const Unchecked = createToken('unchecked', 'keyword.operator.expression.unchecked.cs');
             export const With = createToken('with', 'keyword.operator.expression.with.cs');
@@ -583,6 +584,7 @@ export namespace Token {
 
         export const Accessor = createToken('.', 'punctuation.accessor.cs');
         export const AccessorPointer = createToken('->', 'punctuation.accessor.pointer.cs');
+        export const Asterisk = createToken('*', 'punctuation.separator.asterisk.cs')
         export const CloseBrace = createToken('}', 'punctuation.curlybrace.close.cs');
         export const CloseBracket = createToken(']', 'punctuation.squarebracket.close.cs');
         export const CloseParen = createToken(')', 'punctuation.parenthesis.close.cs');
