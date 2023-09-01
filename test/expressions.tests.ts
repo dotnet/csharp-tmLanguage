@@ -3511,6 +3511,22 @@ void CandleLightOffSecond(int index)
         ]);
       });
 
+      it("sizeof", async () => {
+        const input = Input.InMethod(`var sz = sizeof(nint);`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("sz"),
+          Token.Operator.Assignment,
+          Token.Operator.Expression.SizeOf,
+          Token.Punctuation.OpenParen,
+          Token.PrimitiveType.Nint,
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.Semicolon,
+        ]);
+      });
+
       it("typeof", async () => {
         const input = Input.InMethod(`var t = typeof(List<>);`);
         const tokens = await tokenize(input);
@@ -4106,7 +4122,7 @@ select x.Key1;`);
       });
     });
 
-    describe("With expression", () => {
+    describe("With expressions", () => {
       it("single line", async () => {
         const input = Input.InMethod(`var p2 = p1 with { X = 5 };`);
         const tokens = await tokenize(input);
