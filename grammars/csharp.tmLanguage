@@ -7952,6 +7952,10 @@
                   </dict>
                   <dict>
                     <key>include</key>
+                    <string>#default-argument</string>
+                  </dict>
+                  <dict>
+                    <key>include</key>
                     <string>#punctuation-comma</string>
                   </dict>
                 </array>
@@ -8097,7 +8101,7 @@
       <dict>
         <key>match</key>
         <string>(?x)
-(?:\b(ref|out|in)\b\s*)?
+(?:\b(ref|params|out|in)\b\s*)?
 (?&lt;type_name&gt;
   (?:
     (?:
@@ -8151,6 +8155,28 @@
         <string>\@?[_[:alpha:]][_[:alnum:]]*\b</string>
         <key>name</key>
         <string>entity.name.variable.parameter.cs</string>
+      </dict>
+      <key>default-argument</key>
+      <dict>
+        <key>begin</key>
+        <string>=</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>0</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.operator.assignment.cs</string>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>(?=,|\))</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#expression</string>
+          </dict>
+        </array>
       </dict>
       <key>type</key>
       <dict>

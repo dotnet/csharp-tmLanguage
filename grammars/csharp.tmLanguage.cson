@@ -4802,6 +4802,9 @@ repository:
                 include: "#implicit-anonymous-function-parameter"
               }
               {
+                include: "#default-argument"
+              }
+              {
                 include: "#punctuation-comma"
               }
             ]
@@ -4891,7 +4894,7 @@ repository:
   "explicit-anonymous-function-parameter":
     match: '''
       (?x)
-      (?:\\b(ref|out|in)\\b\\s*)?
+      (?:\\b(ref|params|out|in)\\b\\s*)?
       (?<type_name>
         (?:
           (?:
@@ -4930,6 +4933,17 @@ repository:
   "implicit-anonymous-function-parameter":
     match: "\\@?[_[:alpha:]][_[:alnum:]]*\\b"
     name: "entity.name.variable.parameter.cs"
+  "default-argument":
+    begin: "="
+    beginCaptures:
+      "0":
+        name: "keyword.operator.assignment.cs"
+    end: "(?=,|\\))"
+    patterns: [
+      {
+        include: "#expression"
+      }
+    ]
   type:
     patterns: [
       {

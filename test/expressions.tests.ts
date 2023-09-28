@@ -1268,6 +1268,49 @@ _ = delegate /*comment*/ () /*comment*/ {  };`);
           Token.Punctuation.Semicolon,
         ]);
       });
+
+      it("lambda expression optional parameter (issue #294)", async () => {
+        const input = Input.InMethod(`_ = (int addTo = 2) => addTo + 1;`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Variable.ReadWrite("_"),
+          Token.Operator.Assignment,
+          Token.Punctuation.OpenParen,
+          Token.PrimitiveType.Int,
+          Token.Identifier.ParameterName("addTo"),
+          Token.Operator.Assignment,
+          Token.Literal.Numeric.Decimal("2"),
+          Token.Punctuation.CloseParen,
+          Token.Operator.Arrow,
+          Token.Variable.ReadWrite("addTo"),
+          Token.Operator.Arithmetic.Addition,
+          Token.Literal.Numeric.Decimal("1"),
+          Token.Punctuation.Semicolon,
+        ]);
+      });
+
+      it("lambda expression params array parameter (issue #294)", async () => {
+        const input = Input.InMethod(`_ = (params object[] arr) => arr.Length;`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Variable.ReadWrite("_"),
+          Token.Operator.Assignment,
+          Token.Punctuation.OpenParen,
+          Token.Keyword.Modifier.Params,
+          Token.PrimitiveType.Object,
+          Token.Punctuation.OpenBracket,
+          Token.Punctuation.CloseBracket,
+          Token.Identifier.ParameterName("arr"),
+          Token.Punctuation.CloseParen,
+          Token.Operator.Arrow,
+          Token.Variable.Object("arr"),
+          Token.Punctuation.Accessor,
+          Token.Variable.Property("Length"),
+          Token.Punctuation.Semicolon,
+        ]);
+      });
     });
 
     describe("Anonymous Objects", () => {

@@ -3124,6 +3124,7 @@ repository:
           - include: '#comment'
           - include: '#explicit-anonymous-function-parameter'
           - include: '#implicit-anonymous-function-parameter'
+          - include: '#default-argument'
           - include: '#punctuation-comma'
         5: { name: punctuation.parenthesis.close.cs }
         6: { name: keyword.operator.arrow.cs }
@@ -3169,7 +3170,7 @@ repository:
   explicit-anonymous-function-parameter:
     match: |-
       (?x)
-      (?:\b(ref|out|in)\b\s*)?
+      (?:\b(ref|params|out|in)\b\s*)?
       (?<type_name>
         (?:
           (?:
@@ -3207,6 +3208,14 @@ repository:
   implicit-anonymous-function-parameter:
     match: \@?[_[:alpha:]][_[:alnum:]]*\b
     name: entity.name.variable.parameter.cs
+
+  default-argument:
+    begin: =
+    beginCaptures:
+      0: { name: keyword.operator.assignment.cs }
+    end: (?=,|\))
+    patterns:
+    - include: '#expression'
 
   type:
     patterns:
