@@ -2834,7 +2834,7 @@ repository:
               (?<type_args>\s*<(?:[^<>]|\g<type_args>)+>\s*)?
             )
             (?:\s*\.\s*\g<name_and_type_args>)* | # Are there any more names being dotted into?
-            (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
+            (?<tuple>\s*\((?:[^()]|\g<tuple>)+\))
           )
           (?:\s*\?\s*)? # nullable suffix?
           (?:\s* # array suffix?
@@ -3105,27 +3105,11 @@ repository:
     - begin: |-
         (?x)
         ((?:\b(?:async|static)\b\s*)*)
-        (@?[_[:alpha:]][_[:alnum:]]*)\b\s*
-        (=>)
-      beginCaptures:
-        1:
-          patterns:
-          - match: async|static
-            name: storage.modifier.$0.cs
-        2: { name: entity.name.variable.parameter.cs }
-        3: { name: keyword.operator.arrow.cs }
-      end: (?=\)|;|}|,)
-      patterns:
-      - include: '#block'
-      - include: '#ref-modifier'
-      - include: '#expression'
-    - begin: |-
-        (?x)
-        ((?:\b(?:async|static)\b\s*)*)
-        (?<tuple>
-          \(
-            (?:[^()]|\g<tuple>)*
-          \)
+        (?:
+          (@?[_[:alpha:]][_[:alnum:]]*)\b|
+          (\()
+            (?<tuple>(?:[^()]|\(\g<tuple>\))*)
+          (\))
         )\s*
         (=>)
       beginCaptures:
@@ -3133,57 +3117,69 @@ repository:
           patterns:
           - match: async|static
             name: storage.modifier.$0.cs
-        2:
+        2: { name: entity.name.variable.parameter.cs }
+        3: { name: punctuation.parenthesis.open.cs }
+        4:
           patterns:
-          - include: '#lambda-parameter-list'
-        3: { name: keyword.operator.arrow.cs }
-      end: (?=\)|;|}|,)
+          - include: '#comment'
+          - include: '#explicit-anonymous-function-parameter'
+          - include: '#implicit-anonymous-function-parameter'
+          - include: '#punctuation-comma'
+        5: { name: punctuation.parenthesis.close.cs }
+        6: { name: keyword.operator.arrow.cs }
+      end: (?=[,;)}])
       patterns:
-      - include: '#block'
-      - include: '#ref-modifier'
-      - include: '#expression'
+      - include: '#intrusive'
+      - begin: (?={)
+        end: (?=[,;)}])
+        patterns:
+        - include: '#block'
+        - include: '#intrusive'
+      - begin: \b(ref)\b|(?=\S)
+        beginCaptures:
+          1: { name: storage.modifier.ref.cs }
+        end: (?=[,;)}])
+        patterns:
+        - include: '#expression'
     - begin: |-
         (?x)
         ((?:\b(?:async|static)\b\s*)*)
-        (?:\b(delegate)\b\s*)
+        \b(delegate)\b\s*
       beginCaptures:
         1:
           patterns:
           - match: async|static
             name: storage.modifier.$0.cs
         2: { name: storage.type.delegate.cs }
-      end: (?=\)|;|}|,)
+      end: (?<=})|(?=[,;)}])
       patterns:
-      - include: '#parenthesized-parameter-list'
+      - include: '#intrusive'
+      - begin: \(
+        beginCaptures:
+          0: { name: punctuation.parenthesis.open.cs }
+        end: \)
+        endCaptures:
+          0: { name: punctuation.parenthesis.close.cs }
+        patterns:
+        - include: '#intrusive'
+        - include: '#explicit-anonymous-function-parameter'
+        - include: '#punctuation-comma'
       - include: '#block'
 
-  lambda-parameter-list:
-    begin: \(
-    beginCaptures:
-      '0': { name: punctuation.parenthesis.open.cs }
-    end: \)
-    endCaptures:
-      '0': { name: punctuation.parenthesis.close.cs }
-    patterns:
-    - include: '#comment'
-    - include: '#attribute-section'
-    - include: '#lambda-parameter'
-    - include: '#punctuation-comma'
-
-  lambda-parameter:
+  explicit-anonymous-function-parameter:
     match: |-
       (?x)
-      (?:\b(ref|out|in)\b)?\s*
-      (?:(?<type_name>
+      (?:\b(ref|out|in)\b\s*)?
+      (?<type_name>
         (?:
           (?:
             (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
             (?<name_and_type_args> # identifier + type arguments (if any)
               \g<identifier>\s*
-              (?<type_args>\s*<(?:[^<>]|\g<type_args>)+>\s*)?
+              (?<type_args><(?:[^<>]|\g<type_args>)*>\s*)?
             )
             (?:\s*\.\s*\g<name_and_type_args>)* | # Are there any more names being dotted into?
-            (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
+            (?<tuple>\s*\((?:[^()]|\g<tuple>)*\))
           )
           (?:\s*\?\s*)? # nullable suffix?
           (?:\s* # array suffix?
@@ -3195,19 +3191,22 @@ repository:
             \s*
           )*
         )
-      )\s+)?
-      (\g<identifier>)\b\s*
-      (?=[,)])
+      )\s*
+      \b(\g<identifier>)\b
     captures:
       1: { name: storage.modifier.$1.cs }
       2:
         patterns:
         - include: '#type'
-      # '3': ?<identifier> is a sub-expression. It's final value is not considered.
-      # '4': ?<name_and_type_args> is a sub-expression. It's final value is not considered.
-      # '5': ?<type_args> is a sub-expression. It's final value is not considered.
-      # '6': ?<tuple> is a sub-expression. It's final value is not considered.
+      # '3': ?<identifier> is a sub-expression. Its final value is not considered.
+      # '4': ?<name_and_type_args> is a sub-expression. Its final value is not considered.
+      # '5': ?<type_args> is a sub-expression. Its final value is not considered.
+      # '6': ?<tuple> is a sub-expression. Its final value is not considered.
       7: { name: entity.name.variable.parameter.cs }
+
+  implicit-anonymous-function-parameter:
+    match: \@?[_[:alpha:]][_[:alnum:]]*\b
+    name: entity.name.variable.parameter.cs
 
   type:
     patterns:

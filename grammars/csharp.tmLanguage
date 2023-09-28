@@ -7277,7 +7277,7 @@
         (?&lt;type_args&gt;\s*&lt;(?:[^&lt;&gt;]|\g&lt;type_args&gt;)+&gt;\s*)?
       )
       (?:\s*\.\s*\g&lt;name_and_type_args&gt;)* | # Are there any more names being dotted into?
-      (?&lt;tuple&gt;\s*\((?:[^\(\)]|\g&lt;tuple&gt;)+\))
+      (?&lt;tuple&gt;\s*\((?:[^()]|\g&lt;tuple&gt;)+\))
     )
     (?:\s*\?\s*)? # nullable suffix?
     (?:\s* # array suffix?
@@ -7903,7 +7903,12 @@
             <key>begin</key>
             <string>(?x)
 ((?:\b(?:async|static)\b\s*)*)
-(@?[_[:alpha:]][_[:alnum:]]*)\b\s*
+(?:
+  (@?[_[:alpha:]][_[:alnum:]]*)\b|
+  (\()
+    (?&lt;tuple&gt;(?:[^()]|\(\g&lt;tuple&gt;\))*)
+  (\))
+)\s*
 (=&gt;)</string>
             <key>beginCaptures</key>
             <dict>
@@ -7927,82 +7932,86 @@
               <key>3</key>
               <dict>
                 <key>name</key>
-                <string>keyword.operator.arrow.cs</string>
+                <string>punctuation.parenthesis.open.cs</string>
               </dict>
-            </dict>
-            <key>end</key>
-            <string>(?=\)|;|}|,)</string>
-            <key>patterns</key>
-            <array>
-              <dict>
-                <key>include</key>
-                <string>#block</string>
-              </dict>
-              <dict>
-                <key>include</key>
-                <string>#ref-modifier</string>
-              </dict>
-              <dict>
-                <key>include</key>
-                <string>#expression</string>
-              </dict>
-            </array>
-          </dict>
-          <dict>
-            <key>begin</key>
-            <string>(?x)
-((?:\b(?:async|static)\b\s*)*)
-(?&lt;tuple&gt;
-  \(
-    (?:[^()]|\g&lt;tuple&gt;)*
-  \)
-)\s*
-(=&gt;)</string>
-            <key>beginCaptures</key>
-            <dict>
-              <key>1</key>
-              <dict>
-                <key>patterns</key>
-                <array>
-                  <dict>
-                    <key>match</key>
-                    <string>async|static</string>
-                    <key>name</key>
-                    <string>storage.modifier.$0.cs</string>
-                  </dict>
-                </array>
-              </dict>
-              <key>2</key>
+              <key>4</key>
               <dict>
                 <key>patterns</key>
                 <array>
                   <dict>
                     <key>include</key>
-                    <string>#lambda-parameter-list</string>
+                    <string>#comment</string>
+                  </dict>
+                  <dict>
+                    <key>include</key>
+                    <string>#explicit-anonymous-function-parameter</string>
+                  </dict>
+                  <dict>
+                    <key>include</key>
+                    <string>#implicit-anonymous-function-parameter</string>
+                  </dict>
+                  <dict>
+                    <key>include</key>
+                    <string>#punctuation-comma</string>
                   </dict>
                 </array>
               </dict>
-              <key>3</key>
+              <key>5</key>
+              <dict>
+                <key>name</key>
+                <string>punctuation.parenthesis.close.cs</string>
+              </dict>
+              <key>6</key>
               <dict>
                 <key>name</key>
                 <string>keyword.operator.arrow.cs</string>
               </dict>
             </dict>
             <key>end</key>
-            <string>(?=\)|;|}|,)</string>
+            <string>(?=[,;)}])</string>
             <key>patterns</key>
             <array>
               <dict>
                 <key>include</key>
-                <string>#block</string>
+                <string>#intrusive</string>
               </dict>
               <dict>
-                <key>include</key>
-                <string>#ref-modifier</string>
+                <key>begin</key>
+                <string>(?={)</string>
+                <key>end</key>
+                <string>(?=[,;)}])</string>
+                <key>patterns</key>
+                <array>
+                  <dict>
+                    <key>include</key>
+                    <string>#block</string>
+                  </dict>
+                  <dict>
+                    <key>include</key>
+                    <string>#intrusive</string>
+                  </dict>
+                </array>
               </dict>
               <dict>
-                <key>include</key>
-                <string>#expression</string>
+                <key>begin</key>
+                <string>\b(ref)\b|(?=\S)</string>
+                <key>beginCaptures</key>
+                <dict>
+                  <key>1</key>
+                  <dict>
+                    <key>name</key>
+                    <string>storage.modifier.ref.cs</string>
+                  </dict>
+                </dict>
+                <key>end</key>
+                <string>(?=[,;)}])</string>
+                <key>patterns</key>
+                <array>
+                  <dict>
+                    <key>include</key>
+                    <string>#expression</string>
+                  </dict>
+                </array>
               </dict>
             </array>
           </dict>
@@ -8010,7 +8019,7 @@
             <key>begin</key>
             <string>(?x)
 ((?:\b(?:async|static)\b\s*)*)
-(?:\b(delegate)\b\s*)</string>
+\b(delegate)\b\s*</string>
             <key>beginCaptures</key>
             <dict>
               <key>1</key>
@@ -8032,12 +8041,49 @@
               </dict>
             </dict>
             <key>end</key>
-            <string>(?=\)|;|}|,)</string>
+            <string>(?&lt;=})|(?=[,;)}])</string>
             <key>patterns</key>
             <array>
               <dict>
                 <key>include</key>
-                <string>#parenthesized-parameter-list</string>
+                <string>#intrusive</string>
+              </dict>
+              <dict>
+                <key>begin</key>
+                <string>\(</string>
+                <key>beginCaptures</key>
+                <dict>
+                  <key>0</key>
+                  <dict>
+                    <key>name</key>
+                    <string>punctuation.parenthesis.open.cs</string>
+                  </dict>
+                </dict>
+                <key>end</key>
+                <string>\)</string>
+                <key>endCaptures</key>
+                <dict>
+                  <key>0</key>
+                  <dict>
+                    <key>name</key>
+                    <string>punctuation.parenthesis.close.cs</string>
+                  </dict>
+                </dict>
+                <key>patterns</key>
+                <array>
+                  <dict>
+                    <key>include</key>
+                    <string>#intrusive</string>
+                  </dict>
+                  <dict>
+                    <key>include</key>
+                    <string>#explicit-anonymous-function-parameter</string>
+                  </dict>
+                  <dict>
+                    <key>include</key>
+                    <string>#punctuation-comma</string>
+                  </dict>
+                </array>
               </dict>
               <dict>
                 <key>include</key>
@@ -8047,63 +8093,21 @@
           </dict>
         </array>
       </dict>
-      <key>lambda-parameter-list</key>
-      <dict>
-        <key>begin</key>
-        <string>\(</string>
-        <key>beginCaptures</key>
-        <dict>
-          <key>0</key>
-          <dict>
-            <key>name</key>
-            <string>punctuation.parenthesis.open.cs</string>
-          </dict>
-        </dict>
-        <key>end</key>
-        <string>\)</string>
-        <key>endCaptures</key>
-        <dict>
-          <key>0</key>
-          <dict>
-            <key>name</key>
-            <string>punctuation.parenthesis.close.cs</string>
-          </dict>
-        </dict>
-        <key>patterns</key>
-        <array>
-          <dict>
-            <key>include</key>
-            <string>#comment</string>
-          </dict>
-          <dict>
-            <key>include</key>
-            <string>#attribute-section</string>
-          </dict>
-          <dict>
-            <key>include</key>
-            <string>#lambda-parameter</string>
-          </dict>
-          <dict>
-            <key>include</key>
-            <string>#punctuation-comma</string>
-          </dict>
-        </array>
-      </dict>
-      <key>lambda-parameter</key>
+      <key>explicit-anonymous-function-parameter</key>
       <dict>
         <key>match</key>
         <string>(?x)
-(?:\b(ref|out|in)\b)?\s*
-(?:(?&lt;type_name&gt;
+(?:\b(ref|out|in)\b\s*)?
+(?&lt;type_name&gt;
   (?:
     (?:
       (?:(?&lt;identifier&gt;@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
       (?&lt;name_and_type_args&gt; # identifier + type arguments (if any)
         \g&lt;identifier&gt;\s*
-        (?&lt;type_args&gt;\s*&lt;(?:[^&lt;&gt;]|\g&lt;type_args&gt;)+&gt;\s*)?
+        (?&lt;type_args&gt;&lt;(?:[^&lt;&gt;]|\g&lt;type_args&gt;)*&gt;\s*)?
       )
       (?:\s*\.\s*\g&lt;name_and_type_args&gt;)* | # Are there any more names being dotted into?
-      (?&lt;tuple&gt;\s*\((?:[^\(\)]|\g&lt;tuple&gt;)+\))
+      (?&lt;tuple&gt;\s*\((?:[^()]|\g&lt;tuple&gt;)*\))
     )
     (?:\s*\?\s*)? # nullable suffix?
     (?:\s* # array suffix?
@@ -8115,9 +8119,8 @@
       \s*
     )*
   )
-)\s+)?
-(\g&lt;identifier&gt;)\b\s*
-(?=[,)])</string>
+)\s*
+\b(\g&lt;identifier&gt;)\b</string>
         <key>captures</key>
         <dict>
           <key>1</key>
@@ -8141,6 +8144,13 @@
             <string>entity.name.variable.parameter.cs</string>
           </dict>
         </dict>
+      </dict>
+      <key>implicit-anonymous-function-parameter</key>
+      <dict>
+        <key>match</key>
+        <string>\@?[_[:alpha:]][_[:alnum:]]*\b</string>
+        <key>name</key>
+        <string>entity.name.variable.parameter.cs</string>
       </dict>
       <key>type</key>
       <dict>
