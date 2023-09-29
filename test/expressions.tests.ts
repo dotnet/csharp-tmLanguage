@@ -1156,6 +1156,161 @@ var outObjectsToKeep = allOutObjects.Where(outObject => outObject.ShouldKeep);`)
           Token.Punctuation.Semicolon,
         ]);
       });
+
+      it("lambda expression with initializer expression (issue #291)", async () => {
+        const input = Input.InMethod(`
+var x = list.Select(item => new Foo()
+{
+    Key = item.Name,
+    Value = item.Text,
+});`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("x"),
+          Token.Operator.Assignment,
+          Token.Variable.Object("list"),
+          Token.Punctuation.Accessor,
+          Token.Identifier.MethodName("Select"),
+          Token.Punctuation.OpenParen,
+          Token.Identifier.ParameterName("item"),
+          Token.Operator.Arrow,
+          Token.Operator.Expression.New,
+          Token.Type("Foo"),
+          Token.Punctuation.OpenParen,
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.OpenBrace,
+          Token.Variable.ReadWrite("Key"),
+          Token.Operator.Assignment,
+          Token.Variable.Object("item"),
+          Token.Punctuation.Accessor,
+          Token.Variable.Property("Name"),
+          Token.Punctuation.Comma,
+          Token.Variable.ReadWrite("Value"),
+          Token.Operator.Assignment,
+          Token.Variable.Object("item"),
+          Token.Punctuation.Accessor,
+          Token.Variable.Property("Text"),
+          Token.Punctuation.Comma,
+          Token.Punctuation.CloseBrace,
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.Semicolon,
+        ]);
+      });
+
+      it("lambda expression with comments (issue #292)", async () => {
+        const input = Input.InMethod(`
+_ = (int a, int b /*comment*/) => /*comment*/ { };
+_ = (a, b /*comment*/) => /*comment*/ { };`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Variable.ReadWrite("_"),
+          Token.Operator.Assignment,
+          Token.Punctuation.OpenParen,
+          Token.PrimitiveType.Int,
+          Token.Identifier.ParameterName("a"),
+          Token.Punctuation.Comma,
+          Token.PrimitiveType.Int,
+          Token.Identifier.ParameterName("b"),
+          Token.Comment.MultiLine.Start,
+          Token.Comment.MultiLine.Text("comment"),
+          Token.Comment.MultiLine.End,
+          Token.Punctuation.CloseParen,
+          Token.Operator.Arrow,
+          Token.Comment.MultiLine.Start,
+          Token.Comment.MultiLine.Text("comment"),
+          Token.Comment.MultiLine.End,
+          Token.Punctuation.OpenBrace,
+          Token.Punctuation.CloseBrace,
+          Token.Punctuation.Semicolon,
+
+          Token.Variable.ReadWrite("_"),
+          Token.Operator.Assignment,
+          Token.Punctuation.OpenParen,
+          Token.Identifier.ParameterName("a"),
+          Token.Punctuation.Comma,
+          Token.Identifier.ParameterName("b"),
+          Token.Comment.MultiLine.Start,
+          Token.Comment.MultiLine.Text("comment"),
+          Token.Comment.MultiLine.End,
+          Token.Punctuation.CloseParen,
+          Token.Operator.Arrow,
+          Token.Comment.MultiLine.Start,
+          Token.Comment.MultiLine.Text("comment"),
+          Token.Comment.MultiLine.End,
+          Token.Punctuation.OpenBrace,
+          Token.Punctuation.CloseBrace,
+          Token.Punctuation.Semicolon,
+        ]);
+      });
+
+      it("anonymous method with comments (issue #292)", async () => {
+        const input = Input.InMethod(`
+_ = delegate /*comment*/ () /*comment*/ {  };`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Variable.ReadWrite("_"),
+          Token.Operator.Assignment,
+          Token.Keyword.Definition.Delegate,
+          Token.Comment.MultiLine.Start,
+          Token.Comment.MultiLine.Text("comment"),
+          Token.Comment.MultiLine.End,
+          Token.Punctuation.OpenParen,
+          Token.Punctuation.CloseParen,
+          Token.Comment.MultiLine.Start,
+          Token.Comment.MultiLine.Text("comment"),
+          Token.Comment.MultiLine.End,
+          Token.Punctuation.OpenBrace,
+          Token.Punctuation.CloseBrace,
+          Token.Punctuation.Semicolon,
+        ]);
+      });
+
+      it("lambda expression optional parameter (issue #294)", async () => {
+        const input = Input.InMethod(`_ = (int addTo = 2) => addTo + 1;`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Variable.ReadWrite("_"),
+          Token.Operator.Assignment,
+          Token.Punctuation.OpenParen,
+          Token.PrimitiveType.Int,
+          Token.Identifier.ParameterName("addTo"),
+          Token.Operator.Assignment,
+          Token.Literal.Numeric.Decimal("2"),
+          Token.Punctuation.CloseParen,
+          Token.Operator.Arrow,
+          Token.Variable.ReadWrite("addTo"),
+          Token.Operator.Arithmetic.Addition,
+          Token.Literal.Numeric.Decimal("1"),
+          Token.Punctuation.Semicolon,
+        ]);
+      });
+
+      it("lambda expression params array parameter (issue #294)", async () => {
+        const input = Input.InMethod(`_ = (params object[] arr) => arr.Length;`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Variable.ReadWrite("_"),
+          Token.Operator.Assignment,
+          Token.Punctuation.OpenParen,
+          Token.Keyword.Modifier.Params,
+          Token.PrimitiveType.Object,
+          Token.Punctuation.OpenBracket,
+          Token.Punctuation.CloseBracket,
+          Token.Identifier.ParameterName("arr"),
+          Token.Punctuation.CloseParen,
+          Token.Operator.Arrow,
+          Token.Variable.Object("arr"),
+          Token.Punctuation.Accessor,
+          Token.Variable.Property("Length"),
+          Token.Punctuation.Semicolon,
+        ]);
+      });
     });
 
     describe("Anonymous Objects", () => {
