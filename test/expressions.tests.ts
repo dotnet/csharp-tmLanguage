@@ -3013,6 +3013,28 @@ f(A<(B,C)>(D+E));`);
         ]);
       });
 
+      it("generic with long type arg candidate (issue #295)", async () => {
+        const input = Input.InMethod(`
+if (currentTab < lastTab && setTabWithoutUpdate(currentTab)) { }`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Keyword.Conditional.If,
+          Token.Punctuation.OpenParen,
+          Token.Variable.ReadWrite("currentTab"),
+          Token.Operator.Relational.LessThan,
+          Token.Variable.ReadWrite("lastTab"),
+          Token.Operator.Logical.And,
+          Token.Identifier.MethodName("setTabWithoutUpdate"),
+          Token.Punctuation.OpenParen,
+          Token.Variable.ReadWrite("currentTab"),
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.OpenBrace,
+          Token.Punctuation.CloseBrace,
+        ]);
+      });
+
       it("member of generic with no arguments", async () => {
         const input = Input.InMethod(`C<int>.M();`);
         const tokens = await tokenize(input);
