@@ -6771,10 +6771,10 @@
 (
   &lt;
   (?&lt;type_args&gt;
-    [^&lt;&gt;()]+|
-    &lt;\g&lt;type_args&gt;+&gt;|
-    \(\g&lt;type_args&gt;+\)
-  )+
+    [^&lt;&gt;()]++|
+    &lt;\g&lt;type_args&gt;*+&gt;|
+    \(\g&lt;type_args&gt;*+\)
+  )*+
   &gt;\s*
 )?                                                # type arguments
 (?=\()                                            # open paren of argument list</string>
