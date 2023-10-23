@@ -6156,7 +6156,7 @@
         <key>name</key>
         <string>constant.character.escape.cs</string>
         <key>match</key>
-        <string>\\(['"\\0abfnrtv]|x[0-9a-fA-F]{1,4}|u[0-9a-fA-F]{4})</string>
+        <string>\\(['"\\0abefnrtv]|x[0-9a-fA-F]{1,4}|u[0-9a-fA-F]{4})</string>
       </dict>
       <key>string-literal</key>
       <dict>
@@ -6200,7 +6200,7 @@
         <key>name</key>
         <string>constant.character.escape.cs</string>
         <key>match</key>
-        <string>\\(['"\\0abfnrtv]|x[0-9a-fA-F]{1,4}|U[0-9a-fA-F]{8}|u[0-9a-fA-F]{4})</string>
+        <string>\\(['"\\0abefnrtv]|x[0-9a-fA-F]{1,4}|U[0-9a-fA-F]{8}|u[0-9a-fA-F]{4})</string>
       </dict>
       <key>verbatim-string-literal</key>
       <dict>
