@@ -319,7 +319,7 @@
           </dict>
           <dict>
             <key>include</key>
-            <string>#checked-unchecked-statement</string>
+            <string>#expression-operator-expression</string>
           </dict>
           <dict>
             <key>include</key>

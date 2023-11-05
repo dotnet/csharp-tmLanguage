@@ -223,7 +223,7 @@ repository:
         include: "#try-statement"
       }
       {
-        include: "#checked-unchecked-statement"
+        include: "#expression-operator-expression"
       }
       {
         include: "#context-control-statement"

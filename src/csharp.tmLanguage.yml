@@ -94,7 +94,7 @@ repository:
     - include: '#yield-statement'
     - include: '#await-statement'
     - include: '#try-statement'
-    - include: '#checked-unchecked-statement'
+    - include: '#expression-operator-expression'
     - include: '#context-control-statement'
     - include: '#context-control-paren-statement'
     - include: '#labeled-statement'
@@ -1416,7 +1416,7 @@ repository:
     patterns:
     - match: (@?[_[:alpha:]][_[:alnum:]]*(?:\s*\.\s*@?[_[:alpha:]][_[:alnum:]]*)*)\s*(:)
       captures:
-        1: 
+        1:
           patterns:
           - match: \@?[_[:alpha:]][_[:alnum:]]*
             name: variable.other.object.property.cs
@@ -1654,7 +1654,7 @@ repository:
 
   context-control-statement:
     match: \b(checked|unchecked|unsafe)\b(?!\s*[@_[:alpha:](])
-    name: keyword.control.context.$1.cs 
+    name: keyword.control.context.$1.cs
 
   context-control-paren-statement:
     patterns:
@@ -2414,7 +2414,7 @@ repository:
     patterns:
     - include: '#ref-modifier'
     - include: '#expression'
-  
+
   assignment-operators:
     patterns:
     - name: keyword.operator.assignment.compound.cs
