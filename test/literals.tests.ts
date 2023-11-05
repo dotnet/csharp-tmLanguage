@@ -78,6 +78,20 @@ describe("Literals", () => {
                     Token.Punctuation.Semicolon]);
             });
 
+            it("escaped character escape \\e", async () => {
+                const input = Input.InClass(`char x = '\\e';`);
+                const tokens = await tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.PrimitiveType.Char,
+                    Token.Identifier.FieldName("x"),
+                    Token.Operator.Assignment,
+                    Token.Punctuation.Char.Begin,
+                    Token.Literal.CharacterEscape("\\e"),
+                    Token.Punctuation.Char.End,
+                    Token.Punctuation.Semicolon]);
+            });
+
             it("escaped character escape \\t", async () => {
                 const input = Input.InClass(`char x = '\\t';`);
                 const tokens = await tokenize(input);
@@ -707,6 +721,22 @@ describe("Literals", () => {
                     Token.Punctuation.String.Begin,
                     Token.Literal.String("hello"),
                     Token.Literal.CharacterEscape("\\t"),
+                    Token.Literal.String("world!"),
+                    Token.Punctuation.String.End,
+                    Token.Punctuation.Semicolon]);
+            });
+
+            it("escaped character escape \\e", async () => {
+                const input = Input.InClass(`string test = "hello\\eworld!";`);
+                const tokens = await tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.PrimitiveType.String,
+                    Token.Identifier.FieldName("test"),
+                    Token.Operator.Assignment,
+                    Token.Punctuation.String.Begin,
+                    Token.Literal.String("hello"),
+                    Token.Literal.CharacterEscape("\\e"),
                     Token.Literal.String("world!"),
                     Token.Punctuation.String.End,
                     Token.Punctuation.Semicolon]);
