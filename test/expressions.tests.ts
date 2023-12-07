@@ -1311,6 +1311,29 @@ _ = delegate /*comment*/ () /*comment*/ {  };`);
           Token.Punctuation.Semicolon,
         ]);
       });
+
+      it("lambda expression IEnumerable params collection parameter", async () => {
+        const input = Input.InMethod(`_ = (params IEnumerable<object> arr) => arr.Length;`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Variable.ReadWrite("_"),
+          Token.Operator.Assignment,
+          Token.Punctuation.OpenParen,
+          Token.Keyword.Modifier.Params,
+          Token.Type("IEnumerable"),
+          Token.Punctuation.TypeParameter.Begin,
+          Token.PrimitiveType.Object,
+          Token.Punctuation.TypeParameter.End,
+          Token.Identifier.ParameterName("arr"),
+          Token.Punctuation.CloseParen,
+          Token.Operator.Arrow,
+          Token.Variable.Object("arr"),
+          Token.Punctuation.Accessor,
+          Token.Variable.Property("Length"),
+          Token.Punctuation.Semicolon,
+        ]);
+      });
     });
 
     describe("Anonymous Objects", () => {

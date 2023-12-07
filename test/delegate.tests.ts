@@ -126,6 +126,34 @@ delegate void D<T1, T2>()
                 Token.Punctuation.Semicolon]);
         });
 
+        it("delegate that uses ImmutableArray params collection ", async () => {
+
+            const input = `delegate int D(ref string x, out int y, params ImmutableArray<object> z);`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keyword.Definition.Delegate,
+                Token.PrimitiveType.Int,
+                Token.Identifier.DelegateName("D"),
+                Token.Punctuation.OpenParen,
+                Token.Keyword.Modifier.Ref,
+                Token.PrimitiveType.String,
+                Token.Identifier.ParameterName("x"),
+                Token.Punctuation.Comma,
+                Token.Keyword.Modifier.Out,
+                Token.PrimitiveType.Int,
+                Token.Identifier.ParameterName("y"),
+                Token.Punctuation.Comma,
+                Token.Keyword.Modifier.Params,
+                Token.Type("ImmutableArray"),
+                Token.Punctuation.TypeParameter.Begin,
+                Token.PrimitiveType.Object,
+                Token.Punctuation.TypeParameter.End,
+                Token.Identifier.ParameterName("z"),
+                Token.Punctuation.CloseParen,
+                Token.Punctuation.Semicolon]);
+        });
+
         it("ref return", async () => {
             const input = `delegate ref int D();`;
             const tokens = await tokenize(input);

@@ -144,6 +144,27 @@ int Add(int x, int y)
                 Token.Punctuation.Semicolon]);
         });
 
+        it("declaration in interface with ReadOnlySpan params collection", async () => {
+            const input = Input.InInterface(`string GetString(string format, params ReadOnlySpan<object> args);`);
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.PrimitiveType.String,
+                Token.Identifier.MethodName("GetString"),
+                Token.Punctuation.OpenParen,
+                Token.PrimitiveType.String,
+                Token.Identifier.ParameterName("format"),
+                Token.Punctuation.Comma,
+                Token.Keyword.Modifier.Params,
+                Token.Type("ReadOnlySpan"),
+                Token.Punctuation.TypeParameter.Begin,
+                Token.PrimitiveType.Object,
+                Token.Punctuation.TypeParameter.End,
+                Token.Identifier.ParameterName("args"),
+                Token.Punctuation.CloseParen,
+                Token.Punctuation.Semicolon]);
+        });
+
         it("declaration in interface with generic constraints", async () => {
             const input = Input.InInterface(`TResult GetString<T, TResult>(T arg) where T : TResult;`);
             const tokens = await tokenize(input);
