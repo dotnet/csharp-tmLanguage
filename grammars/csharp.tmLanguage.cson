@@ -2532,7 +2532,7 @@ repository:
             name: "punctuation.parenthesis.close.cs"
         patterns: [
           {
-            begin: "\\G"
+            begin: "(?=[^;\\)])"
             end: "(?=;|\\))"
             patterns: [
               {

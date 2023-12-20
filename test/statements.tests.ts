@@ -164,6 +164,121 @@ for (int i = 0; i < 42; i++)
                 ]);
             });
 
+            it("for loop with continue (no initializer)", async () => {
+                const input = Input.InMethod(`
+int i = 0;
+for (; i < 10; i++)
+{
+    continue;
+}
+`);
+                const tokens = await tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.PrimitiveType.Int,
+                    Token.Identifier.LocalName("i"),
+                    Token.Operator.Assignment,
+                    Token.Literal.Numeric.Decimal("0"),
+                    Token.Punctuation.Semicolon,
+                    Token.Keyword.Loop.For,
+                    Token.Punctuation.OpenParen,
+                    Token.Punctuation.Semicolon,
+                    Token.Variable.ReadWrite("i"),
+                    Token.Operator.Relational.LessThan,
+                    Token.Literal.Numeric.Decimal("10"),
+                    Token.Punctuation.Semicolon,
+                    Token.Variable.ReadWrite("i"),
+                    Token.Operator.Increment,
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.OpenBrace,
+                    Token.Keyword.Flow.Continue,
+                    Token.Punctuation.Semicolon,
+                    Token.Punctuation.CloseBrace,
+                ]);
+            });
+
+            it("for loop with continue (no initializer, no condition)", async () => {
+                const input = Input.InMethod(`
+int i = 0;
+for (;; i++)
+{
+    if (i < 10)
+        continue;
+    break;
+}
+`);
+                const tokens = await tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.PrimitiveType.Int,
+                    Token.Identifier.LocalName("i"),
+                    Token.Operator.Assignment,
+                    Token.Literal.Numeric.Decimal("0"),
+                    Token.Punctuation.Semicolon,
+                    Token.Keyword.Loop.For,
+                    Token.Punctuation.OpenParen,
+                    Token.Punctuation.Semicolon,
+                    Token.Punctuation.Semicolon,
+                    Token.Variable.ReadWrite("i"),
+                    Token.Operator.Increment,
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.OpenBrace,
+                    Token.Keyword.Conditional.If,
+                    Token.Punctuation.OpenParen,
+                    Token.Variable.ReadWrite("i"),
+                    Token.Operator.Relational.LessThan,
+                    Token.Literal.Numeric.Decimal("10"),
+                    Token.Punctuation.CloseParen,
+                    Token.Keyword.Flow.Continue,
+                    Token.Punctuation.Semicolon,
+                    Token.Keyword.Flow.Break,
+                    Token.Punctuation.Semicolon,
+                    Token.Punctuation.CloseBrace,
+                ]);
+            });
+
+            it("for loop with continue (no initializer, no condition, no iterator)", async () => {
+                const input = Input.InMethod(`
+int i = 0;
+for (;;)
+{
+    i++;
+    if (i < 10)
+        continue;
+    break;
+}
+`);
+                const tokens = await tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.PrimitiveType.Int,
+                    Token.Identifier.LocalName("i"),
+                    Token.Operator.Assignment,
+                    Token.Literal.Numeric.Decimal("0"),
+                    Token.Punctuation.Semicolon,
+                    Token.Keyword.Loop.For,
+                    Token.Punctuation.OpenParen,
+                    Token.Punctuation.Semicolon,
+                    Token.Punctuation.Semicolon,
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.OpenBrace,
+                    Token.Variable.ReadWrite("i"),
+                    Token.Operator.Increment,
+                    Token.Punctuation.Semicolon,
+                    Token.Keyword.Conditional.If,
+                    Token.Punctuation.OpenParen,
+                    Token.Variable.ReadWrite("i"),
+                    Token.Operator.Relational.LessThan,
+                    Token.Literal.Numeric.Decimal("10"),
+                    Token.Punctuation.CloseParen,
+                    Token.Keyword.Flow.Continue,
+                    Token.Punctuation.Semicolon,
+                    Token.Keyword.Flow.Break,
+                    Token.Punctuation.Semicolon,
+                    Token.Punctuation.CloseBrace,
+                ]);
+            });
+
             it("for loop with argument multiplication (issue #99)", async () => {
                 const input = Input.InMethod(`
     for (int i = 0; i < n1 * n2; i++)
@@ -678,7 +793,7 @@ switch (i) {
                     Token.Punctuation.CloseBrace
                 ]);
             });
-            
+
             it("switch statement with comment (issue #145)", async () => {
                 const input = Input.InMethod(`
 switch (i) /* comment */ {

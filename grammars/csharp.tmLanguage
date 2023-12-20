@@ -4137,7 +4137,7 @@
             <array>
               <dict>
                 <key>begin</key>
-                <string>\G</string>
+                <string>(?=[^;\)])</string>
                 <key>end</key>
                 <string>(?=;|\))</string>
                 <key>patterns</key>
