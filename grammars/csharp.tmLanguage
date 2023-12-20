@@ -1567,6 +1567,24 @@
             <string>\bstruct\b</string>
           </dict>
           <dict>
+            <key>name</key>
+            <string>keyword.other.constraint.default.cs</string>
+            <key>match</key>
+            <string>\bdefault\b</string>
+          </dict>
+          <dict>
+            <key>name</key>
+            <string>keyword.other.constraint.notnull.cs</string>
+            <key>match</key>
+            <string>\bnotnull\b</string>
+          </dict>
+          <dict>
+            <key>name</key>
+            <string>keyword.other.constraint.unmanaged.cs</string>
+            <key>match</key>
+            <string>\bunmanaged\b</string>
+          </dict>
+          <dict>
             <key>match</key>
             <string>(new)\s*(\()\s*(\))</string>
             <key>captures</key>

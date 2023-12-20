@@ -330,6 +330,65 @@ unsafe class C
                     Token.Punctuation.CloseBrace]);
             });
 
+            it(`class with various generic type constraints (#301)`, async () => {
+                const input = Input.InNamespace(`
+class NotNullContainer<T> where T : notnull
+{
+    private unsafe static void DisplaySize<T>()
+        where T : unmanaged { }
+    public override void M<T>(T? item)
+        where T : default { }
+}`, namespaceStyle);
+                const tokens = await tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Keyword.Definition.Class,
+                    Token.Identifier.ClassName("NotNullContainer"),
+                    Token.Punctuation.TypeParameter.Begin,
+                    Token.Identifier.TypeParameterName("T"),
+                    Token.Punctuation.TypeParameter.End,
+                    Token.Keyword.Modifier.Where,
+                    Token.Identifier.TypeParameterName("T"),
+                    Token.Punctuation.Colon,
+                    Token.Keyword.Constraint.NotNull,
+                    Token.Punctuation.OpenBrace,
+                    Token.Keyword.Modifier.Private,
+                    Token.Keyword.Modifier.Unsafe,
+                    Token.Keyword.Modifier.Static,
+                    Token.PrimitiveType.Void,
+                    Token.Identifier.MethodName("DisplaySize"),
+                    Token.Punctuation.TypeParameter.Begin,
+                    Token.Identifier.TypeParameterName("T"),
+                    Token.Punctuation.TypeParameter.End,
+                    Token.Punctuation.OpenParen,
+                    Token.Punctuation.CloseParen,
+                    Token.Keyword.Modifier.Where,
+                    Token.Identifier.TypeParameterName("T"),
+                    Token.Punctuation.Colon,
+                    Token.Keyword.Constraint.Unmanaged,
+                    Token.Punctuation.OpenBrace,
+                    Token.Punctuation.CloseBrace,
+                    Token.Keyword.Modifier.Public,
+                    Token.Keyword.Modifier.Override,
+                    Token.PrimitiveType.Void,
+                    Token.Identifier.MethodName("M"),
+                    Token.Punctuation.TypeParameter.Begin,
+                    Token.Identifier.TypeParameterName("T"),
+                    Token.Punctuation.TypeParameter.End,
+                    Token.Punctuation.OpenParen,
+                    Token.Type("T"),
+                    Token.Punctuation.QuestionMark,
+                    Token.Identifier.ParameterName("item"),
+                    Token.Punctuation.CloseParen,
+                    Token.Keyword.Modifier.Where,
+                    Token.Identifier.TypeParameterName("T"),
+                    Token.Punctuation.Colon,
+                    Token.Keyword.Constraint.Default,
+                    Token.Punctuation.OpenBrace,
+                    Token.Punctuation.CloseBrace,
+                    Token.Punctuation.CloseBrace]);
+            });
+
             it(`primary constructor (${styleName} Namespace)`, async () => {
 
                 const input = Input.InNamespace(`

@@ -269,6 +269,12 @@ export namespace Token {
             export const When = createToken('when', 'keyword.control.conditional.when.cs');
         }
 
+        export namespace Constraint {
+            export const Default = createToken('default', 'keyword.other.constraint.default.cs');
+            export const NotNull = createToken('notnull', 'keyword.other.constraint.notnull.cs');
+            export const Unmanaged = createToken('unmanaged', 'keyword.other.constraint.unmanaged.cs');
+        }
+
         export namespace Context {
             export const Checked = createToken('checked', 'keyword.control.context.checked.cs');
             export const Fixed = createToken('fixed', 'keyword.control.context.fixed.cs');
