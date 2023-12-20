@@ -496,6 +496,12 @@ repository:
       match: \bclass\b
     - name: storage.type.struct.cs
       match: \bstruct\b
+    - name: keyword.other.constraint.default.cs
+      match: \bdefault\b
+    - name: keyword.other.constraint.notnull.cs
+      match: \bnotnull\b
+    - name: keyword.other.constraint.unmanaged.cs
+      match: \bunmanaged\b
     - match: (new)\s*(\()\s*(\))
       captures:
         '1': { name: keyword.operator.expression.new.cs }
