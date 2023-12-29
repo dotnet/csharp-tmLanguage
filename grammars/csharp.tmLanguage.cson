@@ -157,6 +157,9 @@ repository:
         include: "#comment"
       }
       {
+        include: "#storage-modifier"
+      }
+      {
         include: "#property-declaration"
       }
       {
@@ -167,6 +170,9 @@ repository:
       }
       {
         include: "#method-declaration"
+      }
+      {
+        include: "#operator-declaration"
       }
       {
         include: "#attribute-section"

@@ -100,5 +100,79 @@ interface IBar : IFoo { }
                 Token.Punctuation.OpenBrace,
                 Token.Punctuation.CloseBrace]);
         });
+
+        it("generic interface with abstract methods (issue #307)", async () => {
+
+            const input = `
+public interface IAdditionSubtraction<T> where T : IAdditionSubtraction<T>
+{
+    public abstract static T operator -(T left, T right);
+    abstract static T operator +(T left, T right);
+    public abstract void M();
+    void N();
+}`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Definition.Interface,
+                Token.Identifier.InterfaceName("IAdditionSubtraction"),
+                Token.Punctuation.TypeParameter.Begin,
+                Token.Identifier.TypeParameterName("T"),
+                Token.Punctuation.TypeParameter.End,
+                Token.Keyword.Modifier.Where,
+                Token.Identifier.TypeParameterName("T"),
+                Token.Punctuation.Colon,
+                Token.Type("IAdditionSubtraction"),
+                Token.Punctuation.TypeParameter.Begin,
+                Token.Type("T"),
+                Token.Punctuation.TypeParameter.End,
+                Token.Punctuation.OpenBrace,
+
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Modifier.Abstract,
+                Token.Keyword.Modifier.Static,
+                Token.Type("T"),
+                Token.Keyword.Definition.Operator,
+                Token.Identifier.MethodName("-"),
+                Token.Punctuation.OpenParen,
+                Token.Type("T"),
+                Token.Identifier.ParameterName("left"),
+                Token.Punctuation.Comma,
+                Token.Type("T"),
+                Token.Identifier.ParameterName("right"),
+                Token.Punctuation.CloseParen,
+                Token.Punctuation.Semicolon,
+
+                Token.Keyword.Modifier.Abstract,
+                Token.Keyword.Modifier.Static,
+                Token.Type("T"),
+                Token.Keyword.Definition.Operator,
+                Token.Identifier.MethodName("+"),
+                Token.Punctuation.OpenParen,
+                Token.Type("T"),
+                Token.Identifier.ParameterName("left"),
+                Token.Punctuation.Comma,
+                Token.Type("T"),
+                Token.Identifier.ParameterName("right"),
+                Token.Punctuation.CloseParen,
+                Token.Punctuation.Semicolon,
+
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Modifier.Abstract,
+                Token.PrimitiveType.Void,
+                Token.Identifier.MethodName("M"),
+                Token.Punctuation.OpenParen,
+                Token.Punctuation.CloseParen,
+                Token.Punctuation.Semicolon,
+
+                Token.PrimitiveType.Void,
+                Token.Identifier.MethodName("N"),
+                Token.Punctuation.OpenParen,
+                Token.Punctuation.CloseParen,
+                Token.Punctuation.Semicolon,
+
+                Token.Punctuation.CloseBrace]);
+        });
     });
 });

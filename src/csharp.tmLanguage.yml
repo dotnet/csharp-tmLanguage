@@ -69,10 +69,12 @@ repository:
     patterns:
     - include: '#preprocessor'
     - include: '#comment'
+    - include: '#storage-modifier'
     - include: '#property-declaration'
     - include: '#event-declaration'
     - include: '#indexer-declaration'
     - include: '#method-declaration'
+    - include: '#operator-declaration'
     - include: '#attribute-section'
     - include: '#punctuation-semicolon'
 

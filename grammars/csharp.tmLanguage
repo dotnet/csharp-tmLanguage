@@ -229,6 +229,10 @@
           </dict>
           <dict>
             <key>include</key>
+            <string>#storage-modifier</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#property-declaration</string>
           </dict>
           <dict>
@@ -242,6 +246,10 @@
           <dict>
             <key>include</key>
             <string>#method-declaration</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#operator-declaration</string>
           </dict>
           <dict>
             <key>include</key>
