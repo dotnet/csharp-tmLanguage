@@ -1739,9 +1739,12 @@ repository:
     begin: |-
       (?x)
       (?:
-        (?:(\bref)\s+(?:(\breadonly)\s+)?)?(\bvar\b)| # ref local
+        (?:(\bscoped)\s+(?:(\bref)\s+)?)?    # scoped local
+        (?:(\bref)\s+(?:(\breadonly)\s+)?)?  # ref local
+        (\bvar\b)|
         (?<type_name>
           (?:
+            (?:scoped\s+(?:ref\s+)?)?     # scoped local
             (?:ref\s+(?:readonly\s+)?)?   # ref local
             (?:
               (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
@@ -1768,17 +1771,19 @@ repository:
       (?!=>)
       (?=,|;|=|\))
     beginCaptures:
-      1: { name: storage.modifier.ref.cs }
-      2: { name: storage.modifier.readonly.cs }
-      3: { name: storage.type.var.cs }
-      4:
+      1: { name: storage.modifier.scoped.cs }
+      2: { name: storage.modifier.ref.cs }
+      3: { name: storage.modifier.ref.cs }
+      4: { name: storage.modifier.readonly.cs }
+      5: { name: storage.type.var.cs }
+      6:
         patterns:
         - include: '#type'
-      # 5: ?<identifier> is a sub-expression. It's final value is not considered.
-      # 6: ?<name_and_type_args> is a sub-expression. It's final value is not considered.
-      # 7: ?<type_args> is a sub-expression. It's final value is not considered.
-      # 8: ?<tuple> is a sub-expression. It's final value is not considered.
-      9: { name: entity.name.variable.local.cs }
+      # 7: ?<identifier> is a sub-expression. It's final value is not considered.
+      # 8: ?<name_and_type_args> is a sub-expression. It's final value is not considered.
+      # 9: ?<type_args> is a sub-expression. It's final value is not considered.
+      # 10: ?<tuple> is a sub-expression. It's final value is not considered.
+      11: { name: entity.name.variable.local.cs }
     end: (?=[;)}])
     patterns:
     - name: entity.name.variable.local.cs
@@ -2829,7 +2834,7 @@ repository:
   parameter:
     match: |-
       (?x)
-      (?:(?:\b(ref|params|out|in|this)\b)\s+)?
+      (?:(?:\b(scoped|ref|params|out|in|this)\b)\s+)?
       (?<type_name>
         (?:
           (?:ref\s+)?   # ref return
@@ -3226,6 +3231,7 @@ repository:
   type:
     patterns:
     - include: '#comment'
+    - include: '#scoped-modifier'
     - include: '#ref-modifier'
     - include: '#readonly-modifier'
     - include: '#tuple-type'
@@ -3235,6 +3241,10 @@ repository:
     - include: '#type-array-suffix'
     - include: '#type-nullable-suffix'
     - include: '#type-pointer-suffix'
+
+  scoped-modifier:
+    name: storage.modifier.scoped.cs
+    match: \bscoped\b
 
   ref-modifier:
     name: storage.modifier.ref.cs

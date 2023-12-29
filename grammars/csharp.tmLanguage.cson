@@ -2931,9 +2931,12 @@ repository:
     begin: '''
       (?x)
       (?:
-        (?:(\\bref)\\s+(?:(\\breadonly)\\s+)?)?(\\bvar\\b)| # ref local
+        (?:(\\bscoped)\\s+(?:(\\bref)\\s+)?)?    # scoped local
+        (?:(\\bref)\\s+(?:(\\breadonly)\\s+)?)?  # ref local
+        (\\bvar\\b)|
         (?<type_name>
           (?:
+            (?:scoped\\s+(?:ref\\s+)?)?     # scoped local
             (?:ref\\s+(?:readonly\\s+)?)?   # ref local
             (?:
               (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
@@ -2962,18 +2965,22 @@ repository:
     '''
     beginCaptures:
       "1":
-        name: "storage.modifier.ref.cs"
+        name: "storage.modifier.scoped.cs"
       "2":
-        name: "storage.modifier.readonly.cs"
+        name: "storage.modifier.ref.cs"
       "3":
-        name: "storage.type.var.cs"
+        name: "storage.modifier.ref.cs"
       "4":
+        name: "storage.modifier.readonly.cs"
+      "5":
+        name: "storage.type.var.cs"
+      "6":
         patterns: [
           {
             include: "#type"
           }
         ]
-      "9":
+      "11":
         name: "entity.name.variable.local.cs"
     end: "(?=[;)}])"
     patterns: [
@@ -4393,7 +4400,7 @@ repository:
   parameter:
     match: '''
       (?x)
-      (?:(?:\\b(ref|params|out|in|this)\\b)\\s+)?
+      (?:(?:\\b(scoped|ref|params|out|in|this)\\b)\\s+)?
       (?<type_name>
         (?:
           (?:ref\\s+)?   # ref return
@@ -4962,6 +4969,9 @@ repository:
         include: "#comment"
       }
       {
+        include: "#scoped-modifier"
+      }
+      {
         include: "#ref-modifier"
       }
       {
@@ -4989,6 +4999,9 @@ repository:
         include: "#type-pointer-suffix"
       }
     ]
+  "scoped-modifier":
+    name: "storage.modifier.scoped.cs"
+    match: "\\bscoped\\b"
   "ref-modifier":
     name: "storage.modifier.ref.cs"
     match: "\\bref\\b"

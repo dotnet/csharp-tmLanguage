@@ -4799,9 +4799,12 @@
         <key>begin</key>
         <string>(?x)
 (?:
-  (?:(\bref)\s+(?:(\breadonly)\s+)?)?(\bvar\b)| # ref local
+  (?:(\bscoped)\s+(?:(\bref)\s+)?)?    # scoped local
+  (?:(\bref)\s+(?:(\breadonly)\s+)?)?  # ref local
+  (\bvar\b)|
   (?&lt;type_name&gt;
     (?:
+      (?:scoped\s+(?:ref\s+)?)?     # scoped local
       (?:ref\s+(?:readonly\s+)?)?   # ref local
       (?:
         (?:(?&lt;identifier&gt;@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
@@ -4832,19 +4835,29 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>storage.modifier.ref.cs</string>
+            <string>storage.modifier.scoped.cs</string>
           </dict>
           <key>2</key>
           <dict>
             <key>name</key>
-            <string>storage.modifier.readonly.cs</string>
+            <string>storage.modifier.ref.cs</string>
           </dict>
           <key>3</key>
           <dict>
             <key>name</key>
-            <string>storage.type.var.cs</string>
+            <string>storage.modifier.ref.cs</string>
           </dict>
           <key>4</key>
+          <dict>
+            <key>name</key>
+            <string>storage.modifier.readonly.cs</string>
+          </dict>
+          <key>5</key>
+          <dict>
+            <key>name</key>
+            <string>storage.type.var.cs</string>
+          </dict>
+          <key>6</key>
           <dict>
             <key>patterns</key>
             <array>
@@ -4854,7 +4867,7 @@
               </dict>
             </array>
           </dict>
-          <key>9</key>
+          <key>11</key>
           <dict>
             <key>name</key>
             <string>entity.name.variable.local.cs</string>
@@ -7284,7 +7297,7 @@
       <dict>
         <key>match</key>
         <string>(?x)
-(?:(?:\b(ref|params|out|in|this)\b)\s+)?
+(?:(?:\b(scoped|ref|params|out|in|this)\b)\s+)?
 (?&lt;type_name&gt;
   (?:
     (?:ref\s+)?   # ref return
@@ -8206,6 +8219,10 @@
           </dict>
           <dict>
             <key>include</key>
+            <string>#scoped-modifier</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#ref-modifier</string>
           </dict>
           <dict>
@@ -8241,6 +8258,13 @@
             <string>#type-pointer-suffix</string>
           </dict>
         </array>
+      </dict>
+      <key>scoped-modifier</key>
+      <dict>
+        <key>name</key>
+        <string>storage.modifier.scoped.cs</string>
+        <key>match</key>
+        <string>\bscoped\b</string>
       </dict>
       <key>ref-modifier</key>
       <dict>
