@@ -447,7 +447,7 @@ repository:
       }
     ]
   "attribute-section":
-    begin: "(\\[)(assembly|module|field|event|method|param|property|return|type)?(\\:)?"
+    begin: "(\\[)(assembly|module|event|field|method|param|property|return|type|typevar)?(\\:)?"
     beginCaptures:
       "1":
         name: "punctuation.squarebracket.open.cs"
@@ -1745,7 +1745,24 @@ repository:
         include: "#ref-modifier"
       }
       {
+        include: "#lambda-expression"
+      }
+      {
         include: "#expression"
+      }
+    ]
+  "lambda-expression":
+    begin: "(?=(?:\\[.*\\].*)?\\(.*\\).*=>)"
+    end: "(?=;)"
+    patterns: [
+      {
+        include: "#attribute-section"
+      }
+      {
+        include: "#parenthesized-parameter-list"
+      }
+      {
+        include: "#expression-body"
       }
     ]
   "expression-body":
@@ -4393,6 +4410,9 @@ repository:
         include: "#parameter"
       }
       {
+        include: "#parameter-identifier"
+      }
+      {
         include: "#punctuation-comma"
       }
       {
@@ -4439,6 +4459,9 @@ repository:
         ]
       "7":
         name: "entity.name.variable.parameter.cs"
+  "parameter-identifier":
+    name: "entity.name.variable.parameter.cs"
+    match: "(?<!\\.)@?\\b[_[:alpha:]][_[:alnum:]]*\\b(?!\\.)"
   "argument-list":
     begin: "\\("
     beginCaptures:
