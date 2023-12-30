@@ -2603,9 +2603,10 @@ repository:
             match: '''
               (?x)
               (?:
-                (\\bvar\\b)|
+                (?:(\\bref)\\s+)?(\\bvar\\b)| # ref local
                 (?<type_name>
                   (?:
+                    (?:ref\\s+)?   # ref local
                     (?:
                       (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
                       (?<name_and_type_args> # identifier + type arguments (if any)
@@ -2632,16 +2633,18 @@ repository:
             '''
             captures:
               "1":
-                name: "storage.type.var.cs"
+                name: "storage.modifier.ref.cs"
               "2":
+                name: "storage.type.var.cs"
+              "3":
                 patterns: [
                   {
                     include: "#type"
                   }
                 ]
-              "7":
-                name: "entity.name.variable.local.cs"
               "8":
+                name: "entity.name.variable.local.cs"
+              "9":
                 name: "keyword.control.loop.in.cs"
           }
           {

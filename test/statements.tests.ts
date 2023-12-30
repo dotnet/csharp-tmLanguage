@@ -347,6 +347,25 @@ foreach (var s in myList)
                     Token.Punctuation.CloseBrace,
                 ]);
             });
+
+            it("foreach loop with ref var (issue #308)", async () => {
+                const input = Input.InMethod(`
+foreach (ref var i in span) {}`);
+                const tokens = await tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Keyword.Loop.ForEach,
+                    Token.Punctuation.OpenParen,
+                    Token.Keyword.Modifier.Ref,
+                    Token.Keyword.Definition.Var,
+                    Token.Identifier.LocalName("i"),
+                    Token.Keyword.Loop.In,
+                    Token.Variable.ReadWrite("span"),
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.OpenBrace,
+                    Token.Punctuation.CloseBrace,
+                ]);
+            });
         });
 
         describe("While", () => {

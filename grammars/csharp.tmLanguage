@@ -4250,9 +4250,10 @@
                 <key>match</key>
                 <string>(?x)
 (?:
-  (\bvar\b)|
+  (?:(\bref)\s+)?(\bvar\b)| # ref local
   (?&lt;type_name&gt;
     (?:
+      (?:ref\s+)?   # ref local
       (?:
         (?:(?&lt;identifier&gt;@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
         (?&lt;name_and_type_args&gt; # identifier + type arguments (if any)
@@ -4281,9 +4282,14 @@
                   <key>1</key>
                   <dict>
                     <key>name</key>
-                    <string>storage.type.var.cs</string>
+                    <string>storage.modifier.ref.cs</string>
                   </dict>
                   <key>2</key>
+                  <dict>
+                    <key>name</key>
+                    <string>storage.type.var.cs</string>
+                  </dict>
+                  <key>3</key>
                   <dict>
                     <key>patterns</key>
                     <array>
@@ -4293,12 +4299,12 @@
                       </dict>
                     </array>
                   </dict>
-                  <key>7</key>
+                  <key>8</key>
                   <dict>
                     <key>name</key>
                     <string>entity.name.variable.local.cs</string>
                   </dict>
-                  <key>8</key>
+                  <key>9</key>
                   <dict>
                     <key>name</key>
                     <string>keyword.control.loop.in.cs</string>

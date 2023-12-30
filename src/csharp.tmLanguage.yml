@@ -1521,9 +1521,10 @@ repository:
       - match: |-
           (?x)
           (?:
-            (\bvar\b)|
+            (?:(\bref)\s+)?(\bvar\b)| # ref local
             (?<type_name>
               (?:
+                (?:ref\s+)?   # ref local
                 (?:
                   (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
                   (?<name_and_type_args> # identifier + type arguments (if any)
@@ -1548,16 +1549,17 @@ repository:
           (\g<identifier>)\s+
           \b(in)\b
         captures:
-          '1': { name: storage.type.var.cs }
-          '2':
+          1: { name: storage.modifier.ref.cs }
+          2: { name: storage.type.var.cs }
+          3:
             patterns:
             - include: '#type'
-          # '3': ?<identifier> is a sub-expression. It's final value is not considered.
-          # '4': ?<name_and_type_args> is a sub-expression. It's final value is not considered.
-          # '5': ?<type_args> is a sub-expression. It's final value is not considered.
-          # '6': ?<tuple> is a sub-expression. It's final value is not considered.
-          '7': { name: entity.name.variable.local.cs }
-          '8': { name: keyword.control.loop.in.cs }
+          # 4: ?<identifier> is a sub-expression. It's final value is not considered.
+          # 5: ?<name_and_type_args> is a sub-expression. It's final value is not considered.
+          # 6: ?<type_args> is a sub-expression. It's final value is not considered.
+          # 7: ?<tuple> is a sub-expression. It's final value is not considered.
+          8: { name: entity.name.variable.local.cs }
+          9: { name: keyword.control.loop.in.cs }
       - match: |-
           (?x) # match foreach (var (x, y) in ...)
           (?:\b(var)\b\s*)?
