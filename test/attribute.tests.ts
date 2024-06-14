@@ -177,5 +177,62 @@ describe("Attributes", () => {
                 Token.Punctuation.CloseParen,
                 Token.Punctuation.CloseBracket]);
         });
+
+        it("Generic attributes should be highlighted single type parameter", async () => {
+                
+                const input = `[Foo<T1>]`;
+                const tokens = await tokenize(input);
+    
+                tokens.should.deep.equal([
+                    Token.Punctuation.OpenBracket,
+                    Token.Type("Foo"),
+                    Token.Punctuation.TypeParameter.Begin,
+                    Token.Type("T1"),
+                    Token.Punctuation.TypeParameter.End,
+                    Token.Punctuation.CloseBracket]);
+        });
+
+        it("Generic attributes should be highlighted multiple type parameters", async () => {
+                
+                const input = `[Foo<T1, T2>]`;
+                const tokens = await tokenize(input);
+    
+                tokens.should.deep.equal([
+                    Token.Punctuation.OpenBracket,
+                    Token.Type("Foo"),
+                    Token.Punctuation.TypeParameter.Begin,
+                    Token.Type("T1"),
+                    Token.Punctuation.Comma,
+                    Token.Type("T2"),
+                    Token.Punctuation.TypeParameter.End,
+                    Token.Punctuation.CloseBracket]);
+        });
+
+        it("Generic attributes should be highlighted empty", async () => {
+                
+                const input = `[Foo<>]`;
+                const tokens = await tokenize(input);
+    
+                tokens.should.deep.equal([
+                    Token.Punctuation.OpenBracket,
+                    Token.Type("Foo"),
+                    Token.Punctuation.TypeParameter.Begin,
+                    Token.Punctuation.TypeParameter.End,
+                    Token.Punctuation.CloseBracket]);
+        });
+
+        it("Generic attributes should be highlighted empty with comma", async () => {
+                
+                const input = `[Foo<,>]`;
+                const tokens = await tokenize(input);
+    
+                tokens.should.deep.equal([
+                    Token.Punctuation.OpenBracket,
+                    Token.Type("Foo"),
+                    Token.Punctuation.TypeParameter.Begin,
+                    Token.Punctuation.Comma,
+                    Token.Punctuation.TypeParameter.End,
+                    Token.Punctuation.CloseBracket]);
+        });
     });
 });

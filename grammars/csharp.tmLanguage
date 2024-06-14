@@ -723,6 +723,10 @@
           </dict>
           <dict>
             <key>include</key>
+            <string>#type-arguments</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#attribute-arguments</string>
           </dict>
         </array>
