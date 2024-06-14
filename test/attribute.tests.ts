@@ -208,6 +208,25 @@ describe("Attributes", () => {
                     Token.Punctuation.CloseBracket]);
         });
 
+        it("Generic attributes should be highlighted multiple type parameters with regular arguments", async () => {
+                
+                const input = `[Foo<T1, T2>(true)]`;
+                const tokens = await tokenize(input);
+    
+                tokens.should.deep.equal([
+                    Token.Punctuation.OpenBracket,
+                    Token.Type("Foo"),
+                    Token.Punctuation.TypeParameter.Begin,
+                    Token.Type("T1"),
+                    Token.Punctuation.Comma,
+                    Token.Type("T2"),
+                    Token.Punctuation.TypeParameter.End,
+                    Token.Punctuation.OpenParen,
+                    Token.Literal.Boolean.True,
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.CloseBracket]);
+        });
+
         it("Generic attributes should be highlighted empty", async () => {
                 
                 const input = `[Foo<>]`;
