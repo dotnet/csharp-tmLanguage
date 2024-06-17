@@ -205,6 +205,7 @@ repository:
   attribute:
     patterns:
     - include: '#type-name'
+    - include: '#type-arguments'
     - include: '#attribute-arguments'
 
   attribute-arguments:

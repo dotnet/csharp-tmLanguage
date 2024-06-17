@@ -476,6 +476,9 @@ repository:
         include: "#type-name"
       }
       {
+        include: "#type-arguments"
+      }
+      {
         include: "#attribute-arguments"
       }
     ]
