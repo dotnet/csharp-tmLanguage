@@ -1,13 +1,13 @@
-const gulp = import("gulp");
-const mocha = require("gulp-mocha");
-const json2cson = require("gulp-json2cson");
-const yaml = require("gulp-yaml");
-const ts = require("gulp-typescript");
-const js_yaml = require("js-yaml");
-const plist = require("plist");
-const fs = require("fs");
-const path = require("path");
-const exec = require("child_process").exec;
+import { task, src, dest, series, parallel } from "gulp";
+import mocha from "gulp-mocha";
+import json2cson from "gulp-json2cson";
+import yaml from "gulp-yaml";
+import { createProject } from "gulp-typescript";
+import { load } from "js-yaml";
+import { build } from "plist";
+import { readFileSync, existsSync, mkdirSync, writeFileSync } from "fs";
+import { join } from "path";
+import { exec } from "child_process";
 
 const inputGrammar = "src/csharp.tmLanguage.yml";
 const grammarsDirectory = "grammars/";
