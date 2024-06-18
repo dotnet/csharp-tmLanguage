@@ -1,13 +1,13 @@
-const gulp = require("gulp");
-const mocha = require("gulp-mocha");
-const json2cson = require("gulp-json2cson");
-const yaml = require("gulp-yaml");
-const ts = require("gulp-typescript");
-const js_yaml = require("js-yaml");
-const plist = require("plist");
-const fs = require("fs");
-const path = require("path");
-const exec = require("child_process").exec;
+import { task, src, dest, series, parallel } from "gulp";
+import mocha from "gulp-mocha";
+import json2cson from "gulp-json2cson";
+import yaml from "gulp-yaml";
+import { createProject } from "gulp-typescript";
+import { load } from "js-yaml";
+import { build } from "plist";
+import { readFileSync, existsSync, mkdirSync, writeFileSync } from "fs";
+import { join } from "path";
+import { exec } from "child_process";
 
 const inputGrammar = "src/csharp.tmLanguage.yml";
 const grammarsDirectory = "grammars/";
@@ -19,26 +19,26 @@ function handleError(err) {
     process.exit(-1);
 }
 
-gulp.task('buildTmLanguage', done => {
-    const text = fs.readFileSync(inputGrammar);
-    const jsonData = js_yaml.load(text);
-    const plistData = plist.build(jsonData);
+task('buildTmLanguage', done => {
+    const text = readFileSync(inputGrammar);
+    const jsonData = load(text);
+    const plistData = build(jsonData);
 
-    if (!fs.existsSync(grammarsDirectory)) {
-        fs.mkdirSync(grammarsDirectory);
+    if (!existsSync(grammarsDirectory)) {
+        mkdirSync(grammarsDirectory);
     }
 
-    fs.writeFileSync(path.join(grammarsDirectory, 'csharp.tmLanguage'), plistData);
+    writeFileSync(join(grammarsDirectory, 'csharp.tmLanguage'), plistData);
 
     done();
 });
 
-gulp.task('buildVSCode', done => {
-    const text = fs.readFileSync(inputGrammar);
-    const jsonData = js_yaml.load(text);
+task('buildVSCode', done => {
+    const text = readFileSync(inputGrammar);
+    const jsonData = load(text);
 
-    if (!fs.existsSync(grammarsDirectory)) {
-        fs.mkdirSync(grammarsDirectory);
+    if (!existsSync(grammarsDirectory)) {
+        mkdirSync(grammarsDirectory);
     }
 
     // These fields aren't used.
@@ -64,29 +64,29 @@ gulp.task('buildVSCode', done => {
             ...jsonData
         }
 
-        fs.writeFileSync(path.join(grammarsDirectory, 'csharp.tmLanguage.json'), JSON.stringify(enhancedJson, null, '\t'));
+        writeFileSync(join(grammarsDirectory, 'csharp.tmLanguage.json'), JSON.stringify(enhancedJson, null, '\t'));
 
         done();
     });
 });
 
-gulp.task('buildAtom', () => {
-    return gulp.src(inputGrammar)
+task('buildAtom', () => {
+    return src(inputGrammar)
         .pipe(yaml())
         .pipe(json2cson())
-        .pipe(gulp.dest(grammarsDirectory))
+        .pipe(dest(grammarsDirectory))
         .on("error", handleError);
 });
 
-gulp.task('compile', () => {
-    const tsProject = ts.createProject("./tsconfig.json");
+task('compile', () => {
+    const tsProject = createProject("./tsconfig.json");
     return tsProject.src()
         .pipe(tsProject())
-        .pipe(gulp.dest(jsOut));
+        .pipe(dest(jsOut));
 });
 
-gulp.task('test', gulp.series('compile', done => {
-    const result = gulp.src(jsOut + "test/**/*.tests.js")
+task('test', series('compile', done => {
+    const result = src(jsOut + "test/**/*.tests.js")
         .pipe(mocha())
         .on("error", handleError);
 
@@ -95,7 +95,7 @@ gulp.task('test', gulp.series('compile', done => {
     return result;
 }));
 
-gulp.task('default',
-    gulp.series(
-        gulp.parallel('buildAtom', 'buildVSCode', 'buildTmLanguage'),
+task('default',
+    series(
+        parallel('buildAtom', 'buildVSCode', 'buildTmLanguage'),
         'test'));
