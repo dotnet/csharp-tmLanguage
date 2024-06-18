@@ -30,7 +30,7 @@
     "@types/gulp": "4.0.8",
     "@types/mocha": "8.2.2",
     "chai": "4.3.4",
-    "gulp": "4.0.2",
+    "gulp": "5.0.0",
     "gulp-json2cson": "2.0.0",
     "gulp-mocha": "8.0.0",
     "gulp-typescript": "6.0.0-alpha.1",
