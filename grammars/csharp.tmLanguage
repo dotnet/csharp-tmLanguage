@@ -6807,10 +6807,10 @@
 (
   &lt;
   (?&lt;type_args&gt;
-    [^&lt;&gt;()]++|
-    &lt;\g&lt;type_args&gt;*+&gt;|
-    \(\g&lt;type_args&gt;*+\)
-  )*+
+    [^&lt;&gt;()]|
+    \((?:[^&lt;&gt;()]|&lt;[^&lt;&gt;()]*&gt;|\([^&lt;&gt;()]*\))*\)|
+    &lt;\g&lt;type_args&gt;*&gt;
+  )*
   &gt;\s*
 )?                                                # type arguments
 (?=\()                                            # open paren of argument list</string>
