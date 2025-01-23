@@ -2593,10 +2593,10 @@ repository:
       (
         <
         (?<type_args>
-          [^<>()]++|
-          <\g<type_args>*+>|
-          \(\g<type_args>*+\)
-        )*+
+          [^<>()]|
+          \((?:[^<>()]|<[^<>()]*>|\([^<>()]*\))*\)|
+          <\g<type_args>*>
+        )*
         >\s*
       )?                                                # type arguments
       (?=\()                                            # open paren of argument list
