@@ -679,11 +679,11 @@ repository:
     ]
   "enum-declaration":
     begin: "(?=\\benum\\b)"
-    end: "(?<=\\})"
+    end: "(?<=\\})|(?=;)"
     patterns: [
       {
         begin: "(?=enum)"
-        end: "(?=\\{)"
+        end: "(?=\\{)|(?=;)"
         patterns: [
           {
             include: "#comment"
@@ -758,7 +758,7 @@ repository:
     ]
   "interface-declaration":
     begin: "(?=\\binterface\\b)"
-    end: "(?<=\\})"
+    end: "(?<=\\})|(?=;)"
     patterns: [
       {
         begin: '''
@@ -771,7 +771,7 @@ repository:
             name: "storage.type.interface.cs"
           "2":
             name: "entity.name.type.interface.cs"
-        end: "(?=\\{)"
+        end: "(?=\\{)|(?=;)"
         patterns: [
           {
             include: "#comment"

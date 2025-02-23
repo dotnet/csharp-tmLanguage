@@ -336,10 +336,10 @@ repository:
 
   enum-declaration:
     begin: (?=\benum\b)
-    end: (?<=\})
+    end: (?<=\})|(?=;)
     patterns:
     - begin: (?=enum)
-      end: (?=\{)
+      end: (?=\{)|(?=;)
       patterns:
       - include: '#comment'
       - match: (enum)\s+(@?[_[:alpha:]][_[:alnum:]]*)
@@ -375,7 +375,7 @@ repository:
 
   interface-declaration:
     begin: (?=\binterface\b)
-    end: (?<=\})
+    end: (?<=\})|(?=;)
     patterns:
     - begin: |-
         (?x)
@@ -384,7 +384,7 @@ repository:
       beginCaptures:
         '1': { name: storage.type.interface.cs }
         '2': { name: entity.name.type.interface.cs }
-      end: (?=\{)
+      end: (?=\{)|(?=;)
       patterns:
       - include: '#comment'
       - include: '#type-parameter-list'
