@@ -1055,14 +1055,14 @@
         <key>begin</key>
         <string>(?=\benum\b)</string>
         <key>end</key>
-        <string>(?&lt;=\})</string>
+        <string>(?&lt;=\})|(?=;)</string>
         <key>patterns</key>
         <array>
           <dict>
             <key>begin</key>
             <string>(?=enum)</string>
             <key>end</key>
-            <string>(?=\{)</string>
+            <string>(?=\{)|(?=;)</string>
             <key>patterns</key>
             <array>
               <dict>
@@ -1190,7 +1190,7 @@
         <key>begin</key>
         <string>(?=\binterface\b)</string>
         <key>end</key>
-        <string>(?&lt;=\})</string>
+        <string>(?&lt;=\})|(?=;)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -1212,7 +1212,7 @@
               </dict>
             </dict>
             <key>end</key>
-            <string>(?=\{)</string>
+            <string>(?=\{)|(?=;)</string>
             <key>patterns</key>
             <array>
               <dict>

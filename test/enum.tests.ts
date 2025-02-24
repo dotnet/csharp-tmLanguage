@@ -22,6 +22,17 @@ describe("Enums", () => {
                 Token.Punctuation.CloseBrace]);
         });
 
+        it("enum with no body", async () => {
+
+            const input = `enum E;`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keyword.Definition.Enum,
+                Token.Identifier.EnumName("E"),
+                Token.Punctuation.Semicolon]);
+        });
+
         it("enum with base type", async () => {
 
             const input = `enum E : byte { }`;

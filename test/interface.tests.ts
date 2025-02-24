@@ -22,6 +22,17 @@ describe("Interfaces", () => {
                 Token.Punctuation.CloseBrace]);
         });
 
+        it("interface with no body", async () => {
+
+            const input = `interface IFoo;`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keyword.Definition.Interface,
+                Token.Identifier.InterfaceName("IFoo"),
+                Token.Punctuation.Semicolon]);
+        });
+
         it("interface inheritance", async () => {
 
             const input = `
