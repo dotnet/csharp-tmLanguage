@@ -280,5 +280,31 @@ int Add(int x, int y)
                 Token.Punctuation.CloseBrace
             ]);
         });
+
+        it("local function with attribute (issue #304)", async () => {
+            const input = Input.InMethod(`
+[Attribute]
+static void M([Attribute]object obj) {}
+`);
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.OpenBracket,
+                Token.Type("Attribute"),
+                Token.Punctuation.CloseBracket,
+                Token.Keyword.Modifier.Static,
+                Token.PrimitiveType.Void,
+                Token.Identifier.MethodName("M"),
+                Token.Punctuation.OpenParen,
+                Token.Punctuation.OpenBracket,
+                Token.Type("Attribute"),
+                Token.Punctuation.CloseBracket,
+                Token.PrimitiveType.Object,
+                Token.Identifier.ParameterName("obj"),
+                Token.Punctuation.CloseParen,
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace
+            ]);
+        });
     });
 });
