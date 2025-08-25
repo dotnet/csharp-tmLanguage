@@ -5526,7 +5526,7 @@
       <key>interpolation</key>
       <dict>
         <key>name</key>
-        <string>meta.interpolation.cs</string>
+        <string>meta.embedded.interpolation.cs</string>
         <key>begin</key>
         <string>(?&lt;=[^\{]|^)((?:\{\{)*)(\{)(?=[^\{])</string>
         <key>beginCaptures</key>
@@ -5771,7 +5771,7 @@
       <key>raw-interpolation</key>
       <dict>
         <key>name</key>
-        <string>meta.interpolation.cs</string>
+        <string>meta.embedded.interpolation.cs</string>
         <key>begin</key>
         <string>(?&lt;=[^\{]|^)((?:\{)*)(\{)(?=[^\{])</string>
         <key>beginCaptures</key>
@@ -5808,7 +5808,7 @@
       <key>double-raw-interpolation</key>
       <dict>
         <key>name</key>
-        <string>meta.interpolation.cs</string>
+        <string>meta.embedded.interpolation.cs</string>
         <key>begin</key>
         <string>(?&lt;=[^\{][^\{]|^)((?:\{)*)(\{\{)(?=[^\{])</string>
         <key>beginCaptures</key>
