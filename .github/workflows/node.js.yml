@@ -16,8 +16,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Use Node.js 18.x
+    - name: Use Node.js 22.x
       uses: actions/setup-node@v1
       with:
-        node-version: '18.x'
+        node-version: '22.x'
     - run: npm ci # This will automatically build and run tests because the prepublish step is to run `gulp`

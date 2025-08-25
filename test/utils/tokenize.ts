@@ -3,7 +3,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import { Registry, StackElement, parseRawGrammar, } from 'vscode-textmate';
+import { Registry, StateStack, parseRawGrammar, } from 'vscode-textmate';
 import * as oniguruma from 'vscode-oniguruma';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -51,7 +51,7 @@ export async function tokenize(input: string | Input, ...includeScopes: string[]
     }
 
     let tokens: Token[] = [];
-    let previousStack: StackElement = null;
+    let previousStack: StateStack = null;
     const grammar = await registry.loadGrammar('source.cs');
 
     for (let lineIndex = 0; lineIndex < input.lines.length; lineIndex++) {

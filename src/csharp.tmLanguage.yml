@@ -2087,7 +2087,7 @@ repository:
     - include: '#interpolation'
 
   interpolation:
-    name: meta.interpolation.cs
+    name: meta.embedded.interpolation.cs
     begin: (?<=[^\{]|^)((?:\{\{)*)(\{)(?=[^\{])
     beginCaptures:
       '1': { name: string.quoted.double.cs }
@@ -2172,7 +2172,7 @@ repository:
       '0': { name: punctuation.definition.string.end.cs }
 
   raw-interpolation:
-    name: meta.interpolation.cs
+    name: meta.embedded.interpolation.cs
     begin: (?<=[^\{]|^)((?:\{)*)(\{)(?=[^\{])
     beginCaptures:
       '1': { name: string.quoted.double.cs }
@@ -2184,7 +2184,7 @@ repository:
     - include: '#expression'
 
   double-raw-interpolation:
-    name: meta.interpolation.cs
+    name: meta.embedded.interpolation.cs
     begin: (?<=[^\{][^\{]|^)((?:\{)*)(\{\{)(?=[^\{])
     beginCaptures:
       '1': { name: string.quoted.double.cs }

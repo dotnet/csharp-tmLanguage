@@ -3394,7 +3394,7 @@ repository:
       }
     ]
   interpolation:
-    name: "meta.interpolation.cs"
+    name: "meta.embedded.interpolation.cs"
     begin: "(?<=[^\\{]|^)((?:\\{\\{)*)(\\{)(?=[^\\{])"
     beginCaptures:
       "1":
@@ -3512,7 +3512,7 @@ repository:
       "0":
         name: "punctuation.definition.string.end.cs"
   "raw-interpolation":
-    name: "meta.interpolation.cs"
+    name: "meta.embedded.interpolation.cs"
     begin: "(?<=[^\\{]|^)((?:\\{)*)(\\{)(?=[^\\{])"
     beginCaptures:
       "1":
@@ -3529,7 +3529,7 @@ repository:
       }
     ]
   "double-raw-interpolation":
-    name: "meta.interpolation.cs"
+    name: "meta.embedded.interpolation.cs"
     begin: "(?<=[^\\{][^\\{]|^)((?:\\{)*)(\\{\\{)(?=[^\\{])"
     beginCaptures:
       "1":
