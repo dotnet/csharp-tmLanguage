@@ -696,4 +696,140 @@ public ActionResult Register()
             ]);
         });
     });
+
+    describe("AppDirectives", () => {
+        it("#:package", async () => {
+            const input = `#:package`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Punctuation.Colon,
+                Token.Keyword.Preprocessor.Package,
+            ]);
+        });
+
+        it("#:package with name", async () => {
+            const input = `#:package Foo.Goo`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Punctuation.Colon,
+                Token.Keyword.Preprocessor.Package,
+                Token.Identifier.PreprocessorSymbol("Foo.Goo"),
+            ]);
+        });
+
+        it("#:package with name and version", async () => {
+            const input = `#:package Foo.Goo@1.0.0`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Punctuation.Colon,
+                Token.Keyword.Preprocessor.Package,
+                Token.Identifier.PreprocessorSymbol("Foo.Goo"),
+                Token.Punctuation.At,
+                Token.PreprocessorMessage("1.0.0"),
+            ]);
+        });
+
+        it("#:project", async () => {
+            const input = `#:project`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Punctuation.Colon,
+                Token.Keyword.Preprocessor.Project,
+            ]);
+        });
+
+        it("#:project with path", async () => {
+            const input = `#:project ./path/to/project`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Punctuation.Colon,
+                Token.Keyword.Preprocessor.Project,
+                Token.PreprocessorMessage("./path/to/project"),
+            ]);
+        });
+
+        it("#:property", async () => {
+            const input = `#:property`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Punctuation.Colon,
+                Token.Keyword.Preprocessor.Property,
+            ]);
+        });
+
+        it("#:property with name", async () => {
+            const input = `#:property Foo_Property`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Punctuation.Colon,
+                Token.Keyword.Preprocessor.Property,
+                Token.Identifier.PreprocessorSymbol("Foo_Property"),
+            ]);
+        });
+
+        it("#:property with name and value", async () => {
+            const input = `#:property Foo_Property=Some Value`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Punctuation.Colon,
+                Token.Keyword.Preprocessor.Property,
+                Token.Identifier.PreprocessorSymbol("Foo_Property"),
+                Token.Punctuation.Equals,
+                Token.PreprocessorMessage("Some Value"),
+            ]);
+        });
+
+        it("#:sdk", async () => {
+            const input = `#:sdk`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Punctuation.Colon,
+                Token.Keyword.Preprocessor.Sdk,
+            ]);
+        });
+
+        it("#:sdk with name", async () => {
+            const input = `#:sdk Foo.Sdk`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Punctuation.Colon,
+                Token.Keyword.Preprocessor.Sdk,
+                Token.Identifier.PreprocessorSymbol("Foo.Sdk"),
+            ]);
+        });
+
+        it("#:sdk with name and version", async () => {
+            const input = `#:sdk Foo.Sdk@1.0.0`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Punctuation.Colon,
+                Token.Keyword.Preprocessor.Sdk,
+                Token.Identifier.PreprocessorSymbol("Foo.Sdk"),
+                Token.Punctuation.At,
+                Token.PreprocessorMessage("1.0.0"),
+            ]);
+        });
+    });
 });
