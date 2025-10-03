@@ -9001,8 +9001,13 @@
           </dict>
           <key>2</key>
           <dict>
-            <key>name</key>
-            <string>entity.name.variable.preprocessor.symbol.cs</string>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#preprocessor-app-directive-package-name</string>
+              </dict>
+            </array>
           </dict>
           <key>3</key>
           <dict>
@@ -9075,8 +9080,13 @@
           </dict>
           <key>2</key>
           <dict>
-            <key>name</key>
-            <string>entity.name.variable.preprocessor.symbol.cs</string>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#preprocessor-app-directive-package-name</string>
+              </dict>
+            </array>
           </dict>
           <key>3</key>
           <dict>
@@ -9089,6 +9099,35 @@
             <string>string.unquoted.preprocessor.message.cs</string>
           </dict>
         </dict>
+      </dict>
+      <key>preprocessor-app-directive-package-name</key>
+      <dict>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>match</key>
+            <string>(\.)([_[:alpha:]][_[:alnum:]]*)</string>
+            <key>captures</key>
+            <dict>
+              <key>1</key>
+              <dict>
+                <key>name</key>
+                <string>punctuation.dot.cs</string>
+              </dict>
+              <key>2</key>
+              <dict>
+                <key>name</key>
+                <string>entity.name.variable.preprocessor.symbol.cs</string>
+              </dict>
+            </dict>
+          </dict>
+          <dict>
+            <key>name</key>
+            <string>entity.name.variable.preprocessor.symbol.cs</string>
+            <key>match</key>
+            <string>[_[:alpha:]][_[:alnum:]]*</string>
+          </dict>
+        </array>
       </dict>
       <key>preprocessor-expression</key>
       <dict>

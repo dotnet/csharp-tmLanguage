@@ -3506,7 +3506,9 @@ repository:
     match: \b(package)\b\s*([_[:alpha:]][_.[:alnum:]]*)?(@)?(.*)?\s*
     captures:
       '1': { name: keyword.preprocessor.package.cs }
-      '2': { name: entity.name.variable.preprocessor.symbol.cs }
+      '2':
+        patterns:
+        - include: '#preprocessor-app-directive-package-name'
       '3': { name: punctuation.separator.at.cs }
       '4': { name: string.unquoted.preprocessor.message.cs }
 
@@ -3528,9 +3530,20 @@ repository:
     match: \b(sdk)\b\s*([_[:alpha:]][_.[:alnum:]]*)?(@)?(.*)?\s*
     captures:
       '1': { name: keyword.preprocessor.sdk.cs }
-      '2': { name: entity.name.variable.preprocessor.symbol.cs }
+      '2':
+        patterns:
+        - include: '#preprocessor-app-directive-package-name'
       '3': { name: punctuation.separator.at.cs }
       '4': { name: string.unquoted.preprocessor.message.cs }
+
+  preprocessor-app-directive-package-name:
+    patterns:
+    - match: (\.)([_[:alpha:]][_[:alnum:]]*)
+      captures:
+        '1': { name: punctuation.dot.cs }
+        '2': { name: entity.name.variable.preprocessor.symbol.cs }
+    - name: entity.name.variable.preprocessor.symbol.cs
+      match: '[_[:alpha:]][_[:alnum:]]*'
 
   preprocessor-expression:
     patterns:

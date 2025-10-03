@@ -601,6 +601,7 @@ export namespace Token {
         export const CloseParen = createToken(')', 'punctuation.parenthesis.close.cs');
         export const Colon = createToken(':', 'punctuation.separator.colon.cs');
         export const ColonColon = createToken('::', 'punctuation.separator.coloncolon.cs');
+        export const Dot = createToken('.', 'punctuation.dot.cs');
         export const Comma = createToken(',', 'punctuation.separator.comma.cs');
         export const Equals = createToken('=', 'punctuation.separator.equals.cs');
         export const Hash = createToken('#', 'punctuation.separator.hash.cs')

@@ -717,7 +717,9 @@ public ActionResult Register()
                 Token.Punctuation.Hash,
                 Token.Punctuation.Colon,
                 Token.Keyword.Preprocessor.Package,
-                Token.Identifier.PreprocessorSymbol("Foo.Goo"),
+                Token.Identifier.PreprocessorSymbol("Foo"),
+                Token.Punctuation.Dot,
+                Token.Identifier.PreprocessorSymbol("Goo"),
             ]);
         });
 
@@ -729,7 +731,9 @@ public ActionResult Register()
                 Token.Punctuation.Hash,
                 Token.Punctuation.Colon,
                 Token.Keyword.Preprocessor.Package,
-                Token.Identifier.PreprocessorSymbol("Foo.Goo"),
+                Token.Identifier.PreprocessorSymbol("Foo"),
+                Token.Punctuation.Dot,
+                Token.Identifier.PreprocessorSymbol("Goo"),
                 Token.Punctuation.At,
                 Token.PreprocessorMessage("1.0.0"),
             ]);
@@ -814,7 +818,9 @@ public ActionResult Register()
                 Token.Punctuation.Hash,
                 Token.Punctuation.Colon,
                 Token.Keyword.Preprocessor.Sdk,
-                Token.Identifier.PreprocessorSymbol("Foo.Sdk"),
+                Token.Identifier.PreprocessorSymbol("Foo"),
+                Token.Punctuation.Dot,
+                Token.Identifier.PreprocessorSymbol("Sdk"),
             ]);
         });
 
@@ -826,7 +832,9 @@ public ActionResult Register()
                 Token.Punctuation.Hash,
                 Token.Punctuation.Colon,
                 Token.Keyword.Preprocessor.Sdk,
-                Token.Identifier.PreprocessorSymbol("Foo.Sdk"),
+                Token.Identifier.PreprocessorSymbol("Foo"),
+                Token.Punctuation.Dot,
+                Token.Identifier.PreprocessorSymbol("Sdk"),
                 Token.Punctuation.At,
                 Token.PreprocessorMessage("1.0.0"),
             ]);
