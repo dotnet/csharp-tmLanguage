@@ -5369,6 +5369,9 @@ repository:
       {
         include: "#preprocessor-app-directive-sdk"
       }
+      {
+        include: "#preprocessor-app-directive-generic"
+      }
     ]
   "preprocessor-app-directive-package":
     match: "\\b(package)\\b\\s*([_[:alpha:]][_.[:alnum:]]*)?(@)?(.*)?\\s*"
@@ -5433,6 +5436,11 @@ repository:
         match: "[_[:alpha:]][_[:alnum:]]*"
       }
     ]
+  "preprocessor-app-directive-generic":
+    match: "\\b(.*)?\\s*"
+    captures:
+      "1":
+        name: "string.unquoted.preprocessor.message.cs"
   "preprocessor-expression":
     patterns: [
       {

@@ -839,5 +839,26 @@ public ActionResult Register()
                 Token.PreprocessorMessage("1.0.0"),
             ]);
         });
+
+        it("#:", async () => {
+            const input = `#:`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Punctuation.Colon,
+            ]);
+        });
+
+        it("#: with generic message", async () => {
+            const input = `#:this is a generic directive`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Punctuation.Colon,
+                Token.PreprocessorMessage("this is a generic directive"),
+            ]);
+        });
     });
 });

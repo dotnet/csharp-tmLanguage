@@ -8986,6 +8986,10 @@
             <key>include</key>
             <string>#preprocessor-app-directive-sdk</string>
           </dict>
+          <dict>
+            <key>include</key>
+            <string>#preprocessor-app-directive-generic</string>
+          </dict>
         </array>
       </dict>
       <key>preprocessor-app-directive-package</key>
@@ -9128,6 +9132,19 @@
             <string>[_[:alpha:]][_[:alnum:]]*</string>
           </dict>
         </array>
+      </dict>
+      <key>preprocessor-app-directive-generic</key>
+      <dict>
+        <key>match</key>
+        <string>\b(.*)?\s*</string>
+        <key>captures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>string.unquoted.preprocessor.message.cs</string>
+          </dict>
+        </dict>
       </dict>
       <key>preprocessor-expression</key>
       <dict>
