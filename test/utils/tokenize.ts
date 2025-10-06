@@ -376,13 +376,17 @@ export namespace Token {
             export const Hidden = createToken('hidden', 'keyword.preprocessor.hidden.cs');
             export const If = createToken('if', 'keyword.preprocessor.if.cs');
             export const Line = createToken('line', 'keyword.preprocessor.line.cs');
+            export const Load = createToken('load', 'keyword.preprocessor.load.cs');
+            export const Package = createToken('package', 'keyword.preprocessor.package.cs');
             export const Pragma = createToken('pragma', 'keyword.preprocessor.pragma.cs');
+            export const Property = createToken('property', 'keyword.preprocessor.property.cs');
+            export const Project = createToken('project', 'keyword.preprocessor.project.cs');
+            export const R = createToken('r', 'keyword.preprocessor.r.cs');
             export const Region = createToken('region', 'keyword.preprocessor.region.cs');
             export const Restore = createToken('restore', 'keyword.preprocessor.restore.cs');
+            export const Sdk = createToken('sdk', 'keyword.preprocessor.sdk.cs');
             export const Undef = createToken('undef', 'keyword.preprocessor.undef.cs');
             export const Warning = createToken('warning', 'keyword.preprocessor.warning.cs');
-            export const R = createToken('r', 'keyword.preprocessor.r.cs');
-            export const Load = createToken('load', 'keyword.preprocessor.load.cs');
         }
 
         export const AttributeSpecifier = (text: string) => createToken(text, 'keyword.other.attribute-specifier.cs');
@@ -591,12 +595,15 @@ export namespace Token {
         export const Accessor = createToken('.', 'punctuation.accessor.cs');
         export const AccessorPointer = createToken('->', 'punctuation.accessor.pointer.cs');
         export const Asterisk = createToken('*', 'punctuation.separator.asterisk.cs')
+        export const At = createToken('@', 'punctuation.separator.at.cs');
         export const CloseBrace = createToken('}', 'punctuation.curlybrace.close.cs');
         export const CloseBracket = createToken(']', 'punctuation.squarebracket.close.cs');
         export const CloseParen = createToken(')', 'punctuation.parenthesis.close.cs');
         export const Colon = createToken(':', 'punctuation.separator.colon.cs');
         export const ColonColon = createToken('::', 'punctuation.separator.coloncolon.cs');
+        export const Dot = createToken('.', 'punctuation.dot.cs');
         export const Comma = createToken(',', 'punctuation.separator.comma.cs');
+        export const Equals = createToken('=', 'punctuation.separator.equals.cs');
         export const Hash = createToken('#', 'punctuation.separator.hash.cs')
         export const OpenBrace = createToken('{', 'punctuation.curlybrace.open.cs');
         export const OpenBracket = createToken('[', 'punctuation.squarebracket.open.cs');
