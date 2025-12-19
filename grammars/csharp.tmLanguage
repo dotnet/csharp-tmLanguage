@@ -4180,6 +4180,18 @@
                     <key>include</key>
                     <string>#local-variable-declaration</string>
                   </dict>
+                  <dict>
+                    <key>include</key>
+                    <string>#local-tuple-var-deconstruction</string>
+                  </dict>
+                  <dict>
+                    <key>include</key>
+                    <string>#tuple-deconstruction-assignment</string>
+                  </dict>
+                  <dict>
+                    <key>include</key>
+                    <string>#expression</string>
+                  </dict>
                 </array>
               </dict>
               <dict>

@@ -1498,6 +1498,9 @@ repository:
         patterns:
         - include: '#intrusive'
         - include: '#local-variable-declaration'
+        - include: '#local-tuple-var-deconstruction'
+        - include: '#tuple-deconstruction-assignment'
+        - include: '#expression'
       - begin: (?=;)
         end: (?=\))
         patterns:
