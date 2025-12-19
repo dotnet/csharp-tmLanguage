@@ -5166,7 +5166,7 @@ repository:
     end: "(?=\\n)|(?=^)"
     patterns: [
       {
-        include: "#comment"
+        include: "#preprocessor-comment"
       }
       {
         include: "#preprocessor-define-or-undef"
@@ -5205,6 +5205,24 @@ repository:
         include: "#preprocessor-app-directive"
       }
     ]
+  "preprocessor-comment":
+    patterns: [
+      {
+        name: "comment.line.double-slash.cs"
+        match: "(//).*(?=$)"
+        captures:
+          "1":
+            name: "punctuation.definition.comment.cs"
+      }
+      {
+        name: "comment.block.cs"
+        begin: "/\\*"
+        end: "\\*/"
+        captures:
+          "0":
+            name: "punctuation.definition.comment.cs"
+      }
+    ]
   "preprocessor-define-or-undef":
     match: "\\b(?:(define)|(undef))\\b\\s*\\b([_[:alpha:]][_[:alnum:]]*)\\b"
     captures:
@@ -5224,7 +5242,7 @@ repository:
     end: "(?=$)"
     patterns: [
       {
-        include: "#comment"
+        include: "#preprocessor-comment"
       }
       {
         include: "#preprocessor-expression"
