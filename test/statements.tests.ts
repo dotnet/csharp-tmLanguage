@@ -307,6 +307,80 @@ for (;;)
                     Token.Punctuation.CloseBrace,
                 ]);
             });
+
+            it("for loop with tuple deconstruction initializer", async () => {
+                const input = Input.InMethod(`for ((int i, int a1, int a2) = (0, 0, 0); i < 10; i++) { }`);
+                const tokens = await tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Keyword.Loop.For,
+                    Token.Punctuation.OpenParen,
+                    Token.Punctuation.OpenParen,
+                    Token.PrimitiveType.Int,
+                    Token.Identifier.TupleElementName("i"),
+                    Token.Punctuation.Comma,
+                    Token.PrimitiveType.Int,
+                    Token.Identifier.TupleElementName("a1"),
+                    Token.Punctuation.Comma,
+                    Token.PrimitiveType.Int,
+                    Token.Identifier.TupleElementName("a2"),
+                    Token.Punctuation.CloseParen,
+                    Token.Operator.Assignment,
+                    Token.Punctuation.OpenParen,
+                    Token.Literal.Numeric.Decimal("0"),
+                    Token.Punctuation.Comma,
+                    Token.Literal.Numeric.Decimal("0"),
+                    Token.Punctuation.Comma,
+                    Token.Literal.Numeric.Decimal("0"),
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Semicolon,
+                    Token.Variable.ReadWrite("i"),
+                    Token.Operator.Relational.LessThan,
+                    Token.Literal.Numeric.Decimal("10"),
+                    Token.Punctuation.Semicolon,
+                    Token.Variable.ReadWrite("i"),
+                    Token.Operator.Increment,
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.OpenBrace,
+                    Token.Punctuation.CloseBrace,
+                ]);
+            });
+
+            it("for loop with var tuple deconstruction initializer", async () => {
+                const input = Input.InMethod(`for (var (i, a1, a2) = (0, 0, 0); i < 10; i++) { }`);
+                const tokens = await tokenize(input);
+
+                tokens.should.deep.equal([
+                    Token.Keyword.Loop.For,
+                    Token.Punctuation.OpenParen,
+                    Token.Keyword.Definition.Var,
+                    Token.Punctuation.OpenParen,
+                    Token.Identifier.TupleElementName("i"),
+                    Token.Punctuation.Comma,
+                    Token.Identifier.TupleElementName("a1"),
+                    Token.Punctuation.Comma,
+                    Token.Identifier.TupleElementName("a2"),
+                    Token.Punctuation.CloseParen,
+                    Token.Operator.Assignment,
+                    Token.Punctuation.OpenParen,
+                    Token.Literal.Numeric.Decimal("0"),
+                    Token.Punctuation.Comma,
+                    Token.Literal.Numeric.Decimal("0"),
+                    Token.Punctuation.Comma,
+                    Token.Literal.Numeric.Decimal("0"),
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.Semicolon,
+                    Token.Variable.ReadWrite("i"),
+                    Token.Operator.Relational.LessThan,
+                    Token.Literal.Numeric.Decimal("10"),
+                    Token.Punctuation.Semicolon,
+                    Token.Variable.ReadWrite("i"),
+                    Token.Operator.Increment,
+                    Token.Punctuation.CloseParen,
+                    Token.Punctuation.OpenBrace,
+                    Token.Punctuation.CloseBrace,
+                ]);
+            });
         });
 
         describe("ForEach", () => {

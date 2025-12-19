@@ -2562,6 +2562,15 @@ repository:
               {
                 include: "#local-variable-declaration"
               }
+              {
+                include: "#local-tuple-var-deconstruction"
+              }
+              {
+                include: "#tuple-deconstruction-assignment"
+              }
+              {
+                include: "#expression"
+              }
             ]
           }
           {
