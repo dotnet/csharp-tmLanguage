@@ -1528,6 +1528,10 @@
         <array>
           <dict>
             <key>include</key>
+            <string>#base-class-constructor-call</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#type</string>
           </dict>
           <dict>
@@ -1537,6 +1541,62 @@
           <dict>
             <key>include</key>
             <string>#preprocessor</string>
+          </dict>
+        </array>
+      </dict>
+      <key>base-class-constructor-call</key>
+      <dict>
+        <key>begin</key>
+        <string>(?x)
+(?:
+  (@?[_[:alpha:]][_[:alnum:]]*)\s*(\.)  # qualified name part
+)*
+(@?[_[:alpha:]][_[:alnum:]]*)\s*        # type name
+(
+  &lt;
+  (?&lt;type_args&gt;
+    [^&lt;&gt;()]|
+    \((?:[^&lt;&gt;()]|&lt;[^&lt;&gt;()]*&gt;|\([^&lt;&gt;()]*\))*\)|
+    &lt;\g&lt;type_args&gt;*&gt;
+  )*
+  &gt;\s*
+)?                                      # optional type arguments
+(?=\()                                  # followed by argument list</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>entity.name.type.cs</string>
+          </dict>
+          <key>2</key>
+          <dict>
+            <key>name</key>
+            <string>punctuation.accessor.cs</string>
+          </dict>
+          <key>3</key>
+          <dict>
+            <key>name</key>
+            <string>entity.name.type.cs</string>
+          </dict>
+          <key>4</key>
+          <dict>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#type-arguments</string>
+              </dict>
+            </array>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>(?&lt;=\))</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#argument-list</string>
           </dict>
         </array>
       </dict>
