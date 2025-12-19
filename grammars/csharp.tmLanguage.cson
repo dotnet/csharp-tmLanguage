@@ -5333,7 +5333,7 @@ repository:
       }
     ]
   "preprocessor-pragma-warning":
-    match: "\\b(pragma)\\b\\s*\\b(warning)\\b\\s*\\b(?:(disable)|(restore))\\b(\\s*(?:CS)?[0-9]+(?:\\s*,\\s*(?:CS)?[0-9]+)?)?"
+    match: "\\b(pragma)\\b\\s*\\b(warning)\\b\\s*\\b(?:(disable)|(restore))\\b(\\s*[0-9]+(?:\\s*,\\s*[0-9]+)?)?"
     captures:
       "1":
         name: "keyword.preprocessor.pragma.cs"
@@ -5346,7 +5346,7 @@ repository:
       "5":
         patterns: [
           {
-            match: "(?:CS)?[0-9]+"
+            match: "[0-9]+"
             captures:
               "0":
                 name: "constant.numeric.decimal.cs"
