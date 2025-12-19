@@ -3374,7 +3374,7 @@ repository:
     begin: ^\s*(\#)\s*
     beginCaptures:
       '1': { name: punctuation.separator.hash.cs }
-    end: (?=\n)|(?=^)
+    end: (?<=$)
     patterns:
     - include: '#preprocessor-comment'
     - include: '#preprocessor-define-or-undef'
