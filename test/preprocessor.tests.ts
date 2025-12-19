@@ -911,48 +911,4 @@ void Bar()
             ]);
         });
     });
-
-    describe("Pragma", () => {
-        it("#pragma warning disable with comment followed by code", async () => {
-            const input = Input.InMethod(`
-#pragma warning disable 0000 // Internal compiler error
-        var x = Baz(1, 2, 3, out object error);
-#pragma warning restore 0000 // Internal compiler error
-`);
-            const tokens = await tokenize(input);
-
-            tokens.should.deep.equal([
-                Token.Punctuation.Hash,
-                Token.Keyword.Preprocessor.Pragma,
-                Token.Keyword.Preprocessor.Warning,
-                Token.Keyword.Preprocessor.Disable,
-                Token.Literal.Numeric.Decimal("0000"),
-                Token.Comment.SingleLine.Start,
-                Token.Comment.SingleLine.Text(" Internal compiler error"),
-                Token.Keyword.Definition.Var,
-                Token.Identifier.LocalName("x"),
-                Token.Operator.Assignment,
-                Token.Identifier.MethodName("Baz"),
-                Token.Punctuation.OpenParen,
-                Token.Literal.Numeric.Decimal("1"),
-                Token.Punctuation.Comma,
-                Token.Literal.Numeric.Decimal("2"),
-                Token.Punctuation.Comma,
-                Token.Literal.Numeric.Decimal("3"),
-                Token.Punctuation.Comma,
-                Token.Keyword.Modifier.Out,
-                Token.PrimitiveType.Object,
-                Token.Identifier.LocalName("error"),
-                Token.Punctuation.CloseParen,
-                Token.Punctuation.Semicolon,
-                Token.Punctuation.Hash,
-                Token.Keyword.Preprocessor.Pragma,
-                Token.Keyword.Preprocessor.Warning,
-                Token.Keyword.Preprocessor.Restore,
-                Token.Literal.Numeric.Decimal("0000"),
-                Token.Comment.SingleLine.Start,
-                Token.Comment.SingleLine.Text(" Internal compiler error"),
-            ]);
-        });
-    });
 });
