@@ -483,9 +483,21 @@ repository:
       '0': { name: punctuation.separator.colon.cs }
     end: (?=\{|where|;)
     patterns:
+    - include: '#base-class-constructor-call'
     - include: '#type'
     - include: '#punctuation-comma'
     - include: '#preprocessor'
+
+  base-class-constructor-call:
+    begin: |-
+      (?x)
+      (@?[_[:alpha:]][_[:alnum:]]*)\s*  # type name
+      (?=\()                            # followed by argument list
+    beginCaptures:
+      '1': { name: entity.name.type.cs }
+    end: (?<=\))
+    patterns:
+    - include: '#argument-list'
 
   generic-constraints:
     begin: (where)\s+(@?[_[:alpha:]][_[:alnum:]]*)\s*(:)
