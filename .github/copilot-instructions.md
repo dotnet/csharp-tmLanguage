@@ -11,10 +11,11 @@ This repository contains the TextMate grammar for C# with outputs for VSCode, At
 - Never directly edit the generated files in the `grammars/` directory
 
 ### Building and Testing
-- Run `npm run compile` to:
-  - Build the grammar files from the YAML source
-  - Run all tests to validate the grammar
-  - Generate output files in `grammars/` directory
+- Run `npm run compile` (or `npm test`) to build and test the grammar
+  - This runs the default `gulp` task which:
+    - Builds the grammar files from `src/csharp.tmLanguage.yml`
+    - Generates output files in `grammars/` directory
+    - Runs all tests to validate the grammar
 - The build process generates three files:
   - `grammars/csharp.tmLanguage` - TextMate grammar (XML plist format)
   - `grammars/csharp.tmLanguage.json` - VSCode format
@@ -33,8 +34,9 @@ This repository contains the TextMate grammar for C# with outputs for VSCode, At
 - All tests must pass before changes can be merged
 
 ### Watch Mode
-- Use `npm run watch` to automatically rebuild when `src/csharp.tmLanguage.yml` changes
-- This is useful during development for quick iteration
+- Use `npm run watch` to automatically rebuild the grammar when `src/csharp.tmLanguage.yml` changes
+- Note: Watch mode only rebuilds the grammar files, it does not run tests
+- After making changes, run `npm run compile` to run the full test suite
 
 ## Grammar Structure
 - The grammar follows the TextMate grammar format
