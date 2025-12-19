@@ -8910,7 +8910,7 @@
       <key>preprocessor-pragma-warning</key>
       <dict>
         <key>match</key>
-        <string>\b(pragma)\b\s*\b(warning)\b\s*\b(?:(disable)|(restore))\b(\s*(?:CS)?[0-9]+(?:\s*,\s*(?:CS)?[0-9]+)*)?</string>
+        <string>\b(pragma)\b\s*\b(warning)\b\s*\b(?:(disable)|(restore))\b(\s*(?:CS)?[0-9]+(?:\s*,\s*(?:CS)?[0-9]+)?)?</string>
         <key>captures</key>
         <dict>
           <key>1</key>
