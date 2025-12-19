@@ -167,6 +167,10 @@
           </dict>
           <dict>
             <key>include</key>
+            <string>#constructor-declaration</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#property-declaration</string>
           </dict>
           <dict>
@@ -184,10 +188,6 @@
           <dict>
             <key>include</key>
             <string>#variable-initializer</string>
-          </dict>
-          <dict>
-            <key>include</key>
-            <string>#constructor-declaration</string>
           </dict>
           <dict>
             <key>include</key>
@@ -2391,23 +2391,19 @@
       <key>constructor-declaration</key>
       <dict>
         <key>begin</key>
-        <string>(?=@?[_[:alpha:]][_[:alnum:]]*\s*\()</string>
+        <string>(@?[_[:alpha:]][_[:alnum:]]*)\s*(?=\(|$)</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>entity.name.function.cs</string>
+          </dict>
+        </dict>
         <key>end</key>
         <string>(?&lt;=\})|(?=;)</string>
         <key>patterns</key>
         <array>
-          <dict>
-            <key>match</key>
-            <string>(@?[_[:alpha:]][_[:alnum:]]*)\b</string>
-            <key>captures</key>
-            <dict>
-              <key>1</key>
-              <dict>
-                <key>name</key>
-                <string>entity.name.function.cs</string>
-              </dict>
-            </dict>
-          </dict>
           <dict>
             <key>begin</key>
             <string>(:)</string>

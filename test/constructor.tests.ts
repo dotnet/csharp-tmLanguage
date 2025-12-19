@@ -414,5 +414,41 @@ public AccountController(
                 Token.Punctuation.CloseBrace
             ]);
         });
+
+        it("opening parenthesis on new line (issue dotnet/vscode-csharp#4190)", async () => {
+            const input = Input.InClass(`
+public TestClass
+(
+    string s
+)
+{
+}
+
+public void Method()
+{
+}`);
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keyword.Modifier.Public,
+                Token.Identifier.MethodName("TestClass"),
+                Token.Punctuation.OpenParen,
+
+                Token.PrimitiveType.String,
+                Token.Identifier.ParameterName("s"),
+
+                Token.Punctuation.CloseParen,
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace,
+
+                Token.Keyword.Modifier.Public,
+                Token.PrimitiveType.Void,
+                Token.Identifier.MethodName("Method"),
+                Token.Punctuation.OpenParen,
+                Token.Punctuation.CloseParen,
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace
+            ]);
+        });
     });
 });
