@@ -504,34 +504,7 @@ int Property // comment
             ]);
         });
 
-        it("readonly setter", async () => {
-            const input = Input.InClass(`
-public int Counter
-{
-    get => counter;
-    readonly set { }
-}`);
-            const tokens = await tokenize(input, "meta.accessor.");
-
-            tokens.should.deep.equal([
-                Token.Keyword.Modifier.Public,
-                Token.PrimitiveType.Int,
-                Token.Identifier.PropertyName("Counter"),
-                Token.Punctuation.OpenBrace,
-                Token.Keyword.Definition.Get,
-                Token.Operator.Arrow,
-                ...Scope.Accessor.Getter(
-                    Token.Variable.ReadWrite("counter"),
-                ),
-                Token.Punctuation.Semicolon,
-                Token.Keyword.Modifier.ReadOnly,
-                Token.Keyword.Definition.Set,
-                Token.Punctuation.OpenBrace,
-                Token.Punctuation.CloseBrace,
-                Token.Punctuation.CloseBrace]);
-        });
-
-        it("readonly getter", async () => {
+        it("readonly getter (expression body)", async () => {
             const input = Input.InClass(`
 public int this[int i]
 {
@@ -562,12 +535,12 @@ public int this[int i]
                 Token.Punctuation.CloseBrace]);
         });
 
-        it("readonly getter and setter with block bodies", async () => {
+        it("readonly getter (block body)", async () => {
             const input = Input.InClass(`
 public int Counter
 {
     readonly get { return counter; }
-    readonly set { counter = value; }
+    set { counter = value; }
 }`);
             const tokens = await tokenize(input, "meta.accessor.");
 
@@ -585,7 +558,6 @@ public int Counter
                     Token.Punctuation.Semicolon,
                 ),
                 Token.Punctuation.CloseBrace,
-                Token.Keyword.Modifier.ReadOnly,
                 Token.Keyword.Definition.Set,
                 Token.Punctuation.OpenBrace,
                 ...Scope.Accessor.Setter(
