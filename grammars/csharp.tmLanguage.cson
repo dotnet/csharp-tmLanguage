@@ -4841,7 +4841,7 @@ repository:
           (?x)
           ((?:\\b(?:async|static)\\b\\s*)*)
           (?:
-            (@?[_[:alpha:]][_[:alnum:]]*)\\b|
+            (?!\\b(?:true|false|null)\\b)(@?[_[:alpha:]][_[:alnum:]]*)\\b|
             (\\()
               (?<tuple>(?:[^()]|\\(\\g<tuple>\\))*)
             (\\))

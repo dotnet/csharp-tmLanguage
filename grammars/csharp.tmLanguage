@@ -8008,7 +8008,7 @@
             <string>(?x)
 ((?:\b(?:async|static)\b\s*)*)
 (?:
-  (@?[_[:alpha:]][_[:alnum:]]*)\b|
+  (?!\b(?:true|false|null)\b)(@?[_[:alpha:]][_[:alnum:]]*)\b|
   (\()
     (?&lt;tuple&gt;(?:[^()]|\(\g&lt;tuple&gt;\))*)
   (\))
