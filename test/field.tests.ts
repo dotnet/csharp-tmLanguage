@@ -395,5 +395,71 @@ class C
                 Token.Punctuation.CloseBrace
             ]);
         });
+
+        it("fixed-size buffer declaration", async () => {
+            const input = Input.InStruct(`public fixed byte Buffer[30];`);
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Modifier.Fixed,
+                Token.PrimitiveType.Byte,
+                Token.Identifier.FieldName("Buffer"),
+                Token.Punctuation.OpenBracket,
+                Token.Literal.Numeric.Decimal("30"),
+                Token.Punctuation.CloseBracket,
+                Token.Punctuation.Semicolon
+            ]);
+        });
+
+        it("fixed-size buffer with unsafe modifier", async () => {
+            const input = Input.InStruct(`public unsafe fixed byte Buffer[30];`);
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Modifier.Unsafe,
+                Token.Keyword.Modifier.Fixed,
+                Token.PrimitiveType.Byte,
+                Token.Identifier.FieldName("Buffer"),
+                Token.Punctuation.OpenBracket,
+                Token.Literal.Numeric.Decimal("30"),
+                Token.Punctuation.CloseBracket,
+                Token.Punctuation.Semicolon
+            ]);
+        });
+
+        it("fixed-size buffer with const reference", async () => {
+            const input = `
+struct C
+{
+    public const int length = 30;
+    public unsafe fixed byte Buffer[length];
+}`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keyword.Definition.Struct,
+                Token.Identifier.StructName("C"),
+                Token.Punctuation.OpenBrace,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Modifier.Const,
+                Token.PrimitiveType.Int,
+                Token.Identifier.FieldName("length"),
+                Token.Operator.Assignment,
+                Token.Literal.Numeric.Decimal("30"),
+                Token.Punctuation.Semicolon,
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Modifier.Unsafe,
+                Token.Keyword.Modifier.Fixed,
+                Token.PrimitiveType.Byte,
+                Token.Identifier.FieldName("Buffer"),
+                Token.Punctuation.OpenBracket,
+                Token.Variable.ReadWrite("length"),
+                Token.Punctuation.CloseBracket,
+                Token.Punctuation.Semicolon,
+                Token.Punctuation.CloseBrace
+            ]);
+        });
     });
 });

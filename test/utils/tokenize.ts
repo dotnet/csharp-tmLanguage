@@ -341,6 +341,7 @@ export namespace Token {
             export const Explicit = createToken('explicit', 'storage.modifier.explicit.cs');
             export const Extern = createToken('extern', 'storage.modifier.extern.cs');
             export const File = createToken('file', 'storage.modifier.file.cs');
+            export const Fixed = createToken('fixed', 'storage.modifier.fixed.cs');
             export const Implicit = createToken('implicit', 'storage.modifier.implicit.cs');
             export const In = createToken('in', 'storage.modifier.in.cs');
             export const Internal = createToken('internal', 'storage.modifier.internal.cs');
