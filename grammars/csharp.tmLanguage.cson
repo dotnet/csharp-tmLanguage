@@ -325,6 +325,12 @@ repository:
         include: "#is-expression"
       }
       {
+        include: "#boolean-literal"
+      }
+      {
+        include: "#null-literal"
+      }
+      {
         include: "#anonymous-method-expression"
       }
       {
@@ -4841,7 +4847,7 @@ repository:
           (?x)
           ((?:\\b(?:async|static)\\b\\s*)*)
           (?:
-            (?!\\b(?:true|false|null)\\b)(@?[_[:alpha:]][_[:alnum:]]*)\\b|
+            (@?[_[:alpha:]][_[:alnum:]]*)\\b|
             (\\()
               (?<tuple>(?:[^()]|\\(\\g<tuple>\\))*)
             (\\))

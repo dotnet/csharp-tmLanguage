@@ -457,6 +457,14 @@
           </dict>
           <dict>
             <key>include</key>
+            <string>#boolean-literal</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#null-literal</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#anonymous-method-expression</string>
           </dict>
           <dict>
@@ -8008,7 +8016,7 @@
             <string>(?x)
 ((?:\b(?:async|static)\b\s*)*)
 (?:
-  (?!\b(?:true|false|null)\b)(@?[_[:alpha:]][_[:alnum:]]*)\b|
+  (@?[_[:alpha:]][_[:alnum:]]*)\b|
   (\()
     (?&lt;tuple&gt;(?:[^()]|\(\g&lt;tuple&gt;\))*)
   (\))
