@@ -772,7 +772,7 @@ repository:
     - include: '#comment'
     - include: '#attribute-section'
     - name: storage.modifier.$1.cs
-      match: \b(private|protected|internal)\b
+      match: \b(private|protected|internal|readonly)\b
     - begin: \b(get)\b\s*(?=\{|;|=>|//|/\*|$)
       beginCaptures:
         '1': { name: storage.type.accessor.$1.cs }

@@ -2105,7 +2105,7 @@
             <key>name</key>
             <string>storage.modifier.$1.cs</string>
             <key>match</key>
-            <string>\b(private|protected|internal)\b</string>
+            <string>\b(private|protected|internal|readonly)\b</string>
           </dict>
           <dict>
             <key>begin</key>

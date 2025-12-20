@@ -503,5 +503,99 @@ int Property // comment
                 Token.Punctuation.CloseBrace,
             ]);
         });
+
+        it("readonly setter", async () => {
+            const input = Input.InClass(`
+public int Counter
+{
+    get => counter;
+    readonly set { }
+}`);
+            const tokens = await tokenize(input, "meta.accessor.");
+
+            tokens.should.deep.equal([
+                Token.Keyword.Modifier.Public,
+                Token.PrimitiveType.Int,
+                Token.Identifier.PropertyName("Counter"),
+                Token.Punctuation.OpenBrace,
+                Token.Keyword.Definition.Get,
+                Token.Operator.Arrow,
+                ...Scope.Accessor.Getter(
+                    Token.Variable.ReadWrite("counter"),
+                ),
+                Token.Punctuation.Semicolon,
+                Token.Keyword.Modifier.ReadOnly,
+                Token.Keyword.Definition.Set,
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace,
+                Token.Punctuation.CloseBrace]);
+        });
+
+        it("readonly getter", async () => {
+            const input = Input.InClass(`
+public int this[int i]
+{
+    readonly get => counter;
+    set { }
+}`);
+            const tokens = await tokenize(input, "meta.accessor.");
+
+            tokens.should.deep.equal([
+                Token.Keyword.Modifier.Public,
+                Token.PrimitiveType.Int,
+                Token.Variable.This,
+                Token.Punctuation.OpenBracket,
+                Token.PrimitiveType.Int,
+                Token.Identifier.ParameterName("i"),
+                Token.Punctuation.CloseBracket,
+                Token.Punctuation.OpenBrace,
+                Token.Keyword.Modifier.ReadOnly,
+                Token.Keyword.Definition.Get,
+                Token.Operator.Arrow,
+                ...Scope.Accessor.Getter(
+                    Token.Variable.ReadWrite("counter"),
+                ),
+                Token.Punctuation.Semicolon,
+                Token.Keyword.Definition.Set,
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace,
+                Token.Punctuation.CloseBrace]);
+        });
+
+        it("readonly getter and setter with block bodies", async () => {
+            const input = Input.InClass(`
+public int Counter
+{
+    readonly get { return counter; }
+    readonly set { counter = value; }
+}`);
+            const tokens = await tokenize(input, "meta.accessor.");
+
+            tokens.should.deep.equal([
+                Token.Keyword.Modifier.Public,
+                Token.PrimitiveType.Int,
+                Token.Identifier.PropertyName("Counter"),
+                Token.Punctuation.OpenBrace,
+                Token.Keyword.Modifier.ReadOnly,
+                Token.Keyword.Definition.Get,
+                Token.Punctuation.OpenBrace,
+                ...Scope.Accessor.Getter(
+                    Token.Keyword.Flow.Return,
+                    Token.Variable.ReadWrite("counter"),
+                    Token.Punctuation.Semicolon,
+                ),
+                Token.Punctuation.CloseBrace,
+                Token.Keyword.Modifier.ReadOnly,
+                Token.Keyword.Definition.Set,
+                Token.Punctuation.OpenBrace,
+                ...Scope.Accessor.Setter(
+                    Token.Variable.ReadWrite("counter"),
+                    Token.Operator.Assignment,
+                    Token.Variable.Value,
+                    Token.Punctuation.Semicolon,
+                ),
+                Token.Punctuation.CloseBrace,
+                Token.Punctuation.CloseBrace]);
+        });
     });
 });
