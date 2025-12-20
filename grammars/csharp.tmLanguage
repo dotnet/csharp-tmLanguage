@@ -668,7 +668,7 @@
       <key>attribute-section</key>
       <dict>
         <key>begin</key>
-        <string>(\[)(assembly|module|field|event|method|param|property|return|type)?(\:)?</string>
+        <string>(\[)(assembly|module|field|event|method|param|property|return|typevar|type)?(\:)?</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
