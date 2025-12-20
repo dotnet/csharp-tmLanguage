@@ -253,5 +253,36 @@ describe("Attributes", () => {
                     Token.Punctuation.TypeParameter.End,
                     Token.Punctuation.CloseBracket]);
         });
+
+        it("typevar attribute specifier", async () => {
+
+            const input = `[typevar: MyAttribute]`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.OpenBracket,
+                Token.Keyword.AttributeSpecifier("typevar"),
+                Token.Punctuation.Colon,
+                Token.Type("MyAttribute"),
+                Token.Punctuation.CloseBracket]);
+        });
+
+        it("typevar attribute specifier on generic type parameter", async () => {
+
+            const input = `class Foo<[typevar: MyAttribute] T>`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keyword.Definition.Class,
+                Token.Identifier.ClassName("Foo"),
+                Token.Punctuation.TypeParameter.Begin,
+                Token.Punctuation.OpenBracket,
+                Token.Keyword.AttributeSpecifier("typevar"),
+                Token.Punctuation.Colon,
+                Token.Type("MyAttribute"),
+                Token.Punctuation.CloseBracket,
+                Token.Identifier.TypeParameterName("T"),
+                Token.Punctuation.TypeParameter.End]);
+        });
     });
 });

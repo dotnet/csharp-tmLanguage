@@ -189,7 +189,7 @@ repository:
       - include: '#operator-assignment'
 
   attribute-section:
-    begin: (\[)(assembly|module|field|event|method|param|property|return|type)?(\:)?
+    begin: (\[)(assembly|module|field|event|method|param|property|return|typevar|type)?(\:)?
     beginCaptures:
       '1': { name: punctuation.squarebracket.open.cs }
       '2': { name: keyword.other.attribute-specifier.cs }
