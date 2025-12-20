@@ -4799,13 +4799,13 @@
         <key>begin</key>
         <string>(?x)
 (?:
-  (?:(\bscoped)\s+(?:(\bref)\s+)?)?    # scoped local
-  (?:(\bref)\s+(?:(\breadonly)\s+)?)?  # ref local
+  (?:(\bscoped)\s+(?:(\bref)\s+)?)?      # scoped ref local
+  (?:(\bref)\s+(?:(\breadonly|scoped)\s+)?)?  # ref readonly or ref scoped local
   (\bvar\b)|
   (?&lt;type_name&gt;
     (?:
-      (?:scoped\s+(?:ref\s+)?)?     # scoped local
-      (?:ref\s+(?:readonly\s+)?)?   # ref local
+      (?:scoped\s+(?:ref\s+)?)?           # scoped ref local
+      (?:ref\s+(?:(?:readonly|scoped)\s+)?)?  # ref, optionally followed by readonly or scoped
       (?:
         (?:(?&lt;identifier&gt;@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
         (?&lt;name_and_type_args&gt; # identifier + type arguments (if any)
@@ -4850,7 +4850,7 @@
           <key>4</key>
           <dict>
             <key>name</key>
-            <string>storage.modifier.readonly.cs</string>
+            <string>storage.modifier.$4.cs</string>
           </dict>
           <key>5</key>
           <dict>
@@ -7298,6 +7298,7 @@
         <key>match</key>
         <string>(?x)
 (?:(?:\b(scoped|ref|params|out|in|this)\b)\s+)?
+(?:(?:\b(ref|scoped|readonly)\b)\s+)?
 (?&lt;type_name&gt;
   (?:
     (?:ref\s+)?   # ref return
@@ -7331,6 +7332,11 @@
           </dict>
           <key>2</key>
           <dict>
+            <key>name</key>
+            <string>storage.modifier.$2.cs</string>
+          </dict>
+          <key>3</key>
+          <dict>
             <key>patterns</key>
             <array>
               <dict>
@@ -7339,7 +7345,7 @@
               </dict>
             </array>
           </dict>
-          <key>7</key>
+          <key>8</key>
           <dict>
             <key>name</key>
             <string>entity.name.variable.parameter.cs</string>

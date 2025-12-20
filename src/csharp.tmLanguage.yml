@@ -1739,13 +1739,13 @@ repository:
     begin: |-
       (?x)
       (?:
-        (?:(\bscoped)\s+(?:(\bref)\s+)?)?    # scoped local
-        (?:(\bref)\s+(?:(\breadonly)\s+)?)?  # ref local
+        (?:(\bscoped)\s+(?:(\bref)\s+)?)?      # scoped ref local
+        (?:(\bref)\s+(?:(\breadonly|scoped)\s+)?)?  # ref readonly or ref scoped local
         (\bvar\b)|
         (?<type_name>
           (?:
-            (?:scoped\s+(?:ref\s+)?)?     # scoped local
-            (?:ref\s+(?:readonly\s+)?)?   # ref local
+            (?:scoped\s+(?:ref\s+)?)?           # scoped ref local
+            (?:ref\s+(?:(?:readonly|scoped)\s+)?)?  # ref, optionally followed by readonly or scoped
             (?:
               (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
               (?<name_and_type_args> # identifier + type arguments (if any)
@@ -1774,7 +1774,7 @@ repository:
       1: { name: storage.modifier.scoped.cs }
       2: { name: storage.modifier.ref.cs }
       3: { name: storage.modifier.ref.cs }
-      4: { name: storage.modifier.readonly.cs }
+      4: { name: storage.modifier.$4.cs }
       5: { name: storage.type.var.cs }
       6:
         patterns:
@@ -2835,6 +2835,7 @@ repository:
     match: |-
       (?x)
       (?:(?:\b(scoped|ref|params|out|in|this)\b)\s+)?
+      (?:(?:\b(ref|scoped|readonly)\b)\s+)?
       (?<type_name>
         (?:
           (?:ref\s+)?   # ref return
@@ -2861,14 +2862,15 @@ repository:
       (\g<identifier>)
     captures:
       1: { name: storage.modifier.$1.cs }
-      2:
+      2: { name: storage.modifier.$2.cs }
+      3:
         patterns:
         - include: '#type'
-      # '3': ?<identifier> is a sub-expression. It's final value is not considered.
-      # '4': ?<name_and_type_args> is a sub-expression. It's final value is not considered.
-      # '5': ?<type_args> is a sub-expression. It's final value is not considered.
-      # '6': ?<tuple> is a sub-expression. It's final value is not considered.
-      7: { name: entity.name.variable.parameter.cs }
+      # '4': ?<identifier> is a sub-expression. It's final value is not considered.
+      # '5': ?<name_and_type_args> is a sub-expression. It's final value is not considered.
+      # '6': ?<type_args> is a sub-expression. It's final value is not considered.
+      # '7': ?<tuple> is a sub-expression. It's final value is not considered.
+      8: { name: entity.name.variable.parameter.cs }
 
   argument-list:
     begin: \(

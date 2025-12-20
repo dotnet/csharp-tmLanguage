@@ -857,6 +857,37 @@ public static Span<T> CreateSpan<T>(scoped ref T reference, int length) {}
             ]);
         });
 
+        it("ref scoped parameter in parameter list (#306)", async () => {
+            const input = Input.InClass(`
+public static Span<T> CreateSpan<T>(ref scoped T reference, int length) {}
+`);
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keyword.Modifier.Public,
+                Token.Keyword.Modifier.Static,
+                Token.Type("Span"),
+                Token.Punctuation.TypeParameter.Begin,
+                Token.Type("T"),
+                Token.Punctuation.TypeParameter.End,
+                Token.Identifier.MethodName("CreateSpan"),
+                Token.Punctuation.TypeParameter.Begin,
+                Token.Identifier.TypeParameterName("T"),
+                Token.Punctuation.TypeParameter.End,
+                Token.Punctuation.OpenParen,
+                Token.Keyword.Modifier.Ref,
+                Token.Keyword.Modifier.Scoped,
+                Token.Type("T"),
+                Token.Identifier.ParameterName("reference"),
+                Token.Punctuation.Comma,
+                Token.PrimitiveType.Int,
+                Token.Identifier.ParameterName("length"),
+                Token.Punctuation.CloseParen,
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.CloseBrace
+            ]);
+        });
+
         it("expression body and type constraint (issue #74)", async () => {
             const input = Input.InClass(`
 T id1<T>(T a) => a;

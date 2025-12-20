@@ -2931,13 +2931,13 @@ repository:
     begin: '''
       (?x)
       (?:
-        (?:(\\bscoped)\\s+(?:(\\bref)\\s+)?)?    # scoped local
-        (?:(\\bref)\\s+(?:(\\breadonly)\\s+)?)?  # ref local
+        (?:(\\bscoped)\\s+(?:(\\bref)\\s+)?)?      # scoped ref local
+        (?:(\\bref)\\s+(?:(\\breadonly|scoped)\\s+)?)?  # ref readonly or ref scoped local
         (\\bvar\\b)|
         (?<type_name>
           (?:
-            (?:scoped\\s+(?:ref\\s+)?)?     # scoped local
-            (?:ref\\s+(?:readonly\\s+)?)?   # ref local
+            (?:scoped\\s+(?:ref\\s+)?)?           # scoped ref local
+            (?:ref\\s+(?:(?:readonly|scoped)\\s+)?)?  # ref, optionally followed by readonly or scoped
             (?:
               (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
               (?<name_and_type_args> # identifier + type arguments (if any)
@@ -2971,7 +2971,7 @@ repository:
       "3":
         name: "storage.modifier.ref.cs"
       "4":
-        name: "storage.modifier.readonly.cs"
+        name: "storage.modifier.$4.cs"
       "5":
         name: "storage.type.var.cs"
       "6":
@@ -4401,6 +4401,7 @@ repository:
     match: '''
       (?x)
       (?:(?:\\b(scoped|ref|params|out|in|this)\\b)\\s+)?
+      (?:(?:\\b(ref|scoped|readonly)\\b)\\s+)?
       (?<type_name>
         (?:
           (?:ref\\s+)?   # ref return
@@ -4430,12 +4431,14 @@ repository:
       "1":
         name: "storage.modifier.$1.cs"
       "2":
+        name: "storage.modifier.$2.cs"
+      "3":
         patterns: [
           {
             include: "#type"
           }
         ]
-      "7":
+      "8":
         name: "entity.name.variable.parameter.cs"
   "argument-list":
     begin: "\\("

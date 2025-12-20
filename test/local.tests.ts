@@ -169,6 +169,44 @@ describe("Locals", () => {
             ]);
         });
 
+        it("ref scoped local", async () => {
+            const input = Input.InMethod(`ref scoped Span<int> x = stackalloc int[42];`);
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keyword.Modifier.Ref,
+                Token.Keyword.Modifier.Scoped,
+                Token.Type("Span"),
+                Token.Punctuation.TypeParameter.Begin,
+                Token.PrimitiveType.Int,
+                Token.Punctuation.TypeParameter.End,
+                Token.Identifier.LocalName("x"),
+                Token.Operator.Assignment,
+                Token.Operator.Expression.StackAlloc,
+                Token.PrimitiveType.Int,
+                Token.Punctuation.OpenBracket,
+                Token.Literal.Numeric.Decimal("42"),
+                Token.Punctuation.CloseBracket,
+                Token.Punctuation.Semicolon
+            ]);
+        });
+
+        it("ref scoped local var", async () => {
+            const input = Input.InMethod(`ref scoped var x = ref y;`);
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keyword.Modifier.Ref,
+                Token.Keyword.Modifier.Scoped,
+                Token.Keyword.Definition.Var,
+                Token.Identifier.LocalName("x"),
+                Token.Operator.Assignment,
+                Token.Keyword.Modifier.Ref,
+                Token.Variable.ReadWrite("y"),
+                Token.Punctuation.Semicolon
+            ]);
+        });
+
         it("ref local", async () => {
             const input = Input.InMethod(`ref int x;`);
             const tokens = await tokenize(input);
