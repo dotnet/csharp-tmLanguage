@@ -423,5 +423,60 @@ describe("Tuples", () => {
                 Token.Punctuation.CloseBrace
             ]);
         });
+
+        it("Deconstruct with mixed type and var (int _, var _)", async () => {
+            const input = Input.InMethod(`(int _, var _) = (1, 2);`);
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.OpenParen,
+                Token.PrimitiveType.Int,
+                Token.Identifier.TupleElementName("_"),
+                Token.Punctuation.Comma,
+                Token.Keyword.Definition.Var,
+                Token.Identifier.TupleElementName("_"),
+                Token.Punctuation.CloseParen,
+                Token.Operator.Assignment,
+                Token.Punctuation.OpenParen,
+                Token.Literal.Numeric.Decimal("1"),
+                Token.Punctuation.Comma,
+                Token.Literal.Numeric.Decimal("2"),
+                Token.Punctuation.CloseParen,
+                Token.Punctuation.Semicolon
+            ]);
+        });
+
+        it("Deconstruct with all vars and discards (var _, var _, var _)", async () => {
+            const input = Input.InMethod(`(var _, var _, var _) = ('a', 'b', 'c');`);
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.OpenParen,
+                Token.Keyword.Definition.Var,
+                Token.Identifier.TupleElementName("_"),
+                Token.Punctuation.Comma,
+                Token.Keyword.Definition.Var,
+                Token.Identifier.TupleElementName("_"),
+                Token.Punctuation.Comma,
+                Token.Keyword.Definition.Var,
+                Token.Identifier.TupleElementName("_"),
+                Token.Punctuation.CloseParen,
+                Token.Operator.Assignment,
+                Token.Punctuation.OpenParen,
+                Token.Punctuation.Char.Begin,
+                Token.Literal.Char("a"),
+                Token.Punctuation.Char.End,
+                Token.Punctuation.Comma,
+                Token.Punctuation.Char.Begin,
+                Token.Literal.Char("b"),
+                Token.Punctuation.Char.End,
+                Token.Punctuation.Comma,
+                Token.Punctuation.Char.Begin,
+                Token.Literal.Char("c"),
+                Token.Punctuation.Char.End,
+                Token.Punctuation.CloseParen,
+                Token.Punctuation.Semicolon
+            ]);
+        });
     });
 });
