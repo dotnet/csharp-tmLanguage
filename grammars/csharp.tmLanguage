@@ -4898,7 +4898,8 @@
         (?:\s*\.\s*\g&lt;name_and_type_args&gt;)* | # Are there any more names being dotted into?
         (?&lt;tuple&gt;\s*\((?:[^\(\)]|\g&lt;tuple&gt;)+\))
       )
-      (?:\s*[?*]\s*)? # nullable or pointer suffix?
+      (?:\s*\*\s*)* # pointer suffix?
+      (?:\s*\?\s*)? # nullable suffix?
       (?:\s* # array suffix?
         \[
           (?:\s*,\s*)* # commata for multi-dimensional arrays
@@ -7199,6 +7200,7 @@
       (?:\s*\.\s*\g&lt;name_and_type_args&gt;)* | # Are there any more names being dotted into?
       (?&lt;tuple&gt;\s*\((?:[^\(\)]|\g&lt;tuple&gt;)+\))
     )
+    (?:\s*\*\s*)* # pointer suffix?
     (?:\s*\?\s*)? # nullable suffix?
     (?:\s* # array suffix?
       \[
