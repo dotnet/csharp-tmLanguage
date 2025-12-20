@@ -695,5 +695,220 @@ public ActionResult Register()
                 Token.Literal.String(`"System.Net.dll"`)
             ]);
         });
+
+        it("#pragma warning disable with comment followed by code (issue)", async () => {
+            const input = Input.InClass(`
+void Bar()
+{
+#pragma warning disable 0000 // Internal compiler error
+    var x = Baz(1, 2, 3, out object error);
+#pragma warning restore 0000 // Internal compiler error
+}`);
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.PrimitiveType.Void,
+                Token.Identifier.MethodName("Bar"),
+                Token.Punctuation.OpenParen,
+                Token.Punctuation.CloseParen,
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.Hash,
+                Token.Keyword.Preprocessor.Pragma,
+                Token.Keyword.Preprocessor.Warning,
+                Token.Keyword.Preprocessor.Disable,
+                Token.Literal.Numeric.Decimal("0000"),
+                Token.Comment.SingleLine.Start,
+                Token.Comment.SingleLine.Text(" Internal compiler error"),
+                Token.Keyword.Definition.Var,
+                Token.Identifier.LocalName("x"),
+                Token.Operator.Assignment,
+                Token.Identifier.MethodName("Baz"),
+                Token.Punctuation.OpenParen,
+                Token.Literal.Numeric.Decimal("1"),
+                Token.Punctuation.Comma,
+                Token.Literal.Numeric.Decimal("2"),
+                Token.Punctuation.Comma,
+                Token.Literal.Numeric.Decimal("3"),
+                Token.Punctuation.Comma,
+                Token.Keyword.Modifier.Out,
+                Token.PrimitiveType.Object,
+                Token.Identifier.LocalName("error"),
+                Token.Punctuation.CloseParen,
+                Token.Punctuation.Semicolon,
+                Token.Punctuation.Hash,
+                Token.Keyword.Preprocessor.Pragma,
+                Token.Keyword.Preprocessor.Warning,
+                Token.Keyword.Preprocessor.Restore,
+                Token.Literal.Numeric.Decimal("0000"),
+                Token.Comment.SingleLine.Start,
+                Token.Comment.SingleLine.Text(" Internal compiler error"),
+                Token.Punctuation.CloseBrace
+            ]);
+        });
+    });
+
+    describe("AppDirectives", () => {
+        it("#:package", async () => {
+            const input = `#:package`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Punctuation.Colon,
+                Token.Keyword.Preprocessor.Package,
+            ]);
+        });
+
+        it("#:package with name", async () => {
+            const input = `#:package Foo.Goo`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Punctuation.Colon,
+                Token.Keyword.Preprocessor.Package,
+                Token.Identifier.PreprocessorSymbol("Foo"),
+                Token.Punctuation.Dot,
+                Token.Identifier.PreprocessorSymbol("Goo"),
+            ]);
+        });
+
+        it("#:package with name and version", async () => {
+            const input = `#:package Foo.Goo@1.0.0`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Punctuation.Colon,
+                Token.Keyword.Preprocessor.Package,
+                Token.Identifier.PreprocessorSymbol("Foo"),
+                Token.Punctuation.Dot,
+                Token.Identifier.PreprocessorSymbol("Goo"),
+                Token.Punctuation.At,
+                Token.PreprocessorMessage("1.0.0"),
+            ]);
+        });
+
+        it("#:project", async () => {
+            const input = `#:project`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Punctuation.Colon,
+                Token.Keyword.Preprocessor.Project,
+            ]);
+        });
+
+        it("#:project with path", async () => {
+            const input = `#:project ./path/to/project`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Punctuation.Colon,
+                Token.Keyword.Preprocessor.Project,
+                Token.PreprocessorMessage("./path/to/project"),
+            ]);
+        });
+
+        it("#:property", async () => {
+            const input = `#:property`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Punctuation.Colon,
+                Token.Keyword.Preprocessor.Property,
+            ]);
+        });
+
+        it("#:property with name", async () => {
+            const input = `#:property Foo_Property`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Punctuation.Colon,
+                Token.Keyword.Preprocessor.Property,
+                Token.Identifier.PreprocessorSymbol("Foo_Property"),
+            ]);
+        });
+
+        it("#:property with name and value", async () => {
+            const input = `#:property Foo_Property=Some Value`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Punctuation.Colon,
+                Token.Keyword.Preprocessor.Property,
+                Token.Identifier.PreprocessorSymbol("Foo_Property"),
+                Token.Punctuation.Equals,
+                Token.PreprocessorMessage("Some Value"),
+            ]);
+        });
+
+        it("#:sdk", async () => {
+            const input = `#:sdk`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Punctuation.Colon,
+                Token.Keyword.Preprocessor.Sdk,
+            ]);
+        });
+
+        it("#:sdk with name", async () => {
+            const input = `#:sdk Foo.Sdk`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Punctuation.Colon,
+                Token.Keyword.Preprocessor.Sdk,
+                Token.Identifier.PreprocessorSymbol("Foo"),
+                Token.Punctuation.Dot,
+                Token.Identifier.PreprocessorSymbol("Sdk"),
+            ]);
+        });
+
+        it("#:sdk with name and version", async () => {
+            const input = `#:sdk Foo.Sdk@1.0.0`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Punctuation.Colon,
+                Token.Keyword.Preprocessor.Sdk,
+                Token.Identifier.PreprocessorSymbol("Foo"),
+                Token.Punctuation.Dot,
+                Token.Identifier.PreprocessorSymbol("Sdk"),
+                Token.Punctuation.At,
+                Token.PreprocessorMessage("1.0.0"),
+            ]);
+        });
+
+        it("#:", async () => {
+            const input = `#:`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Punctuation.Colon,
+            ]);
+        });
+
+        it("#: with generic message", async () => {
+            const input = `#:this is a generic directive`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Punctuation.Colon,
+                Token.PreprocessorMessage("this is a generic directive"),
+            ]);
+        });
     });
 });

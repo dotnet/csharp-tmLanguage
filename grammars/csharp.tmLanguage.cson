@@ -112,6 +112,9 @@ repository:
         include: "#type-declarations"
       }
       {
+        include: "#constructor-declaration"
+      }
+      {
         include: "#property-declaration"
       }
       {
@@ -125,9 +128,6 @@ repository:
       }
       {
         include: "#variable-initializer"
-      }
-      {
-        include: "#constructor-declaration"
       }
       {
         include: "#destructor-declaration"
@@ -157,6 +157,9 @@ repository:
         include: "#comment"
       }
       {
+        include: "#storage-modifier"
+      }
+      {
         include: "#property-declaration"
       }
       {
@@ -167,6 +170,9 @@ repository:
       }
       {
         include: "#method-declaration"
+      }
+      {
+        include: "#operator-declaration"
       }
       {
         include: "#attribute-section"
@@ -470,6 +476,9 @@ repository:
         include: "#type-name"
       }
       {
+        include: "#type-arguments"
+      }
+      {
         include: "#attribute-arguments"
       }
     ]
@@ -670,11 +679,11 @@ repository:
     ]
   "enum-declaration":
     begin: "(?=\\benum\\b)"
-    end: "(?<=\\})"
+    end: "(?<=\\})|(?=;)"
     patterns: [
       {
         begin: "(?=enum)"
-        end: "(?=\\{)"
+        end: "(?=\\{)|(?=;)"
         patterns: [
           {
             include: "#comment"
@@ -749,7 +758,7 @@ repository:
     ]
   "interface-declaration":
     begin: "(?=\\binterface\\b)"
-    end: "(?<=\\})"
+    end: "(?<=\\})|(?=;)"
     patterns: [
       {
         begin: '''
@@ -762,7 +771,7 @@ repository:
             name: "storage.type.interface.cs"
           "2":
             name: "entity.name.type.interface.cs"
-        end: "(?=\\{)"
+        end: "(?=\\{)|(?=;)"
         patterns: [
           {
             include: "#comment"
@@ -951,6 +960,9 @@ repository:
     end: "(?=\\{|where|;)"
     patterns: [
       {
+        include: "#base-class-constructor-call"
+      }
+      {
         include: "#type"
       }
       {
@@ -958,6 +970,43 @@ repository:
       }
       {
         include: "#preprocessor"
+      }
+    ]
+  "base-class-constructor-call":
+    begin: '''
+      (?x)
+      (?:
+        (@?[_[:alpha:]][_[:alnum:]]*)\\s*(\\.)  # qualified name part
+      )*
+      (@?[_[:alpha:]][_[:alnum:]]*)\\s*        # type name
+      (
+        <
+        (?<type_args>
+          [^<>()]|
+          \\((?:[^<>()]|<[^<>()]*>|\\([^<>()]*\\))*\\)|
+          <\\g<type_args>*>
+        )*
+        >\\s*
+      )?                                      # optional type arguments
+      (?=\\()                                  # followed by argument list
+    '''
+    beginCaptures:
+      "1":
+        name: "entity.name.type.cs"
+      "2":
+        name: "punctuation.accessor.cs"
+      "3":
+        name: "entity.name.type.cs"
+      "4":
+        patterns: [
+          {
+            include: "#type-arguments"
+          }
+        ]
+    end: "(?<=\\))"
+    patterns: [
+      {
+        include: "#argument-list"
       }
     ]
   "generic-constraints":
@@ -1519,15 +1568,12 @@ repository:
       }
     ]
   "constructor-declaration":
-    begin: "(?=@?[_[:alpha:]][_[:alnum:]]*\\s*\\()"
+    begin: "(@?[_[:alpha:]][_[:alnum:]]*)\\s*(?=\\(|$)"
+    beginCaptures:
+      "1":
+        name: "entity.name.function.cs"
     end: "(?<=\\})|(?=;)"
     patterns: [
-      {
-        match: "(@?[_[:alpha:]][_[:alnum:]]*)\\b"
-        captures:
-          "1":
-            name: "entity.name.function.cs"
-      }
       {
         begin: "(:)"
         beginCaptures:
@@ -2553,6 +2599,15 @@ repository:
               {
                 include: "#local-variable-declaration"
               }
+              {
+                include: "#local-tuple-var-deconstruction"
+              }
+              {
+                include: "#tuple-deconstruction-assignment"
+              }
+              {
+                include: "#expression"
+              }
             ]
           }
           {
@@ -2603,9 +2658,10 @@ repository:
             match: '''
               (?x)
               (?:
-                (\\bvar\\b)|
+                (?:(\\bref)\\s+)?(\\bvar\\b)| # ref local
                 (?<type_name>
                   (?:
+                    (?:ref\\s+)?   # ref local
                     (?:
                       (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
                       (?<name_and_type_args> # identifier + type arguments (if any)
@@ -2632,16 +2688,18 @@ repository:
             '''
             captures:
               "1":
-                name: "storage.type.var.cs"
+                name: "storage.modifier.ref.cs"
               "2":
+                name: "storage.type.var.cs"
+              "3":
                 patterns: [
                   {
                     include: "#type"
                   }
                 ]
-              "7":
-                name: "entity.name.variable.local.cs"
               "8":
+                name: "entity.name.variable.local.cs"
+              "9":
                 name: "keyword.control.loop.in.cs"
           }
           {
@@ -3389,7 +3447,7 @@ repository:
       }
     ]
   interpolation:
-    name: "meta.interpolation.cs"
+    name: "meta.embedded.interpolation.cs"
     begin: "(?<=[^\\{]|^)((?:\\{\\{)*)(\\{)(?=[^\\{])"
     beginCaptures:
       "1":
@@ -3507,7 +3565,7 @@ repository:
       "0":
         name: "punctuation.definition.string.end.cs"
   "raw-interpolation":
-    name: "meta.interpolation.cs"
+    name: "meta.embedded.interpolation.cs"
     begin: "(?<=[^\\{]|^)((?:\\{)*)(\\{)(?=[^\\{])"
     beginCaptures:
       "1":
@@ -3524,7 +3582,7 @@ repository:
       }
     ]
   "double-raw-interpolation":
-    name: "meta.interpolation.cs"
+    name: "meta.embedded.interpolation.cs"
     begin: "(?<=[^\\{][^\\{]|^)((?:\\{)*)(\\{\\{)(?=[^\\{])"
     beginCaptures:
       "1":
@@ -4075,10 +4133,10 @@ repository:
       (
         <
         (?<type_args>
-          [^<>()]++|
-          <\\g<type_args>*+>|
-          \\(\\g<type_args>*+\\)
-        )*+
+          [^<>()]|
+          \\((?:[^<>()]|<[^<>()]*>|\\([^<>()]*\\))*\\)|
+          <\\g<type_args>*>
+        )*
         >\\s*
       )?                                                # type arguments
       (?=\\()                                            # open paren of argument list
@@ -5167,7 +5225,7 @@ repository:
     end: "(?<=$)"
     patterns: [
       {
-        include: "#comment"
+        include: "#preprocessor-comment"
       }
       {
         include: "#preprocessor-define-or-undef"
@@ -5202,6 +5260,27 @@ repository:
       {
         include: "#preprocessor-pragma-checksum"
       }
+      {
+        include: "#preprocessor-app-directive"
+      }
+    ]
+  "preprocessor-comment":
+    patterns: [
+      {
+        name: "comment.line.double-slash.cs"
+        match: "(//).*(?=$)"
+        captures:
+          "1":
+            name: "punctuation.definition.comment.cs"
+      }
+      {
+        name: "comment.block.cs"
+        begin: "/\\*"
+        end: "\\*/"
+        captures:
+          "0":
+            name: "punctuation.definition.comment.cs"
+      }
     ]
   "preprocessor-define-or-undef":
     match: "\\b(?:(define)|(undef))\\b\\s*\\b([_[:alpha:]][_[:alnum:]]*)\\b"
@@ -5222,7 +5301,7 @@ repository:
     end: "(?=$)"
     patterns: [
       {
-        include: "#comment"
+        include: "#preprocessor-comment"
       }
       {
         include: "#preprocessor-expression"
@@ -5348,6 +5427,97 @@ repository:
         name: "string.quoted.double.cs"
       "5":
         name: "string.quoted.double.cs"
+  "preprocessor-app-directive":
+    begin: "\\s*(:)\\s*"
+    beginCaptures:
+      "1":
+        name: "punctuation.separator.colon.cs"
+    end: "(?=$)"
+    patterns: [
+      {
+        include: "#preprocessor-app-directive-package"
+      }
+      {
+        include: "#preprocessor-app-directive-property"
+      }
+      {
+        include: "#preprocessor-app-directive-project"
+      }
+      {
+        include: "#preprocessor-app-directive-sdk"
+      }
+      {
+        include: "#preprocessor-app-directive-generic"
+      }
+    ]
+  "preprocessor-app-directive-package":
+    match: "\\b(package)\\b\\s*([_[:alpha:]][_.[:alnum:]]*)?(@)?(.*)?\\s*"
+    captures:
+      "1":
+        name: "keyword.preprocessor.package.cs"
+      "2":
+        patterns: [
+          {
+            include: "#preprocessor-app-directive-package-name"
+          }
+        ]
+      "3":
+        name: "punctuation.separator.at.cs"
+      "4":
+        name: "string.unquoted.preprocessor.message.cs"
+  "preprocessor-app-directive-property":
+    match: "\\b(property)\\b\\s*([_[:alpha:]][_[:alnum:]]*)?(=)?(.*)?\\s*"
+    captures:
+      "1":
+        name: "keyword.preprocessor.property.cs"
+      "2":
+        name: "entity.name.variable.preprocessor.symbol.cs"
+      "3":
+        name: "punctuation.separator.equals.cs"
+      "4":
+        name: "string.unquoted.preprocessor.message.cs"
+  "preprocessor-app-directive-project":
+    match: "\\b(project)\\b\\s*(.*)?\\s*"
+    captures:
+      "1":
+        name: "keyword.preprocessor.project.cs"
+      "2":
+        name: "string.unquoted.preprocessor.message.cs"
+  "preprocessor-app-directive-sdk":
+    match: "\\b(sdk)\\b\\s*([_[:alpha:]][_.[:alnum:]]*)?(@)?(.*)?\\s*"
+    captures:
+      "1":
+        name: "keyword.preprocessor.sdk.cs"
+      "2":
+        patterns: [
+          {
+            include: "#preprocessor-app-directive-package-name"
+          }
+        ]
+      "3":
+        name: "punctuation.separator.at.cs"
+      "4":
+        name: "string.unquoted.preprocessor.message.cs"
+  "preprocessor-app-directive-package-name":
+    patterns: [
+      {
+        match: "(\\.)([_[:alpha:]][_[:alnum:]]*)"
+        captures:
+          "1":
+            name: "punctuation.dot.cs"
+          "2":
+            name: "entity.name.variable.preprocessor.symbol.cs"
+      }
+      {
+        name: "entity.name.variable.preprocessor.symbol.cs"
+        match: "[_[:alpha:]][_[:alnum:]]*"
+      }
+    ]
+  "preprocessor-app-directive-generic":
+    match: "\\b(.*)?\\s*"
+    captures:
+      "1":
+        name: "string.unquoted.preprocessor.message.cs"
   "preprocessor-expression":
     patterns: [
       {

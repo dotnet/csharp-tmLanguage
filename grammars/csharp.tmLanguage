@@ -167,6 +167,10 @@
           </dict>
           <dict>
             <key>include</key>
+            <string>#constructor-declaration</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#property-declaration</string>
           </dict>
           <dict>
@@ -184,10 +188,6 @@
           <dict>
             <key>include</key>
             <string>#variable-initializer</string>
-          </dict>
-          <dict>
-            <key>include</key>
-            <string>#constructor-declaration</string>
           </dict>
           <dict>
             <key>include</key>
@@ -229,6 +229,10 @@
           </dict>
           <dict>
             <key>include</key>
+            <string>#storage-modifier</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#property-declaration</string>
           </dict>
           <dict>
@@ -242,6 +246,10 @@
           <dict>
             <key>include</key>
             <string>#method-declaration</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#operator-declaration</string>
           </dict>
           <dict>
             <key>include</key>
@@ -715,6 +723,10 @@
           </dict>
           <dict>
             <key>include</key>
+            <string>#type-arguments</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#attribute-arguments</string>
           </dict>
         </array>
@@ -1043,14 +1055,14 @@
         <key>begin</key>
         <string>(?=\benum\b)</string>
         <key>end</key>
-        <string>(?&lt;=\})</string>
+        <string>(?&lt;=\})|(?=;)</string>
         <key>patterns</key>
         <array>
           <dict>
             <key>begin</key>
             <string>(?=enum)</string>
             <key>end</key>
-            <string>(?=\{)</string>
+            <string>(?=\{)|(?=;)</string>
             <key>patterns</key>
             <array>
               <dict>
@@ -1178,7 +1190,7 @@
         <key>begin</key>
         <string>(?=\binterface\b)</string>
         <key>end</key>
-        <string>(?&lt;=\})</string>
+        <string>(?&lt;=\})|(?=;)</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -1200,7 +1212,7 @@
               </dict>
             </dict>
             <key>end</key>
-            <string>(?=\{)</string>
+            <string>(?=\{)|(?=;)</string>
             <key>patterns</key>
             <array>
               <dict>
@@ -1516,6 +1528,10 @@
         <array>
           <dict>
             <key>include</key>
+            <string>#base-class-constructor-call</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#type</string>
           </dict>
           <dict>
@@ -1525,6 +1541,62 @@
           <dict>
             <key>include</key>
             <string>#preprocessor</string>
+          </dict>
+        </array>
+      </dict>
+      <key>base-class-constructor-call</key>
+      <dict>
+        <key>begin</key>
+        <string>(?x)
+(?:
+  (@?[_[:alpha:]][_[:alnum:]]*)\s*(\.)  # qualified name part
+)*
+(@?[_[:alpha:]][_[:alnum:]]*)\s*        # type name
+(
+  &lt;
+  (?&lt;type_args&gt;
+    [^&lt;&gt;()]|
+    \((?:[^&lt;&gt;()]|&lt;[^&lt;&gt;()]*&gt;|\([^&lt;&gt;()]*\))*\)|
+    &lt;\g&lt;type_args&gt;*&gt;
+  )*
+  &gt;\s*
+)?                                      # optional type arguments
+(?=\()                                  # followed by argument list</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>entity.name.type.cs</string>
+          </dict>
+          <key>2</key>
+          <dict>
+            <key>name</key>
+            <string>punctuation.accessor.cs</string>
+          </dict>
+          <key>3</key>
+          <dict>
+            <key>name</key>
+            <string>entity.name.type.cs</string>
+          </dict>
+          <key>4</key>
+          <dict>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#type-arguments</string>
+              </dict>
+            </array>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>(?&lt;=\))</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#argument-list</string>
           </dict>
         </array>
       </dict>
@@ -2379,23 +2451,19 @@
       <key>constructor-declaration</key>
       <dict>
         <key>begin</key>
-        <string>(?=@?[_[:alpha:]][_[:alnum:]]*\s*\()</string>
+        <string>(@?[_[:alpha:]][_[:alnum:]]*)\s*(?=\(|$)</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>entity.name.function.cs</string>
+          </dict>
+        </dict>
         <key>end</key>
         <string>(?&lt;=\})|(?=;)</string>
         <key>patterns</key>
         <array>
-          <dict>
-            <key>match</key>
-            <string>(@?[_[:alpha:]][_[:alnum:]]*)\b</string>
-            <key>captures</key>
-            <dict>
-              <key>1</key>
-              <dict>
-                <key>name</key>
-                <string>entity.name.function.cs</string>
-              </dict>
-            </dict>
-          </dict>
           <dict>
             <key>begin</key>
             <string>(:)</string>
@@ -4168,6 +4236,18 @@
                     <key>include</key>
                     <string>#local-variable-declaration</string>
                   </dict>
+                  <dict>
+                    <key>include</key>
+                    <string>#local-tuple-var-deconstruction</string>
+                  </dict>
+                  <dict>
+                    <key>include</key>
+                    <string>#tuple-deconstruction-assignment</string>
+                  </dict>
+                  <dict>
+                    <key>include</key>
+                    <string>#expression</string>
+                  </dict>
                 </array>
               </dict>
               <dict>
@@ -4250,9 +4330,10 @@
                 <key>match</key>
                 <string>(?x)
 (?:
-  (\bvar\b)|
+  (?:(\bref)\s+)?(\bvar\b)| # ref local
   (?&lt;type_name&gt;
     (?:
+      (?:ref\s+)?   # ref local
       (?:
         (?:(?&lt;identifier&gt;@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
         (?&lt;name_and_type_args&gt; # identifier + type arguments (if any)
@@ -4281,9 +4362,14 @@
                   <key>1</key>
                   <dict>
                     <key>name</key>
-                    <string>storage.type.var.cs</string>
+                    <string>storage.modifier.ref.cs</string>
                   </dict>
                   <key>2</key>
+                  <dict>
+                    <key>name</key>
+                    <string>storage.type.var.cs</string>
+                  </dict>
+                  <key>3</key>
                   <dict>
                     <key>patterns</key>
                     <array>
@@ -4293,12 +4379,12 @@
                       </dict>
                     </array>
                   </dict>
-                  <key>7</key>
+                  <key>8</key>
                   <dict>
                     <key>name</key>
                     <string>entity.name.variable.local.cs</string>
                   </dict>
-                  <key>8</key>
+                  <key>9</key>
                   <dict>
                     <key>name</key>
                     <string>keyword.control.loop.in.cs</string>
@@ -5521,7 +5607,7 @@
       <key>interpolation</key>
       <dict>
         <key>name</key>
-        <string>meta.interpolation.cs</string>
+        <string>meta.embedded.interpolation.cs</string>
         <key>begin</key>
         <string>(?&lt;=[^\{]|^)((?:\{\{)*)(\{)(?=[^\{])</string>
         <key>beginCaptures</key>
@@ -5766,7 +5852,7 @@
       <key>raw-interpolation</key>
       <dict>
         <key>name</key>
-        <string>meta.interpolation.cs</string>
+        <string>meta.embedded.interpolation.cs</string>
         <key>begin</key>
         <string>(?&lt;=[^\{]|^)((?:\{)*)(\{)(?=[^\{])</string>
         <key>beginCaptures</key>
@@ -5803,7 +5889,7 @@
       <key>double-raw-interpolation</key>
       <dict>
         <key>name</key>
-        <string>meta.interpolation.cs</string>
+        <string>meta.embedded.interpolation.cs</string>
         <key>begin</key>
         <string>(?&lt;=[^\{][^\{]|^)((?:\{)*)(\{\{)(?=[^\{])</string>
         <key>beginCaptures</key>
@@ -6802,10 +6888,10 @@
 (
   &lt;
   (?&lt;type_args&gt;
-    [^&lt;&gt;()]++|
-    &lt;\g&lt;type_args&gt;*+&gt;|
-    \(\g&lt;type_args&gt;*+\)
-  )*+
+    [^&lt;&gt;()]|
+    \((?:[^&lt;&gt;()]|&lt;[^&lt;&gt;()]*&gt;|\([^&lt;&gt;()]*\))*\)|
+    &lt;\g&lt;type_args&gt;*&gt;
+  )*
   &gt;\s*
 )?                                                # type arguments
 (?=\()                                            # open paren of argument list</string>
@@ -8580,7 +8666,7 @@
         <array>
           <dict>
             <key>include</key>
-            <string>#comment</string>
+            <string>#preprocessor-comment</string>
           </dict>
           <dict>
             <key>include</key>
@@ -8625,6 +8711,46 @@
           <dict>
             <key>include</key>
             <string>#preprocessor-pragma-checksum</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#preprocessor-app-directive</string>
+          </dict>
+        </array>
+      </dict>
+      <key>preprocessor-comment</key>
+      <dict>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>name</key>
+            <string>comment.line.double-slash.cs</string>
+            <key>match</key>
+            <string>(//).*(?=$)</string>
+            <key>captures</key>
+            <dict>
+              <key>1</key>
+              <dict>
+                <key>name</key>
+                <string>punctuation.definition.comment.cs</string>
+              </dict>
+            </dict>
+          </dict>
+          <dict>
+            <key>name</key>
+            <string>comment.block.cs</string>
+            <key>begin</key>
+            <string>/\*</string>
+            <key>end</key>
+            <string>\*/</string>
+            <key>captures</key>
+            <dict>
+              <key>0</key>
+              <dict>
+                <key>name</key>
+                <string>punctuation.definition.comment.cs</string>
+              </dict>
+            </dict>
           </dict>
         </array>
       </dict>
@@ -8674,7 +8800,7 @@
         <array>
           <dict>
             <key>include</key>
-            <string>#comment</string>
+            <string>#preprocessor-comment</string>
           </dict>
           <dict>
             <key>include</key>
@@ -8953,6 +9079,198 @@
           <dict>
             <key>name</key>
             <string>string.quoted.double.cs</string>
+          </dict>
+        </dict>
+      </dict>
+      <key>preprocessor-app-directive</key>
+      <dict>
+        <key>begin</key>
+        <string>\s*(:)\s*</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>punctuation.separator.colon.cs</string>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>(?=$)</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#preprocessor-app-directive-package</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#preprocessor-app-directive-property</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#preprocessor-app-directive-project</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#preprocessor-app-directive-sdk</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#preprocessor-app-directive-generic</string>
+          </dict>
+        </array>
+      </dict>
+      <key>preprocessor-app-directive-package</key>
+      <dict>
+        <key>match</key>
+        <string>\b(package)\b\s*([_[:alpha:]][_.[:alnum:]]*)?(@)?(.*)?\s*</string>
+        <key>captures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.preprocessor.package.cs</string>
+          </dict>
+          <key>2</key>
+          <dict>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#preprocessor-app-directive-package-name</string>
+              </dict>
+            </array>
+          </dict>
+          <key>3</key>
+          <dict>
+            <key>name</key>
+            <string>punctuation.separator.at.cs</string>
+          </dict>
+          <key>4</key>
+          <dict>
+            <key>name</key>
+            <string>string.unquoted.preprocessor.message.cs</string>
+          </dict>
+        </dict>
+      </dict>
+      <key>preprocessor-app-directive-property</key>
+      <dict>
+        <key>match</key>
+        <string>\b(property)\b\s*([_[:alpha:]][_[:alnum:]]*)?(=)?(.*)?\s*</string>
+        <key>captures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.preprocessor.property.cs</string>
+          </dict>
+          <key>2</key>
+          <dict>
+            <key>name</key>
+            <string>entity.name.variable.preprocessor.symbol.cs</string>
+          </dict>
+          <key>3</key>
+          <dict>
+            <key>name</key>
+            <string>punctuation.separator.equals.cs</string>
+          </dict>
+          <key>4</key>
+          <dict>
+            <key>name</key>
+            <string>string.unquoted.preprocessor.message.cs</string>
+          </dict>
+        </dict>
+      </dict>
+      <key>preprocessor-app-directive-project</key>
+      <dict>
+        <key>match</key>
+        <string>\b(project)\b\s*(.*)?\s*</string>
+        <key>captures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.preprocessor.project.cs</string>
+          </dict>
+          <key>2</key>
+          <dict>
+            <key>name</key>
+            <string>string.unquoted.preprocessor.message.cs</string>
+          </dict>
+        </dict>
+      </dict>
+      <key>preprocessor-app-directive-sdk</key>
+      <dict>
+        <key>match</key>
+        <string>\b(sdk)\b\s*([_[:alpha:]][_.[:alnum:]]*)?(@)?(.*)?\s*</string>
+        <key>captures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.preprocessor.sdk.cs</string>
+          </dict>
+          <key>2</key>
+          <dict>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#preprocessor-app-directive-package-name</string>
+              </dict>
+            </array>
+          </dict>
+          <key>3</key>
+          <dict>
+            <key>name</key>
+            <string>punctuation.separator.at.cs</string>
+          </dict>
+          <key>4</key>
+          <dict>
+            <key>name</key>
+            <string>string.unquoted.preprocessor.message.cs</string>
+          </dict>
+        </dict>
+      </dict>
+      <key>preprocessor-app-directive-package-name</key>
+      <dict>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>match</key>
+            <string>(\.)([_[:alpha:]][_[:alnum:]]*)</string>
+            <key>captures</key>
+            <dict>
+              <key>1</key>
+              <dict>
+                <key>name</key>
+                <string>punctuation.dot.cs</string>
+              </dict>
+              <key>2</key>
+              <dict>
+                <key>name</key>
+                <string>entity.name.variable.preprocessor.symbol.cs</string>
+              </dict>
+            </dict>
+          </dict>
+          <dict>
+            <key>name</key>
+            <string>entity.name.variable.preprocessor.symbol.cs</string>
+            <key>match</key>
+            <string>[_[:alpha:]][_[:alnum:]]*</string>
+          </dict>
+        </array>
+      </dict>
+      <key>preprocessor-app-directive-generic</key>
+      <dict>
+        <key>match</key>
+        <string>\b(.*)?\s*</string>
+        <key>captures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>string.unquoted.preprocessor.message.cs</string>
           </dict>
         </dict>
       </dict>
