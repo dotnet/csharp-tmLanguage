@@ -4878,6 +4878,10 @@
             <key>include</key>
             <string>#local-tuple-var-deconstruction</string>
           </dict>
+          <dict>
+            <key>include</key>
+            <string>#local-tuple-declaration-deconstruction</string>
+          </dict>
         </array>
       </dict>
       <key>local-variable-declaration</key>
@@ -5175,6 +5179,26 @@
             <string>#variable-initializer</string>
           </dict>
         </array>
+      </dict>
+      <key>local-tuple-declaration-deconstruction</key>
+      <dict>
+        <key>match</key>
+        <string>(?x) # e.g. (int x, var y) = GetPoint();
+(?&lt;tuple&gt;\((?:[^\(\)]|\g&lt;tuple&gt;)+\))\s*
+(?!=&gt;|==)(?==)</string>
+        <key>captures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#tuple-declaration-deconstruction-element-list</string>
+              </dict>
+            </array>
+          </dict>
+        </dict>
       </dict>
       <key>tuple-deconstruction-assignment</key>
       <dict>
