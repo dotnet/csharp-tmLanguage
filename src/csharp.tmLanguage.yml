@@ -1768,6 +1768,7 @@ repository:
     patterns:
     - include: '#local-constant-declaration'
     - include: '#local-variable-declaration'
+    - include: '#attribute-section'
     - include: '#local-function-declaration'
     - include: '#local-tuple-var-deconstruction'
 
