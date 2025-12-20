@@ -355,6 +355,7 @@ export namespace Token {
             export const ReadOnly = createToken('readonly', 'storage.modifier.readonly.cs');
             export const Ref = createToken('ref', 'storage.modifier.ref.cs');
             export const Required = createToken('required', 'storage.modifier.required.cs');
+            export const Scoped = createToken('scoped', 'storage.modifier.scoped.cs');
             export const Sealed = createToken('sealed', 'storage.modifier.sealed.cs');
             export const Static = createToken('static', 'storage.modifier.static.cs');
             export const This = createToken('this', 'storage.modifier.this.cs');
