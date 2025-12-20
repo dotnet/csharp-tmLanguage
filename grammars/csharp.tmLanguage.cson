@@ -118,6 +118,9 @@ repository:
         include: "#property-declaration"
       }
       {
+        include: "#fixed-size-buffer-declaration"
+      }
+      {
         include: "#field-declaration"
       }
       {
@@ -1058,6 +1061,43 @@ repository:
       }
       {
         include: "#generic-constraints"
+      }
+    ]
+  "fixed-size-buffer-declaration":
+    begin: '''
+      (?x)
+      \\b(fixed)\\b\\s+
+      (?<type_name>
+        (?:
+          (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
+          (?<name_and_type_args> # identifier + type arguments (if any)
+            \\g<identifier>\\s*
+            (?<type_args>\\s*<(?:[^<>]|\\g<type_args>)+>\\s*)?
+          )
+          (?:\\s*\\.\\s*\\g<name_and_type_args>)* # Are there any more names being dotted into?
+        )
+      )\\s+
+      (\\g<identifier>)\\s* # buffer name
+      (?=\\[)
+    '''
+    beginCaptures:
+      "1":
+        name: "storage.modifier.fixed.cs"
+      "2":
+        patterns: [
+          {
+            include: "#type"
+          }
+        ]
+      "6":
+        name: "entity.name.variable.field.cs"
+    end: "(?=;)"
+    patterns: [
+      {
+        include: "#bracketed-argument-list"
+      }
+      {
+        include: "#comment"
       }
     ]
   "field-declaration":
