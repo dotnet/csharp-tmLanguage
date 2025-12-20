@@ -773,9 +773,10 @@ repository:
     - include: '#attribute-section'
     - name: storage.modifier.$1.cs
       match: \b(private|protected|internal)\b
-    - begin: \b(get)\b\s*(?=\{|;|=>|//|/\*|$)
+    - begin: (?:\b(readonly)\s+)?\b(get)\b\s*(?=\{|;|=>|//|/\*|$)
       beginCaptures:
-        '1': { name: storage.type.accessor.$1.cs }
+        '1': { name: storage.modifier.readonly.cs }
+        '2': { name: storage.type.accessor.get.cs }
       end: (?<=\}|;)|(?=\})
       patterns:
       - include: '#accessor-getter'

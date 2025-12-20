@@ -2109,13 +2109,18 @@
           </dict>
           <dict>
             <key>begin</key>
-            <string>\b(get)\b\s*(?=\{|;|=&gt;|//|/\*|$)</string>
+            <string>(?:\b(readonly)\s+)?\b(get)\b\s*(?=\{|;|=&gt;|//|/\*|$)</string>
             <key>beginCaptures</key>
             <dict>
               <key>1</key>
               <dict>
                 <key>name</key>
-                <string>storage.type.accessor.$1.cs</string>
+                <string>storage.modifier.readonly.cs</string>
+              </dict>
+              <key>2</key>
+              <dict>
+                <key>name</key>
+                <string>storage.type.accessor.get.cs</string>
               </dict>
             </dict>
             <key>end</key>
