@@ -668,7 +668,7 @@
       <key>attribute-section</key>
       <dict>
         <key>begin</key>
-        <string>(\[)(assembly|module|field|event|method|param|property|return|type)?(\:)?</string>
+        <string>(\[)(assembly|module|event|field|method|param|property|return|type|typevar)?(\:)?</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
@@ -2795,7 +2795,33 @@
           </dict>
           <dict>
             <key>include</key>
+            <string>#lambda-expression</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#expression</string>
+          </dict>
+        </array>
+      </dict>
+      <key>lambda-expression</key>
+      <dict>
+        <key>begin</key>
+        <string>(?=(?:\[.*\].*)?\(.*\).*=&gt;)</string>
+        <key>end</key>
+        <string>(?=;)</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#attribute-section</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#parenthesized-parameter-list</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#expression-body</string>
           </dict>
         </array>
       </dict>
@@ -7358,6 +7384,10 @@
           </dict>
           <dict>
             <key>include</key>
+            <string>#parameter-identifier</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#punctuation-comma</string>
           </dict>
           <dict>
@@ -7418,6 +7448,13 @@
             <string>entity.name.variable.parameter.cs</string>
           </dict>
         </dict>
+      </dict>
+      <key>parameter-identifier</key>
+      <dict>
+        <key>name</key>
+        <string>entity.name.variable.parameter.cs</string>
+        <key>match</key>
+        <string>(?&lt;!\.)@?\b[_[:alpha:]][_[:alnum:]]*\b(?!\.)</string>
       </dict>
       <key>argument-list</key>
       <dict>

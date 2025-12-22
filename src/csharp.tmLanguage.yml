@@ -189,7 +189,7 @@ repository:
       - include: '#operator-assignment'
 
   attribute-section:
-    begin: (\[)(assembly|module|field|event|method|param|property|return|type)?(\:)?
+    begin: (\[)(assembly|module|event|field|method|param|property|return|type|typevar)?(\:)?
     beginCaptures:
       '1': { name: punctuation.squarebracket.open.cs }
       '2': { name: keyword.other.attribute-specifier.cs }
@@ -1055,7 +1055,16 @@ repository:
     end: (?=[,\)\];}])
     patterns:
     - include: '#ref-modifier'
+    - include: '#lambda-expression'
     - include: '#expression'
+
+  lambda-expression:
+    begin: (?=(?:\[.*\].*)?\(.*\).*=>)
+    end: (?=;)
+    patterns:
+    - include: '#attribute-section'
+    - include: '#parenthesized-parameter-list'
+    - include: '#expression-body'
 
   expression-body:
     begin: =>
@@ -2859,6 +2868,7 @@ repository:
     - include: '#comment'
     - include: '#attribute-section'
     - include: '#parameter'
+    - include: '#lambda-parameter'
     - include: '#punctuation-comma'
     - include: '#variable-initializer'
 
@@ -2900,6 +2910,10 @@ repository:
       # '5': ?<type_args> is a sub-expression. It's final value is not considered.
       # '6': ?<tuple> is a sub-expression. It's final value is not considered.
       7: { name: entity.name.variable.parameter.cs }
+
+  lambda-parameter:
+    name: entity.name.variable.parameter.cs
+    match: '(?<!\.)@?\b[_[:alpha:]][_[:alnum:]]*\b(?!\.)'
 
   argument-list:
     begin: \(
