@@ -1771,6 +1771,7 @@ repository:
     - include: '#local-variable-declaration'
     - include: '#local-function-declaration'
     - include: '#local-tuple-var-deconstruction'
+    - include: '#local-tuple-declaration-deconstruction'
 
   local-variable-declaration:
     begin: |-
@@ -1930,6 +1931,16 @@ repository:
     patterns:
     - include: '#comment'
     - include: '#variable-initializer'
+
+  local-tuple-declaration-deconstruction:
+    match: |-
+      (?x) # e.g. (int x, var y) = GetPoint();
+      (?<tuple>\((?:[^\(\)]|\g<tuple>)+\))\s*
+      (?!=>|==)(?==)
+    captures:
+      '1':
+        patterns:
+        - include: '#tuple-declaration-deconstruction-element-list'
 
   tuple-deconstruction-assignment:
     match: |-
