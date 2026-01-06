@@ -4943,6 +4943,10 @@
           </dict>
           <dict>
             <key>include</key>
+            <string>#attribute-section</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#local-function-declaration</string>
           </dict>
           <dict>

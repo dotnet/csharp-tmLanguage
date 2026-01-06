@@ -3027,6 +3027,9 @@ repository:
         include: "#local-variable-declaration"
       }
       {
+        include: "#attribute-section"
+      }
+      {
         include: "#local-function-declaration"
       }
       {
