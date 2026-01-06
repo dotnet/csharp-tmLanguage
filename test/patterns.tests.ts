@@ -2388,5 +2388,89 @@ private bool DecodeSwitchString(string switchString) {
         Token.Punctuation.CloseBrace
       ]);
     });
+
+    it("Boolean literals in when clause", async () => {
+      const input = Input.InMethod(`
+_ = (1, '2', "3") switch
+{
+    (var a, 'b', _) when a > 0 == true => 1,
+    (object, _, string s) when s.Length > 2 == false => 2,
+    var _ when false => 3,
+    var _ when true => 4,
+};`);
+      const tokens = await tokenize(input);
+
+      tokens.should.deep.equal([
+        Token.Variable.ReadWrite("_"),
+        Token.Operator.Assignment,
+        Token.Punctuation.OpenParen,
+        Token.Literal.Numeric.Decimal("1"),
+        Token.Punctuation.Comma,
+        Token.Punctuation.Char.Begin,
+        Token.Literal.Char("2"),
+        Token.Punctuation.Char.End,
+        Token.Punctuation.Comma,
+        Token.Punctuation.String.Begin,
+        Token.Literal.String("3"),
+        Token.Punctuation.String.End,
+        Token.Punctuation.CloseParen,
+        Token.Keyword.Conditional.Switch,
+        Token.Punctuation.OpenBrace,
+        Token.Punctuation.OpenParen,
+        Token.Keyword.Definition.Var,
+        Token.Identifier.LocalName("a"),
+        Token.Punctuation.Comma,
+        Token.Punctuation.Char.Begin,
+        Token.Literal.Char("b"),
+        Token.Punctuation.Char.End,
+        Token.Punctuation.Comma,
+        Token.Variable.Discard,
+        Token.Punctuation.CloseParen,
+        Token.Keyword.Conditional.When,
+        Token.Variable.ReadWrite("a"),
+        Token.Operator.Relational.GreaterThan,
+        Token.Literal.Numeric.Decimal("0"),
+        Token.Operator.Relational.Equals,
+        Token.Literal.Boolean.True,
+        Token.Operator.Arrow,
+        Token.Literal.Numeric.Decimal("1"),
+        Token.Punctuation.Comma,
+        Token.Punctuation.OpenParen,
+        Token.PrimitiveType.Object,
+        Token.Punctuation.Comma,
+        Token.Variable.Discard,
+        Token.Punctuation.Comma,
+        Token.PrimitiveType.String,
+        Token.Identifier.LocalName("s"),
+        Token.Punctuation.CloseParen,
+        Token.Keyword.Conditional.When,
+        Token.Variable.Object("s"),
+        Token.Punctuation.Accessor,
+        Token.Variable.Property("Length"),
+        Token.Operator.Relational.GreaterThan,
+        Token.Literal.Numeric.Decimal("2"),
+        Token.Operator.Relational.Equals,
+        Token.Literal.Boolean.False,
+        Token.Operator.Arrow,
+        Token.Literal.Numeric.Decimal("2"),
+        Token.Punctuation.Comma,
+        Token.Keyword.Definition.Var,
+        Token.Variable.Discard,
+        Token.Keyword.Conditional.When,
+        Token.Literal.Boolean.False,
+        Token.Operator.Arrow,
+        Token.Literal.Numeric.Decimal("3"),
+        Token.Punctuation.Comma,
+        Token.Keyword.Definition.Var,
+        Token.Variable.Discard,
+        Token.Keyword.Conditional.When,
+        Token.Literal.Boolean.True,
+        Token.Operator.Arrow,
+        Token.Literal.Numeric.Decimal("4"),
+        Token.Punctuation.Comma,
+        Token.Punctuation.CloseBrace,
+        Token.Punctuation.Semicolon
+      ]);
+    });
   });
 });

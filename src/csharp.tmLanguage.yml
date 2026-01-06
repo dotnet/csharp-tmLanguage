@@ -131,6 +131,8 @@ repository:
     - include: '#query-expression'
     - include: '#as-expression'
     - include: '#is-expression'
+    - include: '#boolean-literal'
+    - include: '#null-literal'
     - include: '#anonymous-method-expression'
     - include: '#object-creation-expression'
     - include: '#array-creation-expression'
