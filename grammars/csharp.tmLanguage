@@ -8978,7 +8978,7 @@
       <key>preprocessor-pragma-warning</key>
       <dict>
         <key>match</key>
-        <string>\b(pragma)\b\s*\b(warning)\b\s*\b(?:(disable)|(restore))\b(\s*[A-Za-z]*[0-9]+(?:\s*,\s*[A-Za-z]*[0-9]+)?)?</string>
+        <string>\b(pragma)\b\s*\b(warning)\b\s*\b(?:(disable)|(restore))\b([A-Za-z0-9\s,]+)</string>
         <key>captures</key>
         <dict>
           <key>1</key>
@@ -9007,7 +9007,7 @@
             <array>
               <dict>
                 <key>match</key>
-                <string>[A-Za-z]*[0-9]+</string>
+                <string>[A-Za-z0-9]+</string>
                 <key>captures</key>
                 <dict>
                   <key>0</key>

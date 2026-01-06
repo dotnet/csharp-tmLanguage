@@ -745,7 +745,7 @@ void Bar()
                 Token.Punctuation.CloseBrace
             ]);
         });
-        
+
         it("#pragma warning disable with comment followed by code", async () => {
             const input = Input.InClass(`
 #pragma warning disable IDE0001 // Comment1
@@ -774,7 +774,7 @@ void Bar()
                 Token.Comment.SingleLine.Text(" Comment2"),
             ]);
         });
-        
+
         it("#pragma warning disable multiple warnings", async () => {
             const input = Input.InClass(`
 #pragma warning disable IDE0001, IDE0002
@@ -809,7 +809,119 @@ void Bar()
                 Token.Punctuation.Semicolon,
             ]);
         });
-        
+
+        it("#pragma warning disable many warnings", async () => {
+            const input = Input.InClass(`
+#pragma warning disable IDE0001, IDE0002, 1, CS1233, XYZ9999, 404, 505, 606, 707, 808, 909
+    private int myField;
+#pragma warning restore IDE0001, IDE0002, 1, CS1233, XYZ9999, 404, 505, 606, 707, 808, 909
+    private int anotherField;
+`);
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Keyword.Preprocessor.Pragma,
+                Token.Keyword.Preprocessor.Warning,
+                Token.Keyword.Preprocessor.Disable,
+                Token.Literal.Numeric.Decimal("IDE0001"),
+                Token.Punctuation.Comma,
+                Token.Literal.Numeric.Decimal("IDE0002"),
+                Token.Punctuation.Comma,
+                Token.Literal.Numeric.Decimal("1"),
+                Token.Punctuation.Comma,
+                Token.Literal.Numeric.Decimal("CS1233"),
+                Token.Punctuation.Comma,
+                Token.Literal.Numeric.Decimal("XYZ9999"),
+                Token.Punctuation.Comma,
+                Token.Literal.Numeric.Decimal("404"),
+                Token.Punctuation.Comma,
+                Token.Literal.Numeric.Decimal("505"),
+                Token.Punctuation.Comma,
+                Token.Literal.Numeric.Decimal("606"),
+                Token.Punctuation.Comma,
+                Token.Literal.Numeric.Decimal("707"),
+                Token.Punctuation.Comma,
+                Token.Literal.Numeric.Decimal("808"),
+                Token.Punctuation.Comma,
+                Token.Literal.Numeric.Decimal("909"),
+                Token.Keyword.Modifier.Private,
+                Token.PrimitiveType.Int,
+                Token.Identifier.FieldName("myField"),
+                Token.Punctuation.Semicolon,
+                Token.Punctuation.Hash,
+                Token.Keyword.Preprocessor.Pragma,
+                Token.Keyword.Preprocessor.Warning,
+                Token.Keyword.Preprocessor.Restore,
+                Token.Literal.Numeric.Decimal("IDE0001"),
+                Token.Punctuation.Comma,
+                Token.Literal.Numeric.Decimal("IDE0002"),
+                Token.Punctuation.Comma,
+                Token.Literal.Numeric.Decimal("1"),
+                Token.Punctuation.Comma,
+                Token.Literal.Numeric.Decimal("CS1233"),
+                Token.Punctuation.Comma,
+                Token.Literal.Numeric.Decimal("XYZ9999"),
+                Token.Punctuation.Comma,
+                Token.Literal.Numeric.Decimal("404"),
+                Token.Punctuation.Comma,
+                Token.Literal.Numeric.Decimal("505"),
+                Token.Punctuation.Comma,
+                Token.Literal.Numeric.Decimal("606"),
+                Token.Punctuation.Comma,
+                Token.Literal.Numeric.Decimal("707"),
+                Token.Punctuation.Comma,
+                Token.Literal.Numeric.Decimal("808"),
+                Token.Punctuation.Comma,
+                Token.Literal.Numeric.Decimal("909"),
+                Token.Keyword.Modifier.Private,
+                Token.PrimitiveType.Int,
+                Token.Identifier.FieldName("anotherField"),
+                Token.Punctuation.Semicolon,
+            ]);
+        });
+
+        it("#pragma warning disable multiple warnings with comment", async () => {
+            const input = Input.InClass(`
+#pragma warning disable IDE0001, IDE0002, CS1234 // Comment1
+    private int myField;
+#pragma warning restore IDE0001, IDE0002 // Comment2
+    private int anotherField;
+`);
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Keyword.Preprocessor.Pragma,
+                Token.Keyword.Preprocessor.Warning,
+                Token.Keyword.Preprocessor.Disable,
+                Token.Literal.Numeric.Decimal("IDE0001"),
+                Token.Punctuation.Comma,
+                Token.Literal.Numeric.Decimal("IDE0002"),
+                Token.Punctuation.Comma,
+                Token.Literal.Numeric.Decimal("CS1234"),
+                Token.Comment.SingleLine.Start,
+                Token.Comment.SingleLine.Text(" Comment1"),
+                Token.Keyword.Modifier.Private,
+                Token.PrimitiveType.Int,
+                Token.Identifier.FieldName("myField"),
+                Token.Punctuation.Semicolon,
+                Token.Punctuation.Hash,
+                Token.Keyword.Preprocessor.Pragma,
+                Token.Keyword.Preprocessor.Warning,
+                Token.Keyword.Preprocessor.Restore,
+                Token.Literal.Numeric.Decimal("IDE0001"),
+                Token.Punctuation.Comma,
+                Token.Literal.Numeric.Decimal("IDE0002"),
+                Token.Comment.SingleLine.Start,
+                Token.Comment.SingleLine.Text(" Comment2"),
+                Token.Keyword.Modifier.Private,
+                Token.PrimitiveType.Int,
+                Token.Identifier.FieldName("anotherField"),
+                Token.Punctuation.Semicolon,
+            ]);
+        });
+
         it("#region and #endregion with comment", async () => {
             const input = Input.InClass(`
 #region My Region // This is my region
