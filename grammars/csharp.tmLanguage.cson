@@ -118,6 +118,9 @@ repository:
         include: "#property-declaration"
       }
       {
+        include: "#fixed-size-buffer-declaration"
+      }
+      {
         include: "#field-declaration"
       }
       {
@@ -453,7 +456,7 @@ repository:
       }
     ]
   "attribute-section":
-    begin: "(\\[)(assembly|module|field|event|method|param|property|return|type)?(\\:)?"
+    begin: "(\\[)(assembly|module|field|event|method|param|property|return|typevar|type)?(\\:)?"
     beginCaptures:
       "1":
         name: "punctuation.squarebracket.open.cs"
@@ -1066,6 +1069,43 @@ repository:
         include: "#generic-constraints"
       }
     ]
+  "fixed-size-buffer-declaration":
+    begin: '''
+      (?x)
+      \\b(fixed)\\b\\s+
+      (?<type_name>
+        (?:
+          (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification
+          (?<name_and_type_args> # identifier + type arguments (if any)
+            \\g<identifier>\\s*
+            (?<type_args>\\s*<(?:[^<>]|\\g<type_args>)+>\\s*)?
+          )
+          (?:\\s*\\.\\s*\\g<name_and_type_args>)* # Are there any more names being dotted into?
+        )
+      )\\s+
+      (\\g<identifier>)\\s* # buffer name
+      (?=\\[)
+    '''
+    beginCaptures:
+      "1":
+        name: "storage.modifier.fixed.cs"
+      "2":
+        patterns: [
+          {
+            include: "#type"
+          }
+        ]
+      "6":
+        name: "entity.name.variable.field.cs"
+    end: "(?=;)"
+    patterns: [
+      {
+        include: "#bracketed-argument-list"
+      }
+      {
+        include: "#comment"
+      }
+    ]
   "field-declaration":
     begin: '''
       (?x)
@@ -1367,10 +1407,12 @@ repository:
         match: "\\b(private|protected|internal)\\b"
       }
       {
-        begin: "\\b(get)\\b\\s*(?=\\{|;|=>|//|/\\*|$)"
+        begin: "(?:\\b(readonly)\\s+)?\\b(get)\\b\\s*(?=\\{|;|=>|//|/\\*|$)"
         beginCaptures:
           "1":
-            name: "storage.type.accessor.$1.cs"
+            name: "storage.modifier.readonly.cs"
+          "2":
+            name: "storage.type.accessor.get.cs"
         end: "(?<=\\}|;)|(?=\\})"
         patterns: [
           {
@@ -2990,6 +3032,9 @@ repository:
       {
         include: "#local-tuple-var-deconstruction"
       }
+      {
+        include: "#local-tuple-declaration-deconstruction"
+      }
     ]
   "local-variable-declaration":
     begin: '''
@@ -3008,7 +3053,8 @@ repository:
               (?:\\s*\\.\\s*\\g<name_and_type_args>)* | # Are there any more names being dotted into?
               (?<tuple>\\s*\\((?:[^\\(\\)]|\\g<tuple>)+\\))
             )
-            (?:\\s*[?*]\\s*)? # nullable or pointer suffix?
+            (?:\\s*\\*\\s*)* # pointer suffix?
+            (?:\\s*\\?\\s*)? # nullable suffix?
             (?:\\s* # array suffix?
               \\[
                 (?:\\s*,\\s*)* # commata for multi-dimensional arrays
@@ -3202,6 +3248,19 @@ repository:
         include: "#variable-initializer"
       }
     ]
+  "local-tuple-declaration-deconstruction":
+    match: '''
+      (?x) # e.g. (int x, var y) = GetPoint();
+      (?<tuple>\\((?:[^\\(\\)]|\\g<tuple>)+\\))\\s*
+      (?!=>|==)(?==)
+    '''
+    captures:
+      "1":
+        patterns: [
+          {
+            include: "#tuple-declaration-deconstruction-element-list"
+          }
+        ]
   "tuple-deconstruction-assignment":
     match: '''
       (?x)
@@ -4354,6 +4413,7 @@ repository:
             (?:\\s*\\.\\s*\\g<name_and_type_args>)* | # Are there any more names being dotted into?
             (?<tuple>\\s*\\((?:[^\\(\\)]|\\g<tuple>)+\\))
           )
+          (?:\\s*\\*\\s*)* # pointer suffix?
           (?:\\s*\\?\\s*)? # nullable suffix?
           (?:\\s* # array suffix?
             \\[

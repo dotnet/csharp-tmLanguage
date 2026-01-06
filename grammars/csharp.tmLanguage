@@ -175,6 +175,10 @@
           </dict>
           <dict>
             <key>include</key>
+            <string>#fixed-size-buffer-declaration</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#field-declaration</string>
           </dict>
           <dict>
@@ -676,7 +680,7 @@
       <key>attribute-section</key>
       <dict>
         <key>begin</key>
-        <string>(\[)(assembly|module|field|event|method|param|property|return|type)?(\:)?</string>
+        <string>(\[)(assembly|module|field|event|method|param|property|return|typevar|type)?(\:)?</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
@@ -1700,6 +1704,60 @@
           </dict>
         </array>
       </dict>
+      <key>fixed-size-buffer-declaration</key>
+      <dict>
+        <key>begin</key>
+        <string>(?x)
+\b(fixed)\b\s+
+(?&lt;type_name&gt;
+  (?:
+    (?:(?&lt;identifier&gt;@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
+    (?&lt;name_and_type_args&gt; # identifier + type arguments (if any)
+      \g&lt;identifier&gt;\s*
+      (?&lt;type_args&gt;\s*&lt;(?:[^&lt;&gt;]|\g&lt;type_args&gt;)+&gt;\s*)?
+    )
+    (?:\s*\.\s*\g&lt;name_and_type_args&gt;)* # Are there any more names being dotted into?
+  )
+)\s+
+(\g&lt;identifier&gt;)\s* # buffer name
+(?=\[)</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>storage.modifier.fixed.cs</string>
+          </dict>
+          <key>2</key>
+          <dict>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#type</string>
+              </dict>
+            </array>
+          </dict>
+          <key>6</key>
+          <dict>
+            <key>name</key>
+            <string>entity.name.variable.field.cs</string>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>(?=;)</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#bracketed-argument-list</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#comment</string>
+          </dict>
+        </array>
+      </dict>
       <key>field-declaration</key>
       <dict>
         <key>begin</key>
@@ -2117,13 +2175,18 @@
           </dict>
           <dict>
             <key>begin</key>
-            <string>\b(get)\b\s*(?=\{|;|=&gt;|//|/\*|$)</string>
+            <string>(?:\b(readonly)\s+)?\b(get)\b\s*(?=\{|;|=&gt;|//|/\*|$)</string>
             <key>beginCaptures</key>
             <dict>
               <key>1</key>
               <dict>
                 <key>name</key>
-                <string>storage.type.accessor.$1.cs</string>
+                <string>storage.modifier.readonly.cs</string>
+              </dict>
+              <key>2</key>
+              <dict>
+                <key>name</key>
+                <string>storage.type.accessor.get.cs</string>
               </dict>
             </dict>
             <key>end</key>
@@ -4886,6 +4949,10 @@
             <key>include</key>
             <string>#local-tuple-var-deconstruction</string>
           </dict>
+          <dict>
+            <key>include</key>
+            <string>#local-tuple-declaration-deconstruction</string>
+          </dict>
         </array>
       </dict>
       <key>local-variable-declaration</key>
@@ -4906,7 +4973,8 @@
         (?:\s*\.\s*\g&lt;name_and_type_args&gt;)* | # Are there any more names being dotted into?
         (?&lt;tuple&gt;\s*\((?:[^\(\)]|\g&lt;tuple&gt;)+\))
       )
-      (?:\s*[?*]\s*)? # nullable or pointer suffix?
+      (?:\s*\*\s*)* # pointer suffix?
+      (?:\s*\?\s*)? # nullable suffix?
       (?:\s* # array suffix?
         \[
           (?:\s*,\s*)* # commata for multi-dimensional arrays
@@ -5183,6 +5251,26 @@
             <string>#variable-initializer</string>
           </dict>
         </array>
+      </dict>
+      <key>local-tuple-declaration-deconstruction</key>
+      <dict>
+        <key>match</key>
+        <string>(?x) # e.g. (int x, var y) = GetPoint();
+(?&lt;tuple&gt;\((?:[^\(\)]|\g&lt;tuple&gt;)+\))\s*
+(?!=&gt;|==)(?==)</string>
+        <key>captures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#tuple-declaration-deconstruction-element-list</string>
+              </dict>
+            </array>
+          </dict>
+        </dict>
       </dict>
       <key>tuple-deconstruction-assignment</key>
       <dict>
@@ -7207,6 +7295,7 @@
       (?:\s*\.\s*\g&lt;name_and_type_args&gt;)* | # Are there any more names being dotted into?
       (?&lt;tuple&gt;\s*\((?:[^\(\)]|\g&lt;tuple&gt;)+\))
     )
+    (?:\s*\*\s*)* # pointer suffix?
     (?:\s*\?\s*)? # nullable suffix?
     (?:\s* # array suffix?
       \[
