@@ -501,6 +501,103 @@ var a = new A // comment
         ]);
       });
 
+      it("lambda with attributes (issue #303)", async () => {
+        const input = Input.InMethod(`
+var concat = ([DisallowNull] string a, [DisallowNull] string b) => a + b;
+var inc = [return: NotNullIfNotNull(nameof(s))] (int? s) => s.HasValue ? s++ : null;
+Func<string?, int?> parse = [ProvidesNullCheck] (s) => (s is not null) ? int.Parse(s) : null;
+`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("concat"),
+          Token.Operator.Assignment,
+          Token.Punctuation.OpenParen,
+          Token.Punctuation.OpenBracket,
+          Token.Type("DisallowNull"),
+          Token.Punctuation.CloseBracket,
+          Token.PrimitiveType.String,
+          Token.Identifier.ParameterName("a"),
+          Token.Punctuation.Comma,
+          Token.Punctuation.OpenBracket,
+          Token.Type("DisallowNull"),
+          Token.Punctuation.CloseBracket,
+          Token.PrimitiveType.String,
+          Token.Identifier.ParameterName("b"),
+          Token.Punctuation.CloseParen,
+          Token.Operator.Arrow,
+          Token.Variable.ReadWrite("a"),
+          Token.Operator.Arithmetic.Addition,
+          Token.Variable.ReadWrite("b"),
+          Token.Punctuation.Semicolon,
+
+          Token.Keyword.Definition.Var,
+          Token.Identifier.LocalName("inc"),
+          Token.Operator.Assignment,
+          Token.Punctuation.OpenBracket,
+          Token.Keyword.AttributeSpecifier("return"),
+          Token.Punctuation.Colon,
+          Token.Type("NotNullIfNotNull"),
+          Token.Punctuation.OpenParen,
+          Token.Operator.Expression.NameOf,
+          Token.Punctuation.OpenParen,
+          Token.Variable.ReadWrite("s"),
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.CloseParen,
+          Token.Punctuation.CloseBracket,
+          Token.Punctuation.OpenParen,
+          Token.PrimitiveType.Int,
+          Token.Punctuation.QuestionMark,
+          Token.Identifier.ParameterName("s"),
+          Token.Punctuation.CloseParen,
+          Token.Operator.Arrow,
+          Token.Variable.Object("s"),
+          Token.Punctuation.Accessor,
+          Token.Variable.Property("HasValue"),
+          Token.Operator.Conditional.QuestionMark,
+          Token.Variable.ReadWrite("s"),
+          Token.Operator.Increment,
+          Token.Operator.Conditional.Colon,
+          Token.Literal.Null,
+          Token.Punctuation.Semicolon,
+
+          Token.Type("Func"),
+          Token.Punctuation.TypeParameter.Begin,
+          Token.PrimitiveType.String,
+          Token.Punctuation.QuestionMark,
+          Token.Punctuation.Comma,
+          Token.PrimitiveType.Int,
+          Token.Punctuation.QuestionMark,
+          Token.Punctuation.TypeParameter.End,
+          Token.Identifier.LocalName("parse"),
+          Token.Operator.Assignment,
+          Token.Punctuation.OpenBracket,
+          Token.Type("ProvidesNullCheck"),
+          Token.Punctuation.CloseBracket,
+          Token.Punctuation.OpenParen,
+          Token.Identifier.ParameterName("s"),
+          Token.Punctuation.CloseParen,
+          Token.Operator.Arrow,
+          Token.Punctuation.OpenParen,
+          Token.Variable.ReadWrite("s"),
+          Token.Operator.Pattern.Is,
+          Token.Operator.Pattern.Not,
+          Token.Literal.Null,
+          Token.Punctuation.CloseParen,
+          Token.Operator.Conditional.QuestionMark,
+          Token.PrimitiveType.Int,
+          Token.Punctuation.Accessor,
+          Token.Identifier.MethodName("Parse"),
+          Token.Punctuation.OpenParen,
+          Token.Variable.ReadWrite("s"),
+          Token.Punctuation.CloseParen,
+          Token.Operator.Conditional.Colon,
+          Token.Literal.Null,
+          Token.Punctuation.Semicolon
+        ]);
+      });
+
       it("async lambda assigned to dotted name (issue #142)", async () => {
         const input = Input.InMethod(
           `Something.listener = async args => { return true; };`
