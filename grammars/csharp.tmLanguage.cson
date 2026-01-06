@@ -3047,7 +3047,8 @@ repository:
               (?:\\s*\\.\\s*\\g<name_and_type_args>)* | # Are there any more names being dotted into?
               (?<tuple>\\s*\\((?:[^\\(\\)]|\\g<tuple>)+\\))
             )
-            (?:\\s*[?*]\\s*)? # nullable or pointer suffix?
+            (?:\\s*\\*\\s*)* # pointer suffix?
+            (?:\\s*\\?\\s*)? # nullable suffix?
             (?:\\s* # array suffix?
               \\[
                 (?:\\s*,\\s*)* # commata for multi-dimensional arrays
@@ -4406,6 +4407,7 @@ repository:
             (?:\\s*\\.\\s*\\g<name_and_type_args>)* | # Are there any more names being dotted into?
             (?<tuple>\\s*\\((?:[^\\(\\)]|\\g<tuple>)+\\))
           )
+          (?:\\s*\\*\\s*)* # pointer suffix?
           (?:\\s*\\?\\s*)? # nullable suffix?
           (?:\\s* # array suffix?
             \\[
