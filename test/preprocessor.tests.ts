@@ -745,6 +745,98 @@ void Bar()
                 Token.Punctuation.CloseBrace
             ]);
         });
+        
+        it("#pragma warning disable with comment followed by code", async () => {
+            const input = Input.InClass(`
+#pragma warning disable IDE0001 // Comment1
+    private int myField;
+#pragma warning restore IDE0001 // Comment2`);
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Keyword.Preprocessor.Pragma,
+                Token.Keyword.Preprocessor.Warning,
+                Token.Keyword.Preprocessor.Disable,
+                Token.Literal.Numeric.Decimal("IDE0001"),
+                Token.Comment.SingleLine.Start,
+                Token.Comment.SingleLine.Text(" Comment1"),
+                Token.Keyword.Modifier.Private,
+                Token.PrimitiveType.Int,
+                Token.Identifier.FieldName("myField"),
+                Token.Punctuation.Semicolon,
+                Token.Punctuation.Hash,
+                Token.Keyword.Preprocessor.Pragma,
+                Token.Keyword.Preprocessor.Warning,
+                Token.Keyword.Preprocessor.Restore,
+                Token.Literal.Numeric.Decimal("IDE0001"),
+                Token.Comment.SingleLine.Start,
+                Token.Comment.SingleLine.Text(" Comment2"),
+            ]);
+        });
+        
+        it("#pragma warning disable multiple warnings", async () => {
+            const input = Input.InClass(`
+#pragma warning disable IDE0001, IDE0002
+    private int myField;
+#pragma warning restore IDE0001, IDE0002
+    private int anotherField;
+`);
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Keyword.Preprocessor.Pragma,
+                Token.Keyword.Preprocessor.Warning,
+                Token.Keyword.Preprocessor.Disable,
+                Token.Literal.Numeric.Decimal("IDE0001"),
+                Token.Punctuation.Comma,
+                Token.Literal.Numeric.Decimal("IDE0002"),
+                Token.Keyword.Modifier.Private,
+                Token.PrimitiveType.Int,
+                Token.Identifier.FieldName("myField"),
+                Token.Punctuation.Semicolon,
+                Token.Punctuation.Hash,
+                Token.Keyword.Preprocessor.Pragma,
+                Token.Keyword.Preprocessor.Warning,
+                Token.Keyword.Preprocessor.Restore,
+                Token.Literal.Numeric.Decimal("IDE0001"),
+                Token.Punctuation.Comma,
+                Token.Literal.Numeric.Decimal("IDE0002"),
+                Token.Keyword.Modifier.Private,
+                Token.PrimitiveType.Int,
+                Token.Identifier.FieldName("anotherField"),
+                Token.Punctuation.Semicolon,
+            ]);
+        });
+        
+        it("#region and #endregion with comment", async () => {
+            const input = Input.InClass(`
+#region My Region // This is my region
+    private int myField;
+#endregion // End of my region
+    private int anotherField;
+`);
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Keyword.Preprocessor.Region,
+                Token.PreprocessorMessage("My Region // This is my region"),
+                Token.Keyword.Modifier.Private,
+                Token.PrimitiveType.Int,
+                Token.Identifier.FieldName("myField"),
+                Token.Punctuation.Semicolon,
+                Token.Punctuation.Hash,
+                Token.Keyword.Preprocessor.EndRegion,
+                Token.Comment.SingleLine.Start,
+                Token.Comment.SingleLine.Text(" End of my region"),
+                Token.Keyword.Modifier.Private,
+                Token.PrimitiveType.Int,
+                Token.Identifier.FieldName("anotherField"),
+                Token.Punctuation.Semicolon,
+            ]);
+        });
     });
 
     describe("AppDirectives", () => {

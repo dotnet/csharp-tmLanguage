@@ -3512,7 +3512,7 @@ repository:
         '0': { name: string.quoted.double.cs }
 
   preprocessor-pragma-warning:
-    match: \b(pragma)\b\s*\b(warning)\b\s*\b(?:(disable)|(restore))\b(\s*[0-9]+(?:\s*,\s*[0-9]+)?)?
+    match: \b(pragma)\b\s*\b(warning)\b\s*\b(?:(disable)|(restore))\b(\s*[A-Za-z]*[0-9]+(?:\s*,\s*[A-Za-z]*[0-9]+)?)?
     captures:
       '1': { name: keyword.preprocessor.pragma.cs }
       '2': { name: keyword.preprocessor.warning.cs }
@@ -3520,7 +3520,7 @@ repository:
       '4': { name: keyword.preprocessor.restore.cs }
       '5':
         patterns:
-        - match: '[0-9]+'
+        - match: '[A-Za-z]*[0-9]+'
           captures:
             '0': { name: constant.numeric.decimal.cs }
         - include: '#punctuation-comma'

@@ -4,3 +4,4 @@ out/
 grammars/*.json
 npm-debug.log*
 copy.sh
+bun.lock
