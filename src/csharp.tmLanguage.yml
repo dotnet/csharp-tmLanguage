@@ -54,6 +54,7 @@ repository:
     - include: '#type-declarations'
     - include: '#constructor-declaration'
     - include: '#property-declaration'
+    - include: '#fixed-size-buffer-declaration'
     - include: '#field-declaration'
     - include: '#event-declaration'
     - include: '#indexer-declaration'
@@ -130,6 +131,8 @@ repository:
     - include: '#query-expression'
     - include: '#as-expression'
     - include: '#is-expression'
+    - include: '#boolean-literal'
+    - include: '#null-literal'
     - include: '#anonymous-method-expression'
     - include: '#object-creation-expression'
     - include: '#array-creation-expression'
@@ -189,7 +192,7 @@ repository:
       - include: '#operator-assignment'
 
   attribute-section:
-    begin: (\[)(assembly|module|field|event|method|param|property|return|type)?(\:)?
+    begin: (\[)(assembly|module|field|event|method|param|property|return|typevar|type)?(\:)?
     beginCaptures:
       '1': { name: punctuation.squarebracket.open.cs }
       '2': { name: keyword.other.attribute-specifier.cs }
@@ -543,6 +546,36 @@ repository:
     - include: '#punctuation-comma'
     - include: '#generic-constraints'
 
+  fixed-size-buffer-declaration:
+    begin: |-
+      (?x)
+      \b(fixed)\b\s+
+      (?<type_name>
+        (?:
+          (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? # alias-qualification
+          (?<name_and_type_args> # identifier + type arguments (if any)
+            \g<identifier>\s*
+            (?<type_args>\s*<(?:[^<>]|\g<type_args>)+>\s*)?
+          )
+          (?:\s*\.\s*\g<name_and_type_args>)* # Are there any more names being dotted into?
+        )
+      )\s+
+      (\g<identifier>)\s* # buffer name
+      (?=\[)
+    beginCaptures:
+      '1': { name: storage.modifier.fixed.cs }
+      '2':
+        patterns:
+        - include: '#type'
+      # '3': ?<identifier> is a sub-expression. It's final value is not considered.
+      # '4': ?<name_and_type_args> is a sub-expression. It's final value is not considered.
+      # '5': ?<type_args> is a sub-expression. It's final value is not considered.
+      '6': { name: entity.name.variable.field.cs }
+    end: (?=;)
+    patterns:
+    - include: '#bracketed-argument-list'
+    - include: '#comment'
+
   field-declaration:
     begin: |-
       (?x)
@@ -773,9 +806,10 @@ repository:
     - include: '#attribute-section'
     - name: storage.modifier.$1.cs
       match: \b(private|protected|internal)\b
-    - begin: \b(get)\b\s*(?=\{|;|=>|//|/\*|$)
+    - begin: (?:\b(readonly)\s+)?\b(get)\b\s*(?=\{|;|=>|//|/\*|$)
       beginCaptures:
-        '1': { name: storage.type.accessor.$1.cs }
+        '1': { name: storage.modifier.readonly.cs }
+        '2': { name: storage.type.accessor.get.cs }
       end: (?<=\}|;)|(?=\})
       patterns:
       - include: '#accessor-getter'
@@ -1770,6 +1804,7 @@ repository:
     - include: '#local-variable-declaration'
     - include: '#local-function-declaration'
     - include: '#local-tuple-var-deconstruction'
+    - include: '#local-tuple-declaration-deconstruction'
 
   local-variable-declaration:
     begin: |-
@@ -1788,7 +1823,8 @@ repository:
               (?:\s*\.\s*\g<name_and_type_args>)* | # Are there any more names being dotted into?
               (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
             )
-            (?:\s*[?*]\s*)? # nullable or pointer suffix?
+            (?:\s*\*\s*)* # pointer suffix?
+            (?:\s*\?\s*)? # nullable suffix?
             (?:\s* # array suffix?
               \[
                 (?:\s*,\s*)* # commata for multi-dimensional arrays
@@ -1929,6 +1965,16 @@ repository:
     patterns:
     - include: '#comment'
     - include: '#variable-initializer'
+
+  local-tuple-declaration-deconstruction:
+    match: |-
+      (?x) # e.g. (int x, var y) = GetPoint();
+      (?<tuple>\((?:[^\(\)]|\g<tuple>)+\))\s*
+      (?!=>|==)(?==)
+    captures:
+      '1':
+        patterns:
+        - include: '#tuple-declaration-deconstruction-element-list'
 
   tuple-deconstruction-assignment:
     match: |-
@@ -2800,6 +2846,7 @@ repository:
             (?:\s*\.\s*\g<name_and_type_args>)* | # Are there any more names being dotted into?
             (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\))
           )
+          (?:\s*\*\s*)* # pointer suffix?
           (?:\s*\?\s*)? # nullable suffix?
           (?:\s* # array suffix?
             \[

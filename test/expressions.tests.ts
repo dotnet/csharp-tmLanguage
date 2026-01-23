@@ -92,6 +92,72 @@ describe("Expressions", () => {
         ]);
       });
 
+      it("with stackalloc keyword and int* array", async () => {
+        const input = Input.InMethod(`int** pp = stackalloc int*[10];`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.PrimitiveType.Int,
+          Token.Punctuation.Asterisk,
+          Token.Punctuation.Asterisk,
+          Token.Identifier.LocalName("pp"),
+          Token.Operator.Assignment,
+          Token.Operator.Expression.StackAlloc,
+          Token.PrimitiveType.Int,
+          Token.Punctuation.Asterisk,
+          Token.Punctuation.OpenBracket,
+          Token.Literal.Numeric.Decimal("10"),
+          Token.Punctuation.CloseBracket,
+          Token.Punctuation.Semicolon
+        ]);
+      });
+
+      it("with stackalloc keyword and int** array", async () => {
+        const input = Input.InMethod(`int*** ppp = stackalloc int**[10];`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.PrimitiveType.Int,
+          Token.Punctuation.Asterisk,
+          Token.Punctuation.Asterisk,
+          Token.Punctuation.Asterisk,
+          Token.Identifier.LocalName("ppp"),
+          Token.Operator.Assignment,
+          Token.Operator.Expression.StackAlloc,
+          Token.PrimitiveType.Int,
+          Token.Punctuation.Asterisk,
+          Token.Punctuation.Asterisk,
+          Token.Punctuation.OpenBracket,
+          Token.Literal.Numeric.Decimal("10"),
+          Token.Punctuation.CloseBracket,
+          Token.Punctuation.Semicolon
+        ]);
+      });
+
+      it("with stackalloc keyword and int*** array", async () => {
+        const input = Input.InMethod(`int**** pppp = stackalloc int***[10];`);
+        const tokens = await tokenize(input);
+
+        tokens.should.deep.equal([
+          Token.PrimitiveType.Int,
+          Token.Punctuation.Asterisk,
+          Token.Punctuation.Asterisk,
+          Token.Punctuation.Asterisk,
+          Token.Punctuation.Asterisk,
+          Token.Identifier.LocalName("pppp"),
+          Token.Operator.Assignment,
+          Token.Operator.Expression.StackAlloc,
+          Token.PrimitiveType.Int,
+          Token.Punctuation.Asterisk,
+          Token.Punctuation.Asterisk,
+          Token.Punctuation.Asterisk,
+          Token.Punctuation.OpenBracket,
+          Token.Literal.Numeric.Decimal("10"),
+          Token.Punctuation.CloseBracket,
+          Token.Punctuation.Semicolon
+        ]);
+      });
+
       it("comment before initializer (issue #264)", async () => {
         const input = Input.InMethod(`
 var a = new A // comment
