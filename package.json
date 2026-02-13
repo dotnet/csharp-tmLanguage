@@ -20,21 +20,20 @@
     }
   ],
   "scripts": {
-    "compile": "gulp",
-    "test": "gulp",
-    "prepublish": "gulp",
-    "watch": "nodemon --exec 'npx gulp buildTmLanguage'"
+    "build:tmlanguage": "node tasks/build-tmlanguage.mjs",
+    "build:vscode": "node tasks/build-vscode.mjs",
+    "build:atom": "node tasks/build-atom.mjs",
+    "build": "npm run build:tmlanguage && npm run build:vscode && npm run build:atom",
+    "compile": "npm exec -- tsc -p tsconfig.json",
+    "test": "npm run compile && npm exec -- mocha out/test/**/*.tests.js",
+    "prepublish": "npm run build && npm run test",
+    "watch": "nodemon --exec 'node tasks/build-tmlanguage.mjs'"
   },
   "devDependencies": {
-    "@types/chai": "^4.3.20",
-    "@types/gulp": "^4.0.17",
+    "@types/chai": "^5.2.3",
     "@types/mocha": "^10.0.10",
     "chai": "^6.0.1",
-    "gulp": "^5.0.1",
-    "gulp-json2cson": "^2.0.0",
-    "gulp-mocha": "^10.0.1",
-    "gulp-typescript": "^6.0.0-alpha.1",
-    "gulp-yaml": "^2.0.4",
+    "cson": "^8.4.0",
     "js-yaml": "^4.1.0",
     "mocha": "^11.7.1",
     "nodemon": "^3.1.10",
