@@ -812,6 +812,52 @@ void Bar()
             ]);
         });
 
+        it("#:exclude", async () => {
+            const input = `#:exclude`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Punctuation.Colon,
+                Token.Keyword.Preprocessor.Exclude,
+            ]);
+        });
+
+        it("#:exclude with path", async () => {
+            const input = `#:exclude ./path/to/exclude`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Punctuation.Colon,
+                Token.Keyword.Preprocessor.Exclude,
+                Token.PreprocessorMessage("./path/to/exclude"),
+            ]);
+        });
+
+        it("#:include", async () => {
+            const input = `#:include`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Punctuation.Colon,
+                Token.Keyword.Preprocessor.Include,
+            ]);
+        });
+
+        it("#:include with path", async () => {
+            const input = `#:include ./path/to/include`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Punctuation.Colon,
+                Token.Keyword.Preprocessor.Include,
+                Token.PreprocessorMessage("./path/to/include"),
+            ]);
+        });
+
         it("#:property", async () => {
             const input = `#:property`;
             const tokens = await tokenize(input);

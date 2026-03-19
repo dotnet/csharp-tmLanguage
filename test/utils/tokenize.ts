@@ -374,8 +374,10 @@ export namespace Token {
             export const EndIf = createToken('endif', 'keyword.preprocessor.endif.cs');
             export const EndRegion = createToken('endregion', 'keyword.preprocessor.endregion.cs');
             export const Error = createToken('error', 'keyword.preprocessor.error.cs');
+            export const Exclude = createToken('exclude', 'keyword.preprocessor.exclude.cs');
             export const Hidden = createToken('hidden', 'keyword.preprocessor.hidden.cs');
             export const If = createToken('if', 'keyword.preprocessor.if.cs');
+            export const Include = createToken('include', 'keyword.preprocessor.include.cs');
             export const Line = createToken('line', 'keyword.preprocessor.line.cs');
             export const Load = createToken('load', 'keyword.preprocessor.load.cs');
             export const Package = createToken('package', 'keyword.preprocessor.package.cs');
