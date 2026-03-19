@@ -9181,6 +9181,14 @@
           </dict>
           <dict>
             <key>include</key>
+            <string>#preprocessor-app-directive-exclude</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#preprocessor-app-directive-include</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#preprocessor-app-directive-project</string>
           </dict>
           <dict>
@@ -9248,6 +9256,42 @@
             <string>punctuation.separator.equals.cs</string>
           </dict>
           <key>4</key>
+          <dict>
+            <key>name</key>
+            <string>string.unquoted.preprocessor.message.cs</string>
+          </dict>
+        </dict>
+      </dict>
+      <key>preprocessor-app-directive-exclude</key>
+      <dict>
+        <key>match</key>
+        <string>\b(exclude)\b\s*(.*)?\s*</string>
+        <key>captures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.preprocessor.exclude.cs</string>
+          </dict>
+          <key>2</key>
+          <dict>
+            <key>name</key>
+            <string>string.unquoted.preprocessor.message.cs</string>
+          </dict>
+        </dict>
+      </dict>
+      <key>preprocessor-app-directive-include</key>
+      <dict>
+        <key>match</key>
+        <string>\b(include)\b\s*(.*)?\s*</string>
+        <key>captures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.preprocessor.include.cs</string>
+          </dict>
+          <key>2</key>
           <dict>
             <key>name</key>
             <string>string.unquoted.preprocessor.message.cs</string>
