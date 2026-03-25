@@ -2143,7 +2143,7 @@ repository:
     begin: '\$"'
     beginCaptures:
       '0': { name: punctuation.definition.string.begin.cs }
-    end: (")|((?:[^\\\n])$)
+    end: (")|((?:[^\\\n\{])$)
     endCaptures:
       '1': { name: punctuation.definition.string.end.cs }
       '2': { name: invalid.illegal.newline.cs }
@@ -2165,7 +2165,7 @@ repository:
 
   interpolation:
     name: meta.embedded.interpolation.cs
-    begin: (?<=[^\{]|^)((?:\{\{)*)(\{)(?=[^\{])
+    begin: (?<=[^\{]|^)((?:\{\{)*)(\{)(?!\{)
     beginCaptures:
       '1': { name: string.quoted.double.cs }
       '2': { name: punctuation.definition.interpolation.begin.cs }
@@ -2250,7 +2250,7 @@ repository:
 
   raw-interpolation:
     name: meta.embedded.interpolation.cs
-    begin: (?<=[^\{]|^)((?:\{)*)(\{)(?=[^\{])
+    begin: (?<=[^\{]|^)((?:\{)*)(\{)(?!\{)
     beginCaptures:
       '1': { name: string.quoted.double.cs }
       '2': { name: punctuation.definition.interpolation.begin.cs }
@@ -2262,7 +2262,7 @@ repository:
 
   double-raw-interpolation:
     name: meta.embedded.interpolation.cs
-    begin: (?<=[^\{][^\{]|^)((?:\{)*)(\{\{)(?=[^\{])
+    begin: (?<=[^\{][^\{]|^)((?:\{)*)(\{\{)(?!\{)
     beginCaptures:
       '1': { name: string.quoted.double.cs }
       '2': { name: punctuation.definition.interpolation.begin.cs }

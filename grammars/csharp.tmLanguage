@@ -5625,7 +5625,7 @@
           </dict>
         </dict>
         <key>end</key>
-        <string>(")|((?:[^\\\n])$)</string>
+        <string>(")|((?:[^\\\n\{])$)</string>
         <key>endCaptures</key>
         <dict>
           <key>1</key>
@@ -5692,7 +5692,7 @@
         <key>name</key>
         <string>meta.embedded.interpolation.cs</string>
         <key>begin</key>
-        <string>(?&lt;=[^\{]|^)((?:\{\{)*)(\{)(?=[^\{])</string>
+        <string>(?&lt;=[^\{]|^)((?:\{\{)*)(\{)(?!\{)</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
@@ -5937,7 +5937,7 @@
         <key>name</key>
         <string>meta.embedded.interpolation.cs</string>
         <key>begin</key>
-        <string>(?&lt;=[^\{]|^)((?:\{)*)(\{)(?=[^\{])</string>
+        <string>(?&lt;=[^\{]|^)((?:\{)*)(\{)(?!\{)</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
@@ -5974,7 +5974,7 @@
         <key>name</key>
         <string>meta.embedded.interpolation.cs</string>
         <key>begin</key>
-        <string>(?&lt;=[^\{][^\{]|^)((?:\{)*)(\{\{)(?=[^\{])</string>
+        <string>(?&lt;=[^\{][^\{]|^)((?:\{)*)(\{\{)(?!\{)</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
