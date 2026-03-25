@@ -333,5 +333,62 @@ world!";`);
                 Token.Punctuation.InterpolatedString.End,
                 Token.Punctuation.Semicolon]);
         });
+
+        it("interpolation with newline directly after open brace (issue dotnet/vscode-csharp#9077)", async () => {
+
+            const input = Input.InMethod(`string test = $"{
+""}";`);
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.PrimitiveType.String,
+                Token.Identifier.LocalName("test"),
+                Token.Operator.Assignment,
+                Token.Punctuation.InterpolatedString.Begin,
+                Token.Punctuation.Interpolation.Begin,
+                Token.Punctuation.String.Begin,
+                Token.Punctuation.String.End,
+                Token.Punctuation.Interpolation.End,
+                Token.Punctuation.InterpolatedString.End,
+                Token.Punctuation.Semicolon]);
+        });
+
+        it("interpolation with space then newline after open brace (issue dotnet/vscode-csharp#9077)", async () => {
+
+            const input = Input.InMethod(`string test = $"{ 
+""}";`);
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.PrimitiveType.String,
+                Token.Identifier.LocalName("test"),
+                Token.Operator.Assignment,
+                Token.Punctuation.InterpolatedString.Begin,
+                Token.Punctuation.Interpolation.Begin,
+                Token.Punctuation.String.Begin,
+                Token.Punctuation.String.End,
+                Token.Punctuation.Interpolation.End,
+                Token.Punctuation.InterpolatedString.End,
+                Token.Punctuation.Semicolon]);
+        });
+
+        it("interpolation with content on next line after open brace (issue dotnet/vscode-csharp#9077)", async () => {
+
+            const input = Input.InMethod(`string test = $"{""
+}";`);
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.PrimitiveType.String,
+                Token.Identifier.LocalName("test"),
+                Token.Operator.Assignment,
+                Token.Punctuation.InterpolatedString.Begin,
+                Token.Punctuation.Interpolation.Begin,
+                Token.Punctuation.String.Begin,
+                Token.Punctuation.String.End,
+                Token.Punctuation.Interpolation.End,
+                Token.Punctuation.InterpolatedString.End,
+                Token.Punctuation.Semicolon]);
+        });
     });
 });
