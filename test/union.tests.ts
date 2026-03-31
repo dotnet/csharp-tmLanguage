@@ -9,9 +9,9 @@ import { tokenize, Input, Token, NamespaceStyle } from './utils/tokenize';
 describe("Union", () => {
     before(() => { should(); });
 
-    describe("Union", () => {
+    describe("Union declarations", () => {
         for (const namespaceStyle of [NamespaceStyle.BlockScoped, NamespaceStyle.FileScoped]) {
-            const styleName = namespaceStyle == NamespaceStyle.BlockScoped
+            const styleName = namespaceStyle === NamespaceStyle.BlockScoped
                 ? "Block-Scoped"
                 : "File-Scoped";
 
