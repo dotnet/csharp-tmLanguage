@@ -88,6 +88,9 @@ repository:
         include: '#struct-declaration'
       }
       {
+        include: '#union-declaration'
+      }
+      {
         include: '#record-declaration'
       }
       {
@@ -933,6 +936,62 @@ repository:
         include: '#comment'
       }
     ]
+  'union-declaration':
+    begin: '(?=\\bunion\\b)'
+    end: '(?<=\\})|(?=;)'
+    patterns: [
+      {
+        begin: '''
+          (?x)
+          (union)\\b\\s+
+          (@?[_[:alpha:]][_[:alnum:]]*)
+        '''
+        beginCaptures:
+          '1':
+            name: 'storage.type.union.cs'
+          '2':
+            name: 'entity.name.type.union.cs'
+        end: '(?=\\{)|(?=;)'
+        patterns: [
+          {
+            include: '#comment'
+          }
+          {
+            include: '#type-parameter-list'
+          }
+          {
+            include: '#parenthesized-type-list'
+          }
+          {
+            include: '#base-types'
+          }
+          {
+            include: '#generic-constraints'
+          }
+        ]
+      }
+      {
+        begin: '\\{'
+        beginCaptures:
+          '0':
+            name: 'punctuation.curlybrace.open.cs'
+        end: '\\}'
+        endCaptures:
+          '0':
+            name: 'punctuation.curlybrace.close.cs'
+        patterns: [
+          {
+            include: '#class-or-struct-members'
+          }
+        ]
+      }
+      {
+        include: '#preprocessor'
+      }
+      {
+        include: '#comment'
+      }
+    ]
   'type-parameter-list':
     begin: '\\<'
     beginCaptures:
@@ -1168,7 +1227,7 @@ repository:
       
       # The negative lookahead below ensures that we don't match nested types
       # or other declarations as properties.
-      (?![[:word:][:space:]]*\\b(?:class|interface|struct|enum|event)\\b)
+      (?![[:word:][:space:]]*\\b(?:class|interface|struct|union|enum|event)\\b)
       
       (?<return_type>
         (?<type_name>
@@ -3472,7 +3531,7 @@ repository:
     beginCaptures:
       '0':
         name: 'punctuation.definition.string.begin.cs'
-    end: '(")|((?:[^\\\\\\n])$)'
+    end: '(")|((?:[^\\\\\\n\\{])$)'
     endCaptures:
       '1':
         name: 'punctuation.definition.string.end.cs'
@@ -3506,7 +3565,7 @@ repository:
     ]
   interpolation:
     name: 'meta.embedded.interpolation.cs'
-    begin: '(?<=[^\\{]|^)((?:\\{\\{)*)(\\{)(?=[^\\{])'
+    begin: '(?<=[^\\{]|^)((?:\\{\\{)*)(\\{)(?!\\{)'
     beginCaptures:
       '1':
         name: 'string.quoted.double.cs'
@@ -3624,7 +3683,7 @@ repository:
         name: 'punctuation.definition.string.end.cs'
   'raw-interpolation':
     name: 'meta.embedded.interpolation.cs'
-    begin: '(?<=[^\\{]|^)((?:\\{)*)(\\{)(?=[^\\{])'
+    begin: '(?<=[^\\{]|^)((?:\\{)*)(\\{)(?!\\{)'
     beginCaptures:
       '1':
         name: 'string.quoted.double.cs'
@@ -3641,7 +3700,7 @@ repository:
     ]
   'double-raw-interpolation':
     name: 'meta.embedded.interpolation.cs'
-    begin: '(?<=[^\\{][^\\{]|^)((?:\\{)*)(\\{\\{)(?=[^\\{])'
+    begin: '(?<=[^\\{][^\\{]|^)((?:\\{)*)(\\{\\{)(?!\\{)'
     beginCaptures:
       '1':
         name: 'string.quoted.double.cs'
@@ -4512,6 +4571,26 @@ repository:
       }
       {
         include: '#variable-initializer'
+      }
+    ]
+  'parenthesized-type-list':
+    begin: '(\\()'
+    beginCaptures:
+      '0':
+        name: 'punctuation.parenthesis.open.cs'
+    end: '(\\))'
+    endCaptures:
+      '0':
+        name: 'punctuation.parenthesis.close.cs'
+    patterns: [
+      {
+        include: '#comment'
+      }
+      {
+        include: '#type'
+      }
+      {
+        include: '#punctuation-comma'
       }
     ]
   parameter:

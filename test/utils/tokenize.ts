@@ -257,6 +257,7 @@ export namespace Token {
         export const StructName = (text: string) => createToken(text, 'entity.name.type.struct.cs');
         export const TupleElementName = (text: string) => createToken(text, 'entity.name.variable.tuple-element.cs');
         export const TypeParameterName = (text: string) => createToken(text, 'entity.name.type.type-parameter.cs');
+        export const UnionName = (text: string) => createToken(text, 'entity.name.type.union.cs');
     }
 
     export namespace Keyword {
@@ -299,6 +300,7 @@ export namespace Token {
             export const Remove = createToken('remove', 'storage.type.accessor.remove.cs');
             export const Set = createToken('set', 'storage.type.accessor.set.cs');
             export const Struct = createToken('struct', 'storage.type.struct.cs');
+            export const Union = createToken('union', 'storage.type.union.cs');
             export const Var = createToken('var', 'storage.type.var.cs');
         }
 
