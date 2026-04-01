@@ -133,6 +133,10 @@
           </dict>
           <dict>
             <key>include</key>
+            <string>#union-declaration</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#record-declaration</string>
           </dict>
           <dict>
@@ -1472,6 +1476,97 @@
           </dict>
         </array>
       </dict>
+      <key>union-declaration</key>
+      <dict>
+        <key>begin</key>
+        <string>(?=\bunion\b)</string>
+        <key>end</key>
+        <string>(?&lt;=\})|(?=;)</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>begin</key>
+            <string>(?x)
+(union)\b\s+
+(@?[_[:alpha:]][_[:alnum:]]*)</string>
+            <key>beginCaptures</key>
+            <dict>
+              <key>1</key>
+              <dict>
+                <key>name</key>
+                <string>storage.type.union.cs</string>
+              </dict>
+              <key>2</key>
+              <dict>
+                <key>name</key>
+                <string>entity.name.type.union.cs</string>
+              </dict>
+            </dict>
+            <key>end</key>
+            <string>(?=\{)|(?=;)</string>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#comment</string>
+              </dict>
+              <dict>
+                <key>include</key>
+                <string>#type-parameter-list</string>
+              </dict>
+              <dict>
+                <key>include</key>
+                <string>#parenthesized-type-list</string>
+              </dict>
+              <dict>
+                <key>include</key>
+                <string>#base-types</string>
+              </dict>
+              <dict>
+                <key>include</key>
+                <string>#generic-constraints</string>
+              </dict>
+            </array>
+          </dict>
+          <dict>
+            <key>begin</key>
+            <string>\{</string>
+            <key>beginCaptures</key>
+            <dict>
+              <key>0</key>
+              <dict>
+                <key>name</key>
+                <string>punctuation.curlybrace.open.cs</string>
+              </dict>
+            </dict>
+            <key>end</key>
+            <string>\}</string>
+            <key>endCaptures</key>
+            <dict>
+              <key>0</key>
+              <dict>
+                <key>name</key>
+                <string>punctuation.curlybrace.close.cs</string>
+              </dict>
+            </dict>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#class-or-struct-members</string>
+              </dict>
+            </array>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#preprocessor</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#comment</string>
+          </dict>
+        </array>
+      </dict>
       <key>type-parameter-list</key>
       <dict>
         <key>begin</key>
@@ -1839,7 +1934,7 @@
 
 # The negative lookahead below ensures that we don't match nested types
 # or other declarations as properties.
-(?![[:word:][:space:]]*\b(?:class|interface|struct|enum|event)\b)
+(?![[:word:][:space:]]*\b(?:class|interface|struct|union|enum|event)\b)
 
 (?&lt;return_type&gt;
   (?&lt;type_name&gt;
@@ -7460,6 +7555,44 @@
           <dict>
             <key>include</key>
             <string>#variable-initializer</string>
+          </dict>
+        </array>
+      </dict>
+      <key>parenthesized-type-list</key>
+      <dict>
+        <key>begin</key>
+        <string>(\()</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>0</key>
+          <dict>
+            <key>name</key>
+            <string>punctuation.parenthesis.open.cs</string>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>(\))</string>
+        <key>endCaptures</key>
+        <dict>
+          <key>0</key>
+          <dict>
+            <key>name</key>
+            <string>punctuation.parenthesis.close.cs</string>
+          </dict>
+        </dict>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#comment</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#type</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#punctuation-comma</string>
           </dict>
         </array>
       </dict>
