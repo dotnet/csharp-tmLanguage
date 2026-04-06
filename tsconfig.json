@@ -1,11 +1,17 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es2022",
     "module": "commonjs",
     "outDir": "out",
     "sourceMap": true,
     "rootDir": ".",
+    "strict": false,
     "noImplicitReturns": true,
+    "types": [
+      "node",
+      "mocha",
+      "chai"
+    ],
     "skipLibCheck": true
   },
   "compileOnSave": true,
