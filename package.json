@@ -32,15 +32,20 @@
   "devDependencies": {
     "@types/chai": "^5.2.3",
     "@types/mocha": "^10.0.10",
-    "chai": "^6.0.1",
+    "@types/node": "^25.5.2",
+    "chai": "^6.2.2",
     "cson": "^8.4.0",
-    "js-yaml": "^4.1.0",
-    "mocha": "^11.7.1",
-    "nodemon": "^3.1.10",
+    "js-yaml": "^4.1.1",
+    "mocha": "11.7.5",
+    "nodemon": "^3.1.14",
     "plist": "^3.1.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.9.2",
+    "typescript": "^6.0.2",
     "vscode-oniguruma": "^2.0.1",
-    "vscode-textmate": "^9.2.0"
+    "vscode-textmate": "^9.3.2"
+  },
+  "overrides": {
+    "diff": "^8.0.4",
+    "serialize-javascript": "^7.0.5"
   }
 }
