@@ -1,4 +1,4 @@
-import plist from "plist";
+import * as plist from "plist";
 import { ensureDir, paths, readGrammarYaml } from "./lib/common.mjs";
 import { writeFileSync } from "fs";
 
