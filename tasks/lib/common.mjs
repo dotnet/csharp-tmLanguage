@@ -39,7 +39,7 @@ export function runCommand(command, args) {
   });
 
   if (result.status !== 0) {
-    throw new Error(`${command} ${args.join(" ")} failed with exit code ${result.status ?? "unknown"}`);
+    throw new Error(`${command} ${args.join(" ")} failed with exit code ${result.status ?? "unknown"}`, { cause: result.error });
   }
 }
 
@@ -47,11 +47,12 @@ export function runCommandCapture(command, args) {
   const result = spawnSync(command, args, {
     cwd: root,
     stdio: ["ignore", "pipe", "pipe"],
-    encoding: "utf8"
+    encoding: "utf8",
+    shell: true,
   });
 
   if (result.status !== 0) {
-    throw new Error(result.stderr || `${command} ${args.join(" ")} failed with exit code ${result.status ?? "unknown"}`);
+    throw new Error(result.stderr || `${command} ${args.join(" ")} failed with exit code ${result.status ?? "unknown"}`, { cause: result.error });
   }
 
   return result.stdout;

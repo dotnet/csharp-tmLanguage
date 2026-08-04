@@ -386,6 +386,7 @@ export namespace Token {
             export const Pragma = createToken('pragma', 'keyword.preprocessor.pragma.cs');
             export const Property = createToken('property', 'keyword.preprocessor.property.cs');
             export const Project = createToken('project', 'keyword.preprocessor.project.cs');
+            export const Ref = createToken('ref', 'keyword.preprocessor.ref.cs');
             export const R = createToken('r', 'keyword.preprocessor.r.cs');
             export const Region = createToken('region', 'keyword.preprocessor.region.cs');
             export const Restore = createToken('restore', 'keyword.preprocessor.restore.cs');
