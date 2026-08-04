@@ -47,7 +47,8 @@ export function runCommandCapture(command, args) {
   const result = spawnSync(command, args, {
     cwd: root,
     stdio: ["ignore", "pipe", "pipe"],
-    encoding: "utf8"
+    encoding: "utf8",
+    shell: true,
   });
 
   if (result.status !== 0) {
