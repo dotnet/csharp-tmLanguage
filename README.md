@@ -7,7 +7,7 @@ To **build and test** install Node.js do the following:
 
 Output grammars are output in the `grammars\` directory.
 
-On Windows you may see a node-gyp error - [follow the instrutions here to resolve it](https://github.com/nodejs/node-gyp/blob/master/README.md).
+On Windows you may see a node-gyp error - [follow the instructions here to resolve it](https://github.com/nodejs/node-gyp/blob/master/README.md).
 
 ## Supported outputs
 

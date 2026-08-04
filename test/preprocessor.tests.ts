@@ -812,6 +812,29 @@ void Bar()
             ]);
         });
 
+        it("#:ref", async () => {
+            const input = `#:ref`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Punctuation.Colon,
+                Token.Keyword.Preprocessor.Ref,
+            ]);
+        });
+
+        it("#:ref with path", async () => {
+            const input = `#:ref ./path/to/ref`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Punctuation.Colon,
+                Token.Keyword.Preprocessor.Ref,
+                Token.PreprocessorMessage("./path/to/ref"),
+            ]);
+        });
+
         it("#:exclude", async () => {
             const input = `#:exclude`;
             const tokens = await tokenize(input);

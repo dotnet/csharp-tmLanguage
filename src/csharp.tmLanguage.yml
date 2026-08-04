@@ -3634,6 +3634,7 @@ repository:
       - include: '#preprocessor-app-directive-exclude'
       - include: '#preprocessor-app-directive-include'
       - include: '#preprocessor-app-directive-project'
+      - include: '#preprocessor-app-directive-ref'
       - include: '#preprocessor-app-directive-sdk'
       - include: '#preprocessor-app-directive-generic'
 
@@ -3671,6 +3672,12 @@ repository:
     match: \b(project)\b\s*(.*)?\s*
     captures:
       '1': { name: keyword.preprocessor.project.cs }
+      '2': { name: string.unquoted.preprocessor.message.cs }
+
+  preprocessor-app-directive-ref:
+    match: \b(ref)\b\s*(.*)?\s*
+    captures:
+      '1': { name: keyword.preprocessor.ref.cs }
       '2': { name: string.unquoted.preprocessor.message.cs }
 
   preprocessor-app-directive-sdk:

@@ -9326,6 +9326,10 @@
           </dict>
           <dict>
             <key>include</key>
+            <string>#preprocessor-app-directive-ref</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#preprocessor-app-directive-sdk</string>
           </dict>
           <dict>
@@ -9441,6 +9445,24 @@
           <dict>
             <key>name</key>
             <string>keyword.preprocessor.project.cs</string>
+          </dict>
+          <key>2</key>
+          <dict>
+            <key>name</key>
+            <string>string.unquoted.preprocessor.message.cs</string>
+          </dict>
+        </dict>
+      </dict>
+      <key>preprocessor-app-directive-ref</key>
+      <dict>
+        <key>match</key>
+        <string>\b(ref)\b\s*(.*)?\s*</string>
+        <key>captures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.preprocessor.ref.cs</string>
           </dict>
           <key>2</key>
           <dict>
