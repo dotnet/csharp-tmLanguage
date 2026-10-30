@@ -1,3 +1,16 @@
+## Markdown hover declarations
+
+The rules are defined in [csharp-hover.tmlanguage.yml](csharp-hover.tmlanguage.yml)
+and merged into the main C# grammar at build time.
+
+A leading U+200B ZERO WIDTH SPACE opts a fenced `csharp` block into the
+`meta.hover.cs` context. The marker must be the first character of the block.
+
+The hover rules parse display declarations, not method bodies. They cover type
+and namespace declarations, delegates, constructors, methods, operators,
+properties, indexers, events, fields, constants, locals, parameters, and labels,
+including generic constraints and multiline declarations.
+
 ## Important regular expressions:
 
 #### Identifier
