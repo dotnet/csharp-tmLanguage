@@ -7,6 +7,7 @@ export const root = process.cwd();
 
 export const paths = {
   grammarYaml: join(root, "src", "csharp.tmLanguage.yml"),
+  hoverGrammarYaml: join(root, "src", "csharp-hover.tmlanguage.yml"),
   grammarsDir: join(root, "grammars"),
   tmLanguage: join(root, "grammars", "csharp.tmLanguage"),
   vscodeGrammar: join(root, "grammars", "csharp.tmLanguage.json"),
@@ -23,8 +24,17 @@ export function ensureDir(dirPath) {
 }
 
 export function readGrammarYaml() {
-  const text = readFileSync(paths.grammarYaml, "utf8");
-  return load(text);
+  const grammar = load(readFileSync(paths.grammarYaml, "utf8"));
+  const hover = load(readFileSync(paths.hoverGrammarYaml, "utf8"));
+
+  for (const name of Object.keys(hover.repository)) {
+    if (Object.hasOwn(grammar.repository, name)) {
+      throw new Error(`Duplicate grammar repository entry: ${name}`);
+    }
+  }
+
+  grammar.repository = { ...hover.repository, ...grammar.repository };
+  return grammar;
 }
 
 export function getCommitSha() {

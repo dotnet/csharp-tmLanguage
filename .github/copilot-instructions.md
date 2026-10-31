@@ -6,14 +6,15 @@ This repository contains the TextMate grammar for C# with outputs for VSCode, At
 ## Development Workflow
 
 ### Grammar Changes
-- **All grammar changes** must go into `src/csharp.tmLanguage.yml`
-- This YAML file is the single source of truth for the C# grammar
+- Main C# grammar changes must go into `src/csharp.tmLanguage.yml`
+- Hover classification changes must go into `src/csharp-hover.tmlanguage.yml`
+- The shared build loader merges both YAML repositories and rejects duplicate rule names
 - Never directly edit the generated files in the `grammars/` directory
 
 ### Building and Testing
 - Run `npm run prepublish` to build and test the grammar
   - This runs the npm script pipeline in `package.json` which:
-    - Builds the grammar files from `src/csharp.tmLanguage.yml`
+    - Builds the grammar files from `src/csharp.tmLanguage.yml` and `src/csharp-hover.tmlanguage.yml`
     - Generates output files in `grammars/` directory
     - Runs all tests to validate the grammar
 - The build process generates three files:
@@ -23,7 +24,7 @@ This repository contains the TextMate grammar for C# with outputs for VSCode, At
 
 ### Getting Started
 1. Run `npm ci` to install dependencies
-2. Make changes to `src/csharp.tmLanguage.yml`
+2. Make changes to `src/csharp.tmLanguage.yml` or `src/csharp-hover.tmlanguage.yml`
 3. Run `npm run prepublish` to build and test the grammar
 4. Review the generated files in `grammars/` directory
 
@@ -34,7 +35,7 @@ This repository contains the TextMate grammar for C# with outputs for VSCode, At
 - All tests must pass before changes can be merged
 
 ### Watch Mode
-- Use `npm run watch` to automatically rebuild the grammar when `src/csharp.tmLanguage.yml` changes
+- Use `npm run watch` to automatically rebuild the grammar when either source YAML file changes
 - Note: Watch mode only rebuilds the grammar files, it does not run tests
 - After making changes, run `npm run prepublish` to run the full test suite
 
