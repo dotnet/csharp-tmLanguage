@@ -933,7 +933,7 @@ repository:
         ]
       }
       {
-        begin: '\\b(?:(global)\\s+)?(using)\\b\\s*+(?!\\(|var\\b)'
+        begin: '\\b(?:(global)\\s+)?(using)\\b\\s*+(?!\\(|var\\b|(?:@?[_[:alpha:]][_[:alnum:]]*\\s*\\.\\s*)*@?[_[:alpha:]][_[:alnum:]]*\\s*(?:[<\\[?*]|\\s@?[_[:alpha:]]))'
         beginCaptures:
           '1':
             name: 'keyword.other.directive.global.cs'

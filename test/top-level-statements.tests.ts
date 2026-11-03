@@ -1010,6 +1010,54 @@ using (var o = new object())
                 Token.Punctuation.Semicolon
             ])
         });
+
+        it("using declaration type", async () => {
+            const input = Input.InNamespace(`using List<string> l = new();`, NamespaceStyle.FileScoped);;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keyword.Context.Using,
+                Token.Type("List"),
+                Token.Punctuation.TypeParameter.Begin,
+                Token.PrimitiveType.String,
+                Token.Punctuation.TypeParameter.End,
+                Token.Identifier.LocalName("l"),
+                Token.Operator.Assignment,
+                Token.Operator.Expression.New,
+                Token.Punctuation.OpenParen,
+                Token.Punctuation.CloseParen,
+                Token.Punctuation.Semicolon
+            ])
+        });
+
+        it("using declaration with object initializer (issue #336)", async () => {
+            const input = Input.InNamespace(`
+using MyClass instance = new()
+{
+    Strings = { ";" }
+};`, NamespaceStyle.FileScoped);;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Keyword.Context.Using,
+                Token.Type("MyClass"),
+                Token.Identifier.LocalName("instance"),
+                Token.Operator.Assignment,
+                Token.Operator.Expression.New,
+                Token.Punctuation.OpenParen,
+                Token.Punctuation.CloseParen,
+                Token.Punctuation.OpenBrace,
+                Token.Variable.ReadWrite("Strings"),
+                Token.Operator.Assignment,
+                Token.Punctuation.OpenBrace,
+                Token.Punctuation.String.Begin,
+                Token.Literal.String(";"),
+                Token.Punctuation.String.End,
+                Token.Punctuation.CloseBrace,
+                Token.Punctuation.CloseBrace,
+                Token.Punctuation.Semicolon
+            ])
+        });
     });
 
     describe("Yield", () => {
