@@ -1460,7 +1460,7 @@
           </dict>
           <dict>
             <key>begin</key>
-            <string>\b(?:(global)\s+)?(using)\b\s*+(?!\(|var\b)</string>
+            <string>\b(?:(global)\s+)?(using)\b\s*+(?!\(|var\b|(?:@?[_[:alpha:]][_[:alnum:]]*\s*\.\s*)*@?[_[:alpha:]][_[:alnum:]]*\s*(?:[&lt;\[?*]|\s@?[_[:alpha:]]))</string>
             <key>beginCaptures</key>
             <dict>
               <key>1</key>
