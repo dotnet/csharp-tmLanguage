@@ -789,6 +789,114 @@ void Bar()
             ]);
         });
 
+        it("#:package with metadata", async () => {
+            const input = `#:package Microsoft.Build@18.0.2 ExcludeAssets=runtime PrivateAssets=all`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Punctuation.Colon,
+                Token.Keyword.Preprocessor.Package,
+                Token.Identifier.PreprocessorSymbol("Microsoft"),
+                Token.Punctuation.Dot,
+                Token.Identifier.PreprocessorSymbol("Build"),
+                Token.Punctuation.At,
+                Token.PreprocessorMessage("18.0.2"),
+                Token.Identifier.PreprocessorSymbol("ExcludeAssets"),
+                Token.Punctuation.Equals,
+                Token.PreprocessorMessage("runtime"),
+                Token.Identifier.PreprocessorSymbol("PrivateAssets"),
+                Token.Punctuation.Equals,
+                Token.PreprocessorMessage("all"),
+            ]);
+        });
+
+        it("#:package with metadata and no version", async () => {
+            const input = `#:package Pkg PrivateAssets=all Note=`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Punctuation.Colon,
+                Token.Keyword.Preprocessor.Package,
+                Token.Identifier.PreprocessorSymbol("Pkg"),
+                Token.Identifier.PreprocessorSymbol("PrivateAssets"),
+                Token.Punctuation.Equals,
+                Token.PreprocessorMessage("all"),
+                Token.Identifier.PreprocessorSymbol("Note"),
+                Token.Punctuation.Equals,
+            ]);
+        });
+
+        it("#:package with metadata and empty version", async () => {
+            const input = `#:package Pkg@ PrivateAssets=all`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Punctuation.Colon,
+                Token.Keyword.Preprocessor.Package,
+                Token.Identifier.PreprocessorSymbol("Pkg"),
+                Token.Punctuation.At,
+                Token.Identifier.PreprocessorSymbol("PrivateAssets"),
+                Token.Punctuation.Equals,
+                Token.PreprocessorMessage("all"),
+            ]);
+        });
+
+        it("#:package with quoted arguments and metadata values", async () => {
+            const input = `#:package Pkg @ "1.0" Note = "a\\\"b=c" "Other" = ""`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Punctuation.Colon,
+                Token.Keyword.Preprocessor.Package,
+                Token.Identifier.PreprocessorSymbol("Pkg"),
+                Token.Punctuation.At,
+                Token.Punctuation.String.Begin,
+                Token.Literal.String("1.0"),
+                Token.Punctuation.String.End,
+                Token.Identifier.PreprocessorSymbol("Note"),
+                Token.Punctuation.Equals,
+                Token.Punctuation.String.Begin,
+                Token.Literal.String("a"),
+                Token.Literal.CharacterEscape(`\\\"`),
+                Token.Literal.String("b=c"),
+                Token.Punctuation.String.End,
+                Token.Punctuation.String.Begin,
+                Token.Literal.String("Other"),
+                Token.Punctuation.String.End,
+                Token.Punctuation.Equals,
+                Token.Punctuation.String.Begin,
+                Token.Punctuation.String.End,
+            ]);
+        });
+
+        it("#:package with malformed quote", async () => {
+            const input = `#:package Pkg@1.0 Note="unterminated`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Punctuation.Colon,
+                Token.Keyword.Preprocessor.Package,
+                Token.PreprocessorMessage(`Pkg@1.0 Note="unterminated`),
+            ]);
+        });
+
+        it("#:package with text after quoted value", async () => {
+            const input = `#:package Pkg@1.0 Note="x"y`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Punctuation.Colon,
+                Token.Keyword.Preprocessor.Package,
+                Token.PreprocessorMessage(`Pkg@1.0 Note="x"y`),
+            ]);
+        });
+
         it("#:project", async () => {
             const input = `#:project`;
             const tokens = await tokenize(input);
@@ -812,6 +920,23 @@ void Bar()
             ]);
         });
 
+        it("#:project with metadata", async () => {
+            const input = `#:project "../my path" Aliases=Lib`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Punctuation.Colon,
+                Token.Keyword.Preprocessor.Project,
+                Token.Punctuation.String.Begin,
+                Token.Literal.String("../my path"),
+                Token.Punctuation.String.End,
+                Token.Identifier.PreprocessorSymbol("Aliases"),
+                Token.Punctuation.Equals,
+                Token.PreprocessorMessage("Lib"),
+            ]);
+        });
+
         it("#:ref", async () => {
             const input = `#:ref`;
             const tokens = await tokenize(input);
@@ -832,6 +957,21 @@ void Bar()
                 Token.Punctuation.Colon,
                 Token.Keyword.Preprocessor.Ref,
                 Token.PreprocessorMessage("./path/to/ref"),
+            ]);
+        });
+
+        it("#:ref with metadata", async () => {
+            const input = `#:ref ./path/to/ref Aliases=Lib`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Punctuation.Colon,
+                Token.Keyword.Preprocessor.Ref,
+                Token.PreprocessorMessage("./path/to/ref"),
+                Token.Identifier.PreprocessorSymbol("Aliases"),
+                Token.Punctuation.Equals,
+                Token.PreprocessorMessage("Lib"),
             ]);
         });
 
@@ -881,6 +1021,21 @@ void Bar()
             ]);
         });
 
+        it("#:include with metadata", async () => {
+            const input = `#:include appsettings.json CopyToOutputDirectory=PreserveNewest`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Punctuation.Colon,
+                Token.Keyword.Preprocessor.Include,
+                Token.PreprocessorMessage("appsettings.json"),
+                Token.Identifier.PreprocessorSymbol("CopyToOutputDirectory"),
+                Token.Punctuation.Equals,
+                Token.PreprocessorMessage("PreserveNewest"),
+            ]);
+        });
+
         it("#:property", async () => {
             const input = `#:property`;
             const tokens = await tokenize(input);
@@ -915,6 +1070,26 @@ void Bar()
                 Token.Identifier.PreprocessorSymbol("Foo_Property"),
                 Token.Punctuation.Equals,
                 Token.PreprocessorMessage("Some Value"),
+            ]);
+        });
+
+        it("#:property with quoted name and value", async () => {
+            const input = `#:property "My.Name" = "a\\tb c"`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Punctuation.Colon,
+                Token.Keyword.Preprocessor.Property,
+                Token.Punctuation.String.Begin,
+                Token.Literal.String("My.Name"),
+                Token.Punctuation.String.End,
+                Token.Punctuation.Equals,
+                Token.Punctuation.String.Begin,
+                Token.Literal.String("a"),
+                Token.Literal.CharacterEscape(`\\t`),
+                Token.Literal.String("b c"),
+                Token.Punctuation.String.End,
             ]);
         });
 
@@ -956,6 +1131,24 @@ void Bar()
                 Token.Identifier.PreprocessorSymbol("Sdk"),
                 Token.Punctuation.At,
                 Token.PreprocessorMessage("1.0.0"),
+            ]);
+        });
+
+        it("#:sdk with quoted name and version", async () => {
+            const input = `#:sdk "My.Sdk" @ "1.0.0"`;
+            const tokens = await tokenize(input);
+
+            tokens.should.deep.equal([
+                Token.Punctuation.Hash,
+                Token.Punctuation.Colon,
+                Token.Keyword.Preprocessor.Sdk,
+                Token.Punctuation.String.Begin,
+                Token.Literal.String("My.Sdk"),
+                Token.Punctuation.String.End,
+                Token.Punctuation.At,
+                Token.Punctuation.String.Begin,
+                Token.Literal.String("1.0.0"),
+                Token.Punctuation.String.End,
             ]);
         });
 
