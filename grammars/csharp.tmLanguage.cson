@@ -6091,89 +6091,247 @@ repository:
       }
     ]
   'preprocessor-app-directive-package':
-    match: '\\b(package)\\b\\s*([_[:alpha:]][_.[:alnum:]]*)?(@)?(.*)?\\s*'
-    captures:
+    begin: '\\b(package)\\b'
+    beginCaptures:
       '1':
         name: 'keyword.preprocessor.package.cs'
-      '2':
-        patterns: [
-          {
-            include: '#preprocessor-app-directive-package-name'
-          }
-        ]
-      '3':
-        name: 'punctuation.separator.at.cs'
-      '4':
-        name: 'string.unquoted.preprocessor.message.cs'
+    end: '(?=$)'
+    patterns: [
+      {
+        include: '#preprocessor-app-directive-malformed-string-arguments'
+      }
+      {
+        include: '#preprocessor-app-directive-package-primary'
+      }
+      {
+        include: '#preprocessor-app-directive-simple-arguments'
+      }
+    ]
   'preprocessor-app-directive-property':
-    match: '\\b(property)\\b\\s*([_[:alpha:]][_[:alnum:]]*)?(=)?(.*)?\\s*'
-    captures:
+    begin: '\\b(property)\\b'
+    beginCaptures:
       '1':
         name: 'keyword.preprocessor.property.cs'
-      '2':
-        name: 'entity.name.variable.preprocessor.symbol.cs'
-      '3':
-        name: 'punctuation.separator.equals.cs'
-      '4':
-        name: 'string.unquoted.preprocessor.message.cs'
+    end: '(?=$)'
+    patterns: [
+      {
+        include: '#preprocessor-app-directive-malformed-string-arguments'
+      }
+      {
+        include: '#preprocessor-app-directive-property-arguments'
+      }
+      {
+        include: '#preprocessor-app-directive-simple-arguments'
+      }
+    ]
   'preprocessor-app-directive-exclude':
-    match: '\\b(exclude)\\b\\s*(.*)?\\s*'
-    captures:
+    begin: '\\b(exclude)\\b'
+    beginCaptures:
       '1':
         name: 'keyword.preprocessor.exclude.cs'
-      '2':
-        name: 'string.unquoted.preprocessor.message.cs'
+    end: '(?=$)'
+    patterns: [
+      {
+        include: '#preprocessor-app-directive-malformed-string-arguments'
+      }
+      {
+        include: '#preprocessor-app-directive-simple-arguments'
+      }
+    ]
   'preprocessor-app-directive-include':
-    match: '\\b(include)\\b\\s*(.*)?\\s*'
-    captures:
+    begin: '\\b(include)\\b'
+    beginCaptures:
       '1':
         name: 'keyword.preprocessor.include.cs'
-      '2':
-        name: 'string.unquoted.preprocessor.message.cs'
+    end: '(?=$)'
+    patterns: [
+      {
+        include: '#preprocessor-app-directive-malformed-string-arguments'
+      }
+      {
+        include: '#preprocessor-app-directive-item-primary'
+      }
+      {
+        include: '#preprocessor-app-directive-simple-arguments'
+      }
+    ]
   'preprocessor-app-directive-project':
-    match: '\\b(project)\\b\\s*(.*)?\\s*'
-    captures:
+    begin: '\\b(project)\\b'
+    beginCaptures:
       '1':
         name: 'keyword.preprocessor.project.cs'
-      '2':
-        name: 'string.unquoted.preprocessor.message.cs'
+    end: '(?=$)'
+    patterns: [
+      {
+        include: '#preprocessor-app-directive-malformed-string-arguments'
+      }
+      {
+        include: '#preprocessor-app-directive-item-primary'
+      }
+      {
+        include: '#preprocessor-app-directive-simple-arguments'
+      }
+    ]
   'preprocessor-app-directive-ref':
-    match: '\\b(ref)\\b\\s*(.*)?\\s*'
-    captures:
+    begin: '\\b(ref)\\b'
+    beginCaptures:
       '1':
         name: 'keyword.preprocessor.ref.cs'
-      '2':
-        name: 'string.unquoted.preprocessor.message.cs'
+    end: '(?=$)'
+    patterns: [
+      {
+        include: '#preprocessor-app-directive-malformed-string-arguments'
+      }
+      {
+        include: '#preprocessor-app-directive-item-primary'
+      }
+      {
+        include: '#preprocessor-app-directive-simple-arguments'
+      }
+    ]
   'preprocessor-app-directive-sdk':
-    match: '\\b(sdk)\\b\\s*([_[:alpha:]][_.[:alnum:]]*)?(@)?(.*)?\\s*'
-    captures:
+    begin: '\\b(sdk)\\b'
+    beginCaptures:
       '1':
         name: 'keyword.preprocessor.sdk.cs'
-      '2':
+    end: '(?=$)'
+    patterns: [
+      {
+        include: '#preprocessor-app-directive-malformed-string-arguments'
+      }
+      {
+        include: '#preprocessor-app-directive-package-primary'
+      }
+      {
+        include: '#preprocessor-app-directive-simple-arguments'
+      }
+    ]
+  'preprocessor-app-directive-package-primary':
+    begin: '\\G\\s+("(?:\\\\.|[^"\\\\])*"|[^\\s@="]+)(?:\\s*(@)(?:\\s*("(?:\\\\.|[^"\\\\])*"|(?![^=\\s"]+=)[^\\s"]+))?)?'
+    beginCaptures:
+      '1':
         patterns: [
           {
-            include: '#preprocessor-app-directive-package-name'
+            include: '#preprocessor-app-directive-name'
           }
         ]
-      '3':
+      '2':
         name: 'punctuation.separator.at.cs'
-      '4':
-        name: 'string.unquoted.preprocessor.message.cs'
+      '3':
+        patterns: [
+          {
+            include: '#preprocessor-app-directive-value'
+          }
+        ]
+    end: '(?=$)'
+    patterns: [
+      {
+        include: '#preprocessor-app-directive-metadata'
+      }
+      {
+        include: '#preprocessor-app-directive-simple-arguments'
+      }
+    ]
+  'preprocessor-app-directive-item-primary':
+    begin: '\\G\\s+("(?:\\\\.|[^"\\\\])*"|[^\\s"]+)'
+    beginCaptures:
+      '1':
+        patterns: [
+          {
+            include: '#preprocessor-app-directive-value'
+          }
+        ]
+    end: '(?=$)'
+    patterns: [
+      {
+        include: '#preprocessor-app-directive-metadata'
+      }
+      {
+        include: '#preprocessor-app-directive-simple-arguments'
+      }
+    ]
+  'preprocessor-app-directive-property-arguments':
+    match: '\\G\\s+("(?:\\\\.|[^"\\\\])*"|[^\\s=@"]+)(?:\\s*(=))?\\s*("(?:\\\\.|[^"\\\\])*"|[^"]*)\\s*$'
+    captures:
+      '1':
+        patterns: [
+          {
+            include: '#preprocessor-app-directive-name'
+          }
+        ]
+      '2':
+        name: 'punctuation.separator.equals.cs'
+      '3':
+        patterns: [
+          {
+            include: '#preprocessor-app-directive-value'
+          }
+        ]
+  'preprocessor-app-directive-malformed-string-arguments':
+    match: '\\G\\s+(?!(?:[^"]|"(?:\\\\.|[^"\\\\])*"(?=$|[\\s@=]))*$)(.*?)\\s*$'
+    captures:
+      '1':
+        patterns: [
+          {
+            include: '#preprocessor-app-directive-value'
+          }
+        ]
+  'preprocessor-app-directive-simple-arguments':
+    match: '\\s+(.*?)\\s*$'
+    captures:
+      '1':
+        patterns: [
+          {
+            include: '#preprocessor-app-directive-value'
+          }
+        ]
   'preprocessor-app-directive-package-name':
     patterns: [
       {
-        match: '(\\.)([_[:alpha:]][_[:alnum:]]*)'
-        captures:
-          '1':
-            name: 'punctuation.dot.cs'
-          '2':
-            name: 'entity.name.variable.preprocessor.symbol.cs'
+        name: 'punctuation.dot.cs'
+        match: '\\.'
       }
       {
         name: 'entity.name.variable.preprocessor.symbol.cs'
-        match: '[_[:alpha:]][_[:alnum:]]*'
+        match: '[^\\.\\s]+'
       }
     ]
+  'preprocessor-app-directive-name':
+    patterns: [
+      {
+        include: '#string-literal'
+      }
+      {
+        include: '#preprocessor-app-directive-package-name'
+      }
+    ]
+  'preprocessor-app-directive-value':
+    patterns: [
+      {
+        include: '#string-literal'
+      }
+      {
+        name: 'string.unquoted.preprocessor.message.cs'
+        match: '.+'
+      }
+    ]
+  'preprocessor-app-directive-metadata':
+    match: '\\s+("(?:\\\\.|[^"\\\\])*"|[^=\\s"]+)\\s*(=)\\s*("(?:\\\\.|[^"\\\\])*"|[^\\s"]*)'
+    captures:
+      '1':
+        patterns: [
+          {
+            include: '#preprocessor-app-directive-name'
+          }
+        ]
+      '2':
+        name: 'punctuation.separator.equals.cs'
+      '3':
+        patterns: [
+          {
+            include: '#preprocessor-app-directive-value'
+          }
+        ]
   'preprocessor-app-directive-generic':
     match: '\\b(.*)?\\s*'
     captures:

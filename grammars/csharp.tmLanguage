@@ -10159,167 +10159,353 @@
       </dict>
       <key>preprocessor-app-directive-package</key>
       <dict>
-        <key>match</key>
-        <string>\b(package)\b\s*([_[:alpha:]][_.[:alnum:]]*)?(@)?(.*)?\s*</string>
-        <key>captures</key>
+        <key>begin</key>
+        <string>\b(package)\b</string>
+        <key>beginCaptures</key>
         <dict>
           <key>1</key>
           <dict>
             <key>name</key>
             <string>keyword.preprocessor.package.cs</string>
           </dict>
-          <key>2</key>
-          <dict>
-            <key>patterns</key>
-            <array>
-              <dict>
-                <key>include</key>
-                <string>#preprocessor-app-directive-package-name</string>
-              </dict>
-            </array>
-          </dict>
-          <key>3</key>
-          <dict>
-            <key>name</key>
-            <string>punctuation.separator.at.cs</string>
-          </dict>
-          <key>4</key>
-          <dict>
-            <key>name</key>
-            <string>string.unquoted.preprocessor.message.cs</string>
-          </dict>
         </dict>
+        <key>end</key>
+        <string>(?=$)</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#preprocessor-app-directive-malformed-string-arguments</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#preprocessor-app-directive-package-primary</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#preprocessor-app-directive-simple-arguments</string>
+          </dict>
+        </array>
       </dict>
       <key>preprocessor-app-directive-property</key>
       <dict>
-        <key>match</key>
-        <string>\b(property)\b\s*([_[:alpha:]][_[:alnum:]]*)?(=)?(.*)?\s*</string>
-        <key>captures</key>
+        <key>begin</key>
+        <string>\b(property)\b</string>
+        <key>beginCaptures</key>
         <dict>
           <key>1</key>
           <dict>
             <key>name</key>
             <string>keyword.preprocessor.property.cs</string>
           </dict>
-          <key>2</key>
-          <dict>
-            <key>name</key>
-            <string>entity.name.variable.preprocessor.symbol.cs</string>
-          </dict>
-          <key>3</key>
-          <dict>
-            <key>name</key>
-            <string>punctuation.separator.equals.cs</string>
-          </dict>
-          <key>4</key>
-          <dict>
-            <key>name</key>
-            <string>string.unquoted.preprocessor.message.cs</string>
-          </dict>
         </dict>
+        <key>end</key>
+        <string>(?=$)</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#preprocessor-app-directive-malformed-string-arguments</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#preprocessor-app-directive-property-arguments</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#preprocessor-app-directive-simple-arguments</string>
+          </dict>
+        </array>
       </dict>
       <key>preprocessor-app-directive-exclude</key>
       <dict>
-        <key>match</key>
-        <string>\b(exclude)\b\s*(.*)?\s*</string>
-        <key>captures</key>
+        <key>begin</key>
+        <string>\b(exclude)\b</string>
+        <key>beginCaptures</key>
         <dict>
           <key>1</key>
           <dict>
             <key>name</key>
             <string>keyword.preprocessor.exclude.cs</string>
           </dict>
-          <key>2</key>
-          <dict>
-            <key>name</key>
-            <string>string.unquoted.preprocessor.message.cs</string>
-          </dict>
         </dict>
+        <key>end</key>
+        <string>(?=$)</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#preprocessor-app-directive-malformed-string-arguments</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#preprocessor-app-directive-simple-arguments</string>
+          </dict>
+        </array>
       </dict>
       <key>preprocessor-app-directive-include</key>
       <dict>
-        <key>match</key>
-        <string>\b(include)\b\s*(.*)?\s*</string>
-        <key>captures</key>
+        <key>begin</key>
+        <string>\b(include)\b</string>
+        <key>beginCaptures</key>
         <dict>
           <key>1</key>
           <dict>
             <key>name</key>
             <string>keyword.preprocessor.include.cs</string>
           </dict>
-          <key>2</key>
-          <dict>
-            <key>name</key>
-            <string>string.unquoted.preprocessor.message.cs</string>
-          </dict>
         </dict>
+        <key>end</key>
+        <string>(?=$)</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#preprocessor-app-directive-malformed-string-arguments</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#preprocessor-app-directive-item-primary</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#preprocessor-app-directive-simple-arguments</string>
+          </dict>
+        </array>
       </dict>
       <key>preprocessor-app-directive-project</key>
       <dict>
-        <key>match</key>
-        <string>\b(project)\b\s*(.*)?\s*</string>
-        <key>captures</key>
+        <key>begin</key>
+        <string>\b(project)\b</string>
+        <key>beginCaptures</key>
         <dict>
           <key>1</key>
           <dict>
             <key>name</key>
             <string>keyword.preprocessor.project.cs</string>
           </dict>
-          <key>2</key>
-          <dict>
-            <key>name</key>
-            <string>string.unquoted.preprocessor.message.cs</string>
-          </dict>
         </dict>
+        <key>end</key>
+        <string>(?=$)</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#preprocessor-app-directive-malformed-string-arguments</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#preprocessor-app-directive-item-primary</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#preprocessor-app-directive-simple-arguments</string>
+          </dict>
+        </array>
       </dict>
       <key>preprocessor-app-directive-ref</key>
       <dict>
-        <key>match</key>
-        <string>\b(ref)\b\s*(.*)?\s*</string>
-        <key>captures</key>
+        <key>begin</key>
+        <string>\b(ref)\b</string>
+        <key>beginCaptures</key>
         <dict>
           <key>1</key>
           <dict>
             <key>name</key>
             <string>keyword.preprocessor.ref.cs</string>
           </dict>
-          <key>2</key>
-          <dict>
-            <key>name</key>
-            <string>string.unquoted.preprocessor.message.cs</string>
-          </dict>
         </dict>
+        <key>end</key>
+        <string>(?=$)</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#preprocessor-app-directive-malformed-string-arguments</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#preprocessor-app-directive-item-primary</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#preprocessor-app-directive-simple-arguments</string>
+          </dict>
+        </array>
       </dict>
       <key>preprocessor-app-directive-sdk</key>
       <dict>
-        <key>match</key>
-        <string>\b(sdk)\b\s*([_[:alpha:]][_.[:alnum:]]*)?(@)?(.*)?\s*</string>
-        <key>captures</key>
+        <key>begin</key>
+        <string>\b(sdk)\b</string>
+        <key>beginCaptures</key>
         <dict>
           <key>1</key>
           <dict>
             <key>name</key>
             <string>keyword.preprocessor.sdk.cs</string>
           </dict>
-          <key>2</key>
+        </dict>
+        <key>end</key>
+        <string>(?=$)</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#preprocessor-app-directive-malformed-string-arguments</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#preprocessor-app-directive-package-primary</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#preprocessor-app-directive-simple-arguments</string>
+          </dict>
+        </array>
+      </dict>
+      <key>preprocessor-app-directive-package-primary</key>
+      <dict>
+        <key>begin</key>
+        <string>\G\s+("(?:\\.|[^"\\])*"|[^\s@="]+)(?:\s*(@)(?:\s*("(?:\\.|[^"\\])*"|(?![^=\s"]+=)[^\s"]+))?)?</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
           <dict>
             <key>patterns</key>
             <array>
               <dict>
                 <key>include</key>
-                <string>#preprocessor-app-directive-package-name</string>
+                <string>#preprocessor-app-directive-name</string>
               </dict>
             </array>
           </dict>
-          <key>3</key>
+          <key>2</key>
           <dict>
             <key>name</key>
             <string>punctuation.separator.at.cs</string>
           </dict>
-          <key>4</key>
+          <key>3</key>
+          <dict>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#preprocessor-app-directive-value</string>
+              </dict>
+            </array>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>(?=$)</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#preprocessor-app-directive-metadata</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#preprocessor-app-directive-simple-arguments</string>
+          </dict>
+        </array>
+      </dict>
+      <key>preprocessor-app-directive-item-primary</key>
+      <dict>
+        <key>begin</key>
+        <string>\G\s+("(?:\\.|[^"\\])*"|[^\s"]+)</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#preprocessor-app-directive-value</string>
+              </dict>
+            </array>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>(?=$)</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#preprocessor-app-directive-metadata</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#preprocessor-app-directive-simple-arguments</string>
+          </dict>
+        </array>
+      </dict>
+      <key>preprocessor-app-directive-property-arguments</key>
+      <dict>
+        <key>match</key>
+        <string>\G\s+("(?:\\.|[^"\\])*"|[^\s=@"]+)(?:\s*(=))?\s*("(?:\\.|[^"\\])*"|[^"]*)\s*$</string>
+        <key>captures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#preprocessor-app-directive-name</string>
+              </dict>
+            </array>
+          </dict>
+          <key>2</key>
           <dict>
             <key>name</key>
-            <string>string.unquoted.preprocessor.message.cs</string>
+            <string>punctuation.separator.equals.cs</string>
+          </dict>
+          <key>3</key>
+          <dict>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#preprocessor-app-directive-value</string>
+              </dict>
+            </array>
+          </dict>
+        </dict>
+      </dict>
+      <key>preprocessor-app-directive-malformed-string-arguments</key>
+      <dict>
+        <key>match</key>
+        <string>\G\s+(?!(?:[^"]|"(?:\\.|[^"\\])*"(?=$|[\s@=]))*$)(.*?)\s*$</string>
+        <key>captures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#preprocessor-app-directive-value</string>
+              </dict>
+            </array>
+          </dict>
+        </dict>
+      </dict>
+      <key>preprocessor-app-directive-simple-arguments</key>
+      <dict>
+        <key>match</key>
+        <string>\s+(.*?)\s*$</string>
+        <key>captures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#preprocessor-app-directive-value</string>
+              </dict>
+            </array>
           </dict>
         </dict>
       </dict>
@@ -10328,29 +10514,81 @@
         <key>patterns</key>
         <array>
           <dict>
+            <key>name</key>
+            <string>punctuation.dot.cs</string>
             <key>match</key>
-            <string>(\.)([_[:alpha:]][_[:alnum:]]*)</string>
-            <key>captures</key>
-            <dict>
-              <key>1</key>
-              <dict>
-                <key>name</key>
-                <string>punctuation.dot.cs</string>
-              </dict>
-              <key>2</key>
-              <dict>
-                <key>name</key>
-                <string>entity.name.variable.preprocessor.symbol.cs</string>
-              </dict>
-            </dict>
+            <string>\.</string>
           </dict>
           <dict>
             <key>name</key>
             <string>entity.name.variable.preprocessor.symbol.cs</string>
             <key>match</key>
-            <string>[_[:alpha:]][_[:alnum:]]*</string>
+            <string>[^\.\s]+</string>
           </dict>
         </array>
+      </dict>
+      <key>preprocessor-app-directive-name</key>
+      <dict>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#string-literal</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#preprocessor-app-directive-package-name</string>
+          </dict>
+        </array>
+      </dict>
+      <key>preprocessor-app-directive-value</key>
+      <dict>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#string-literal</string>
+          </dict>
+          <dict>
+            <key>name</key>
+            <string>string.unquoted.preprocessor.message.cs</string>
+            <key>match</key>
+            <string>.+</string>
+          </dict>
+        </array>
+      </dict>
+      <key>preprocessor-app-directive-metadata</key>
+      <dict>
+        <key>match</key>
+        <string>\s+("(?:\\.|[^"\\])*"|[^=\s"]+)\s*(=)\s*("(?:\\.|[^"\\])*"|[^\s"]*)</string>
+        <key>captures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#preprocessor-app-directive-name</string>
+              </dict>
+            </array>
+          </dict>
+          <key>2</key>
+          <dict>
+            <key>name</key>
+            <string>punctuation.separator.equals.cs</string>
+          </dict>
+          <key>3</key>
+          <dict>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#preprocessor-app-directive-value</string>
+              </dict>
+            </array>
+          </dict>
+        </dict>
       </dict>
       <key>preprocessor-app-directive-generic</key>
       <dict>
